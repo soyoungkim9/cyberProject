@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>펀드검색 - SK증권</title>
+<!-- desktop css-->
+<link rel="stylesheet" media="only screen and (min-width:881px)" href="../css/detail/pc/header.css">
+<link rel="stylesheet" media="only screen and (min-width:881px)" href="../css/detail/pc/content.css">
+<link rel="stylesheet" media="only screen and (min-width:881px)" href="../css/detail/pc/footer.css">
+<!-- mobile css-->
+<link rel="stylesheet" media="only screen and (max-width:880px)" href="../css/detail/mobile/header.css">
+<link rel="stylesheet" media="only screen and (max-width:880px)" href="../css/detail/mobile/content.css">
+<link rel="stylesheet" media="only screen and (max-width:880px)" href="../css/detail/mobile/footer.css">
+</head>
+<body>
+<div id="wrap" class="sub">
+	<header id="header">
+    <!-- desktop header -->
+    <div id="desk_header">
+      <div class="header_wrap">
+  			<nav class="nav_top">
+  				<ul>
+  					<li><a href="#">로그인</a></li>
+  					<li><a href="#">MY정보</a></li>
+  					<li><a href="#">ID등록</a></li>
+  					<li><a href="#">인증센터</a></li>
+  				</ul>
+  			</nav>
+  			<nav class="nav_bottom">
+  				<h1 class="logo">
+  					<a href="#" title="홈으로 이동">
+  						<img src="../img/common/logo.gif" alt="SK증권">
+  					</a>
+  				</h1>
+  				<div id="abc" class="menu_wrap">
+  					<ul>
+  						<li><a href="#">로보어드바이저</a></li>
+  						<li><a href="#">트레이딩 안내</a></li>
+  						<li><a href="#" class="hred">금융상품</a></li>
+  						<li><a href="#">투자정보</a></li>
+  						<li><a href="#">고객센터</a></li>
+  					</ul>
+  					<div class="search_wrap">
+  						<a href="#"><img src="../img/common/ico_search.gif" alt="통합검색"></a>
+  						<a href="#"><img src="../img/common/ico_menu.gif" alt="전체메뉴"></a>
+  					</div>
+  				</div>
+  			</nav>
+  		</div>
+  		<div class="location">
+  			<ul>
+  				<li><a href="#" class="home"><img src="../img/common/ico_home.gif" alt="홈"></a></li>
+  				<li>
+  					<a href="#">금융상품</a>
+  					<ul class="location_sub">
+  						<li><a href="#">계좌개설 안내</a></li>
+  						<li><a href="#">로보어드바이저</a></li>
+  						<li><a href="#">트레이딩 안내</a></li>
+  						<li><a href="#">MY자산</a></li>
+  						<li><a href="#">이체</a></li>
+  						<li><a href="#">서비스 신청/해지</a></li>
+  						<li><a href="#">금융상품</a></li>
+  						<li><a href="#">투자정보</a></li>
+  						<li><a href="#">청약</a></li>
+  						<li><a href="#">대출/신용/대차</a></li>
+  						<li><a href="#">MY정보</a></li>
+  						<li><a href="#">고객센터</a></li>
+  						<li><a href="#">인증센터</a></li>
+  					</ul>
+  				</li>
+  				<li>
+  					<a href="#">펀드</a>
+  					<ul class="location_sub">
+  						<li><a href="#">금융상품 홈</a></li>
+  						<li><a href="#">추천상품</a></li>
+  						<li><a href="#">펀드</a></li>
+  						<li><a href="#">펀드매매</a></li>
+  						<li><a href="#">CMA</a></li>
+  						<li><a href="#">SK체크카드</a></li>
+  						<li><a href="#">연금저축</a></li>
+  						<li><a href="#">연금저축매매</a></li>
+  						<li><a href="#">ELS/DLS</a></li>
+  						<li><a href="#">ISA</a></li>
+  						<li><a href="#">신탁</a></li>
+  						<li><a href="#">WRAP</a></li>
+  						<li><a href="#">세제혜택상품</a></li>
+  						<li><a href="#">채권/RP/외화RP</a></li>
+  						<li><a href="#">금융상품가이드</a></li>
+  					</ul>
+  				</li>
+  				<li>
+  				<a href="#" class="onimg">펀드검색</a>
+  					<ul class="location_sub">
+  						<li><a href="#">펀드검색</a></li>
+  						<li><a href="#">랭킹펀드</a></li>
+  						<li><a href="#">투자자 인사이드</a></li>
+  						<li><a href="#">펀드이동</a></li>
+  						<li><a href="#">관심펀드</a></li>
+  						<li><a href="#">공지사항</a></li>
+  						<li><a href="#">펀드수시공시</a></li>
+  						<li><a href="#">펀드의이해</a></li>
+  					</ul>
+  				</li>
+  			</ul>
+  		</div>
+    </div>
+    <!-- mobile header -->
+    <div id="mobile_header">
+      <a class="mobile_menu"></a>
+      <h2><span>펀드검색<em class="fund_ico"></em></span></h2>
+      <a class="mobile_search"></a>
+    </div>
+	</header>
+	<section id="container" class="mobile_container">
+		<div class="container_subject mobile_subject">
+  		<h2 id="shareName">펀드검색</h2>
+  		<div class="icon_btn">
+  			<ul>
+  				<li>
+  					<a class="pop" href="#">
+  						<img src="../img/common/ico_print.gif" alt="팝업열림">전체출력
+  					</a>
+  				</li>
+  				<li class="pop_style">
+  					<a class="pop" href="#">
+  						<img src="../img/common/ico_print.gif" alt="팝업열림">펀드요약정보
+  					</a>
+  				</li>
+  			</ul>
+  		</div>
+		</div>
+		<article class="content">
+			<div class="find_box">
+				<div class="content_name">
+						<div class="tag_prd">
+							<span class="tag blue">증권-혼합채권형</span>
+							<span class="tag brown">증위험(보통위험)</span>
+							<span class="tag red">온라인</span>
+						</div>
+					<a href="#" class="star">
+					</a>
+					<h3>교보악사안정30자투자1호[채권혼합]AE</h3>
+				</div>
+        <!-- PC용 find_list -->
+				<ul class="find_list">
+					<li class="list1">
+						<span class="title">투자유형</span>
+						<span class="txt">증권<br>혼합채권형</span>
+					</li>
+					<li class="list2">
+						<span class="title">6개월 수익률</span>
+						<span class="txt"><em>ㅡ</em></span>
+
+					</li>
+					<li class="list3">
+						<span class="title">기준가</span>
+						<span class="txt">939.89</span>
+						<span class="ko">0.0</span>
+					</li>
+
+					<li class="list4">
+						<span class="title">펀드규모</span>
+						<span class="txt">41억원</span>
+					</li>
+					<li class="list5">
+						<span class="title">집합투자업자</span>
+						<span class="txt">교보악산자산</span>
+					</li>
+					<li class="list6">
+						<span class="title">투자위험도</span>
+						<span class="txt">
+							<em class="dan">중위험</em>
+							<br>
+							<span class="desc">(보통위험)</span>
+						</span>
+					</li>
+					<li class="list7">
+						<span class="title">선취수수료</span>
+						<span class="txt">
+							<strong class="desc2">청약금액의</strong>
+							<br>0.0350
+							<em class="per">%</em>
+						</span>
+					</li>
+					<li class="list8">
+						<span class="title">설정일</span>
+						<span class="txt">2016.07.04</span>
+					</li>
+					<li class="list9">
+						<span class="title">환매수수료</span>
+						<span class="txt desc3">없음</span>
+					</li>
+					<li class="list10">
+						<span class="title">제로인 평가등급<br>(3년/1년)
+						<br>
+						<span class="desc3 desc4">없음</span>
+						<br>
+						<span class="desc3 desc4">없음</span>
+						</span>
+					</li>
+				</ul>
+        <!-- 모바일용 mobile_find_list -->
+        <div class="line_box">
+          <ul class="mobile_find_list">
+            <li class="list1">
+              <span class="title">투자유형</span>
+              <span class="txt">증권<br class="delete_br">혼합채권형</span>
+            </li>
+            <li class="list6">
+              <span class="title">투자위험도</span>
+              <span class="txt">
+                <em class="dan">중위험</em>
+                <br>
+                <span class="desc">(보통위험)</span>
+              </span>
+            </li>
+          </ul>
+          <ul class="mobile_find_list_bottom">
+            <li class="list2">
+              <span class="title">6개월 수익률</span>
+              <span class="txt"><em>ㅡ</em></span>
+            </li>
+            <li class="list3">
+              <span class="title">기준가</span>
+              <span class="txt width_style1">939.89</span>
+              <span class="ko">0.0</span>
+            </li>
+            <li class="list4">
+              <span class="title">펀드규모</span>
+              <span class="txt">41억원</span>
+            </li>
+            <li class="list5">
+              <span class="title">집합투자업자</span>
+              <span class="txt">교보악산자산</span>
+            </li>
+            <li class="list7">
+              <span class="title">선취수수료</span>
+              <span class="txt">
+                <strong class="desc2">청약금액의</strong>
+                <br class="delete_br">0.0350
+                <em class="per">%</em>
+              </span>
+            </li>
+            <li class="list8">
+              <span class="title">설정일</span>
+              <span class="txt">2016.07.04</span>
+            </li>
+            <li class="list9">
+              <span class="title">환매수수료</span>
+              <span class="txt desc3">없음</span>
+            </li>
+            <li class="list10">
+              <span class="title">제로인 평가등급<br>(3년/1년)
+              <br>
+              </span>
+              <span class="width_style2">
+                <span class="txt desc3 desc4">없음</span>
+                <br class="delete_br">
+                <span class="txt desc3 desc4">없음</span>
+              </span>
+            </li>
+          </ul>
+  				<div class="fund_down">
+  					<span>상품정보</span>
+  					<a href="#" class="pdf">집합투자규약</a>
+  					<a href="#" class="pdf">투자설명서</a>
+  					<a href="#" class="pdf">간이투자설명서</a>
+  				</div>
+        </div>
+        <div class="spacing_style">
+    			<div class="btn_area">
+    				<a href="#" class="btn bt_red"><span>신규매수</span></a>
+    				<a href="#" class="btn bt_white"><span>장바구니</span></a>
+    				<a href="#" class="btn bt_white margin_style1"><span>목록</span></a>
+    			</div>
+        </div>
+			</div>
+			<div class="tab_box">
+				<ul id="tabArea">
+					<li  id="active" class="ta_1 tabbed"><a>펀드개요</a></li>
+					<li class="ta_2 tabbed"><a>수익률차트</a></li>
+					<li class="ta_3 tabbed"><a>수익위험분석</a></li>
+					<li class="ta_4 tabbed"><a>보유내역분석</a></li>
+					<li class="ta_5 tabbed"><a>일별기준가</a></li>
+				</ul>
+				<div class="tab_pane type1">
+					<div class="ta1_box type1_padding">
+						<div class="title_box"><h3>주요내용</h3></div>
+						<table class="tb1 lheight table_style1">
+							<tbody>
+								<tr>
+									<th scope="row">펀드형태</th>
+									<td>혼합채권형</td>
+								</tr>
+								<tr>
+									<th scope="row">최초설정일</th>
+									<td>2016년07월04일</td>
+								</tr>
+								<tr>
+									<th scope="row">투자대상</th>
+									<td>주식편입비율:40%이하, 채권편입비율:60%이상, 현금편입비율:40%이상</td>
+								</tr>
+								<tr>
+									<th scope="row">저축방법</th>
+									<td>임의식+적립식</td>
+								</tr>
+								<tr>
+									<th scope="row">환매수수료</th>
+									<td>없음</td>
+								</tr>
+								<tr>
+									<th scope="row">선취판매수수료</th>
+									<td>청약금액의 0.35%</td>
+								</tr>
+								<tr>
+									<th scope="row">후취판매수수료</th>
+									<td>없음</td>
+								</tr>
+								<tr>
+									<th scope="row">펀드보수</th>
+									<td>총 연 0.58000%(판매:0.20000%, 운용:0.35000%, 기타:0.03000%)</td>
+								</tr>
+								<tr>
+									<th scope="row">매수기준</th>
+									<td>
+										<ul>
+											<li>17시 이전:제2영업일 기준가로 제2영업일 매수</li>
+											<li>17시 경과후:제3영업일 기준가로 제3영업일 매수</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">환매기준</th>
+									<td>
+										<ul>
+											<li>17시 이전:제3영업일 기준가로 제4영업일 지급</li>
+											<li>17시 경과후:제4영업일 기준가로 제5영업일 지급</li>
+										</ul>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="ta1_box type1_padding">
+						<div class="title_box"><h3>투자목적 및 전략</h3></div>
+						<table class="tb1 table_style1">
+							<tbody>
+								<tr>
+									<th scope="row">투자목적</th>
+									<td>
+                    이 투자신탁은 국내 주식(주식을 기초자산으로 하는 장내파생상품을
+                    포함한다)을 법 시행령 제94조 제2항제4호에서 규정하는 주된
+                    투자대상자산으로 하여 한국거래소가 발표하는 주가지
+                    수인 “KOSPI200지수” 수익률 추종을 목적으로 합니다.<br>
+                    그러나, 위의 투자목적이 반드시 달성된다는 보장은 없으며,
+                    집합투자업자, 신탁업자, 판매회사 등이 투자신탁과 관련된 어떠한
+                    당사자도 투자원금의 보장 또는 투자목적의 달성을 보장하지 아니합니다.
+                  </td>
+								</tr>
+								<tr>
+									<th scope="row">투자전략</th>
+									<td>
+                    ( 1) 투자전략 (운용전략 및 투자방침)<br>
+                    이 투자신탁은 KOSPI200 지수 수익률을 추종하기 위하여 지수구성종목의
+                    완전 또는 부분복제를 실행하여 안정적 지수수익률 달성을 추구합니다.
+                    또한 장내파생상품을 적극적으로 활용하여 무위험차익거래 등을
+                    통해 추가수익률을 동시에 추구합니다.이 투자신탁은 투자 목적
+                    달성을 위해 추적오차율 최소화를 추구합니다.
+                    (보수 차감전, 세전 수익률기준)<br><br>
+                    [추적오차(Tracking Error)관리방안]<br>
+                    추적오차율 = 표준편차(과거1년간 펀드의 일간 수익률 - 과거1년간
+                    벤치마크의 일간 수익률)이 투자신탁은 상기 방식으로 계산된
+                    추적오차율이 10% 이상 발생하지 않도록 운용하며, 추적오차율
+                    허용범위를 초과하게 되는 경우 1개월 이내에 추적오차율이 10%이하가
+                    되도록 리밸런싱합니다.다만, 상기 관리방안이 추적오차 최소화를
+                    보장해 주는 것은 아닙니다.<br>
+                    * 추적오차율 계산 시 일간 수익률 산정기간이 1년 미만일 경우에는
+                    해당기간의 추적오차율을 연환산하여 산출함.<br><br>
+                    [차익거래 전략]<br>
+                    이 투자신탁은 상장주식(현물) 뿐만 아니라 선물옵션과 같은 파생상품도
+                    적극적으로 활용하게 되는데, 이 경우 현물가격과 선물가격 간
+                    비정상적인 괴리가 발생하는 경우 무위험차익거래를 통해 추가적인
+                    수익을 추구하게 됩니다. 이 때 보유종목에 대한 대량의 매수 및 매도를
+                    수반함으로써 위와 같이비교적 높은 거래비용이 발생하게 되는데,
+                    차익거래는 이러한 거래비용을 상쇄하고도 남을만큼 수익이 기대되는
+                    경우에만 실행합니다. 따라서 차익거래기회의 많고 적음에 따라
+                    거래비용 수준이 다른펀드에 비해 높아질 수 있습니다.<br><br>
+                    ※ 비교지수 : KOSPI 200<br><br>
+
+
+                  </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab_pane type2">
+					<div class="ta1_box nowrap_style type1_padding">
+						<div class="title_box">
+							<h3>수익분석</h3>
+							<p>기준일:2018.12.07</p>
+						</div>
+						<div class="table_box">
+							<table class="tb1 lheight table_style1">
+								<thead class="thead_style1">
+									<tr class="bg_cell">
+										<th scope="col">구분</th>
+										<th scope="col">1개월(%)</th>
+										<th scope="col">3개월(%)</th>
+										<th scope="col">6개월(%)</th>
+										<th scope="col" class="img_change">12개월(%)</th>
+										<th scope="col" class="table_none">24개월(%)</th>
+									</tr>
+								</thead>
+								<tbody class="tbody_style1">
+									<tr>
+										<th scope="row">펀드수익률</th>
+										<td>-1.63</td>
+										<td>-9.14</td>
+										<td>-15.17</td>
+										<td>-16.48</td>
+										<td class="table_none">7.98</td>
+									</tr>
+									<tr class="bg_cell">
+										<th scope="row">%순위</th>
+										<td>63</td>
+										<td>57</td>
+										<td>57</td>
+										<td>64</td>
+										<td class="table_none">43</td>
+									</tr>
+									<tr>
+										<th scope="row">BM수익률</th>
+										<td>-1.62</td>
+										<td>-9.21</td>
+										<td>-15.39</td>
+										<td>-17.67</td>
+										<td class="table_none">-4.52</td>
+									</tr>
+									<tr class="bg_cell">
+										<th scope="row">유형별평균수익률</th>
+										<td>-1.61</td>
+										<td>-8.99</td>
+										<td>-14.96</td>
+										<td>-15.95</td>
+										<td class="table_none">8.89</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="ta1_box type1_padding nowrap_style">
+							<div class="title_box">
+								<h3>위험분석</h3>
+								<p>기준일:2018.12.03</p>
+							</div>
+							<table class="tb1 lheight table_style1">
+								<thead class="thead_style1">
+									<tr class="bg_cell">
+										<th scope="col">구분</th>
+										<th scope="col" class="img_change">1개월</th>
+										<th scope="col" class="table_none">3개월</th>
+										<th scope="col" class="img_change">6개월</th>
+										<th scope="col" class="table_none">12개월</th>
+										<th scope="col" class="img_change">24개월</th>
+										<th scope="col" class="table_none">36개월</th>
+									</tr>
+								</thead>
+								<tbody class="tbody_style1 tbody_style2">
+									<tr>
+										<th scope="row">표준편차(%)</th>
+										<td>11.38(50)</td>
+										<td class="table_none">19.01(48)</td>
+										<td>15.24(52)</td>
+										<td class="table_none">15.35(51)</td>
+										<td>13.51(64)</td>
+										<td class="table_none">12.94(65)</td>
+									<tr class="bg_cell">
+										<th scope="row">시장민감도(β)</th>
+										<td>0.99(51)</td>
+										<td class="table_none">0.99(48)</td>
+										<td>0.99(52)</td>
+										<td class="table_none">0.99(51)</td>
+										<td>0.99(65)</td>
+										<td class="table_none">0.99(63)</td>
+									</tr>
+									<tr>
+										<th scope="row">샤프지수</th>
+										<td>-0.64(49)</td>
+										<td class="table_none">-2.17(58)</td>
+										<td>-1.96(59)</td>
+										<td class="table_none">-1.19(67)</td>
+										<td>0.28(42)</td>
+										<td class="table_none">0.18(58)</td>
+									</tr>
+									<tr class="bg_cell">
+										<th scope="row">정보비율(IR)</th>
+										<td>1.04(48)</td>
+										<td class="table_none">1.07(46)</td>
+										<td>0.78(55)</td>
+										<td class="table_none">1.01(62)</td>
+										<td>1.08(35)</td>
+										<td class="table_none">0.66(57)</td>
+									</tr>
+									<tr>
+										<th scope="row">젠센알파(%)</th>
+										<td>0.12(49)</td>
+										<td class="table_none">0.20(57)</td>
+										<td>0.11(58)</td>
+										<td class="table_none">1.28(66)</td>
+										<td>1.67(41)</td>
+										<td class="table_none">1.08(58)</td>
+									</tr>
+									<tr class="bg_cell">
+										<th scope="row">트레킹에러(TE)</th>
+										<td>0.16(25)</td>
+										<td class="table_none">0.56(37)</td>
+										<td>0.64(45)</td>
+										<td class="table_none">1.37(36)</td>
+										<td>1.53(13)</td>
+										<td class="table_none">1.61(42)</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p class="txt_guide">
+						- 상기 값은 주간수익률을 기초로 위험지표 및 위험조정성과 측정값은 연환산한 값입니다.<br>
+						- 상기 ()안의 숫자는 동일유형내 해당펀드의 %순위입니다.
+						</p>
+					</div>
+				</div>
+				<div class="tab_pane type3">
+					<div class="ta1_box skyblue_style">
+						<form>
+							<table class="type3_tb1 table_style">
+								<tbody>
+									<tr>
+										<th scope="row">조회기간</th>
+										<td>
+											<div class="form_ui">
+												<span class="form_ui display_table">
+													<a class="btn_s"><span>당일</span></a>
+													<a class="btn_s"><span>1주일</span></a>
+													<a class="btn_s"><span>1개월</span></a>
+													<a class="btn_s right_style"><span>3개월</span></a>
+													<a class="btn_s none_style"><span>6개월</span></a>
+													<a class="btn_s none_style"><span>12개월</span></a>
+												</span>
+												<div class="form_ui form_box">
+													<span class="calendarWrapper">
+														<input type="text" class="date" title="조회시작일" value="2018.11.05">
+														<input type="button" class="calOpenBtn" title="조회시작일" value="2018.11.05">
+													</span>
+													<span class="cld_space">-</span>
+													<span class="calendarWrapper endDate">
+														<input type="text" class="date" title="조회종료일" value="2018.12.05">
+														<input type="button" class="calOpenBtn" title="조회종료일" value="2018.11.05">
+													</span>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+						<div class="bottom_btn">
+							<a class="dateBtn"><span>조회</span></a>
+						</div>
+					</div>
+					<div class="ta1_box nowrap_style">
+						<p class="txt_guide2">조회기간 : 2018.11.06 ~ 2018.12.06  (단위:원,%)</p>
+						<table class="type3_tb1 date_table">
+							<thead>
+								<tr>
+									<th scope="col">기준일</th>
+									<th scope="col" class="type3_switch1">기준가</th>
+									<th scope="col" class="type3_none1">기준가증감</th>
+									<th scope="col" class="type3_none2">1일 BM등락률</th>
+									<th scope="col" class="type3_switch2">1일<br class="br_none">등락률</th>
+									<th scope="col" class="type3_switch3 right_delete">과표<br class="br_none">기준가</th>
+									<th scope="col" class="type3_none3 right_delete">과표 기준가증감</th>
+									<th scope="col" class="type3_none">비고</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="line_delete">2018.12.07</td>
+									<td>1,003.61</td>
+									<td class="type3_none">-15.96</td>
+									<td>-1.57</td>
+									<td class="type3_none">-1.59</td>
+									<td class="right_none">1,000.70</td>
+									<td class="type3_none">-0.02</td>
+									<td class="type3_none right_none">-</td>
+								</tr>
+                <tr>
+                  <td class="line_delete">2018.12.06</td>
+                  <td >1,019.57</td>
+                  <td class="type3_none">-6.52</td>
+                  <td>-0.64</td>
+                  <td class="type3_none">-0.66</td>
+                  <td class="right_none">1,000.72</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.12.05</td>
+                  <td>1,026.09</td>
+                  <td class="type3_none">-10.87</td>
+                  <td>-1.05</td>
+                  <td class="type3_none">-1.05</td>
+                  <td class="right_none">1,000.74</td>
+                  <td class="type3_none">-0.01</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.12.04</td>
+                  <td>1,036.96</td>
+                  <td class="type3_none">17.81</td>
+                  <td>1.75</td>
+                  <td class="type3_none">1.78</td>
+                  <td class="right_none">1,000.75</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.12.03</td>
+                  <td>1,019.15</td>
+                  <td class="type3_none">-10.34</td>
+                  <td>-1.00</td>
+                  <td class="type3_none">-1.02</td>
+                  <td class="right_none">1,000.77</td>
+                  <td class="type3_none">-0.05</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.30</td>
+                  <td>1,029.49</td>
+                  <td class="type3_none">2.26</td>
+                  <td>0.22</td>
+                  <td class="type3_none">0.26</td>
+                  <td class="right_none">1,000.82</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.29</td>
+                  <td>1,027.23</td>
+                  <td class="type3_none">5.49</td>
+                  <td>0.54</td>
+                  <td class="type3_none">0.50</td>
+                  <td class="right_none">1,000.84</td>
+                  <td class="type3_none">-0.01</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.28</td>
+                  <td>1,021.74</td>
+                  <td class="type3_none">8.10</td>
+                  <td>0.80</td>
+                  <td class="type3_none">0.85</td>
+                  <td class="right_none">1,000.85</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.27</td>
+                  <td>1,013.64</td>
+                  <td class="type3_none">13.24</td>
+                  <td>1.32</td>
+                  <td class="type3_none">1.30</td>
+                  <td class="right_none">1,000.89</td>
+                  <td class="type3_none">-0.04</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.26</td>
+                  <td >1,000.40</td>
+                  <td class="type3_none">-6.08</td>
+                  <td >-6.60</td>
+                  <td  class="type3_none">-0.53</td>
+                  <td class="right_none">1,000.89</td>
+                  <td class="type3_none">-0.04</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.23</td>
+                  <td>1,006.48</td>
+                  <td class="type3_none">-1.37</td>
+                  <td>-0.14</td>
+                  <td class="type3_none">-0.19</td>
+                  <td class="right_none">1,000.93</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.22</td>
+                  <td>1,007.85</td>
+                  <td class="type3_none">-4.65</td>
+                  <td>-0.46</td>
+                  <td class="type3_none">-0.49</td>
+                  <td class="right_none">1,000.95</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.21</td>
+                  <td >1,012.50</td>
+                  <td class="type3_none">-10.48</td>
+                  <td>-1.02</td>
+                  <td class="type3_none">-1.00</td>
+                  <td class="right_none">1,000.97</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.20</td>
+                  <td>1,022.98</td>
+                  <td class="type3_none">2.81</td>
+                  <td>0.28</td>
+                  <td class="type3_none">0.24</td>
+                  <td class="right_none">1,000.99</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.19</td>
+                  <td>1,020.17</td>
+                  <td class="type3_none">-0.14</td>
+                  <td>-0.01</td>
+                  <td class="type3_none">0.04</td>
+                  <td class="right_none">1,001.01</td>
+                  <td class="type3_none">-0.06</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.16</td>
+                  <td>1,020.31</td>
+                  <td class="type3_none">9.86</td>
+                  <td>0.98</td>
+                  <td class="type3_none">0.99</td>
+                  <td class="right_none">1,001.07</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.15</td>
+                  <td>1,010.45</td>
+                  <td class="type3_none">-2.57</td>
+                  <td>-0.25</td>
+                  <td class="type3_none">-0.30</td>
+                  <td class="right_none">1,001.09</td>
+                  <td class="type3_none">-0.02</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete">2018.11.14</td>
+                  <td>1,013.02</td>
+                  <td   class="type3_none">-7.70</td>
+                  <td>-0.75</td>
+                  <td class="type3_none">-0.69</td>
+                  <td class="right_none">1,001.11</td>
+                  <td class="type3_none">-0.01</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+                <tr>
+                  <td class="line_delete"  >2018.11.13</td>
+                  <td>1,020.72</td>
+                  <td   class="type3_none">2.00</td>
+                  <td>0.20</td>
+                  <td class="type3_none">0.09</td>
+                  <td class="right_none">1,001.12</td>
+                  <td class="type3_none">-0.06</td>
+                  <td class="type3_none right_none">-</td>
+                </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</article>
+		<article class="notice_box">
+			<h3><a href="#"><span class="font_style">N</span>OTICE</a></h3>
+			<div class="notice_inner">
+			<ul>
+				<li>
+				본 자료는 펀드평가회사 및 자산운용회사의 신뢰할만한 자료를 기초로 하여 작성된 것이나,
+				그 정확성이나 완전성을 당사가 보증하는 것은 아닙니다.
+				따라서 본 자료에 의존해 이루어진 투자 결과에 대해 당사는 법적 책임을 지지 않으므로 단순 참고 자료로만
+				이용해주시기 바랍니다.
+				</li>
+				<li>
+				펀드를 취득하시기 전에 투자대상, 환매방법 및 보수 등에 관하여 집합투자규약 및 (간이)투자설명서를
+				반드시 읽어보시기 바랍니다.
+				<ul>
+					<li>- 펀드는 예금자보호법에 따라 예금보험공사가 보호하지 않습니다.</li>
+					<li>- 펀드는 운용결과에 따라 투자원금의 손실이 발생할 수 있고, 그 손실은 투자자에게 귀속됩니다.</li>
+					<li>- 과거의 운용실적이 미래의 수익을 보장하는 것은 아닙니다.</li>
+					<li>- 해외펀드의 경우 환율변동에 따라 외화자산의 투자가치가 변동될 수 있습니다.</li>
+				</ul>
+				</li>
+			</ul>
+			</div>
+		</article>
+	</section>
+	<footer id="footer">
+    <div class="mobile_block1">
+      <ul class="mobile_block1_box">
+        <li><a class="footer_line">영엽점/ATM안내</a></li>
+        <li><a>주파수다운로드</a></li>
+        <li><a>개인정보처리방짐</a></li>
+      </ul>
+      <ul class="mobile_block1_box">
+        <li><a class="footer_line">약관</a></li>
+        <li><a>투자권유준칙</a></li>
+        <li><a>보호금융상품등록부</a></li>
+        <li><a>소비자보호광장</a></li>
+      </ul>
+    </div>
+		<div class="customer_info footer_none">
+			<ul>
+				<li>
+					<span>고객행복센터</span>
+					<span class="cs_num">1599-8245</span>
+					<span class="cs_num02">1588-8254</span>
+					<em class="footer_none">(평일 07:30-18:00)</em>
+				</li>
+				<li>
+					<span class="footer_none">CME야간선물전용데스크</span>
+					<strong class="footer_none">02-2105-3030</strong>
+					<em class="footer_none">(18:00-익일05:00)</em>
+				</li>
+				<li class="footer_none">
+					<a href="#" class="btn_arr">영업점/ATM 안내<span>＞</span></a>
+				</li>
+				<li class="last">
+				   말로거는 전화서비스
+					<strong>1641</strong>
+					누르고
+					<strong>'SK증권' , 'SK증권 야간선물' 이라고말하세요.</strong>
+				</li>
+			</ul>
+		</div>
+		<div class="foot_wrap">
+			<div class="footer_menu footer_none">
+				<ul>
+					<li class="footer_none"><a href="#">회사소개</a></li>
+					<li><a href="#">약관</a></li>
+					<li><a href="#">소비자보호광장</a></li>
+					<li><a href="#">투자자유의사항</a></li>
+					<li><a href="#">보호금융상품등록부</a></li>
+					<li><a href="#">투자권유준칙</a></li>
+					<li class="footer_none"><a href="#">영업행위윤리준칙</a></li>
+					<li class="footer_none"><a href="#">상품공시실</a></li>
+					<li class="footer_none"><a href="#" class="weight_style">개인정보처리방침</a></li>
+					<li class="footer_none"><a href="#" class="weight_style">원격상담</a></li>
+				</ul>
+			</div>
+      <div class="mobile_block2">
+        <p>
+          <span>고객행복센터</span>
+          <span class="cs_num">1599-8245</span>
+          <span class="cs_num02">1588-8254</span>
+        </p>
+        <p class="mobile_block2_font">
+         말로거는 전화서비스
+         <strong>1641</strong>
+         누르고
+         <strong>'SK증권'이라고말하세요.</strong>
+        </p>
+      </div>
+			<div class="share">
+				<a href="https://www.facebook.com/happypartner.sks" target="blank">
+					<img src="../img/common/ico_blog.gif" alt="facebook">
+				</a>
+				<a href="http://blog.naver.com/skswm_2016" target="blank">
+					<img src="../img/common/ico_facebook.gif" alt="blog">
+				</a>
+			</div>
+			<p class="copyright">Copyright SK Securities.Co., LTD. All rights reserved.</p>
+		</div>
+	</footer>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/tab.js"></script>
+</body>
+</html>

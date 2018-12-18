@@ -1,0 +1,153 @@
+/* footer CSS */
+#footer {
+	background: #f4f5f9;
+	border-top: 1px solid #e0052d;
+	padding-bottom: 30px;
+}
+
+.customer_info {
+	line-height: 35px;
+	padding-top: 20px;
+	height: 90px;
+	width: 100%;
+}
+
+.customer_info ul {
+	display: inline-block;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.customer_info li{
+	float: left;
+	letter-spacing: -1px;
+}
+
+.customer_info span {
+	margin-right: 8px;
+}
+
+.cs_num {
+	background: url("../../../img/common/ico_dot.gif") no-repeat 100% 50%;
+	padding-right: 11px;
+	margin-right: 0 !important;
+	color: #000;
+}
+
+.cs_num02 {
+	color: #000;
+}
+
+
+.customer_info ul li em {
+	font-size: 15px;
+	color: #737373;
+}
+
+.customer_info ul li {
+	margin-left: 42px;
+}
+
+.customer_info ul li:first-child {
+	margin-left: 0;
+}
+
+.btn_arr {
+	color: #333;
+}
+
+.last {
+	margin-left: 0 !important;
+}
+
+.foot_wrap {
+	width: 100%;
+	text-align: center;
+}
+
+.footer_menu {
+	display: inline-block;
+	width: 100%;
+}
+
+.footer_menu ul {
+	display: inline-block;
+	width: 100%;
+}
+
+.footer_menu li {
+	float: left;
+	background: url("../../../img/common/link_line.gif") no-repeat right 4px;
+}
+
+.footer_menu li a {
+	display: inline-block;
+	padding: 0 12px;
+	font-size: 13px;
+	color: #333;
+}
+
+.weight_style {
+	font-weight: bold;
+}
+
+.footer_menu li:first-child a {
+	padding-left: 0;
+}
+
+
+.share {
+	display: none;
+}
+
+.copyright {
+	display: inline-block;
+	padding-left: 48px;
+	margin: 0;
+	padding-top: 12px;
+	color: #838282;
+	font-size: 11px;
+	letter-spacing: 0;
+	text-align: center;
+	background: url("../../../img/mobile/f_logo.gif") no-repeat left 4px;
+	letter-spacing: -1px;
+}
+
+.footer_none {
+	display: none;
+}
+
+.mobile_block1 {
+	text-align: center;
+	overflow: hidden;
+	font-size: 12px;
+}
+
+.mobile_block1_box {
+	display: inline-block;
+	width: 100%;
+	border-bottom: 1px solid #b5b8be;
+}
+
+.mobile_block1_box li {
+	display: inline-block;
+	line-height: 44px;
+}
+
+.mobile_block1_box li > a {
+	padding: 0 10px;
+	border-left: 1px solid #929394;
+}
+
+.footer_line {
+	border-left: none !important;
+}
+
+.mobile_block2_font {
+	font-size: 12px;
+}
+
+.mobile_block2 p:first-child {
+	margin: 0;
+	margin-top: 25px;
+}

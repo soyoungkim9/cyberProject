@@ -1,0 +1,69 @@
+/* mobile용 header */
+body {
+	margin: 0;
+	letter-spacing: -1px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+#desk_header {
+  display: none;
+}
+
+#mobile_header {
+	background-color: #e50025;
+	overflow: hidden;
+	padding: 15px 10px;
+	position: fixed;
+	width: 100%;
+	z-index: 3;
+}
+
+#mobile_header h2 {
+	margin: 0;
+	font-size: 17px;
+	color: #fff;
+	font-family: "돋움";
+	float: left;
+	padding-top: 2px;
+}
+
+.mobile_menu {
+	display: inline-block;
+	background: url("../../../img/mobile/btn_menu.gif") no-repeat 50% 50%;
+	width: 44px;
+	height: 24px;
+	float: left;
+	margin-right: 8px;
+}
+
+.fund_ico {
+		background: url("../../../img/mobile/nav_arrow.gif") no-repeat;
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		position: absolute;
+		top: 22px;
+		margin-left: 14px;
+}
+
+.mobile_search {
+		background: url("../../../img/mobile/btn_search.gif") no-repeat;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		float: right;
+		position: absolute;
+		top: 16px;
+		right: 40px;
+}

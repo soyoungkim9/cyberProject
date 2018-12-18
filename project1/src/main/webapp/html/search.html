@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노드탐색</title>
+  <link rel="stylesheet" href="../css/detail/search/search.css">
+</head>
+<body> 
+  <!--  입력폼-->
+  <form>
+    <label for="id">id</label>
+    <input id="idValue" type="text" name="id">
+    <br>
+    <label for="node">노드명</label>
+    <input id="nodeInput" type="text" name="node">
+    <br>
+    <label for="attr">속성명</label>
+    <input id="attrInput" type="text" name="attr">
+    <br>
+    <label for="attrVal">속성값</label>
+    <input id="attrValInput" type="text" name="attrVal">
+    <br>
+    <input type="button" id="searchBtn1" value="검색">
+  </form>
+  <!-- 결과 출력 공간 -->
+  <div id="result"></div>
+  <!-- detailPage.html load -->
+  <div id="page"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../js/search.js"></script>
+</body>
+</html>

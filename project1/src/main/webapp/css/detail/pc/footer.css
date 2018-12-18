@@ -1,0 +1,115 @@
+/* footer CSS */
+#footer {
+	background: #f4f5f9;
+	border-top: 1px solid #e0052d;
+}
+
+.customer_info {
+	line-height: 35px;
+	padding-top: 20px;
+	height: 90px;
+	background: white;
+}
+.customer_info ul {
+	width: 990px;
+	margin: 0 auto;
+}
+
+.customer_info li{
+	float: left;
+	letter-spacing: -1px;
+}
+
+.customer_info span {
+	margin-right: 8px;
+}
+
+.cs_num {
+	background: url("../../../img/common/ico_dot.gif") no-repeat 100% 50%;
+	padding-right: 11px;
+	margin-right: 0 !important;
+	font-weight: bold;
+	color: #000;
+}
+
+.cs_num02 {
+	font-weight: bold;
+	color: #000;
+}
+
+
+.customer_info ul li em {
+	font-size: 15px;
+	color: #737373;
+}
+
+.customer_info ul li {
+	margin-left: 42px;
+}
+
+.customer_info ul li:first-child {
+	margin-left: 0;
+}
+
+.btn_arr {
+	color: #333;
+}
+
+.last {
+	margin-left: 0 !important;
+}
+
+.foot_wrap {
+	width: 1000px;
+	height: 142px;
+	margin: 0 auto;
+}
+
+.footer_menu {
+	padding-top: 40px;
+	float: left;
+}
+
+.footer_menu li {
+	float: left;
+	background: url("../../../img/common/link_line.gif") no-repeat right 4px;
+}
+
+.footer_menu li a {
+	display: inline-block;
+	padding: 0 12px;
+	font-size: 13px;
+	color: #333;
+}
+
+.weight_style {
+	font-weight: bold;
+}
+
+.footer_menu li:first-child a {
+	padding-left: 0;
+}
+
+.footer_menu li:last-child {
+	background: none;
+}
+
+
+.share {
+	float: right;
+	margin-top: 30px;
+	margin-left: 108px;
+}
+
+.copyright {
+	float: left;
+	margin: 0;
+	padding-top: 12px;
+	color: #838282;
+	font-size: 12px;
+	letter-spacing: 0;
+}
+
+.mobile_block1, .mobile_block2 {
+	display: none;
+}

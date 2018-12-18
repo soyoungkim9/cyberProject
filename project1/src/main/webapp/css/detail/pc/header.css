@@ -1,0 +1,169 @@
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	letter-spacing: -0.03em;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+/* header CSS */
+header {
+	border-top: 5px solid #e10029;
+}
+
+#mobile_header {
+	display: none;
+}
+
+.header_wrap {
+	width: 990px;
+	margin: 0 auto;
+	position: relative;
+}
+.nav_top {
+	margin-bottom: 17px;
+}
+
+.nav_top ul li {
+	display: inline-block;
+	margin-left: 10px;
+	padding: 15px 0 0 10px;
+	font-size: 14px;
+	border-left: 1px solid #e3e3e3;
+}
+
+.nav_top ul li:first-child {
+	border-left: none;
+}
+
+.nav_top a {
+	color: #525252
+}
+
+.nav_top ul {
+	text-align: right;
+	height: 30px;
+}
+
+.nav_bottom {
+	overflow: hidden;
+}
+
+.logo {
+	float: left;
+	width: 157px;
+	height: 49px;
+	margin: 0;
+	position: absolute;
+	top: 29px;
+}
+
+.menu_wrap {
+	float: right;
+	width: 782px;
+	overflow: hidden;
+}
+
+.menu_wrap ul {
+	margin: 0;
+}
+
+.menu_wrap li {
+	float: left;
+}
+
+.menu_wrap li > a {
+	display: block;
+	height: 57px;
+	line-height: 40px;
+	padding: 0 25px;
+	color: #333;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.menu_wrap li > a:hover {
+	color: #e10029;
+}
+
+
+.search_wrap {
+	float: right;
+	margin-top: 7px;
+}
+
+.search_wrap a:first-child {
+	margin-right: 22px;
+}
+
+.location {
+	border-top: 1px solid #c0c2c7;
+	border-bottom: 1px solid #f47726;
+	background: #fff;
+	overflow: hidden;
+}
+
+.location > ul {
+	width: 990px;
+	margin: 0 auto;
+	padding: 0;
+}
+.location_sub {
+	display: none;
+}
+
+.location ul > li {
+	position: relative;
+	float: left;
+	min-width: 230px;
+	border-right: 1px solid #d0d1d5;
+}
+
+.location ul > li > a {
+	display: block;
+	height: 38px;
+	font-size: 15px;
+	color: #333;
+	line-height: 38px;
+}
+
+.location ul > li > a:hover:not(.home) {
+	color: #577cbf;
+}
+
+.location ul > li > a:not(.home) {
+	padding: 0 42px 0 20px;
+	background: url("../../../img/common/depth_off.gif") no-repeat 93%;
+}
+
+.onimg {
+	background: url("../../../img/common/depth_on.gif") no-repeat 93% !important;
+	font-weight: bold;
+}
+.location ul > li > a:not(.home):hover {
+	color: #292e9d;
+}
+
+.home {
+	padding-left: 13px;
+}
+
+.location > ul > li:first-child {
+	min-width: 40px;
+	border-left:	1px solid #d0d1d5;
+}
+
+.hred {
+	color: #e10029 !important;
+}
