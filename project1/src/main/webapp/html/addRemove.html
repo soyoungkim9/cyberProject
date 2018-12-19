@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>노드 추가/삭제</title>
+<link rel="stylesheet" href="../css/node/addRemove.css">
+</head>
+<body>
+  <div id="wrap">
+    <!-- 노드를 추가하고 생성할 공간 -->
+		<div id="nodeBox">
+			<table id="tb"></table>
+		</div>
+		<!-- 입력폼 -->
+		<div id="formBox">
+			<form>
+				<textarea id="nodeInput" rows="20" placeholder="테이블과 관련된 코드 작성"></textarea>
+		    <div id ="btnBox">
+			    <input type="button" id="addBtn" value="추가">
+			    <input type="button" id="removeBtn" value="삭제">
+				</div>
+			</form>
+		</div>
+	</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../js/addRemove.js"></script>	
+</body>
+</html>
