@@ -88,9 +88,28 @@ function counting(node, preNode) {
   	  }
     } else if(nodeInput != "" && node.localName == nodeInput) { // 노드명(o)
   	  if(idValue != "" && idValue == idSearch.id) { // id (o)
-  		 ++cnt;  /* id > 노드명 */
-  		 name = "id >= 노드명 개수 = ";
-    	 console.log(node);
+    	 if(attrInput != "" || attrValInput != "") { // 속성명이나 속성값이 존재하는 경우
+     	    for(var i = 0; i < node.attributes.length; i++) {
+  	    	   if(node.attributes[i].nodeName == attrInput && node.attributes[i].nodeValue == attrValInput) { 
+  	    		  name = "id + 노드명 + 속성명 + 속성값 개수 = "; /* id + 노드 + 속성명 + 속성값 */
+  	    		  ++cnt;
+  		    	  console.log(node);
+  	    	   } else if(node.attributes[i].nodeName == attrInput && attrValInput == "") { 
+  	    		  name = "id + 노드명 + 속성명 개수 = "; /* id + 노드 + 속성명 */
+  	    		  ++cnt;
+  		    	  console.log(node);
+  		    	  
+  	    	   } else if(node.attributes[i].nodeValue == attrValInput && attrInput == "") {
+  	    		  name = "id + 노드명 + 속성값 개수 = "; /* id + 노드 + 속성값 */
+  	    		  ++cnt;
+  		    	  console.log(node);
+  	    	   }
+      	    }
+    	 } else { // id(o), 노드명(o) 속성명(x), 속성값(x)
+      		 ++cnt;  /* id > 노드명 */
+      		 name = "id >= 노드명 개수 = ";
+        	 console.log(node); 
+    	 }
   	  } else if(idValue == ""){ // id (x)
   		 if(attrInput == "" && attrValInput == "" && node.localName == nodeInput) { 
     		name = "노드명 개수 = "; // id (x). 노드명(o), 속성명(x), 속성값(x)
