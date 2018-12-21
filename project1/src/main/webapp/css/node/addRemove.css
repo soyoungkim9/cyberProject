@@ -37,3 +37,8 @@ label {
   height: 35px;
   margin-right: 10px;
 }
+
+#tb, td, tr {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
