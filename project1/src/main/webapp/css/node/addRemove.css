@@ -39,7 +39,10 @@ label {
   margin-top: 14px;
 }
 
+table {
+	border-collapse: collapse;
+}
+
 td, tr {
 	border: 1px solid black;
-	border-collapse: collapse;
 }
