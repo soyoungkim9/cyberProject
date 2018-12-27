@@ -6,26 +6,40 @@
 <link rel="stylesheet" href="../css/node/addRemove.css">
 </head>
 <body>
-  <div id="wrap">
-    <!-- 노드를 추가하고 생성할 공간 -->
-		<div id="nodeBox">
-			<table id="tb"></table>
+<div id="wrap">
+	<table>
+		<caption>체결(거래)</caption>
+		<thead>
+			<tr>
+				<th>시간</th>
+				<th>추가</th>
+				<th>전일대비</th>
+				<th>체결량</th>
+				<th>누적거래량</th>
+			</tr>
+			</thead>
+		<tbody id="content"></tbody>
+	</table>
+	<form>
+	  <div>
+			<input type="text" id="time">
+			<input type="text" id="price">
+			<input type="text" id="netChange">
+			<input type="text" id="sign">
+			<input type="text" id="accumulate">
 		</div>
-		<!-- 입력폼 -->
-		<div id="formBox">
-			<form>
-				<textarea id="nodeInput" rows="20" placeholder="테이블과 관련된 코드 작성"></textarea>
-		    <div id ="btnBox">
-			    <input type="button" id="addBtn1" value="추가(javaScript)">
-			    <input type="button" id="removeBtn1" value="삭제(javaScript)"><br>
-			    <input type="button" id="addBtn2" value="추가(jQuery)">
-			    <input type="button" id="removeBtn2" value="삭제(jQuery)">
-				</div>
-			</form>
+		<div id="btnBox">
+			<input type="button" value="추가(JavaScript)" id="addBtn1">
+			<input type="button" value="삭제(JavaScript)" id="removeBtn1">
+			<input type="button" value="추가(JQuery)" id="addBtn2">
+			<input type="button" value="삭제(JQuery)" id="removeBtn2">
 		</div>
-	</div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="../js/addRemove1.js"></script>	
-  <script src="../js/addRemove2.js"></script>
+	</form>
+</div>	
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/addRemove1.js"></script>	
+<script src="../js/addRemove2.js"></script>
 </body>
 </html>
