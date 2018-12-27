@@ -26,6 +26,10 @@ input[type="text"] {
 
 #searchBtn1 {
   margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+#searchBtn1, #searchBtn2 {
   width: 460px;
   height: 35px;
 }
