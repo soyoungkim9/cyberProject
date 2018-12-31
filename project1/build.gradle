@@ -1,17 +1,18 @@
 plugins {
-    id 'java'
+  id 'java'
 
-    id 'eclipse-wtp'
+  id 'eclipse-wtp'
 
-    id 'war'
+  id 'war'
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'com.google.guava:guava:26.0-jre'
-
-    testImplementation 'junit:junit:4.12'
+  // Mybatis 라이브러리
+	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
+  // JSP 확장 태그인 JSTL 라이브러리
+  compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 }
