@@ -32,6 +32,7 @@ public class DBCPInitListener implements ServletContextListener{
 		loadJDBCDriver(prop);
 		// 2. 데이터베이스 커넥션 구함
 		initConnectionPool(prop);
+		// db정보 properties파일에 저장하는거 생각해 보기!!
 	}
 	
 	private void loadJDBCDriver(Properties prop) {

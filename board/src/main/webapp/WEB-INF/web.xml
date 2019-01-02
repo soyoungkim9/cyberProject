@@ -3,7 +3,7 @@
  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
  	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
  		                  http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-
+	<!-- DBCPInitListener -->
 	<listener>
 		<listener-class>jdbc.DBCPInitListener</listener-class>
 	</listener>
@@ -22,6 +22,7 @@
 		</param-value>
 	</context-param>
 	
+	<!-- CharacterEncodingFilter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>util.CharacterEncodingFilter</filter-class>
@@ -35,4 +36,20 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- ControllerUsingURI -->
+	<servlet>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>/WEB-INF/commandHandlerURI.properties</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ControllerUsingURI</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 </web-app>

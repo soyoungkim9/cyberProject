@@ -18,6 +18,7 @@
 			application.log("커넥션 연결 실패", ex);
 		}
 	%>
+	<%--  <%= request.getAttribute("hello") %> --%>
 	<div id="wrap">
 		<form>
 			<table>
