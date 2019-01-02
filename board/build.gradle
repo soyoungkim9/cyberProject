@@ -1,0 +1,22 @@
+plugins {
+  id 'java'
+
+  id 'eclipse-wtp'
+
+  id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  // JSP 확장 태그인 JSTL 라이브러리
+  compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+  // DB 커넥션풀 라이브러리
+  compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.5.0'
+
+  // Servlet 라이브러리
+  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}
