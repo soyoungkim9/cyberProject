@@ -49,4 +49,58 @@ public class BoardService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public Board getBoard(int boardNum, boolean increaseCnt) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			Board board = boardDao.selectByBno(conn, boardNum);
+			if(board == null) {
+				throw new BoardNotFoundException();
+			}
+			if(increaseCnt) {
+				boardDao.increaseCount(conn, boardNum);
+			}
+			return board;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void modify(Board modReq) {
+		Connection conn = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			Board board = boardDao.selectByBno(conn, modReq.getBno());
+			if (board == null) {
+				throw new BoardNotFoundException();
+			}
+			if (!modReq.getPwd().equals(board.getPwd())) {
+				throw new UpdateDeniedException();
+			}
+			boardDao.update(conn, modReq.getBno(), 
+					modReq.getTitle(), modReq.getContent());
+			conn.commit();
+		} catch(SQLException e) {
+			JdbcUtil.rollback(conn);
+			throw new RuntimeException(e);
+		} catch(UpdateDeniedException e) {
+			JdbcUtil.rollback(conn);
+			throw e;
+		} finally {
+			JdbcUtil.close(conn);
+		}
+	}
+	
+	public void delete(int boardNum) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			Board board = boardDao.selectByBno(conn, boardNum);
+			if(board == null) {
+				throw new BoardNotFoundException();
+			}
+			boardDao.delete(conn, boardNum);
+			conn.commit();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

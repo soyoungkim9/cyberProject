@@ -34,8 +34,8 @@
 					<tr>
 						<td>${board.bno}</td>
 						<td>
-							<a> <!-- page 653 29번 라인 추가!-->
-								<c:out value="${board.title}"/>
+							<a href="read.do?no=${board.bno}&pageNo=${boardPage.currentPage}"> <!-- page 653 29번 라인 추가!-->
+								${board.title}
 							</a>
 						</td>
 						<td>${board.name}</td>

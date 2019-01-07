@@ -25,6 +25,7 @@ public class BoardDao {
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getPwd());
 			int insertedCount = pstmt.executeUpdate();
+			System.out.println(insertedCount);
 			if(insertedCount > 0) {
 				return new Board(board.getBno(),
 							board.getName(),
@@ -86,4 +87,62 @@ public class BoardDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public Board selectByBno(Connection conn, int no) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(
+					"select * from board where bno = ?");
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			Board board = null;
+			if(rs.next()) {
+				board = new Board();
+				board.setBno(rs.getInt("bno"));
+				board.setName(rs.getString("name"));
+				board.setPwd(rs.getString("pwd"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setCnt(rs.getInt("cnt"));
+				board.setSdt(rs.getDate("sdt"));
+			}
+			return board;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public void increaseCount(Connection conn, int no) throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"update board set cnt = cnt + 1 where bno = ?")) {
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		}
+	}
+	
+	public int update(Connection conn, int no, String title, String content) 
+			throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"update board set title = ?, content = ? where bno = ?")) {
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, no);
+			return pstmt.executeUpdate();
+		}
+	}
+	
+	public int delete(Connection conn, int no) 
+			throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"delete from board where bno = ?")) {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		}
+	}
 }
+

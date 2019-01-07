@@ -7,7 +7,7 @@ import service.BoardPage;
 import service.BoardService;
 
 // command패턴을 적용하여 적절한 view 페이지 보여주기
-public class BoardListHandler implements CommandHandler {
+public class ListBoardHandler implements CommandHandler {
 	private BoardService boardService = new BoardService();
 	
 	@Override

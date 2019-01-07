@@ -7,7 +7,7 @@ import mvc.model.Board;
 import service.BoardService;
 
 // command패턴을 적용하여 적절한 view 페이지 보여주기
-public class BoardWriteHandler implements CommandHandler {
+public class WriteBoardHandler implements CommandHandler {
 	private static final String FORM_VIEW ="/view/form.jsp";
 	private BoardService boardService = new BoardService();
 	
