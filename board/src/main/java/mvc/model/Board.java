@@ -9,17 +9,19 @@ public class Board {
 	private String pwd;
 	private String title;
 	private String content;
+	private String fileURL;
 	private int cnt;
 	private Date sdt;
 	
 	public Board() {}
 	public Board(int bno, String name, String pwd, String title,
-			String content, int cnt, Date sdt) {
+			String content, String fileURL, int cnt, Date sdt) {
 		this.bno = bno;
 		this.name = name;
 		this.pwd = pwd;
 		this.title = title;
 		this.content = content;
+		this.fileURL = fileURL;
 		this.cnt = cnt;
 		this.sdt = sdt;
 	}
@@ -78,5 +80,13 @@ public class Board {
 
 	public void setSdt(Date sdt) {
 		this.sdt = sdt;
+	}
+	
+	public String getFileURL() {
+		return fileURL;
+	}
+	
+	public void setFileURL(String fileURL) {
+		this.fileURL = fileURL;
 	}
 }

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<form action="write.do" method="post">
+		<form action="write.do" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -27,6 +27,10 @@
 				<tr>
 					<th>내용</th>
 					<td><textarea rows="10" cols="80" name="content">${param.content}</textarea></td>
+				</tr>
+				<tr>
+					<th>파일</th>
+					<td><input type="file" name="uploadFile"></td>
 				</tr>
 			</table>
 			<div id="btnBox">

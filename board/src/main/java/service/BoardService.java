@@ -23,7 +23,7 @@ public class BoardService {
 
 			Board savedBoard = boardDao.insert(conn, board);
 			if(savedBoard == null) {
-				throw new RuntimeException("fail to insert article");
+				throw new RuntimeException("fail to insert board");
 			}
 			
 			conn.commit();
@@ -99,6 +99,17 @@ public class BoardService {
 			}
 			boardDao.delete(conn, boardNum);
 			conn.commit();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public BoardPage selectBySearch(int pageNum, String search) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			int total = boardDao.searchCount(conn, search);
+			List<Board> content = boardDao.selectBySearch(
+					conn, (pageNum - 1) * size, size, search);
+			return new BoardPage(total, pageNum, size, content);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -11,6 +11,9 @@
 <body>
 	<div id="wrap">
 		<div>
+			<a href="list.do">처음 목록으로 돌아가기</a>
+		</div>
+		<div>
 			<a href="write.do">글쓰기</a>
 		</div>
 		<form action="search.do">
@@ -25,16 +28,16 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:if test="${boardPage.hasNoBoards()}">
+				<c:if test="${searchPage.hasNoBoards()}">
 					<tr>
 						<td colspan="5">게시글이 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:forEach var="board" items="${boardPage.content}">
+				<c:forEach var="board" items="${searchPage.content}">
 					<tr>
 						<td>${board.bno}</td>
 						<td>
-							<a href="read.do?no=${board.bno}&pageNo=${boardPage.currentPage}">
+							<a href="read.do?no=${board.bno}&pageNo=${searchPage.currentPage}">
 								${board.title}
 							</a>
 						</td>
@@ -45,19 +48,19 @@
 				</c:forEach>
 				</tbody>
 				<tfoot>
-				<c:if test="${boardPage.hasBoards()}">
+				<c:if test="${searchPage.hasBoards()}">
 					<tr>
 						<td colspan="5">
-						<c:if test="${boardPage.startPage > 5}">
-							<a href="list.do?pageNo=${boardPage.startPage - 5}">[이전]</a>
+						<c:if test="${searchPage.startPage > 5}">
+							<a href="search.do?pageNo=${searchPage.startPage - 5}&search=${searchTitle}">[이전]</a>
 						</c:if>
 						<c:forEach var="pNo" 
-							begin="${boardPage.startPage}" 
-							end="${boardPage.endPage}">
-							<a href="list.do?pageNo=${pNo}">[${pNo}]</a>
+							begin="${searchPage.startPage}" 
+							end="${searchPage.endPage}">
+							<a href="search.do?pageNo=${pNo}&search=${searchTitle}">[${pNo}]</a>
 						</c:forEach>
-						<c:if test="${boardPage.endPage < boardPage.totalPages}">
-							<a href="list.do?pageNo=${boardPage.startPage + 5}">[다음]</a>
+						<c:if test="${searchPage.endPage < searchPage.totalPages}">
+							<a href="search.do?pageNo=${searchPage.startPage + 5}&search=${searchTitle}">[다음]</a>
 						</c:if>
 						</td>
 					</tr>

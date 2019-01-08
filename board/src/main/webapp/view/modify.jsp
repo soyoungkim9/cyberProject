@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="text" name="pwd"></td>
+					<td><input type="text" name="pwd" placeholder="비밀번호를 입력해 주세요."></td>
 				</tr>
 				<tr>
 					<th>내용</th>

@@ -1,7 +1,13 @@
 package mvc.command;
 
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import mvc.model.Board;
 import service.BoardService;
@@ -28,12 +34,30 @@ public class WriteBoardHandler implements CommandHandler {
 	}
 
 
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res)
+		throws IOException {
+		// 웹 어플리케이션의절대경로 구하기
+		ServletContext context = req.getSession().getServletContext();
+		String path = context.getRealPath("upload");
+		String encType = "UTF-8";
+		int sizeLimit = 20 * 1024 * 1024;
+		
+		MultipartRequest multi = new MultipartRequest(req, path, sizeLimit,
+				encType, new DefaultFileRenamePolicy());
+		
+		// 멀티파트형식의 데이터를 가져온다.
+		String name = multi.getParameter("name");
+		String title = multi.getParameter("title");
+		String content = multi.getParameter("content");
+		String pwd = multi.getParameter("pwd");
+		String fileURL = multi.getFilesystemName("uploadFile"); // == input name
+		
 		Board board = new Board();
-		board.setName(req.getParameter("name"));
-		board.setTitle(req.getParameter("title"));
-		board.setContent(req.getParameter("content"));
-		board.setPwd(req.getParameter("pwd"));
+		board.setName(name);
+		board.setTitle(title);
+		board.setContent(content);
+		board.setPwd(pwd);
+		board.setFileURL(fileURL);
 		int newBoardNo = boardService.write(board);
 		req.setAttribute("newBoardNo", newBoardNo);
 		

@@ -19,4 +19,7 @@ dependencies {
 
   // Servlet 라이브러리
   providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+  
+  // cos.jar 파일
+  compile group: 'com.servlets', name: 'cos', version: '09May2002'
 }

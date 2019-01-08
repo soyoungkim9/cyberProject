@@ -31,6 +31,12 @@
 				<th>내용</th>
 				<td><pre>${board.content}</pre></td>
 			</tr>
+			<tr>
+					<th>파일</th>
+					<td><img src="upload/${board.fileURL}"></td>
+				<c:if test="${board.fileURL} ne null"> <!-- 널값처리부터하기! -->
+				</c:if>
+			</tr>
 			<tfoot>
 				<tr>
 					<td colspan="2">
