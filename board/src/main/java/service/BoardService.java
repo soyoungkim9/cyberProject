@@ -75,17 +75,14 @@ public class BoardService {
 				throw new BoardNotFoundException();
 			}
 			if (!modReq.getPwd().equals(board.getPwd())) {
-				throw new UpdateDeniedException();
+				return;
 			}
-			boardDao.update(conn, modReq.getBno(), 
-					modReq.getTitle(), modReq.getContent());
+			boardDao.update(conn, modReq.getBno(), modReq.getTitle(),
+					modReq.getContent(), modReq.getFileURL());
 			conn.commit();
 		} catch(SQLException e) {
 			JdbcUtil.rollback(conn);
 			throw new RuntimeException(e);
-		} catch(UpdateDeniedException e) {
-			JdbcUtil.rollback(conn);
-			throw e;
 		} finally {
 			JdbcUtil.close(conn);
 		}

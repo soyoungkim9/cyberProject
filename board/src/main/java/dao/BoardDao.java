@@ -13,8 +13,6 @@ import mvc.model.Board;
 
 // DAO - 단일 데이터 접근/갱신
 // board 테이블에 접근하는 Class (query를 날린다.)
-
-// 시간남으면 반복되는 아이들 줄이기!
 public class BoardDao {
 	public Board insert(Connection conn, Board board) throws SQLException {
 		PreparedStatement pstmt = null;
@@ -112,14 +110,15 @@ public class BoardDao {
 		}
 	}
 	
-	public int update(Connection conn, int no, String title, String content) 
-			throws SQLException {
+	public int update(Connection conn, int no, String title, 
+			String content, String fileURL) throws SQLException {
 		try(PreparedStatement pstmt =
 				conn.prepareStatement(
-						"update board set title = ?, content = ? where bno = ?")) {
+						"update board set title = ?, content = ?, fileurl = ? where bno = ?")) {
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, no);
+			pstmt.setString(3, fileURL);
+			pstmt.setInt(4, no);
 			return pstmt.executeUpdate();
 		}
 	}

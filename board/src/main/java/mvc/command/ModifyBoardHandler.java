@@ -2,8 +2,12 @@ package mvc.command;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import mvc.model.Board;
 import service.BoardNotFoundException;
@@ -45,11 +49,29 @@ public class ModifyBoardHandler implements CommandHandler {
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		int no = Integer.parseInt(noVal);
+		// 웹 어플리케이션의절대경로 구하기
+		ServletContext context = req.getSession().getServletContext();
+		String path = context.getRealPath("upload");
+		String encType = "UTF-8";
+		int sizeLimit = 20 * 1024 * 1024;
+		
+		MultipartRequest multi = new MultipartRequest(req, path, sizeLimit,
+				encType, new DefaultFileRenamePolicy());
+		
+		// 멀티파트형식의 데이터를 가져온다.
+		String title = multi.getParameter("title");
+		String content = multi.getParameter("content");
+		String pwd = multi.getParameter("pwd");
+		String fileURL = multi.getFilesystemName("uploadFile"); // == input name
+		if(fileURL == null) {
+			fileURL = multi.getParameter("maintainFile");
+		}
 		Board modReq = new Board();
 		modReq.setBno(no);
-		modReq.setTitle(req.getParameter("title"));
-		modReq.setPwd(req.getParameter("pwd"));
-		modReq.setContent(req.getParameter("content"));
+		modReq.setTitle(title);
+		modReq.setPwd(pwd);
+		modReq.setContent(content);
+		modReq.setFileURL(fileURL);
 		req.setAttribute("modReq", modReq);
 		try {
 			boardService.modify(modReq);

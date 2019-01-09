@@ -2,18 +2,19 @@ package service;
 
 import java.util.List;
 
-import mvc.model.Board;
+import mvc.model.Comments;
 
-// board 페이징
-public class BoardPage {
+// Comments 페이징
+public class CommentsPage {
 	private int total;
 	private int currentPage;
-	private List<Board> content;
+	private List<Comments> content;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
 	
-	public BoardPage(int total, int currentPage, int size, List<Board> content) {
+	public CommentsPage(int total, int currentPage, int size, 
+			List<Comments> content) {
 		this.total = total;
 		this.currentPage = currentPage;
 		this.content = content;
@@ -34,39 +35,39 @@ public class BoardPage {
 			if (endPage > totalPages) endPage = totalPages;
 		}
 	}
-
+		
+	
 	public int getTotal() {
 		return total;
 	}
 	
-	public boolean hasNoBoards() {
+	public boolean hasNoComments() {
 		return total == 0;
 	}
 	
-	public boolean hasBoards() {
+	public boolean hasComments() {
 		return total > 0;
 	}
-
+	
 	public int getCurrentPage() {
 		return currentPage;
 	}
-
-	public List<Board> getContent() {
+	
+	public List<Comments> getContent() {
 		return content;
 	}
-
+	
 	public int getTotalPages() {
 		return totalPages;
 	}
-
+	
 	public int getStartPage() {
 		return startPage;
 	}
-
+	
 	public int getEndPage() {
 		return endPage;
 	}
 	
 	
-
 }
