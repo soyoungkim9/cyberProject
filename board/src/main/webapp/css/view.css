@@ -1,0 +1,181 @@
+body {
+	margin: 0;
+	color: #555;
+}
+
+a {
+	color: #555;
+	text-decoration: none;
+}
+
+#wrap {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+form {
+	width: 800px;
+	margin: 0 auto;
+}
+
+table {
+	border-collapse: collapse;
+	display: inline-block;
+}
+#wrap > div:first-child {
+	width: 800px;
+	display: inline-block;
+	text-align: left;
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+#wrap > table:nth-child(2) {
+	border-top: 2px solid black;
+	border-bottom: 1px solid #e6e6e6;
+	width: 800px;
+}
+
+#wrap > table:nth-child(2) tbody {
+	width: inherit;
+}
+#wrap > table:nth-child(2) tbody tr {
+	width: inherit;
+	display: block;
+}
+
+#wrap > table:nth-child(2) tbody tr:first-child {
+	border-bottom: 1px solid #d1d1d1;
+	line-height: 55px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(2) {
+	border-bottom: 1px solid #d1d1d1;
+	line-height: 30px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(3) {
+	padding: 10px;
+	text-align: left;
+	font-size: 15px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(4) {
+	padding: 10px;
+}
+
+#wrap > table:nth-child(2) tbody tr:first-child > td {
+	padding-left: 10px;
+}
+
+.borderCss1 {
+	font-size: 14px;
+	padding-right: 8px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(2) > td {
+	font-size: 14px;
+	width: 400px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(2) > td:first-child {
+	text-align: left;
+	padding-left: 10px;
+}
+
+#wrap > table:nth-child(2) tbody tr:nth-child(2) > td:last-child {
+	text-align: right;
+	padding-right: 10px;
+}
+
+img {
+	max-width: 780px;
+}
+
+.btnCss1 {
+	background: #007e65;
+	color: white;
+	border-radius: 3px;
+	padding: 8px 20px;
+	font-size: 13px;
+	margin-left: 3px;
+}
+
+tfoot {
+	line-height: 80px;
+}
+
+#writeComment {
+	border: 1px solid black;
+}
+
+/* 그 다음은 이제 tbody 태그 조절하기!!!!! 
+	댓글등록 부분까지만 css 구현하고 + 게시글 수정 css도 만지기
+	
+	댓글리스트는 대댓글 구현 후에 건들기!!!!
+
+*/
+
+#writeComment table {
+	width: inherit;
+}
+#writeComment table tbody tr td:first-child {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

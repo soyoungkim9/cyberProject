@@ -7,17 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 목록</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/list.css">
 </head>
 <body>
 	<div id="wrap">
-		<div>
-			<a href="list.do">처음 목록으로 돌아가기</a>
-		</div>
-		<div>
-			<a href="write.do">글쓰기</a>
-		</div>
 		<form action="search.do">
-			<table border="1">
+		<div id="searchBox">
+			<input name="search" type="text">
+			<input type="submit" value="검색">
+		</div>
+			<table>
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -52,26 +51,28 @@
 					<tr>
 						<td colspan="5">
 						<c:if test="${searchPage.startPage > 5}">
-							<a href="search.do?pageNo=${searchPage.startPage - 5}&search=${searchTitle}">[이전]</a>
+							<a href="search.do?pageNo=${searchPage.startPage - 5}&search=${searchTitle}">&lt;</a>
 						</c:if>
 						<c:forEach var="pNo" 
 							begin="${searchPage.startPage}" 
 							end="${searchPage.endPage}">
-							<a href="search.do?pageNo=${pNo}&search=${searchTitle}">[${pNo}]</a>
+							<a href="search.do?pageNo=${pNo}&search=${searchTitle}">${pNo}</a>
 						</c:forEach>
 						<c:if test="${searchPage.endPage < searchPage.totalPages}">
-							<a href="search.do?pageNo=${searchPage.startPage + 5}&search=${searchTitle}">[다음]</a>
+							<a href="search.do?pageNo=${searchPage.startPage + 5}&search=${searchTitle}">&gt;</a>
 						</c:if>
 						</td>
 					</tr>
 				</c:if>
 				</tfoot>
 			</table>
-		<div>
-			<input name="search" type="text" placeholder="제목 or 작성자명">
-			<input type="submit" value="검색">
-		</div>
 		</form>
+		<div>
+			<a href="write.do">글쓰기</a>
+		</div>
+		<div>
+			<a href="list.do">처음 목록으로 돌아가기</a>
+		</div>
 	</div>
 </body>
 </html>

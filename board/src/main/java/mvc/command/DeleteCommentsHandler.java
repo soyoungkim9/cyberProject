@@ -3,7 +3,6 @@ package mvc.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mvc.model.Comments;
 import service.BoardNotFoundException;
 import service.CommentsService;
 
@@ -14,13 +13,17 @@ public class DeleteCommentsHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res)
 			throws Exception {
 		try {
-			String noVal = req.getParameter("cno");
+			String cnoVal = req.getParameter("cno");
+			String noVal = req.getParameter("no");
+			String pageNoVal = req.getParameter("pageNo");
+			String pwd = req.getParameter("pwd");
+			int cno = Integer.parseInt(cnoVal);
 			int no = Integer.parseInt(noVal);
-			
-			Comments deleteComments = commentsService.getComments(no);
-			commentsService.delete(no);
-			System.out.println(deleteComments.getCno());
-			return "list.do"; // 얘도 현재 페이지로 돌려놓기
+			int pageNo = Integer.parseInt(pageNoVal);
+			if(pwd == null) {
+				commentsService.delete(cno);
+			}
+			return "read.do?no=" + no +"&pageNo=" + pageNo;
 		} catch (BoardNotFoundException e) {
 			req.getServletContext().log("no board", e);
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);

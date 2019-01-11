@@ -10,6 +10,7 @@ public class Comments {
 	private String content;
 	private Date sdt;
 	private int bno;
+	private int total;
 	
 	public Comments() {}
 	
@@ -69,5 +70,21 @@ public class Comments {
 
 	public void setBno(int board) {
 		this.bno = board;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
+	public boolean hasNoComments() {
+		return total == 0;
+	}
+	
+	public boolean hasComments() {
+		return total > 0;
 	}
 }

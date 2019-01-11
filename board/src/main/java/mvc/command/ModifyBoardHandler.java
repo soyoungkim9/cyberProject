@@ -17,6 +17,7 @@ public class ModifyBoardHandler implements CommandHandler {
 	private static final String FORM_VIEW ="/view/modify.jsp";
 	private BoardService boardService = new BoardService();
 	private String noVal;
+	private String pageNoVal;
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) 
@@ -35,6 +36,7 @@ public class ModifyBoardHandler implements CommandHandler {
 		throws IOException {
 		try {
 			noVal = req.getParameter("no");
+			pageNoVal = req.getParameter("pageNo");
 			int no = Integer.parseInt(noVal);
 			
 			Board modReq = boardService.getBoard(no, false);
@@ -49,6 +51,7 @@ public class ModifyBoardHandler implements CommandHandler {
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		int no = Integer.parseInt(noVal);
+		int pageNo = Integer.parseInt(pageNoVal);
 		// 웹 어플리케이션의절대경로 구하기
 		ServletContext context = req.getSession().getServletContext();
 		String path = context.getRealPath("upload");
@@ -75,7 +78,10 @@ public class ModifyBoardHandler implements CommandHandler {
 		req.setAttribute("modReq", modReq);
 		try {
 			boardService.modify(modReq);
-			return "list.do";
+			System.out.println(no);
+			System.out.println(pageNo);
+			res.sendRedirect("read.do?no=" + no + "&pageNo=" + pageNo);
+			return null;
 		} catch (BoardNotFoundException e) {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return null;

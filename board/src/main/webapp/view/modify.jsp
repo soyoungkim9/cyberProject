@@ -49,6 +49,7 @@
 			</table>
 			<div id="btnBox">
 				<input id="update" type="submit" value="글 수정">
+				
 			</div>
 		</form>
 	</div>

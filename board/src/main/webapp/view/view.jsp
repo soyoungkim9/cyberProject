@@ -7,33 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 읽기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
 </head>
 <body>
 	<div id="wrap">
-		<table border="1">
+		<div>
+			<span class="borderCss1">번호</span>${board.bno}
+		</div>
+		<table>
 			<tr>
-				<th>번호</th>
-				<td>${board.bno}</td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td>${board.name}</td>
-			</tr>
-			<tr>
-				<th>작성일</th>
-				<td>${board.sdt}</td>
-			</tr>
-			<tr>
-				<th>제목</th>
 				<td>${board.title}</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<td><span class="borderCss1">작성자</span>${board.name}</td>
+				<td><span class="borderCss1">등록일</span>${board.sdt}</td>
+			</tr>
+			<tr>
 				<td><pre>${board.content}</pre></td>
 			</tr>
 			<tr>
 				<c:if test="${board.fileURL ne null}">
-					<th>파일</th>
 					<td><img src="upload/${board.fileURL}"></td>
 				</c:if>
 			</tr>
@@ -41,15 +34,16 @@
 				<tr>
 					<td colspan="2">
 					<c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo}"/>
-						<a href="list.do?pageNo=${pageNo}">[목록]</a>
-						<a href="modify.do?no=${board.bno}">[게시글수정]</a>		
-						<a href="delete.do?no=${board.bno}">[게시글삭제]</a>
+						<a class="btnCss1" href="list.do?pageNo=${pageNo}">목록</a>
+						<a class="btnCss1" href="modify.do?no=${board.bno}&pageNo=${pageNo}">게시글수정</a>		
+						<a class="btnCss1" id="boardDelete" data-pwd="${board.pwd}"
+							href="delete.do?no=${board.bno}&pageNo=${pageNo}">게시글삭제</a>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
-		<form action="read.do" method="post">
-			<table border="1">
+		<form id="writeComment" action="read.do" method="post">
+			<table>
 				<tbody>
 					<tr>
 						<td>
@@ -64,35 +58,48 @@
 				</tbody>
 			</table>
 		</form>
-		<form>
-			<table border="1">
+		<form action="updateComment.do" method="post">
+			<table id="comment">
 				<tbody>
-				<c:if test="${commentsPage.hasNoComments()}">
+				<c:if test="${size == 0}">
 					<tr>
 						<td colspan="3">등록 된 댓글이 없습니다.</td>
 					</tr>
 				</c:if>	
-				<c:forEach var="comments" items="${commentsPage.content}">			
-					<tr>
+				<c:forEach var="comments" items="${comments}">			
+					<tr class="comments">
 						<td>
 							<h3>${comments.name}</h3>
 							<span>${comments.sdt}</span> 
-							<span>${comments.cno}</span> 
+							<input class="cno" type="hidden" name="cno" value="${comments.cno}">
 						</td>
-						<td><pre>${comments.content}</pre></td>				
-						<td>
-							<input type="submit" value="댓글 수정">
-							<a href="deleteComment.do?cno=${comments.cno}">[댓글 삭제]</a>
+						<td class="originContent">
+							
+							<pre class="origin" data-cno="${comments.cno}">${comments.content}</pre>
+							<a class="updateComment1">[댓글 수정]</a>
+							<span class="updateBox">
+							<textarea rows="5" cols="40" name="comment" 
+								class="updateContent">${comments.content}</textarea>
+							<input type="text" name="pwd" class="inputPwd"
+								 data-originPwd="${comments.pwd}" placeholder="암호를 입력해 주세요">
+							</span>
+							<input class="updateComment2" type="submit" value="댓글 수정">
+							<a class="origin pwd commentDelete" data-pwd="${comments.pwd}"
+								href="deleteComment.do?cno=${comments.cno}&no=${board.bno}&pageNo=${pageNo}">
+								[댓글 삭제]</a>
 						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
-				<tfoot>
-					<tr> <!-- 이 부분 ajax 처리해서 페이징하기 -->
-					</tr>
-				</tfoot>
 			</table>
+			<div>
+				<a id="showComment">더보기</a>
+			</div>
+			<input type="hidden" name="bno" value="${board.bno}">
+			<input type="hidden" name="pageNo" value="${param.pageNo}">
 		</form>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js/view.js"></script>
 </body>
 </html>

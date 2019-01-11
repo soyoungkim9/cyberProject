@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.JdbcUtil;
-import mvc.model.Board;
 import mvc.model.Comments;
 
 //DAO - 단일 데이터 접근/갱신
@@ -60,23 +58,19 @@ public class CommetsDao {
 		}
 	}
 	
-	public List<Comments> select(Connection conn, int startRow, int size, int bno) 
+	public List<Comments> select(Connection conn, int bno) 
 			throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = conn.prepareStatement("select comments.*"
-					+ "from (select row_number() over(order by cno desc)as rnum,"
-					+ " comments.* from comments where bno = ?)"
-					+ "comments where rnum >= ? and rnum <= ? order by rnum asc");
+			pstmt = conn.prepareStatement("select *"
+					+ "from comments where bno = ? order by cno desc");
 			pstmt.setInt(1, bno);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, startRow + size);
 			rs = pstmt.executeQuery();
 			List<Comments> result = new ArrayList<>();
 			while(rs.next()) {
-				Comments Comments = getComments(rs);
-				result.add(Comments);
+				Comments comments = getComments(rs);
+				result.add(comments);
 			}
 			return result;
 		} finally {
@@ -101,6 +95,17 @@ public class CommetsDao {
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public int update(Connection conn, int no, String content) 
+			throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"update comments set content = ? where cno = ?")) {
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
 		}
 	}
 	
