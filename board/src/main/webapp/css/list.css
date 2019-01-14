@@ -87,15 +87,18 @@ tbody tr > td:nth-child(2) > a {
 tfoot {
 	line-height: 75px;
 }
+
 tfoot tr td > a {
 	border: 1px solid #d7d7d7;
 	padding: 4px 9px;
 	font-size: 12px;
 }
+
 #wrap > div {
 	width: 800px;
 	margin: 0 auto;
 }
+
 div > a {
 	background: #007e65;
 	color: white;
@@ -104,6 +107,11 @@ div > a {
 	font-size: 14px;
 	float: right;
 	margin-left: 10px;
+}
+
+.selected {
+	color: #007e65;
+	font-weight: bold;
 }
 
 

@@ -25,10 +25,10 @@ table {
 }
 #wrap > div:first-child {
 	width: 800px;
-	display: inline-block;
 	text-align: left;
-	margin: 10px 0;
+	margin: 0 auto !important;
 	font-size: 14px;
+	padding: 12px;
 }
 
 #wrap > table:nth-child(2) {
@@ -108,22 +108,78 @@ tfoot {
 	line-height: 80px;
 }
 
-#writeComment {
-	border: 1px solid black;
-}
-
-/* 그 다음은 이제 tbody 태그 조절하기!!!!! 
-	댓글등록 부분까지만 css 구현하고 + 게시글 수정 css도 만지기
-	
-	댓글리스트는 대댓글 구현 후에 건들기!!!!
-
-*/
-
 #writeComment table {
 	width: inherit;
+	padding-top: 10px;
 }
-#writeComment table tbody tr td:first-child {
-	
+
+#writeComment > table > tbody > tr {
+	width: 800px;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+textarea[name="content"] {
+	width: 793px;
+	resize: none;
+	font-size: 15px;
+}
+
+#writeComment > table > tbody > tr:first-child input {
+	height: 20px;
+}
+
+#writeComment > table > tbody > tr:last-child td {
+	float: right;
+}
+
+input[type="submit"] {
+	border: #1a623c solid 1px;
+	background: #1a623c;
+	color: white;
+	border-radius: 3px;
+	padding: 5px 15px;
+	cursor: pointer;
+}
+
+#comment {
+	width: 800px;
+}
+
+#comment tr {
+	border-bottom: 1px solid #e6e6e6;
+	display: inline-block;
+	width: 800px;
+}
+
+tr.comments > td {
+	display: block;
+	width: 800px;
+}
+
+tr.comments > td:first-child > h3 {
+	padding: 0;
+	margin: 0;
+	text-align: left;
+	font-size: 16px;
+}
+
+pre {
+	line-height: 20px;
+}
+
+.origin {
+	text-align: left;
+	margin-bottom: 0;
+	font-size: 15px;
+}
+
+.originContent > a {
+	float: left;
+}
+
+.originContent span {
+	float: left;
 }
 
 

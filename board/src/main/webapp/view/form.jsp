@@ -7,30 +7,37 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물 등록폼</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/write.css">
 </head>
 <body>
 	<div id="wrap">
 		<form action="write.do" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
-					<th>제목</th>
-					<td><input type="text" name="title" value="${param.title}"></td>
+					<td>
+						<input type="text" name="title" value="${param.title}" placeholder="제목을 입력하세요.">
+					</td>
 				</tr>
 				<tr>
-					<th>작성자</th>
-					<td><input type="text" name="name" value="${param.name}"></td>
+					<td>
+						<span class="borderCss1">작성자</span>
+						<input type="text" name="name" value="${param.name}">
+					</td>
 				</tr>
 				<tr>
-					<th>비밀번호</th>
-					<td><input type="text" name="pwd" value="${param.pwd}"></td>
+					<td>
+						<span class="borderCss1">비밀번호</span>
+						<input type="text" name="pwd" value="${param.pwd}">
+					</td>
 				</tr>
 				<tr>
-					<th>내용</th>
 					<td><textarea rows="10" cols="80" name="content">${param.content}</textarea></td>
 				</tr>
 				<tr>
-					<th>파일</th>
-					<td><input type="file" name="uploadFile"></td>
+					<td>
+						<img id="fileContent">
+						<input id="file" type="file" name="uploadFile">
+					</td>
 				</tr>
 			</table>
 			<div id="btnBox">
@@ -39,5 +46,7 @@
 			</div>
 		</form>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/form.js"></script>
 </body>
 </html>

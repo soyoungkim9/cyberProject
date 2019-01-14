@@ -151,7 +151,7 @@ public class BoardDao {
 		}
 	}
 	
-	public List<Board> selectBySearch(Connection conn, int startRow, int size, String search) 
+	public List<Board> selectByAll(Connection conn, int startRow, int size, String search) 
 			throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -175,6 +175,64 @@ public class BoardDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
+	
+	public List<Board> selectByTitle(Connection conn, int startRow, int size, String search) 
+			throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("select board.*"
+					+ "from (select row_number() over(order by bno desc)as rnum, board.* from board where title = ?)"
+					+ "board where rnum >= ? and rnum <= ? order by rnum asc");
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, startRow + size);
+			rs = pstmt.executeQuery();
+			List<Board> result = new ArrayList<>();
+			while(rs.next()) {
+				Board board = getBoard(rs);
+				result.add(board);
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public List<Board> selectByName(Connection conn, int startRow, int size, String search) 
+			throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("select board.*"
+					+ "from (select row_number() over(order by bno desc)as rnum, board.* from board where name = ?)"
+					+ "board where rnum >= ? and rnum <= ? order by rnum asc");
+			pstmt.setString(1, search);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, startRow + size);
+			rs = pstmt.executeQuery();
+			List<Board> result = new ArrayList<>();
+			while(rs.next()) {
+				Board board = getBoard(rs);
+				result.add(board);
+			}
+			return result;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public Board getBoard(ResultSet rs) throws SQLException {
 		Board newBoard = new Board();

@@ -13,10 +13,10 @@
 	<div id="wrap">
 		<form action="search.do">
 			<div id="searchBox">
-				<select>
-					<option>전체</option>
-					<option>제목</option>
-					<option>작성자</option>
+				<select name="searchList">
+					<option value="all">전체</option>
+					<option value="title">제목</option>
+					<option value="name">작성자</option>
 				</select>
 				<input name="search" type="text">
 				<input type="submit" value="검색">
@@ -55,17 +55,15 @@
 				<c:if test="${boardPage.hasBoards()}">
 					<tr>
 						<td colspan="5">
-						<c:if test="${boardPage.startPage > 5}">
-							<a href="list.do?pageNo=${boardPage.startPage - 5}">&lt;</a>
-						</c:if>
+							<a href="list.do?pageNo=1">&lt;&lt;</a>
+							<a id="before" href="list.do?pageNo=${boardPage.startPage - 5}">&lt;</a>
 						<c:forEach var="pNo"
 							begin="${boardPage.startPage}"
 							end="${boardPage.endPage}">
-							<a href="list.do?pageNo=${pNo}">${pNo}</a>
+							<a class="number" href="list.do?pageNo=${pNo}">${pNo}</a>
 						</c:forEach>
-						<c:if test="${boardPage.endPage < boardPage.totalPages}">
-							<a href="list.do?pageNo=${boardPage.startPage + 5}">&gt;</a>
-						</c:if>
+							<a id="after" href="list.do?pageNo=${boardPage.startPage + 5}">&gt;</a>
+							<a id="total" href="list.do?pageNo=${boardPage.totalPages}">&gt;&gt;</a>
 						</td>
 					</tr>
 				</c:if>
@@ -76,5 +74,7 @@
 			<a href="write.do">글쓰기</a>
 		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/list.js"></script>
 </body>
 </html>

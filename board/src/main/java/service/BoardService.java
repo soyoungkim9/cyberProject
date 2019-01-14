@@ -101,10 +101,32 @@ public class BoardService {
 		}
 	}
 	
-	public BoardPage selectBySearch(int pageNum, String search) {
+	public BoardPage selectByAll(int pageNum, String search) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			int total = boardDao.searchCount(conn, search);
-			List<Board> content = boardDao.selectBySearch(
+			List<Board> content = boardDao.selectByAll(
+					conn, (pageNum - 1) * size, size, search);
+			return new BoardPage(total, pageNum, size, content);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public BoardPage selectByTitle(int pageNum, String search) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			int total = boardDao.searchCount(conn, search);
+			List<Board> content = boardDao.selectByTitle(
+					conn, (pageNum - 1) * size, size, search);
+			return new BoardPage(total, pageNum, size, content);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public BoardPage selectByName(int pageNum, String search) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			int total = boardDao.searchCount(conn, search);
+			List<Board> content = boardDao.selectByName(
 					conn, (pageNum - 1) * size, size, search);
 			return new BoardPage(total, pageNum, size, content);
 		} catch (SQLException e) {

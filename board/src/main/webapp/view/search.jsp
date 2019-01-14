@@ -12,10 +12,15 @@
 <body>
 	<div id="wrap">
 		<form action="search.do">
-		<div id="searchBox">
-			<input name="search" type="text">
-			<input type="submit" value="검색">
-		</div>
+			<div id="searchBox">
+				<select name="searchList">
+					<option value="all">전체</option>
+					<option value="title">제목</option>
+					<option value="name">작성자</option>
+				</select>
+				<input name="search" type="text">
+				<input type="submit" value="검색">
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -50,17 +55,15 @@
 				<c:if test="${searchPage.hasBoards()}">
 					<tr>
 						<td colspan="5">
-						<c:if test="${searchPage.startPage > 5}">
-							<a href="search.do?pageNo=${searchPage.startPage - 5}&search=${searchTitle}">&lt;</a>
-						</c:if>
+							<a href="search.do?searchList=${searchList}&search=${searchTitle}&pageNo=1">&lt;&lt;</a>
+							<a id="before" href="search.do?searchList=${searchList}&search=${searchTitle}&pageNo=${searchPage.startPage - 5}">&lt;</a>
 						<c:forEach var="pNo" 
 							begin="${searchPage.startPage}" 
 							end="${searchPage.endPage}">
-							<a href="search.do?pageNo=${pNo}&search=${searchTitle}">${pNo}</a>
+							<a class="number" href="search.do?searchList=${searchList}&search=${searchTitle}&pageNo=${pNo}">${pNo}</a>
 						</c:forEach>
-						<c:if test="${searchPage.endPage < searchPage.totalPages}">
-							<a href="search.do?pageNo=${searchPage.startPage + 5}&search=${searchTitle}">&gt;</a>
-						</c:if>
+							<a id="after" href="search.do?searchList=${searchList}&search=${searchTitle}&pageNo=${searchPage.startPage + 5}">&gt;</a>
+							<a id="total" href="search.do?searchList=${searchList}&search=${searchTitle}&pageNo=${searchPage.totalPages}">&gt;&gt;</a>
 						</td>
 					</tr>
 				</c:if>
@@ -74,5 +77,7 @@
 			<a href="list.do">처음 목록으로 돌아가기</a>
 		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/search.js"></script>
 </body>
 </html>

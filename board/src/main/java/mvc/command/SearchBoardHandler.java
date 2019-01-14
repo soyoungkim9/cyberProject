@@ -15,16 +15,24 @@ public class SearchBoardHandler implements CommandHandler {
 			throws Exception {
 		String pageNoVal = req.getParameter("pageNo");
 		String search = req.getParameter("search");
+		String searchList = req.getParameter("searchList");
 		int pageNo = 1;
 		if (pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
 		BoardPage searchPage = boardService.getBoardPage(pageNo);
 		if (search != null) {
-			searchPage = boardService.selectBySearch(pageNo, search);
+			if(searchList.equals("all")) {
+				searchPage = boardService.selectByAll(pageNo, search);
+			} else if(searchList.equals("title")) {
+				searchPage = boardService.selectByTitle(pageNo, search);
+			} else if(searchList.equals("name")) {
+				searchPage = boardService.selectByName(pageNo, search);
+			}
 		}
 		req.setAttribute("searchPage", searchPage);
 		req.setAttribute("searchTitle", search);
+		req.setAttribute("searchList", searchList);
 		return "/view/search.jsp";
 	}
 }

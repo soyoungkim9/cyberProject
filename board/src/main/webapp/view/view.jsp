@@ -50,9 +50,13 @@
 						<input type="text" name="name" placeholder="이름" value="${param.name}">
 						<input type="text" name="pwd" placeholder="암호" value="${param.pwd}">
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<textarea rows="5" cols="40" name="content">${param.content}</textarea>
 						</td>				
+					</tr>
+					<tr>
 						<td><input type="submit" value="댓글 등록"></td>
 					</tr>
 				</tbody>
@@ -70,12 +74,11 @@
 					<tr class="comments">
 						<td>
 							<h3>${comments.name}</h3>
-							<span>${comments.sdt}</span> 
 							<input class="cno" type="hidden" name="cno" value="${comments.cno}">
 						</td>
 						<td class="originContent">
-							
 							<pre class="origin" data-cno="${comments.cno}">${comments.content}</pre>
+							<span>${comments.sdt}</span>
 							<a class="updateComment1">[댓글 수정]</a>
 							<span class="updateBox">
 							<textarea rows="5" cols="40" name="comment" 
