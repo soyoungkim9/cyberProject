@@ -54,15 +54,6 @@ public class CommentsService {
 		}
 	}
 	
-//	public Comments getComments(int commentsNum) {
-//		try(Connection conn = ConnectionProvider.getConnection()) {
-//			Comments comments = commetsDao.selectByComments(conn, commentsNum);
-//			return comments;
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
-	
 	public void modify(Comments modReq) {
 		Connection conn = null;
 		try {

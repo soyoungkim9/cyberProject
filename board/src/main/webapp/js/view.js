@@ -6,6 +6,75 @@ var comment = $('#comment');
 $(function() {
 	comment.find(".updateBox").hide();
 	comment.find(".updateComment2").hide();
+	
+	// 만약 뒤에 cno가 있으면 리스트 목록을 보이게 해라!
+	var cno = $(location).attr('href').split("cno=")[1];
+	if(cno == undefined) {
+		$(".replyForm").hide();
+		$("#replyBox").hide();
+	} else {
+		var index = $('.replyBtn');
+		for(var i = 0; i < index.length; i++) {
+			if(index[i].getAttribute("data-cno") == cno) {
+				var n = i+1;
+				$(".comments:nth-child(" + n + ")").append($("#replyBox"));
+				$(".comments:nth-child(" + n + ")").append($(".replyForm"));
+				$(".replyBtn")[i].style.display = "none";
+				$(".updateComment1")[i].style.display = "none";
+				$(".commentDelete")[i].style.display = "none";
+				$(".replyForm").show();
+				$("#replyBox").show();
+				
+				var no = $(location).attr('href').split("no=")[1].split("&")[0];
+				var pageNo = $(location).attr('href').split("pageNo=")[1].split("&")[0];
+				$(".replySubmit").on("click", function() {
+					var name = $(".inputForm > input:nth-child(1)").val();
+					var pwd = $(".inputForm > input:nth-child(2)").val();
+					var content = $(".inputForm + textarea").val();
+					$.ajax({
+						method: "POST",
+					  url: "writeReply.do",
+					  data: {name: name, pwd: pwd, content: content, 
+					  	no: no, pageNo: pageNo, cno: cno}
+					});
+				});
+			}
+		}
+	}
+	
+	
+	//답변 버튼 클릭 시
+	/*
+	var cno = $(location).attr('href').split("cno=")[1];
+	if(cno != undefined) {
+		var index = $('.replyBtn');
+		for(var i = 0; i < index.length; i++) {
+			if(index[i].getAttribute("data-cno") == cno) {
+				var n = i+1;
+				$(".comments:nth-child(" + n + ")").append($(".replyForm"));
+				$(".replyBtn")[i].style.display = "none";
+				$(".updateComment1")[i].style.display = "none";
+				$(".commentDelete")[i].style.display = "none";
+				$(".replyForm").show();
+				
+				// 답변 post방식으로 전송
+				var no = $(location).attr('href').split("no=")[1].split("&")[0];
+				var pageNo = $(location).attr('href').split("pageNo=")[1].split("&")[0];
+				$(".replySubmit").on("click", function() {
+					var name = $(".inputForm > input:nth-child(1)").val();
+					var pwd = $(".inputForm > input:nth-child(2)").val();
+					var content = $(".inputForm + textarea").val();
+					$.ajax({
+						method: "POST",
+					  url: "writeReply.do",
+					  data: {name: name, pwd: pwd, content: content, 
+					  	no: no, pageNo: pageNo, cno: cno}
+					});
+				});
+			}
+		}
+	}
+	*/
 });
 
 
@@ -28,6 +97,7 @@ $("#showComment").on("click", function() {
 $(".originContent").on("click", function() {
 	$(this).find(".updateComment1").hide();
 	$(this).find(".origin").hide();
+	$(this).find(".replyBtn").hide();
 	$(this).find(".updateBox").show();
 	$(this).find(".updateComment2").show();
 });
@@ -59,7 +129,7 @@ $("#boardDelete").on("click", function(){
 	}
 });
 
-// 댓글 삭제 버튼 클릭 시commentDelete
+// 댓글 삭제 버튼 클릭 시 commentDelete
 $(".commentDelete").on("click", function(){
 	var index = $('.commentDelete').index(this);
 	var originPwd = $(".commentDelete:eq(" + index + ")").attr("data-pwd");
@@ -74,6 +144,44 @@ $(".commentDelete").on("click", function(){
 	}
 });
 
+// 답변 버튼 클릭시
+/*
+$(".replyBtn").on("click", function(e) {
+	e.stopPropagation(); // 이벤트 버블링 막기
+	
+	var index = $('.replyBtn').index(this);
+	var cno = $(".replyBtn:eq(" + index + ")").attr("data-cno");
+	var no = $(location).attr('href').split("no=")[1].split("&")[0];
+	var pageNo = $(location).attr('href').split("pageNo=")[1];
+	$(".comments:eq(" + index + ")").append($(".replyForm"));
+	$(".replyBtn").hide();
+	$(".updateComment1").hide();
+	$(".commentDelete").hide();
+	$(".replyForm").show();
+	
+	// 답변 목록 get방식으로 처리
+//	$.ajax({
+//		url: "listReply.do",
+//		data: {cno: cno, no: no, pageNo: pageNo}
+//	}).done(function(data){
+//		console.log("성공");
+//		console.log(cno);
+//	});
+//	
+	// 답변작성 post방식으로 전송
+	$(".replySubmit").on("click", function() {
+		var name = $(".inputForm > input:nth-child(1)").val();
+		var pwd = $(".inputForm > input:nth-child(2)").val();
+		var content = $(".inputForm + textarea").val();
+		$.ajax({
+			method: "POST",
+			url: "writeReply.do",
+			data: {name: name, pwd: pwd, content: content, 
+				no: no, pageNo: pageNo, cno: cno}
+		});
+	});
+});
+*/
 
 
 
