@@ -57,7 +57,7 @@
 						</td>				
 					</tr>
 					<tr>
-						<td><input type="submit" value="등록"></td>
+						<td><input id="writeComments" type="submit" value="등록"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -70,27 +70,29 @@
 						<td colspan="3">등록 된 댓글이 없습니다.</td>
 					</tr>
 				</c:if>	
-				<c:forEach var="comments" items="${comments}">			
+				<c:forEach var="comments" items="${comments}" varStatus="status">			
 					<tr class="comments">
-						<td>
+						<td id="${comments.cno}">
 							<h3>${comments.name}<span class="dateCss1">${comments.sdt}</span></h3>
 							<input class="cno" type="hidden" name="cno" value="${comments.cno}">
 						</td>
 						<td class="originContent">
 							<pre class="origin" data-cno="${comments.cno}">${comments.content}</pre>
-							<a class="replyBtn" data-cno="${comments.cno}"
-								href="read.do?no=${board.bno}&pageNo=${pageNo}&cno=${comments.cno}">[답변]</a>
-							<a class="updateComment1">[수정]</a>
+							<a class="replyBtn cssBtn1" data-cno="${comments.cno}"
+								href="read.do?no=${board.bno}&pageNo=${pageNo}&cno=${comments.cno}#${comments.cno}"
+								>답변 <c:if test="${total[status.index] ne 0}">${total[status.index]}</c:if></a>
+							<a class="updateComment1 cssBtn1">수정</a>
 							<span class="updateBox">
-							<textarea rows="5" cols="40" name="comment" 
+							<textarea rows="5" cols="20" name="comment" 
 								class="updateContent">${comments.content}</textarea>
 							<input type="text" name="pwd" class="inputPwd"
 								 data-originPwd="${comments.pwd}" placeholder="암호를 입력해 주세요">
 							</span>
-							<input class="updateComment2" type="submit" value="수정">
-							<a class="origin pwd commentDelete" data-pwd="${comments.pwd}"
+							<input class="updateComment2 cssBtn4" type="submit" value="수정">
+							<a class="updateCancle cssBtn4" href="read.do?no=${board.bno}&pageNo=${pageNo}">취소</a>
+							<a class="origin pwd commentDelete cssBtn1" data-pwd="${comments.pwd}"
 								href="deleteComment.do?cno=${comments.cno}&no=${board.bno}&pageNo=${pageNo}">
-								[삭제]</a>
+								삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -102,25 +104,35 @@
 			<input type="hidden" name="bno" value="${board.bno}">
 			<input type="hidden" name="pageNo" value="${param.pageNo}">
 		</form>
-		<div class="replyForm"> <!--cno 값을 가져오는 것이 관건임 update.do로 처리함...하-->
+		<div class="replyForm">
 			<span class="inputForm">
 				<input type="text" name="name" placeholder="이름">
 				<input type="text" name="pwd" placeholder="암호">
 			</span>
 			<textarea rows="3" cols="20" name="content"></textarea>
-			<input class="replySubmit" type="submit" value="등록">
-			<a href="read.do?no=${board.bno}&pageNo=${pageNo}">취소</a>
+			<input class="replySubmit" type="button" value="등록">
 		</div>
 	</div>
 	<div id="replyBox">
-		<c:forEach var="reply" items="${reply}"> <!--  하.. 이태그가 안먹음... -->
+		<c:forEach var="reply" items="${reply}">
 			<div class="reply">
 				<div>
 					<h3>${reply.name}<span class="dateCss1">${reply.sdt}</span></h3>
 				</div>
 				<div>
-					<a>[수정]</a>
-					<a>[삭제]</a>
+					<pre class="updateReplyBlock replyContent">${reply.content}</pre>
+					<textarea class="updateReplyNone updateReplyContent" 
+						rows="5" cols="40">${reply.content}</textarea>
+					<input type="text" class="replyPwd">
+				</div>
+				<div>
+					<a class="updateReplyBtn updateReplyBlock cssBtn1 cssBtn2" data-rno="${reply.rno}">수정</a>
+					<input class="updateReplyNone replyAjax cssBtn4" 
+						data-rno="${reply.rno}" data-pwd="${reply.pwd}" type="button" value="등록">
+					<a class="updateReplyNone cssBtn4" 
+						href="read.do?no=${board.bno}&pageNo=${pageNo}">취소</a>
+					<a class="deleteReplyBtn cssBtn1 cssBtn2" data-pwd="${reply.pwd}" data-rno="${reply.rno}"
+						href="deleteReply.do?rno=${reply.rno}&no=${board.bno}&pageNo=${pageNo}">삭제</a>
 				</div>
 				<div>
 				

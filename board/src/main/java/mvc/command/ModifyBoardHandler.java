@@ -78,8 +78,6 @@ public class ModifyBoardHandler implements CommandHandler {
 		req.setAttribute("modReq", modReq);
 		try {
 			boardService.modify(modReq);
-			System.out.println(no);
-			System.out.println(pageNo);
 			res.sendRedirect("read.do?no=" + no + "&pageNo=" + pageNo);
 			return null;
 		} catch (BoardNotFoundException e) {

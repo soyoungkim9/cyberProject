@@ -7,7 +7,6 @@ import java.util.List;
 import dao.ReplyDao;
 import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
-import mvc.model.Comments;
 import mvc.model.Reply;
 
 public class ReplyService {
@@ -50,6 +49,34 @@ public class ReplyService {
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			List<Reply> content = replyDao.select(conn, commentsNum);
 			return content;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void modify(Reply modReq) {
+		Connection conn = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			Reply reply = replyDao.selectByReply(conn, modReq.getRno());
+			if (!modReq.getPwd().equals(reply.getPwd())) {
+				return;
+			}
+			replyDao.update(conn, modReq.getRno(), modReq.getContent());
+			conn.commit();
+		} catch(SQLException e) {
+			JdbcUtil.rollback(conn);
+			throw new RuntimeException(e);
+		} finally {
+			JdbcUtil.close(conn);
+		}
+	}
+	
+	public void delete(int replyNum) {
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			replyDao.delete(conn, replyNum);
+			conn.commit();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

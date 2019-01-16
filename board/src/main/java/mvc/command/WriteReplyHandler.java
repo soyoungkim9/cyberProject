@@ -29,11 +29,7 @@ public class WriteReplyHandler implements CommandHandler {
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		String noVal = req.getParameter("no");
-		String pageNoVal = req.getParameter("pageNo");
 		String cnoVal = req.getParameter("cno");
-		int no = Integer.parseInt(noVal);
-		int pageNo = Integer.parseInt(pageNoVal);
 		int cno = Integer.parseInt(cnoVal);
 		
 		Reply reply = new Reply();
@@ -43,7 +39,6 @@ public class WriteReplyHandler implements CommandHandler {
 		reply.setCno(cno);
 		int newReplyNo = replyService.write(reply);
 		req.setAttribute("newReplyNo", newReplyNo);
-		//res.sendRedirect("read.do?no=" + no + "&pageNo=" + pageNo + "&cno=" + cno);
 		return null;
 	}
 }

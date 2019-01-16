@@ -17,7 +17,7 @@ public class DeleteCommentsHandler implements CommandHandler {
 			String noVal = req.getParameter("no");
 			String pageNoVal = req.getParameter("pageNo");
 			String pwd = req.getParameter("pwd");
-			int cno = Integer.parseInt(cnoVal);
+			int cno = Integer.parseInt(cnoVal); 
 			int no = Integer.parseInt(noVal);
 			int pageNo = Integer.parseInt(pageNoVal);
 			if(pwd == null) {

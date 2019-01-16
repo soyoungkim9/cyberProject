@@ -52,6 +52,13 @@ public class ReadBoardHandler implements CommandHandler {
 			req.setAttribute("no", no);
 			req.setAttribute("pageNo", pageNo);
 			
+			// 답변 개수 출력
+			int[] total = new int[comments.size()];
+			for(int i = 0; i < comments.size(); i++) {
+				total[i] = replyService.getCount(comments.get(i).getCno());
+			}
+			req.setAttribute("total", total);
+			
 			if(req.getParameter("cno") != null) {
 				int cnoNum = Integer.parseInt(req.getParameter("cno"));
 				List<Reply> reply = replyService.getReply(cnoNum);
@@ -80,7 +87,7 @@ public class ReadBoardHandler implements CommandHandler {
 		comments.setBno(no);
 		int newCommentsNo = commentsService.write(comments);
 		req.setAttribute("newCommentsNo", newCommentsNo);
-		res.sendRedirect("read.do?no=" + no + "&pageNo=" + pageNo);
+		res.sendRedirect("read.do?no=" + no + "&pageNo=" + pageNo + "#comment");
 		return null;
 	}
 }

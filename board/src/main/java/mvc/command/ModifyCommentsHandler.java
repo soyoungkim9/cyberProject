@@ -40,7 +40,6 @@ public class ModifyCommentsHandler implements CommandHandler {
 		String[] comment = req.getParameterValues("comment");
 		int bno = Integer.parseInt(bnoVal);
 		int pageNo = Integer.parseInt(pageNoVal);
-		
 		int[] cno = new int[cnoVal.length];
 		List<Comments> commentsList = new ArrayList<>();
 		for(int i = 0; i < cnoVal.length; i++) {
@@ -57,27 +56,11 @@ public class ModifyCommentsHandler implements CommandHandler {
 			for(int i = 0; i < commentsList.size(); i++) {
 				commentsService.modify(commentsList.get(i));
 			}
-			res.sendRedirect("read.do?no=" + bno + "&pageNo=" + pageNo);
+			res.sendRedirect("read.do?no=" + bno + "&pageNo=" + pageNo + "#comment");
 			return null;
 		} catch (BoardNotFoundException e) {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return null;
 			}
 		} 
-	
-	/*
-	 		int no = Integer.parseInt(noVal);
-		int pageNo = Integer.parseInt(pageNoVal);
-		int cno = Integer.parseInt(cnoVal);
-		
-		Comments comments = new Comments();
-		comments.setCno(cno);
-		comments.setPwd(req.getParameter("pwd"));
-		comments.setContent(req.getParameter("content"));
-		req.setAttribute("modReq", comments);
-		try {
-			commentsService.modify(comments);
-//			res.setHeader("Refresh", "0; URL=" + req.getContextPath() 
-//				+ "/read.do?no=" + no + "&pageNo=" + pageNo); 
-	 */
 }

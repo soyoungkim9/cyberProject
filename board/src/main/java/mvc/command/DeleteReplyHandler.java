@@ -4,18 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.BoardNotFoundException;
+import service.ReplyService;
 
-public class ListReplyHandler implements CommandHandler {
+public class DeleteReplyHandler implements CommandHandler {
+	private ReplyService replyService = new ReplyService();
+	
 	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) 
+	public String process(HttpServletRequest req, HttpServletResponse res)
 			throws Exception {
-		String cnoVal = req.getParameter("cno");
-		String noVal = req.getParameter("no");
-		String pageNoVal = req.getParameter("pageNo");
-		
 		try {
-			res.sendRedirect("read.do?no=" + noVal + "&pageNo=" 
-					+ pageNoVal + "&cno=" + cnoVal);
+			String rnoVal = req.getParameter("rno");
+			int rno = Integer.parseInt(rnoVal);
+				replyService.delete(rno);
 			return null;
 		} catch (BoardNotFoundException e) {
 			req.getServletContext().log("no board", e);

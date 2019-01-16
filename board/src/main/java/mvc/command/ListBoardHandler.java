@@ -3,9 +3,6 @@ package mvc.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import service.BoardPage;
 import service.BoardService;
 

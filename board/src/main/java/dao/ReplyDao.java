@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.JdbcUtil;
-import mvc.model.Comments;
 import mvc.model.Reply;
 
 public class ReplyDao {
@@ -87,5 +86,45 @@ public class ReplyDao {
 		reply.setSdt(rs.getDate("sdt"));
 		reply.setCno(rs.getInt("cno"));
 		return reply;
+	}
+	
+	public Reply selectByReply(Connection conn, int no) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(
+					"select * from reply where rno = ?");
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			Reply reply = null;
+			if(rs.next()) {
+				reply = getReply(rs);
+			}
+			return reply;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public int update(Connection conn, int no, String content) 
+			throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"update reply set content = ? where rno = ?")) {
+			pstmt.setString(1, content);
+			pstmt.setInt(2, no);
+			return pstmt.executeUpdate();
+		}
+	}
+	
+	public int delete(Connection conn, int no) 
+			throws SQLException {
+		try(PreparedStatement pstmt =
+				conn.prepareStatement(
+						"delete from reply where rno = ?")) {
+			pstmt.setInt(1, no);
+			return pstmt.executeUpdate();
+		}
 	}
 }

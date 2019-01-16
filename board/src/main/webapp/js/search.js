@@ -1,7 +1,7 @@
 // 페이지에 색깔, 옵션값 유지, 텍스트 상자 값 유지
 $(function() {
 	var page = parseInt($(location).attr("href").split("=")[3]);
-	var search = $(location).attr("href").split("search=")[1].split("&")[0];
+	var search = decodeURI($(location).attr("href")).split("search=")[1];
 	var searchList = $(location).attr("href").split("searchList=")[1].split("&")[0];
 	
 	for(var i = 1; i <= $("[name='searchList']").children().length; i++) {
