@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" type="text/css" href="/WEB-APP/webponent/thirdParty/codemirror/codemirror.css" /><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/codemirror.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/xml.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/javascript.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/css.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/htmlmixed.js"></script><link rel="stylesheet" type="text/css" href="sample.css">
+<script type="text/javascript" src="/WEB-APP/webponent/thirdParty/jquery/jquery-1.9.1.min.js"></script><script type="text/javascript" src="sample.js"></script>
+
+<script type="text/javascript" src="/WEB-APP/webponent/databind/databind.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/websocketinfo.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/web_socket.js"></script>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>Insert title here</title>
+</head>
+<body onunload="try{SOCKET.close();}catch(e){}">
+<div id="description">
+<div class="description-item">
+    <div class="fl bind-attribute">r</div>
+    <div class="fr bind-target">TARGET : data-bind로 실시간을 적용받는 모든 element</div>
+    <div class="clear"></div>
+    <div class="bind-description">
+    <div class="div-layout two">
+        <div class="first">
+            <ol>
+                <li>&lt;tbody data-bind="^_this.prependItem(<strong>r</strong>)"&gt;...&lt;/tbody&gt;</li>
+                <li>&lt;div data-bind="curjuka^<strong>r.curjuka</strong>"&gt;&lt;/div&gt;</li>
+                <li>&lt;input type="button" data-bind="curjuka^<strong>r.curjuka</strong>"/&gt;</li>
+            </ol>
+            
+            <br/><strong>manager.send("+","005930",formId,"x21");</strong>
+        </div>
+        <div>
+            <ol>
+                <li>&lt;tbody data-bind="^_this.prependItem(<strong>x21</strong>)"&gt;...&lt;/tbody&gt;</li>
+                <li>&lt;div data-bind="curjuka^<strong>x21.curjuka</strong>"&gt;&lt;/div&gt;</li>
+                <li>&lt;input type="button" data-bind="curjuka^<strong>x21.curjuka</strong>"/&gt;</li>
+            </ol>
+            <br/><strong>manager.send("+","005930",formId,"x21");</strong>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    
+    <p>위에서 좌측과 우측의 차이는 실시간 데이터를 처리하는 prefix가 r이냐 또는 실시간 등록에 사용한 x21냐의 차이이다. 내부적으로 모든 실시간 데이터는 r 로도 접근이 가능하게 되어 있다. 
+    좌측은 manager.send시 x21(현물 실시간)이 아니라 x4a(후강퉁 실시간)로 등록해도 아무 오류없이 바로 동작이 가능하다. 하지만 우측은 무조건 x21로 등록한 데이터만 처리 한다. 
+    r로 처리하면 모든 경우에 대해서 처리가 가능하지만 개인적으로 되도록이면 x21, x4a 처럼 직관적인 prefix를 사용하도록 하자.
+    </p>
+    
+    <strong>기본값인 r 이 마음에 들지 않는다면 BINDER_CONFIG.REALTIME_MULTI_OBJ_NAME 을 변경하여 적용 할 수 있다.</strong>
+    <ol>
+        <li>폼과 요소는 변하지 않고 실시간 TR만 변경하여 재사용이 가능한 경우</li>
+        <li>multibind와 같이 한 row에 2개  이상의 실시간 TR이 적용된 경우 (x21|x22)</li>
+    </ol>
+    </div>
+</div>
+</div>
+<div id="preview" class="preview"></div><div id="htmlview"><textarea id="html" name="html" style="display: none;"><form id="frm">
+    <table style="width:100%">
+        <caption>x21로 등록했지만 r로 받아서 사용할 수 있다.</caption>
+        <thead>
+            <tr>
+                <th scope="col">종목명</th>
+                <th scope="col">현재가</th>
+                <th scope="col">전일비</th>
+                <th scope="col">등락율</th>
+                <th scope="col">거래량</th>
+            </tr>
+        </thead>
+        <tbody data-bind="_this.listItem(a.block)^_this.replaceItem(r,r.autocode)">
+            <tr data-bindkey="jongcode">
+                <td data-bind="jongname"></td>
+                <td data-bind="curjuka^curjuka"></td>
+                <td data-bind="DB_getColFlag(debi,debi_f)^DB_getColFlag(debi,debi_f)"></td>
+                <td data-bind="DB_getColBuho(debirate)^DB_getColBuho(debirate)"></td>
+                <td data-bind="volume^volume"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="clear"></div>
+</form></textarea></div>
+
+<div id="scriptview"><textarea id="script" name="script" style="display: none;"><script type="text/javascript">
+    //임시 데이터
+    var jsonData = {
+        a:{
+            block:[
+                {jongcode:"000720",jongname:"현대건설",curjuka:"36,000",debi:"350",debi_f:"2",debirate:"0.83",volume:"71,925",medohoka:"36,500",medojan:"12",mesuhoka:"36,450",mesujan:"1235"},
+                {jongcode:"005930",jongname:"삼성전자",curjuka:"1,137,000",debi:"10,000",debi_f:"2",debirate:"0.67",volume:"58,948",medohoka:"1,151,000",medojan:"1",mesuhoka:"1,150,000",mesujan:"135"},
+                {jongcode:"122630",jongname:"KODEX 레버리지",curjuka:"12,120",debi:"135",debi_f:"5",debirate:"-1.13",volume:"11,600,333",medohoka:"9,130",medojan:"385",mesuhoka:"9,125",mesujan:"8235"},
+                {jongcode:"000660",jongname:"SK하이닉스",curjuka:"31,700",debi:"300",debi_f:"2",debirate:"0.96",volume:"1,323,825",medohoka:"27,450",medojan:"825",mesuhoka:"27,000",mesujan:"185"}
+            ]
+        }
+    };
+
+    var formId = "frm";
+    
+    var binder = manager.addBinder(formId,true);//해당 폼을 매니저에 등록
+    binder.bind(jsonData);//jsonData를 해당 element에 binding
+    
+    
+    
+    
+    //실시간 데이터 수신을 위한 웹소켓 연결
+    startWebsocket();//websocketinfo.js
+    
+    //실시간 등록,해제함수  ([+|-],[실시간등록코드], [폼아이디], [실시간수신TR])
+    var block = jsonData.a.block;
+    var sendList = new Array();
+    for( var i = 0, ic = block.length; i < ic; i++ ){
+        sendList.push(block[i]["jongcode"]);
+    }
+    
+    manager.send("+",sendList.join("|"),formId,"x21");
+</script></textarea></div><div class="clear"></div></body></html>

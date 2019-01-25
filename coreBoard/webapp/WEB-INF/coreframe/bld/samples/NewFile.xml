@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name></name>
+    <description></description>
+    <author></author>
+    <version></version>
+    <http-access>false</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="">
+    <sql id="query1">
+      <query type=""></query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+    
+  </processor-info>
+  
+  <input>
+    <block >
+      <field name="fieldNm" type="string"/>
+    </block>
+  </input>
+  
+  <output>
+    <block>
+      <field name="outFieldName" type="string"/>
+    </block>
+  </output>  
+
+</transaction>

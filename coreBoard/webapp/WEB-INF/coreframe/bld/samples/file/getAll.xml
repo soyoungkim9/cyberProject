@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="getAll" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date></effective-date>
+		<description>파일에 기록된 모든 주가정보를 추출한다.</description>
+		<version>0.1</version>
+		<name>주가 정보 리스트</name>
+	</info>
+
+	<processor-info type="file-reader">
+		<property desc="" name="fileName" value="test.txt"></property>
+		<property name="start-row" value="0"></property>
+		<property name="select-rownum" value="-1"></property>
+		<property name="direction" value="normal"></property>
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+
+		<transaction-type></transaction-type>
+	</processor-info>
+
+	<input>
+		<block></block>
+	</input>
+
+	<output>
+		<block name="stock">
+			<field label="종목코드" name="jcode" size="6" type="string"></field>
+			<field label="종목명" name="hname" size="10" type="string"></field>
+			<field label="현재가" name="price" size="10" type="int"></field>
+			<field label="고가" name="high" size="10" type="int"></field>
+			<field label="저가" name="low" size="10" type="int"></field>
+		</block>
+	</output>
+
+	<Signature>
+		<SignatureValue>24e4fea2107d1f28656f374bcac1025af6</SignatureValue>
+	</Signature>
+</transaction>

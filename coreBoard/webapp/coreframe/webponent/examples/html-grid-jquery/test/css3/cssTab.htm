@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='UTF-8'>
+	
+	<title>CSS Tabs</title>
+		
+    <style>
+        * { margin: 0; padding: 0; }
+        
+        /* Stuff for example seven - including conditionals below */
+        #ie-test { position: relative; width: 100%; }
+        #boxLinks { list-style: none; overflow: hidden; }
+        #boxLinks li {  display: inline; }
+        #boxLinks li a { padding: 5px 10px; color: black; text-decoration: none; border: 1px solid #ccc; float: left; display: block; margin-left: -1px; position: relative; left: 1px; }
+        #boxLinks li a:hover { color: #fff; background: #000; }
+        #boxLinks li a:FOCUS{ color: #fff; background: #000; }
+        #box { height: 250px; border: 1px solid #ccc; overflow: hidden; padding: 0px 30px 0px 30px; position: relative; top: -1px; }
+        .box { display: none; height: 250px; overflow: auto; display: block; position: relative; overflow-x: hidden; }
+        #box1:target, #box2:target, #box3:target { display: block; }
+
+    </style>
+    
+    <!--[if IE]>
+    <style type="text/css">
+        .box { display: block; }
+        #box { overflow: hidden;position: relative; }
+    </style>
+    <![endif]-->
+
+</head>
+
+<body>
+
+	
+            
+            <div id="ie-test">
+
+                <ul id="boxLinks" class="group">
+                	<li><a href="#box1">Tab 19</a></li>
+                	<li><a href="#box2">Tab 20</a></li>
+                	<li><a href="#box3">Tab 21</a></li>
+                </ul>
+                
+                <div id="box">
+                	<div id="box1" class="box">
+                	   <ul>
+                        <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                        <li>Aliquam tincidunt mauris eu risus.</li>
+                        <li>Vestibulum auctor dapibus neque.</li>
+                       </ul>
+                     </div>
+                	<div id="box2" class="box">Another box! </div>
+                	<div id="box3" class="box">Woot!</div>
+                </div>
+            
+            </div>
+		
+		
+
+
+
+
+</body>
+
+</html>

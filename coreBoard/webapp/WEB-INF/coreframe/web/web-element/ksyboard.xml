@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-elements rootDir="/">
+	<element name="ksy.common" requires="jquery,chart,underscore">
+		<include type="css">/calendar/css/calendar.css</include>
+		<include type="js">/calendar/calendar.js</include>
+	</element>
+
+	<!-- Third Parties : E -->
+
+
+	<element name="getDevice.pc">
+		<include type="text">
+			<![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "pc";
+}
+</script>
+            ]]>
+		</include>
+	</element>
+
+	<element name="getDevice.mobile">
+		<include type="text">
+			<![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "mobile";
+}
+</script>
+            ]]>
+		</include>
+	</element>
+
+	<element name="getDevice.tablet">
+		<include type="text">
+			<![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "tablet";
+}
+</script>
+            ]]>
+		</include>
+	</element>
+
+	<element name="getDevice.tablet-low">
+		<include type="text">
+			<![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "tablet-low";
+}
+</script>
+            ]]>
+		</include>
+	</element>
+</web-elements>

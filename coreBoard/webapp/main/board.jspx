@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"/>
+    <jsp:directive.page extends="coreframe.http.JspxController"/>
+    <jsp:directive.page import="coreframe.data.DataSet"/>
+    <jsp:directive.page import="coreframe.http.HttpAttributes,coreframe.http.ViewMeta"/>
+    <jsp:directive.page import="coreframe.http.multipart.FileBasedMultipartProcessor"/>
+    <jsp:directive.page import="java.io.IOException"/>
+    <c:set scope="request" var="viewpage.prefix" value="/main/board/"/>
+    <c:set scope="request" var="viewpage.postfix" value=".jsp"/>
+    <jsp:declaration><![CDATA[//
+
+        protected String getDefaultMethodName() {
+            return "list";
+        }
+
+        public void getList(ViewMeta view, String bld, String search, String searchList) throws IOException {
+            String pageNoVal = view.getRequestParameter("pageNo");
+            int size = 5;
+            int pageNo = 1;
+            if (pageNoVal != null) {
+               pageNo = Integer.parseInt(pageNoVal);
+            }
+
+            DataSet input = new DataSet();
+            input.put("startRow", (pageNo - 1) * size);
+            input.put("size", size);
+            // 검색어가 들어온 경우
+            if(search != "none") {
+                input.put("search", search);
+                input.put("searchList", searchList);
+            }
+
+            DataSet output = executeBL(bld, input);
+            // 페이징
+            int total = output.getInt("total");
+            int totalPages = total / size;
+            if(total % size > 0) {
+                totalPages++;
+            }
+
+            int modVal = pageNo % 5;
+            int startPage = pageNo / 5 * 5 + 1;
+            if(modVal == 0) startPage -= 5;
+
+            int endPage = startPage + 4;
+            if (endPage > totalPages) endPage = totalPages;
+            view.setAttribute("boardPage", output.toList());
+            view.setAttribute("line", total);
+            view.setAttribute("startPage", startPage);
+            view.setAttribute("endPage", endPage);
+            view.setAttribute("totalPages", totalPages);
+            view.setAttribute("pageNo", pageNo);
+            // 검색어가 들어온 경우
+            if(search != "none") {
+                view.setAttribute("searchPage", output.toList());
+                view.setAttribute("searchTitle", search);
+                view.setAttribute("searchList", searchList);
+                view.setAttribute("searchLine", total);
+            }
+        }
+
+        public void list(ViewMeta view) throws IOException {
+            getList(view, "board/list", "none", "none");
+            view.setViewName("list");
+        }
+
+        public void search(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            String search = attr.getString("search");
+            String searchList = attr.getString("searchList");
+            if(search != null) {
+                getList(view, "board/search", search, searchList);
+            }
+
+            view.setViewName("search");
+        }
+
+        public void write(ViewMeta view) throws IOException {
+            if(view.getHttpServletRequest().getMethod().equalsIgnoreCase("GET")) {
+                view.setViewName("form");
+            } else if(view.getHttpServletRequest().getMethod().equalsIgnoreCase("POST")) {
+                // 코어프레임전용 multipart(파일업로드)
+                HttpAttributes attr = view.getHttpAttributes(new FileBasedMultipartProcessor("C:\\DevBundle\\workspace\\ksy-board\\webapp\\upload"));
+
+                DataSet input = new DataSet();
+                input.put("name", attr.getString("name"));
+                input.put("title", attr.getString("title"));
+                input.put("content", attr.getString("content"));
+                input.put("pwd", attr.getString("pwd"));
+                input.put("fileurl", attr.getString("uploadFile")); // InputStrema으로 저장해서 가져오는법 질문?!
+                DataSet output = executeBL("board/insert", input);
+                view.setViewName("list");
+            }
+        }
+
+        public void read(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            int no = attr.getInt("no");
+            int pageNo = attr.getInt("pageNo");
+
+            DataSet input1 = new DataSet();
+            DataSet input2 = new DataSet();
+            input1.put("bno", no);
+            input2.put("bno", no);
+
+            DataSet output1 = executeBL("board/view", input1);
+            DataSet output2 = executeBL("comments/list", input2);
+
+            view.setAttribute("board", output1);
+            view.setAttribute("comments", output2.toList());
+            view.setAttribute("size", output2.size());
+            view.setAttribute("no", no);
+            view.setAttribute("pageNo", pageNo);
+            // 대댓글 개수 출력
+            DataSet input3 = new DataSet();
+            DataSet output3;
+            int[] total = new int[output2.toList().size()];
+            for(int i = 0; i < output2.toList().size(); i++) {
+                input3.put("cno", output2.getInt("cno", i));
+                output3 = executeBL("reply/list", input3);
+                total[i] = output3.getInt("total");
+            }
+            view.setAttribute("total", total);
+
+            // 대댓글 목록
+            if(attr.getInt("cno") != 0) {
+                DataSet input4 = new DataSet();
+                input4.put("cno", attr.getInt("cno"));
+                DataSet output4 = executeBL("reply/list", input4);
+
+                view.setAttribute("reply", output4.toList());
+                view.setAttribute("cno", attr.getInt("cno"));
+                view.setAttribute("rSize", output4.getInt("total"));
+            }
+
+            view.setViewName("view");
+        }
+
+        public void modify(ViewMeta view) throws IOException {
+            if(view.getHttpServletRequest().getMethod().equalsIgnoreCase("GET")) {
+                HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+                int no = attr.getInt("no");
+                int pageNo = attr.getInt("pageNo");
+
+                DataSet input = new DataSet();
+                input.put("bno", no);
+                input.put("modify", "modify");
+                DataSet output = executeBL("board/view", input);
+
+                view.setAttribute("modReq", output);
+                view.setAttribute("pageNo", pageNo);
+                view.setViewName("modify");
+            } else if(view.getHttpServletRequest().getMethod().equalsIgnoreCase("POST")) {
+                // 코어프레임전용 multipart(파일업로드)
+                HttpAttributes attr = view.getHttpAttributes(new FileBasedMultipartProcessor("C:\\DevBundle\\workspace\\ksy-board\\webapp\\upload"));
+                DataSet input = new DataSet();
+                input.put("bno", attr.getString("bno"));
+                input.put("title", attr.getString("title"));
+                input.put("content", attr.getString("content"));
+                if(attr.getString("uploadFile") == "") {
+                    input.put("fileurl", attr.getString("maintainFile"));
+                } else {
+                    input.put("fileurl", attr.getString("uploadFile"));
+                }
+                DataSet output = executeBL("board/update", input);
+
+                view.getHttpServletResponse().sendRedirect("read.cmd?no=" + attr.getString("bno") + "&pageNo=" + attr.getString("pageNo"));
+            }
+        }
+
+        public void delete(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            int no = attr.getInt("no");
+            int pageNo = attr.getInt("pageNo");
+            String pwd = attr.getString("pwd");
+
+            if(pwd == "" || pwd == null) {
+                DataSet input = new DataSet();
+                input.put("bno", no);
+                DataSet output = executeBL("board/delete", input);
+
+                view.getHttpServletResponse().sendRedirect("list.cmd?pageNo=" + pageNo);
+            }  else {
+                view.getHttpServletResponse().sendRedirect("read.cmd?no=" + no + "&pageNo=" + pageNo);
+            }
+        }
+
+        public void listComments(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            DataSet input = new DataSet();
+            input.put("cno", attr.getInt("cno"));
+            input.put("name", attr.getString("name"));
+            input.put("pwd", attr.getString("pwd"));
+            input.put("content", attr.getString("content"));
+            input.put("bno", attr.getInt("no"));
+            DataSet output = executeBL("comments/insert", input);
+
+            view.getHttpServletResponse().sendRedirect("read.cmd?no=" + attr.getInt("no") + "&pageNo=" + attr.getString("pageNo"));
+        }
+
+        public void modifyComments(ViewMeta view) throws IOException {
+            System.out.println("어디까지??");
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            DataSet input = new DataSet();
+            input.put("cno", attr.getInt("cno"));
+            input.put("content", attr.getString("content"));
+            DataSet output = executeBL("comments/update", input);
+        }
+
+        public void removeComments(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            int cno = attr.getInt("cno");
+            int no = attr.getInt("no");
+            int pageNo = attr.getInt("pageNo");
+            String pwd = attr.getString("pwd");
+
+            DataSet input = new DataSet();
+            input.put("cno", cno);
+            if(pwd == "" || pwd == null) {
+                DataSet output = executeBL("comments/delete", input);
+            }
+            view.getHttpServletResponse().sendRedirect("read.cmd?no=" + no + "&pageNo=" + pageNo);
+
+        }
+
+        public void writeReply(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+
+            DataSet input = new DataSet();
+            input.put("name", attr.getString("name"));
+            input.put("pwd", attr.getString("pwd"));
+            input.put("content", attr.getString("content"));
+            input.put("cno", attr.getInt("cno"));
+
+            DataSet output = executeBL("reply/insert", input);
+            view.setViewName("view");
+        }
+
+        public void modifyReply(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+
+            DataSet input = new DataSet();
+            input.put("rno", attr.getInt("rno"));
+            input.put("content", attr.getString("content"));
+
+            DataSet output = executeBL("reply/update", input);
+        }
+
+        public void deleteReply(ViewMeta view) throws IOException {
+            HttpAttributes attr = HttpAttributes.getInstance(view.getHttpServletRequest());
+            int rno = attr.getInt("rno");
+
+            DataSet input = new DataSet();
+            input.put("rno", rno);
+            DataSet output = executeBL("reply/delete", input);
+
+            view.setViewName("view");
+        }
+
+//]]></jsp:declaration>
+</jsp:root>

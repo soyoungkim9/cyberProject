@@ -1,0 +1,1578 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+    <jsp:directive.page import="java.net.*"/>
+    <jsp:directive.page import="org.w3c.tidy.*"/>
+    <jsp:directive.page import="coreframe.db.meta.DbmsMeta"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"/>
+    <jsp:directive.page extends="coreframe.http.JspxController"/>
+    <jsp:directive.page import="java.io.*,java.util.*,org.w3c.dom.*"/>
+    <jsp:directive.page import="coreframe.*"/>
+    <jsp:directive.page import="coreframe.http.*,coreframe.data.*"/>
+    <jsp:directive.page import="coreframe.log.*,coreframe.xml.*"/>
+    <jsp:directive.page import="coreview.form.*"/>
+    <jsp:directive.page import="coreframe.util.*"/>
+    <jsp:directive.page import="org.w3c.dom.Node"/>
+    <jsp:directive.page import="coreframe.io.distrib.*"/>
+    <jsp:directive.page import="coreview.menu.dao.MenuDaoBase"/>
+    <jsp:directive.page import="coreview.menu.dao.XmlDbMenuDao"/>
+    <jsp:directive.page import="coreview.menu.bean.MenuMgrBean"/>
+    <jsp:directive.page import="coreframe.io.StreamUtil"/>
+    <jsp:directive.page import="coreframe.http.multipart.MemoryBasedMultipartProcessor"/>
+    <jsp:directive.page import="coreview.layout.dao.LayoutDaoBase"/>
+    <jsp:directive.page import="coreview.menu.dao.XmlMenuDao"/>
+    <jsp:directive.page import="coreview.layout.dao.XmlDbDao"/>
+    <jsp:directive.page import="coreview.layout.LayoutManager"/>
+    <c:set var="viewpage.prefix" value="/WEB-APP/admin/view/" scope="request"/>
+    <c:set var="viewpage.postfix" value=".jsp" scope="request"/>
+    <jsp:declaration><![CDATA[//
+
+        /**
+         *
+         *
+         **/
+        public boolean doBefore(HttpServletRequest req, HttpServletResponse resp,
+                                String methodName) throws ServletException, IOException {
+
+            coreframe.security.WebAuthorizer wa = (coreframe.security.WebAuthorizer) CoreApplication
+                    .getInstance().getBean("coreview.defaultWebAuthorizer");
+
+            if (!wa.authorize(req, resp, null)) {
+                return false;
+            } else {
+                String viewDir = CoreApplication.getInstance().getAttributeText(
+                        CoreApplication.WEB_CONTEXT_NAME)
+                        + "/WEB-APP/admin/view";
+
+                // "./admin/view/css/smoothness/jquery-ui-1.8.16.custom.css"
+
+                StringBuffer base = new StringBuffer();
+                base.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"")
+                        .append(viewDir).append("/css/ui.css\" media=\"all\">");
+                base.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"")
+                        .append(viewDir).append("/css/form.css\" media=\"all\">");
+                base.append("<link type=\"text/css\" rel=\"stylesheet\" href=\"")
+                        .append(viewDir)
+                        .append("/css/smoothness/jquery-ui-1.8.16.custom.css\" media=\"all\">");
+                base.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery-1.6.2.min.js\"></script>");
+                base.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery-ui-1.8.16.custom.min.js\"></script>");
+                base.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery.ui.nestedSortable.js\"></script>");
+                base.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery.cookie.js\"></script>");
+                base.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery.resize-stop.js\"></script>");
+
+                req.setAttribute("import_baseUI", base.toString());
+
+                StringBuffer layout = new StringBuffer();
+                layout.append("<script src=\"").append(viewDir)
+                        .append("/js/jquery.layout-1.2.0.js\"></script>");
+
+                req.setAttribute("import_layoutUI", layout.toString());
+
+                return true;
+            }
+        }
+
+        private void makeAdminMenu(List menuList, XmlDataSet xds) {
+            XMLReferer xmlRef = new XMLReferer(xds);
+
+            xmlRef.lookup("/admin-sitemap/group");
+
+            while (xmlRef.next()) {
+                String groupName = xmlRef.getString("name");
+                xmlRef.mark();
+
+                Map group = new HashMap();
+                group.put("name", groupName);
+
+                List child = new ArrayList();
+                group.put("child", child);
+
+                menuList.add(group);
+
+                xmlRef.lookup("menu");
+                while (xmlRef.next()) {
+                    String menuName = xmlRef.getString("name");
+                    String type = xmlRef.getString("type");
+                    String id = xmlRef.getString("id");
+                    String url = xmlRef.getString("href");
+                    if (!StringUtil.hasLength(url)) {
+                        url = "./admin/services/" + id + "/config";
+                    }
+
+                    Map menu = new HashMap();
+                    menu.put("name", menuName);
+                    menu.put("href", url);
+                    child.add(menu);
+                }
+                xmlRef.reset();
+
+            }
+
+        }
+
+        public void index(ViewMeta view) throws Exception {
+
+            List menuList = new ArrayList();
+
+
+            String path = this.getServletContext().getRealPath(
+                    "/WEB-APP/admin/conf/menu.xml");
+
+            XmlDataSet xds = new XmlDataSet(new File(path));
+            makeAdminMenu(menuList, xds);
+
+            List<String> webappHomeDirs = (List) CoreApplication.getInstance()
+                    .getAttribute("WEBAPP_HOME_DIRS");
+            if (webappHomeDirs != null) {
+                for (String homePath : webappHomeDirs) {
+                    String fullpath = homePath + "/_resource/admin-menu.xml";
+                    xds = new XmlDataSet(new File(fullpath));
+                    makeAdminMenu(menuList, xds);
+
+                }
+            }
+            view.setAttribute("menuList", menuList);
+            view.setViewName("main");
+        }
+
+        public void services(ViewMeta view) throws ServletException, IOException {
+
+
+        }
+
+        public void post_config(ViewMeta view) throws Exception {
+
+            DataSet input = view.getInputDataSet();
+
+            String serviceId = view.getPathParameter("serviceId");
+
+            String cfg = getConfigFilePath(serviceId);
+            String filePath = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.COREFRAME_CONFIG_HOME)
+                    + "/" + cfg;
+
+            XmlDataSet xds = new XmlDataSet(new File(filePath));
+            if (cfg != null && cfg.indexOf("service") == 0) {
+                xds.setProperty("xmlns:b",
+                        "http://www.springframework.org/schema/beans");
+
+                xds.setProperty("xmlns:context",
+                        "http://www.springframework.org/schema/context");
+                xds.setProperty("xmlns:p",
+                        "http://www.springframework.org/schema/p");
+                xds.setProperty("xmlns:xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance");
+
+            }
+
+            // add
+            String add = input.getText("add");
+            String[] addArray = StringUtil.split(add, ",");
+            for (String addXpath : addArray) {
+                if (StringUtil.hasLength(addXpath)) {
+
+                    if (addXpath.indexOf("*") > 0) {
+                        String nodename = input.getText(addXpath + "/$nodename");
+                        addXpath = addXpath.substring(0, addXpath.lastIndexOf("/"))
+                                + "/" + nodename;
+                    } else {
+                        addXpath = addXpath.substring(0, addXpath.lastIndexOf("["));
+                    }
+
+                    Logger.debug.println("add [" + addXpath + "]");
+                    xds.add(addXpath, null);
+                }
+            }
+
+            // update
+            String upd = input.getText("upd");
+            String[] updateArray = StringUtil.split(upd, ",");
+            for (String updateXpath : updateArray) {
+                if (StringUtil.hasLength(updateXpath)) {
+                    String val = input.getText(updateXpath);
+
+                    if (updateXpath.indexOf("$nodename") > 0) {
+                        String xpath = updateXpath.substring(0,
+                                updateXpath.lastIndexOf("/"));
+
+                        org.w3c.dom.Node n = xds.getSearchNodeList(xpath).item(0);
+                        try {
+                            Logger.debug.println("renameNode [" + updateXpath
+                                    + "] [" + val + "]");
+                            //@@ 컴파일 에러
+                            //xds.getDocument().renameNode(n, null, val);
+                        } catch (Exception e) {
+
+                        }
+
+                    } else {
+                        Logger.debug.println("update [" + updateXpath + "] [" + val
+                                + "]");
+                        xds.put(updateXpath, val);
+                    }
+
+                }
+            }
+            // delete
+            String del = input.getText("del");
+            String[] deleteArray = StringUtil.split(del, ",");
+            for (String deleteXpath : deleteArray) {
+                if (StringUtil.hasLength(deleteXpath)) {
+                    String val = input.getText(deleteXpath);
+                    Logger.debug.println("delete [" + deleteXpath + "]");
+                    xds.remove(deleteXpath);
+                }
+            }
+
+		/* PrintWriter pw = new PrintWriter(filePath);
+		DOMWriter writer = new DOMWriter(pw);
+		writer.setCanonical(false);
+		writer.print(xds.getDocument());*/
+
+            FrameworkFileWriteService ff = FrameworkFileWriteServiceManager
+                    .getInstance().getFrameworkFileWriteService();
+            OutputStream pw = ff.getOutputStream(filePath);
+            try {
+                //PrintWriter pw = new PrintWriter(filePath);
+                DOMWriter writer = new DOMWriter(pw);
+                writer.setCanonical(false);
+                writer.print(xds.getDocument());
+            } catch (Exception e) {
+
+            } finally {
+                pw.close();
+            }
+
+            view.setAttribute("filepath", "save file:" + filePath);
+
+            get_config(view);
+
+        }
+
+        public void get_config(ViewMeta view) throws Exception {
+
+            String serviceId = view.getPathParameter("serviceId");
+
+            String path = this.getServletContext().getRealPath(
+                    "/WEB-APP/admin/conf/form/" + serviceId + ".xml");
+
+            File f = new File(path);
+
+            FormGenerator gen = new FormGenerator();
+            gen.loadMetaFile(f);
+            FormElement fx = gen.generate("Common");
+
+            String cfg = getConfigFilePath(serviceId);
+            String filePath = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.COREFRAME_CONFIG_HOME)
+                    + "/" + cfg;
+
+            XmlDataSet xds = new XmlDataSet(new File(filePath));
+            xds.setProperty("xmlns:b",
+                    "http://www.springframework.org/schema/beans");
+
+            XmlDataExtractor ext = new XmlDataExtractor(xds);
+            TransformContext ctx = new TransformContext();
+            ctx.setDataExtractor(ext);
+
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+
+            fx.print(ctx, pw);
+
+            view.setAttribute("serviceId", serviceId);
+            view.setAttribute("content", sw.toString());
+            view.setViewName("config");
+        }
+
+        ////////////////////////////////////////////////////////////////
+        public void bld(ViewMeta view) throws ServletException, IOException {
+
+            view.setViewName("bld_main");
+
+        }
+
+        public void viewBldDirectory(ViewMeta view) throws ServletException,
+                IOException {
+
+            view.setViewName("bld_directory");
+        }
+
+        public void getTreeData(ViewMeta view) throws ServletException, IOException {
+            String viewPage = "bld_directory";
+            String dir = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.BLD_ROOT_DIRECTORY);
+
+            String bldPath = view.getRequestParameter("key");
+            if (bldPath == null) {
+                bldPath = "";
+            } else {
+                dir = dir + "/" + bldPath;
+                viewPage = "tree_subset";
+            }
+
+            File df = new File(dir);
+
+            File[] files = df.listFiles();
+
+            List treeMapList = new ArrayList();
+
+            for (File f : files) {
+                if (f.isDirectory() && f.getName().indexOf("CVS") < 0
+                        && f.getName().indexOf(".svn") < 0) {
+                    Map item = new HashMap();
+                    String fnm = f.getName();
+                    item.put("name", fnm);
+                    item.put("type", "folder");
+                    item.put("key", bldPath + "/" + f.getName());
+                    item.put("hasChild", "F");
+
+                    try {
+                        if (f.listFiles().length > 0) {
+                            item.put("hasChild", "T");
+                        }
+                    } catch (Exception ee) {
+                    }
+
+                    treeMapList.add(item);
+
+                }
+            }
+            for (File f : files) {
+                String nm = f.getName();
+                int p = nm.indexOf(".xml");
+                if (!f.isDirectory() && p > nm.length() - 5) {
+
+                    Map item = new HashMap();
+                    String fnm = f.getName();
+                    item.put("name", fnm.substring(0, fnm.length() - 4));
+                    item.put("type", "file");
+                    item.put("hasChild", "F");
+                    if (bldPath.length() > 0) {
+                        item.put("key", bldPath + "/" + nm.substring(0, p));
+                    } else {
+                        item.put("key", nm.substring(0, p));
+                    }
+
+                    treeMapList.add(item);
+
+                }
+            }
+
+            view.setAttribute("treeMapList", treeMapList);
+            view.setViewName(viewPage);
+        }
+
+        private void setBlockFieldAttr(XmlDataSet xds, String xpath, String value) {
+            if (!"".equals(value)) {
+                xds.add(xpath, value);
+            }
+        }
+
+        private void setRefBlock(XmlDataSet xds, String inOutGubun) throws Exception {
+            String bldRootDir = CoreApplication.getInstance().getAttributeText(CoreApplication.BLD_ROOT_DIRECTORY);
+
+            String targetBlockPath = "/transaction/" + inOutGubun + "/block";
+            for (int i = 0, ic = xds.getCount(targetBlockPath); i < ic; i++) {
+                String blockPath = targetBlockPath + "[" + (i + 1) + "]";
+                String ref = xds.getText(blockPath + "/@ref");
+                if (!"".equals(ref)) {
+                    int idx = ref.indexOf("#");
+                    if (idx > -1) {
+                        String refPath = ref.substring(0, idx);
+                        String refId = ref.substring(idx + 1);
+                        XmlDataSet refXds = new XmlDataSet(new File(bldRootDir + "/" + refPath + ".xml"), false);
+                        NodeList blocks = refXds.getSearchNodeList(targetBlockPath);
+                        Element block = null;
+                        for (int j = 0, jc = blocks.getLength(); j < jc; j++) {
+                            Element tempBlock = (Element) blocks.item(j);
+                            if (refId.equals(tempBlock.getAttribute("id"))) {
+                                block = tempBlock;
+                                break;
+                            }
+                        }
+
+                        if (block != null) {
+                            setBlockFieldAttr(xds, blockPath + "/@name", block.getAttribute("name"));
+                            setBlockFieldAttr(xds, blockPath + "/@id", block.getAttribute("id"));
+                            setBlockFieldAttr(xds, blockPath + "/@label", block.getAttribute("label"));
+                            setBlockFieldAttr(xds, blockPath + "/@xpath", block.getAttribute("xpath"));
+                            setBlockFieldAttr(xds, blockPath + "/@repeat", block.getAttribute("repeat"));
+                            setBlockFieldAttr(xds, blockPath + "/@ref", block.getAttribute("ref"));
+                            setBlockFieldAttr(xds, blockPath + "/@properties", block.getAttribute("properties"));
+                            setBlockFieldAttr(xds, blockPath + "/@class", block.getAttribute("class"));
+
+                            if (refId.equals(block.getAttribute("id"))) {
+                                NodeList fields = block.getChildNodes();
+                                int cnt = 0;
+                                for (int k = 0, kc = fields.getLength(); k < kc; k++) {
+                                    try {
+                                        Element field = (Element) fields.item(k);
+                                        if (!"".equals(field.getAttribute("name"))) {
+                                            cnt++;
+                                            xds.add(blockPath + "/field", null);
+                                            String fieldXpath = blockPath + "/field[" + cnt + "]/";
+                                            setBlockFieldAttr(xds, fieldXpath + "@name", field.getAttribute("name"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@label", field.getAttribute("label"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@type", field.getAttribute("type"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@size", field.getAttribute("size"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@format", field.getAttribute("format"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@default", field.getAttribute("default"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@properties", field.getAttribute("properties"));
+                                            setBlockFieldAttr(xds, fieldXpath + "@xpath", field.getAttribute("xpath"));
+                                        }
+                                    } catch (Exception ex) {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void viewBld(ViewMeta view) throws ServletException, IOException {
+
+            String bldPath = view.getRequestParameter("path");
+            if (bldPath.indexOf("/") == 0) {
+                bldPath = bldPath.substring(1);
+            }
+            view.setAttribute("bldPath", bldPath);
+
+            String bldRootDir = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.BLD_ROOT_DIRECTORY);
+            String bldFullPath = bldRootDir + "/" + bldPath + ".xml";
+
+            try {
+                XmlDataSet xds = new XmlDataSet(new File(bldFullPath), false);
+                setRefBlock(xds, "input");
+                setRefBlock(xds, "output");
+                view.setAttribute("xds", xds);
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+            String[] ids = CoreApplication.getInstance().getBeanDefinitionNames();
+
+            List<String> transformList = new ArrayList<String>();
+            for (String id : ids) {
+                if (id.indexOf("corelogic.sourceGenerator.") == 0) {
+                    transformList.add(id.substring(26));
+                }
+            }
+            view.setAttribute("srcTransformTypes", transformList);
+
+            transformList = new ArrayList<String>();
+            for (String id : ids) {
+                if (id.indexOf("transform.") == 0) {
+                    transformList.add(id.substring(10));
+                }
+            }
+            view.setAttribute("dataTransformTypes", transformList);
+
+            view.setViewName("bld_info");
+        }
+
+        public void searchBld(ViewMeta view) throws Exception {
+
+            corelogic.spi.admin.BldManager d = (corelogic.spi.admin.BldManager) CoreApplication
+                    .getInstance().getBean("coreframe.bldManager");
+
+            DataSet input = view.getInputDataSet();
+            DataSet output = d.search(input);
+
+            PrintWriter pw = view.getHttpServletResponse().getWriter();
+
+            for (int i = 0; i < output.getCount("bldId"); i++) {
+                pw.println("<tr><td><span class=\"icon file\" title=\""
+                        + output.getText("bldId", i) + " ["
+                        + output.getText("name", i)
+                        + "]\"></span><span class=\"label\">"
+                        + output.getText("bldId", i) + "</span></td></tr>");
+            }
+
+            if (output.getCount("bldId") == 0) {
+                pw.println("Not found BLD");
+            }
+
+        }
+
+        public void indexBld(ViewMeta view) {
+            corelogic.spi.admin.BldManager d = (corelogic.spi.admin.BldManager) CoreApplication
+                    .getInstance().getBean("coreframe.bldManager");
+
+            boolean result = d.refreshAll();
+            if (result) {
+                view.setMessage("indexing complete");
+            } else {
+                view.setMessage("indexing fail");
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////
+        public void sitemap(ViewMeta view) throws ServletException, IOException {
+            view.setViewName("sitemap_main");
+        }
+
+        public void viewSitemapDirectory(ViewMeta view) throws ServletException, IOException {
+            view.setAttribute("open", view.getRequestParameter("open"));
+            view.setViewName("sitemap_directory");
+        }
+
+        public void getSitemapData(ViewMeta view) throws ServletException, IOException {
+            String xpath = view.getRequestParameter("xpath");
+            XmlDataSet xds = setSitemapXDS();
+            List treeMapList = new ArrayList();
+            boolean isTopMenu = false;
+            if (xpath == null) {
+                xpath = "/site-menu/topmenu";
+                isTopMenu = true;
+            } else {
+                xpath = xpath + "/child/menu";
+                isTopMenu = false;
+            }
+
+            for (int i = 0, ic = xds.getCount(xpath); i < ic; i++) {
+                String name = xds.getText(xpath + "[" + (i + 1) + "]/@name");
+                String url = xds.getText(xpath + "[" + (i + 1) + "]/url");
+                String indexKey = "0" + i;
+                int childCnt = xds.getCount(xpath + "[" + (i + 1) + "]/child/menu");
+
+                Map item = new HashMap();
+                item.put("name", name);
+                item.put("type", "topfile");
+                item.put("key", indexKey);
+                item.put("xpath", xpath + "[" + (i + 1) + "]");
+                item.put("hasChild", childCnt > 0 ? "T" : "F");
+
+                if (!isTopMenu) {
+                    item.put("type", "file");
+                    item.put("sortable", "sortable");
+                } else {
+                    item.put("type", "topfile");
+                }
+                treeMapList.add(item);
+            }
+
+            view.setAttribute("treeMapList", treeMapList);
+            view.setViewName("tree_subset");
+        }
+
+        //sitemap_info화면
+        public void viewSitemapMenu(ViewMeta view) throws ServletException,
+                IOException {
+            try {
+                XmlDataSet xds = setSitemapXDS();
+                XmlDataSet layoutXds = setLayoutXDS();
+                view.setAttribute("xds", xds);
+                view.setAttribute("layoutXds", layoutXds);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            String baseXpath = view.getRequestParameter("xpath");
+            view.setAttribute("open", view.getRequestParameter("open"));
+            view.setAttribute("baseXpath", baseXpath);
+            view.setViewName("sitemap_info");
+        }
+
+        public void changeDIR(ViewMeta view) throws ServletException, IOException {
+            DataSet in = new DataSet();
+            bind(view.getHttpServletRequest(), in);
+
+            XmlDataSet xds_origin = setSitemapXDS();
+            XmlDataSet xds = null;
+            XMLReferer xlr = null;
+            Node node;
+            Node node_menu;
+
+            System.out.println(in);
+
+            xlr = new XMLReferer(xds_origin);
+            xlr.lookup("/site-menu");
+            node = xlr.getNode();//원래 노드(변경전)
+
+            //타겟 설정
+            String targetStr = in.getText("catchKey");
+            String nextStr = in.getText("nextKey");
+            //String prevStr = in.getText("preKey");
+            String parentStr = in.getText("parentKey");//이동후의 부모
+            String targetXpath = targetStr.substring(0, targetStr.lastIndexOf('/'));
+            String nextXpath = "";
+
+            xlr.lookup(parentStr);
+            Node p = xlr.getNode();
+            xlr.lookup(parentStr + "/child");
+            Node r = xlr.getNode();
+            if (r == null) {
+                p.appendChild(p.getOwnerDocument().createElement("child"));
+                xlr.lookup(parentStr + "/child");
+                r = xlr.getNode();
+            }
+
+            if (!nextStr.equals("")) {
+                nextXpath = nextStr.substring(0, nextStr.lastIndexOf('/'));
+            }
+		/*
+		String prevXpath = "";
+		if (!prevStr.equals("")) {
+			prevXpath = prevStr.substring(0, prevStr.lastIndexOf('/'));
+		}
+		*/
+
+            ///같은 부모내에서 이동
+            if (targetXpath.equals(parentStr + "/child")) {
+                if (targetXpath.equals(nextXpath)) {
+                    xlr.lookup(targetXpath);
+                    node_menu = xlr.getNode();
+                    xlr.lookup(targetStr);
+                    Node t = xlr.getNode();
+                    xlr.lookup(nextStr);
+                    Node n = xlr.getNode();
+                    node_menu.insertBefore(t, n);
+                } else {
+                    xlr.lookup(targetXpath);
+                    node_menu = xlr.getNode();
+                    xlr.lookup(targetStr);
+                    Node t = xlr.getNode();
+                    node_menu.appendChild(t);
+                }
+            } else {
+                //부모가 변경됨
+                if ("".equals(nextXpath)) {
+                    xlr.lookup(parentStr + "/child");
+                    node_menu = xlr.getNode();
+                    xlr.lookup(targetStr);
+                    Node t = xlr.getNode();
+                    node_menu.appendChild(t);
+                } else {
+                    xlr.lookup(parentStr + "/child");
+                    node_menu = xlr.getNode();
+                    xlr.lookup(targetStr);
+                    Node t = xlr.getNode();
+                    xlr.lookup(nextStr);
+                    Node n = xlr.getNode();
+                    node_menu.insertBefore(t, n);
+                }
+            }
+
+            try {
+                p.replaceChild(r, node_menu);
+                xds = new XmlDataSet(node);
+                writeSitemapFile(xds, true);
+                view.setAttribute("xds", xds.toString());
+            } catch (Exception e) {
+                throw new IOException(e);
+            }
+
+            view.setAttribute("open", in.getText("openKey"));
+            view.setViewName("sitemap_directory");
+        }
+
+        public void removeChild(ViewMeta view) throws ServletException, IOException {
+            String result = "";
+            String message = "";
+            try {
+                XmlDataSet xds = setSitemapXDS();
+
+                DataSet in = new DataSet();
+                bind(view.getHttpServletRequest(), in);
+                String xpath = in.getText("xpath");
+
+                xds.remove(xpath);
+                writeSitemapFile(xds, true);
+                result = "Y";
+                message = "삭제 되었습니다.";
+            } catch (Exception ex) {
+                result = "N";
+                message = ex.getMessage();
+            }
+
+            view.setAttribute("result", result);
+            view.setAttribute("message", message);
+            view.printJSON();
+        }
+
+        public void addChild(ViewMeta view) throws ServletException, IOException {
+            String result = "";
+            String message = "";
+            try {
+                XmlDataSet xds = setSitemapXDS();
+                DataSet input = view.getInputDataSet();
+
+                String xpath = input.getText("xpath");
+                String type = input.getText("type");
+                String name = input.getText("name");
+                if (type.equals("topfile")) {
+                    xpath = "/site-menu/topmenu";
+                } else {
+                    xpath = xpath + "/child/menu";
+                }
+
+                int menuCount = xds.getCount(xpath);
+                xds.add(xpath, "");
+                xds.put(xpath + "[" + (menuCount + 1) + "]" + "/@name", name);
+                //최초 addChild의 경우는 바로 반영이 되므로 무조건 active를 false로 둔다.
+                xds.put(xpath + "[" + (menuCount + 1) + "]" + "/active", "false");
+
+                writeSitemapFile(xds, true);
+                result = "Y";
+                message = "추가 되었습니다.";
+            } catch (Exception ex) {
+                result = "N";
+                message = ex.getMessage();
+            }
+
+            view.setAttribute("result", result);
+            view.setAttribute("message", message);
+            view.printJSON();
+        }
+
+        public void viewSitemapMenuModify(ViewMeta view) throws ServletException, IOException {
+            XmlDataSet xds = setSitemapXDS();
+
+            DataSet in = new DataSet();
+            bind(view.getHttpServletRequest(), in);
+            System.out.println(in);
+            String baseXpath = in.getText("baseXpath");
+
+            xds.remove(baseXpath + "/param");
+            for (int i = 0, ic = in.getCount("paramName"); i < ic; i++) {
+                String paramXpath = baseXpath + "/param[" + (i + 1) + "]";
+                xds.add(baseXpath + "/param", "");
+                xds.put(paramXpath, in.getText("paramName", i));
+                xds.put(paramXpath + "/@name", in.getText("paramValue", i));
+            }
+
+            xds.remove(baseXpath + "/another-url");
+            for (int i = 0, ic = in.getCount("another-url"); i < ic; i++) {
+                String paramXpath = baseXpath + "/another-url[" + (i + 1) + "]";
+                xds.add(baseXpath + "/another-url", "");
+                xds.put(paramXpath, in.getText("another-url", i));
+                if (StringUtil.hasLength(in.getText("another-url-properties", i))) {
+                    xds.put(paramXpath + "/@properties", in.getText("another-url-properties", i));
+                }
+            }
+
+            xds.remove(baseXpath + "/publish");
+            String publishSourceUrl = in.getText("publish-source-url");
+            if (StringUtil.hasLength(publishSourceUrl)) {
+                xds.add(baseXpath + "/publish", "");
+                xds.add(baseXpath + "/publish/source-url", publishSourceUrl);
+                xds.add(baseXpath + "/publish/time-gap", in.getText("publish-time-gap"));
+                xds.add(baseXpath + "/publish/min-page-size", in.getText("publish-min-page-size"));
+            }
+
+            Set s = in.keySet();
+            TreeSet<String> tSet = new TreeSet<String>();
+            tSet.addAll(s);
+            Iterator<String> it = tSet.iterator();
+            System.out.println(in);
+            while (it.hasNext()) {
+                String xpath = it.next();
+                if (!xpath.startsWith("/site-menu")) {//xpath가 아닌건 위에서 처리 했음
+                    continue;
+                }
+
+                String value = (String) in.get(xpath);
+
+                if (xds.keySet().contains(xpath)) {
+                    if (StringUtil.hasLength(value)) {
+                        xds.put(xpath, value);
+                    } else {
+                        xds.remove(xpath);
+                    }
+                } else {
+                    if (StringUtil.hasLength(value)) {
+                        xds.add(xpath, value);
+                    }
+                }
+
+                //노드가 너무 많아져 복잡하므로 기본값으로 갈 경우 삭제
+                if (xpath.endsWith("active") || xpath.endsWith("visual")) {
+                    if ("true".equals(value)) {
+                        xds.remove(xpath);
+                    }
+                } else if (xpath.endsWith("layout")) {
+                    if ("default".equals(value)) {
+                        xds.remove(xpath);
+                    }
+                }
+            }
+
+            writeSitemapFile(xds, true);
+            view.setAttribute("baseXpath", in.getText("baseXpath"));
+            view.setAttribute("xds", xds);
+
+
+            view.setAttribute("layoutXds", setLayoutXDS());
+
+            view.setViewName("sitemap_info");
+        }
+
+
+        public void layout(ViewMeta view) throws ServletException, IOException {
+            XmlDataSet xds = setLayoutXDS();
+            String deviceXpath = "layout-profile/portal/devices/device";
+            String Xpath = "layout-profile/portal";
+
+            List<String> devices = new ArrayList<String>();
+            int deviceCnt = xds.getCount(deviceXpath);
+            String defaultDevice = xds.getText("//portal/devices/@default-device-name");
+            devices.add(defaultDevice);
+            for (int i = 0; i < deviceCnt; i++) {
+                deviceXpath = "layout-profile/portal/devices/device";
+                deviceXpath += "[" + (i + 1) + "]";
+                devices.add(xds.getText(deviceXpath + "/@name"));
+            }
+            devices.add("*");
+
+            view.setAttribute("devicesSize", String.valueOf(devices.size()));
+            view.setAttribute("devices", devices);
+            view.setAttribute("baseXpath", Xpath);
+            view.setAttribute("xds", xds);
+            view.setViewName("layout_main");
+        }
+
+        public void layoutRemove(ViewMeta view) throws ServletException,
+                IOException {
+
+            DataSet in = new DataSet();
+            bind(view.getHttpServletRequest(), in);
+            XmlDataSet xds = setLayoutXDS();
+
+            xds.remove(in.getText("path"), in.getInt("key"));
+
+            writeSitemapFile(xds, false);
+        }
+
+        public void layoutInsert(ViewMeta view) throws ServletException,
+                IOException {
+
+            DataSet in = new DataSet();
+            bind(view.getHttpServletRequest(), in);
+
+            XmlDataSet xds = null;
+
+            if (in.getText("type").equals("sitemap")) {
+                xds = setSitemapXDS();
+                String value = in.getText("value");
+                if (value == null)
+                    value = "";
+                xds.add(in.getText("path"), value);
+                writeSitemapFile(xds, true);
+            } else {
+                xds = setLayoutXDS();
+                if (in.getText("type").equals("layout")) {
+                    xds.add(in.getText("path"), "");
+                    xds.add(in.getText("_path") + "/template-page", "");
+                } else {
+                    xds.add(in.getText("path"), "");
+                }
+                writeSitemapFile(xds, false);
+            }
+
+        }
+
+        public void viewLayoutMenuModify(ViewMeta view) throws ServletException,
+                IOException {
+            XmlDataSet xds = setLayoutXDS();
+            DataSet in = view.getInputDataSet();
+
+            String baseXpath = "/layout-profile/portal";
+
+            String devicesXpath = baseXpath + "/devices";
+            XmlJsonUtil.setValueIfExist(xds, devicesXpath + "/@default-device-name", in.getText("defaultDeviceName"));
+
+            String deviceXpath = devicesXpath + "/device";
+            xds.remove(deviceXpath);
+            for (int i = 0, ic = in.getCount("deviceName"); i < ic; i++) {
+                String name = in.getText("deviceName", i);
+                if (StringUtil.hasLength(name)) {
+                    xds.add(deviceXpath, null);
+                    xds.put(deviceXpath + "[" + (i + 1) + "]/@name", name);
+                    XmlJsonUtil.setValueIfExist(xds, deviceXpath + "[" + (i + 1) + "]/@reg-exp", in.getText("deviceRegx", i));
+                    XmlJsonUtil.setValueIfExist(xds, deviceXpath + "[" + (i + 1) + "]/@domain", in.getText("deviceDomain", i));
+                }
+            }
+
+            String layoutsXpath = baseXpath + "/layouts";
+            XmlJsonUtil.setValueIfExist(xds, layoutsXpath + "/@default", in.getText("defaultLayoutName"));
+            String layoutXpath = layoutsXpath + "/layout";
+            xds.remove(layoutXpath);
+
+            for (int i = 0, ic = in.getCount("layoutName"); i < ic; i++) {
+                String name = in.getText("layoutName", i);
+                if (StringUtil.hasLength(name)) {
+                    String currentLayoutXpath = layoutXpath + "[" + (i + 1) + "]";
+                    xds.add(layoutXpath, null);
+                    xds.put(currentLayoutXpath + "/@name", name);
+
+                    for (int j = 0, jc = in.getCount("templetText_" + i); j < jc; j++) {
+                        xds.add(currentLayoutXpath + "/template-page", null);
+                        XmlJsonUtil.setValueIfExist(xds, currentLayoutXpath + "/template-page[" + (j + 1) + "]", in.getText("templetText_" + i, j));
+
+                        String templetDevice = in.getText("templetDevice_" + i, j);
+                        templetDevice = "pc".equals(templetDevice) ? "" : templetDevice;//주의!! PC인경우 넣지 않음(공백으로 치환)
+                        XmlJsonUtil.setValueIfExist(xds, currentLayoutXpath + "/template-page[" + (j + 1) + "]/@device", templetDevice);
+                    }
+                }
+            }
+
+            writeSitemapFile(xds, false);
+
+            List<String> devices = new ArrayList<String>();
+            int deviceCnt = xds.getCount(deviceXpath);
+            String defaultDevice = xds.getText(baseXpath + "/devices/@default-device-name");
+            devices.add(defaultDevice);
+            for (int i = 0; i < deviceCnt; i++) {
+                devices.add(xds.getText(deviceXpath + "[" + (i + 1) + "]" + "/@name"));
+            }
+            devices.add("*");
+
+            view.setAttribute("baseXpath", baseXpath);
+            view.setAttribute("devices", devices);
+            view.setAttribute("xds", xds);
+            view.setViewName("layout_main");
+        }
+
+        private String getBaseMenuItemXpath(String itemId) {
+            int depth = itemId.length() / 2;
+            StringBuffer buf = new StringBuffer();
+            for (int i = 0; i < depth; i++) {
+                int stx = i * 2;
+                int etx = stx + 2;
+                int val = Integer.parseInt(itemId.substring(stx, etx)) + 1;
+
+                if (i == 0) {
+                    buf.append("//topmenu[" + val + "]");
+                } else {
+                    buf.append("/child/menu[" + val + "]");
+                }
+            }
+
+            return buf.toString();
+        }
+
+        public XmlDataSet setSitemapXDS() {
+            MenuDaoBase menuDao = (MenuDaoBase) getBean("coreview.menuDao");
+            XmlDataSet xds = menuDao.getSiteXmlDataSet();
+            Logger.info.println("Sitemap sourceInfo : " + menuDao.getSourceInfo());
+            return xds;
+        }
+
+        public XmlDataSet setLayoutXDS() {
+            XmlDataSet xds = null;
+            try {
+                LayoutDaoBase layoutDao = (LayoutDaoBase) getBean("coreview.layout.dao");
+                xds = layoutDao.getLayoutXmlDataSet();
+                System.out.println(xds);
+                Logger.info.println("Layout sourceInfo : " + layoutDao.getSourceInfo());
+            } catch (Exception e) {
+                try {
+                    String rootDir = CoreApplication.getInstance().getAttributeText(
+                            CoreApplication.COREFRAME_CONFIG_HOME);
+                    String sitemapFullPath = rootDir + "/" + "layout.xml";
+                    xds = new XmlDataSet(new File(sitemapFullPath));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            return xds;
+        }
+
+        public void writeSitemapFile(XmlDataSet xds, boolean isSitemap) {
+            if (isSitemap) {//sitemap
+                MenuDaoBase menuDao = (MenuDaoBase) getBean("coreview.menuDao");
+                if (menuDao instanceof XmlDbMenuDao) {
+                    try {
+                        XmlDbMenuDao.setXmlDataSet(menuDao.getSourceInfo(), xds);
+                        MenuMgrBean.getInstance(true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    return;
+                }
+            } else {//layout
+                LayoutDaoBase layoutDao = (LayoutDaoBase) getBean("coreview.layout.dao");
+                if (layoutDao instanceof XmlDbDao) {
+                    try {
+                        XmlDbDao.setXmlDataSet(layoutDao.getSourceInfo(), xds);
+                        LayoutManager.getInstance(true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    return;
+                }
+            }
+
+
+            String rootDir = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.COREFRAME_CONFIG_HOME);
+
+            String sitemapFullPath = isSitemap ? rootDir + "/" + "sitemap.xml"
+                    : rootDir + "/" + "layout.xml";
+
+            BufferedWriter bout = null;
+            boolean fileSuccess = false;
+            try {
+                String charset = (String) CoreApplication.getInstance().getAttribute("target.encoding");
+
+                bout = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(sitemapFullPath)), charset));
+                //bout = new BufferedWriter(new FileWriter(sitemapFullPath));
+
+                String info = "<?xml version=\"1.0\" encoding=\"" + charset + "\"?> \n";
+                StringBuffer sb = new StringBuffer(info);
+                sb.append(xds.toString());
+                bout.write(sb.toString());
+                bout.newLine();
+                fileSuccess = true;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (bout != null) {
+                    try {
+                        bout.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fileSuccess) {//close 이후에 시행
+                    if (isSitemap) {
+                        MenuMgrBean.getInstance(true);
+                    } else {
+                        LayoutManager.getInstance(true);
+                    }
+                }
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////
+
+
+        /**
+         *
+         */
+        private String getConfigFilePath(String serviceId) {
+            String path = this.getServletContext().getRealPath(
+                    "/WEB-APP/admin/conf/menu.xml");
+
+            try {
+                XmlDataSet xds = new XmlDataSet(new File(path));
+
+                return xds.getText("/admin-sitemap/group/menu[@id='" + serviceId
+                        + "']/@config");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        //////////////////////////
+
+        public void info(ViewMeta view) throws IOException {
+
+            DataSet input = view.getInputDataSet();
+            DataSet output = this.executeBL("system/msg/listLog", input);
+
+            System.out.println(view.getUriPath("/WEB-APP/admin/bld"));
+
+            view.setAttribute("msgList", output.toList());
+            view.setViewName("info");
+
+        }
+
+        public void chartData(ViewMeta view) throws IOException {
+
+            PrintWriter pw = view.getWriter();
+            pw.println("<graph caption='performance' PYAxisName='user count' SYAxisName='Quantity'");
+            pw.println("numberPrefix='' showvalues='0'  numDivLines='4' formatNumberScale='0' decimalPrecision='2'");
+            pw.println("anchorSides='10' anchorRadius='3' anchorBorderColor='009900' rotateNames='1' >");
+
+            DataSet input = view.getInputDataSet();
+            DataSet output = this.executeBL("system/performance/listLog", input);
+
+            pw.println("<categories>");
+            for (int i = output.getCount("TSTIME") - 1; i >= 0; i--) {
+                pw.println("<category name='" + output.getText("TSTIME", i)
+                        + "' />");
+            }
+            pw.println("</categories>");
+
+            pw.println("<dataset seriesName='User count' color='98B937' showValues='0'>");
+            for (int i = output.getCount("TSTIME") - 1; i >= 0; i--) {
+                pw.println("<set value='" + output.getText("USERCOUNT", i) + "' />");
+            }
+            pw.println("</dataset>");
+
+            pw.println("<dataset seriesName='WEB TPS' color='453269' showValues='0' parentYAxis='S'>");
+            for (int i = output.getCount("TSTIME") - 1; i >= 0; i--) {
+                pw.println("<set value='" + output.getText("WEBTPS", i) + "' />");
+            }
+            pw.println("</dataset>");
+
+            pw.println("<dataset seriesName='BLD TPS' color='B22222' showValues='0' parentYAxis='S' >");
+            for (int i = output.getCount("TSTIME") - 1; i >= 0; i--) {
+                pw.println("<set value='" + output.getText("BLDTPS", i) + "' />");
+            }
+            pw.println("</dataset>");
+            pw.println("</graph>");
+
+        }
+
+        //////////////////////////
+
+        public void dbms(ViewMeta view) throws ServletException, IOException {
+
+            view.setViewName("dbms_main");
+
+        }
+
+        public void viewDbmsDirectory(ViewMeta view) throws ServletException,
+                IOException {
+
+            view.setViewName("dbms_directory");
+        }
+
+        public void getDbmsData(ViewMeta view) throws Exception {
+            String viewPage = "tree_subset";
+
+            String itemId = view.getRequestParameter("key");
+
+            DbmsMeta dbms = null;
+
+            if (!StringUtil.hasLength(itemId)) {
+                dbms = new DbmsMeta();
+            } else {
+                viewPage = "tree_subset";
+                dbms = new DbmsMeta(itemId);
+            }
+            List<DbmsMeta> menuList = dbms.listChild();
+
+            List treeMapList = new ArrayList();
+
+            for (DbmsMeta m : menuList) {
+                {
+                    Map item = new HashMap();
+                    item.put("name", m.getName());
+
+                    if (m.getType() == DbmsMeta.CONNECTION) {
+                        item.put("type", "dbms");
+                    } else if (m.getType() == DbmsMeta.TABLE
+                            || m.getType() == DbmsMeta.COLUMN) {
+                        item.put("type", "file");
+                    } else {
+
+                        item.put("type", "folder");
+                    }
+                    item.put("key", m.getKeyPath());
+                    item.put("hasChild", "F");
+
+                    try {
+                        if (m.getType() != DbmsMeta.TABLE
+                                && m.listChild().size() > 0) {
+                            item.put("hasChild", "T");
+                        }
+                    } catch (Exception ee) {
+                    }
+
+                    treeMapList.add(item);
+
+                }
+            }
+
+            view.setAttribute("treeMapList", treeMapList);
+            view.setViewName(viewPage);
+        }
+
+        public void viewDbmsInfo(ViewMeta view) throws Exception {
+
+            String path = view.getRequestParameter("path");
+            DbmsMeta dbms = new DbmsMeta(path);
+
+            view.setAttribute("dbms", dbms);
+            view.setAttribute("columns", dbms.listChild());
+            view.setViewName("dbms_info");
+
+        }
+
+        public void validateHTML(ViewMeta view) throws Exception {
+
+            String hostName = view.getHttpServletRequest().getServerName();
+            int port = view.getHttpServletRequest().getServerPort();
+            String contextName = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.WEB_CONTEXT_NAME);
+            StringBuffer ub = new StringBuffer();
+            ub.append("http://").append(hostName);
+            if (port != 80) {
+                ub.append(":").append(port);
+            }
+            if (StringUtil.hasLength(contextName)) {
+                ub.append(contextName);
+            }
+
+            String url = view.getRequestParameter("u");
+            if (StringUtil.hasLength(url)) {
+                ub.append(url);
+            }
+
+            URL u = new URL(ub.toString());
+            URLConnection conn = u.openConnection();
+
+            String requestCharset;
+
+            try {
+                requestCharset = conn.getHeaderField("Content-Type").split(";")[1]
+                        .split("=")[1];
+            } catch (Exception e) {
+                requestCharset = "UTF8";
+            }
+
+            System.out.println("Request Charset : " + requestCharset);
+
+            MsgListen msg = new MsgListen();
+            Tidy t = new Tidy();
+
+            String enc = coreframe.Configuration.getInstance().getTargetEncoding();
+
+            t.setInputEncoding(requestCharset);
+            t.setOutputEncoding(requestCharset);
+            t.setMessageListener(msg);
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            InputStream is = conn.getInputStream();
+
+            byte[] buf = new byte[1024];
+            int readSize = is.read(buf);
+            while (readSize > 0) {
+                out.write(buf, 0, readSize);
+                readSize = is.read(buf);
+            }
+
+            byte[] inSTream = out.toByteArray();
+
+            String orginalText = new String(inSTream, requestCharset); //Content-Type:text/html;charset=euc-kr
+
+            //System.out.println("----ORIGINAL TEXT----");
+            //System.err.println(orginalText);
+
+            out.reset();
+
+            Document doc = t.parseDOM(new ByteArrayInputStream(inSTream), out);
+
+            //t.parse()
+
+            URLReader ureader = new URLReader(ub.toString());
+
+            String responseHtml = ureader.getContent();
+
+            BufferedReader br = new BufferedReader(new StringReader(orginalText));
+
+            List lines = msg.getLines();
+            List columns = msg.getColumns();
+            List messages = msg.getMsgs();
+
+            int lineNumber = 0;
+
+            StringBuffer h = new StringBuffer();
+            h.append("<table>");
+
+            while (br.ready()) {
+                String line = br.readLine();
+                lineNumber++;
+
+                if (line == null || lineNumber > 5000) {
+                    break;
+                }
+
+                h.append("<tr id=\"line" + lineNumber + "\"><th><pre>");
+                h.append(lineNumber);
+                h.append("</pre></th><td>");
+
+                if (lines.contains(String.valueOf(lineNumber))) {
+                    int idx = lines.indexOf(String.valueOf(lineNumber));
+                    int cols = Integer.valueOf((String) columns.get(idx));
+                    String m = (String) messages.get(idx);
+
+                    if ("WARNING".equals(m)) {
+                        line = "<pre class=\"warn\">" + HtmlUtil.translate(line)
+                                + "</pre>";
+                    } else if ("ERROR".equals(m)) {
+                        line = "<pre class=\"err\">" + HtmlUtil.translate(line)
+                                + "</pre>";
+                    } else {
+                        line = "<pre>" + HtmlUtil.translate(line) + "</pre>";
+                    }
+
+                } else {
+
+                    line = "<pre>" + HtmlUtil.translate(line) + "</pre>";
+
+                }
+
+                h.append(line);
+
+                h.append("</td></tr>");
+            }
+
+            h.append("</table>");
+
+            br.close();
+
+            String checkMsg = HtmlUtil.translateNewline(msg.toString());
+
+            String viewDir = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.WEB_CONTEXT_NAME)
+                    + "/WEB-APP/admin/view";
+
+            String html = "<html>" + "<head>"
+                    + "<link type=\"text/css\" rel=\"stylesheet\" href=\""
+                    + viewDir + "/css/codeview.css\" media=\"all\">"
+                    + "<script src=\"" + viewDir
+                    + "/js/jquery-1.6.2.min.js\"></script>" + "<script src=\""
+                    + viewDir + "/js/codeview.js\"></script>" + "</head>"
+                    + "<body>" + "<div id=\"goToTop\">TOP</div>" + checkMsg
+                    + "<hr/>" + h.toString() + "</body>" + "</html>";
+
+            view.setMessage(html);
+
+        }
+
+        private final class MsgListen implements TidyMessageListener {
+
+            private List lineColumn = CollectionFactory.getDefaultList();
+
+            private StringBuffer buf = new StringBuffer();
+
+            public void messageReceived(TidyMessage message) {
+                if (message.getErrorCode() != 1) {
+
+                    StringBuffer sb = new StringBuffer();
+
+                    sb.append(message.getLevel() + " ");
+
+                    if ("WARNING ".equals(sb.toString())) {
+                        buf.append("<pre class=\"warn\">[" + message.getLevel()
+                                + "]");
+                    } else if ("ERROR ".equals(sb.toString())) {
+                        buf.append("<pre class=\"err space\">["
+                                + message.getLevel() + "]");
+                    } else {
+                        buf.append("<pre>[" + message.getLevel() + "]");
+                    }
+
+                    if (message.getLevel() != org.w3c.tidy.TidyMessage.Level.SUMMARY) {
+
+                        int line = message.getLine();
+                        int column = message.getColumn();
+
+                        buf.append(
+                                "</pre> [<span class=\"from\" data-target=\"line"
+                                        + line + "\">").append(line);
+                        buf.append(":").append(column);
+                        buf.append("</span>]<pre>");
+
+                        sb.append(line + " ");
+                        sb.append(column);
+
+                        lineColumn.add(sb.toString());
+                    }
+                    buf.append(" ");
+                    buf.append(HtmlUtil.translate(message.getMessage())).append(
+                            "</pre>\n");
+
+                }
+            }
+
+            public String toString() {
+                return buf.toString();
+            }
+
+            public List getLines() {
+
+                List list = CollectionFactory.getDefaultList();
+
+                for (int i = 0; i < lineColumn.size(); i++) {
+                    String info = (String) lineColumn.get(i);
+                    list.add(info.split(" ")[1]);
+                }
+                return list;
+            }
+
+            public List getColumns() {
+
+                List list = CollectionFactory.getDefaultList();
+
+                for (int i = 0; i < lineColumn.size(); i++) {
+                    String info = (String) lineColumn.get(i);
+                    list.add(info.split(" ")[2]);
+                }
+                return list;
+            }
+
+            public List getMsgs() {
+
+                List list = CollectionFactory.getDefaultList();
+
+                for (int i = 0; i < lineColumn.size(); i++) {
+                    String info = (String) lineColumn.get(i);
+                    list.add(info.split(" ")[0]);
+                }
+                return list;
+            }
+
+        }
+
+        ////////////////////////
+        public void viewSysProperties(ViewMeta view) {
+
+            Properties props = System.getProperties();
+
+        }
+
+
+        public void sysinfo(ViewMeta view) {
+            view.setViewName("system_info");
+        }
+
+        public void checkTime(ViewMeta view) {
+
+            DataSet input = view.getInputDataSet();
+            long lastModifiedTime = 0;
+            for (int i = 0, m = input.getCount("href"); i < m; i++) {
+
+                String url = input.getText("href", i);
+
+                String ctxNm = CoreApplication.getInstance().getAttributeText(
+                        CoreApplication.WEB_CONTEXT_NAME);
+
+                if (StringUtil.hasLength(ctxNm)) {
+                    if (url.indexOf(ctxNm) == 0) {
+                        url = url.substring(ctxNm.length());
+                    }
+                }
+
+                String filepath = view.getHttpServletRequest().getRealPath(url);
+                //System.out.println(filepath);
+
+                File f = new File(filepath);
+
+                if (f.exists()) {
+                    lastModifiedTime += f.lastModified();
+                }
+            }
+
+            view.setMessage(String.valueOf(lastModifiedTime));
+
+        }
+
+        public void autoReload(ViewMeta view) {
+            String reloadURL = view.getRequestParameter("reloadURL");
+            if (!StringUtil.hasLength(reloadURL)) {
+                reloadURL = "/coreframe5/WEB-APP/admin/tt.html";
+            }
+
+            String ctxNm = CoreApplication.getInstance().getAttributeText(
+                    CoreApplication.WEB_CONTEXT_NAME);
+
+            view.setAttribute("reloadURL", ctxNm + reloadURL);
+
+            view.setViewName("auto_reload");
+        }
+
+        public void autoReloadTop(ViewMeta view) {
+            view.setViewName("auto_reload_top");
+        }
+
+        public void downloadSitemapXml(ViewMeta view) throws ServletException, IOException {
+            XmlMenuDao dao = (XmlMenuDao) CoreApplication.getInstance().getBean("coreview.menuDao");
+            XmlDataSet xds = dao.getSiteXmlDataSet();
+
+            HttpServletResponse resp = view.getHttpServletResponse();
+            resp.setContentType("application/octet-stream; charset=utf-8");
+            resp.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(dao.getSourceInfo(), "UTF-8") + ".sitemap.xml");
+
+            ServletOutputStream sos = null;
+            try {
+                sos = resp.getOutputStream();
+                sos.write(("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xds.toString()).getBytes());
+                sos.flush();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                StreamUtil.closeStream(sos);
+            }
+        }
+
+        public void uploadSitemapXml(ViewMeta view) throws ServletException, IOException {
+            view.skipValidateRequest();
+            HttpAttributes attr = view.getHttpAttributes(new MemoryBasedMultipartProcessor());
+            DataSet input = attr.getDataSet();
+            InputStream is = null;
+            try {
+                is = attr.getInputStream("uploadXml");
+                if (is != null) {
+                    XmlDataSet xds = new XmlDataSet(is);
+                    XmlDbMenuDao.setXmlDataSet(input.getText("siteId"), xds);
+                    MenuMgrBean.getInstance(true);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                StreamUtil.closeStream(is);
+            }
+
+            view.setViewName("sitemap_directory");
+        }
+
+        public void downloadLayoutXml(ViewMeta view) throws ServletException, IOException {
+            LayoutDaoBase dao = (LayoutDaoBase) CoreApplication.getInstance().getBean("coreview.layout.dao");
+            XmlDataSet xds = dao.getLayoutXmlDataSet();
+
+            HttpServletResponse resp = view.getHttpServletResponse();
+            resp.setContentType("application/octet-stream; charset=utf-8");
+            resp.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(dao.getSourceInfo(), "UTF-8") + ".layout.xml");
+
+            ServletOutputStream sos = null;
+            try {
+                sos = resp.getOutputStream();
+                sos.write(("<?xml version=\"1.0\" encoding=\"utf-8\"?>" + xds.toString()).getBytes());
+                sos.flush();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                StreamUtil.closeStream(sos);
+            }
+        }
+
+        public void uploadLayoutXml(ViewMeta view) throws ServletException, IOException {
+            view.skipValidateRequest();
+            HttpAttributes attr = view.getHttpAttributes(new MemoryBasedMultipartProcessor());
+            DataSet input = attr.getDataSet();
+            InputStream is = null;
+            try {
+                is = attr.getInputStream("uploadXml");
+                if (is != null) {
+                    XmlDataSet xds = new XmlDataSet(is);
+                    XmlDbDao.setXmlDataSet(input.getText("siteId"), xds);
+                    LayoutManager.getInstance(true);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                StreamUtil.closeStream(is);
+            }
+
+            layout(view);
+        }
+        //]]></jsp:declaration>
+</jsp:root>

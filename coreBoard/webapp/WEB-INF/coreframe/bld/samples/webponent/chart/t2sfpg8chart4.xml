@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!--  protocolName="db1" -->
+<transaction name="t2sfpg8chart4" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+<processor-info datasource="" type="dbms">
+
+<script language="java" import="">
+<![CDATA[
+
+//executeSQL("query1", connection, input, output);
+
+try {
+  executeSQL("drop", connection, input, output);
+}catch(Exception e) {}
+
+try {
+  executeSQL("create", connection, input, output);
+}catch(Exception e) {}
+
+try {
+executeSQL("query2", connection, input, output);
+}catch(Exception e) {}
+
+try {
+  executeSQL("drop", connection, input, output);
+}catch(Exception e) {}  
+
+if( output.getCount("SECTOR_NM") == 0) {
+
+  output.put("SECTOR_NM", " ");
+  output.put("SEC_STOCK_WG", "0");
+  output.put("MKT_RATIO", "0");
+  output.put("SECTOR_AM_SUM", "0");
+}
+
+]]>
+</script>
+
+  <transaction-type></transaction-type>
+  
+ <sql id="query1" >
+    <query>
+SELECT ISNULL(SUM(SECTOR_AM), 100000)
+FROM MONTHLY_FUND_STK_INDUSTRY a, FUND_MASTER b
+WHERE a.FUND_CD=b.FUND_CD
+AND a.SECTOR_CD='I.201'
+AND a.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;=? AND SECTOR_CD='I.201')
+AND CLASS_CD=?
+  
+at isolation 0
+	</query>
+    <mapping>
+      <setProperty>DT,CLASS_CD</setProperty>
+      <getProperty>SUM_KOSPI</getProperty>
+    </mapping>
+  </sql>  
+  
+  
+  <sql id="query2" >
+    <query>
+
+INSERT INTO  #Ajusik( SECTOR_CD, CLASS_CD, SECTOR_AM_SUM)
+SELECT  SECTOR_CD, CLASS_CD, AVG(SEC_STOCK_MKT_WG)
+FROM MONTHLY_FUND_STK_INDUSTRY a, FUND_MASTER b
+WHERE a.FUND_CD = b.FUND_CD
+AND a.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_INDUSTRY a, FUND_MASTER b WHERE a.FUND_CD = b.FUND_CD
+AND DT &lt;=? AND CLASS_CD = ?)
+AND CLASS_CD = ?
+AND SECTOR_CD in ( 'I.224','I.226','I.227','I.229','I.231','I.237','I.241','I.242','I.243' )
+GROUP BY SECTOR_CD, CLASS_CD
+
+SET ROWCOUNT 5
+
+SELECT d.IndustNm, a.SEC_STOCK_WG, CASE WHEN b.MKT_RATIO = NULL THEN 0 ELSE b.MKT_RATIO END, c.SECTOR_AM_SUM, b.M1_RTN
+FROM MONTHLY_FUND_STK_INDUSTRY a, MONTHLY_BM_ANL b, #Ajusik c, FAMASTER.dbo.FAA_STK_INDUSTRY_INFO d
+WHERE a.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;=? AND SECTOR_CD='I.201')  
+AND b.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;=? AND SECTOR_CD='I.201')  
+AND a.FUND_CD=?
+--AND a.FUND_CD = c.FUND_CD
+AND a.SECTOR_CD=c.SECTOR_CD
+AND a.SECTOR_CD in ( 'I.224','I.226','I.227','I.229','I.231','I.237','I.241','I.242','I.243')
+AND a.SECTOR_CD=b.BM_CD
+AND a.SECTOR_CD=d.IndustCd
+ORDER BY a.SEC_STOCK_WG DESC
+
+at isolation 0
+
+SET ROWCOUNT 0
+
+	</query>
+    <mapping>
+      <setProperty>DT,CLASS_CD,CLASS_CD,DT,DT,FUND_CD</setProperty>
+      <getProperty>SECTOR_NM, SEC_STOCK_WG, MKT_RATIO, SECTOR_AM_SUM</getProperty>
+    </mapping>
+  </sql>
+
+     <sql id="drop" >
+    <query>DROP TABLE #Ajusik</query>
+    <mapping>
+      <setProperty></setProperty>
+      <getProperty></getProperty>
+    </mapping>
+  </sql>
+
+
+   <sql id="create" >
+    <query>
+    create table #Ajusik
+( 
+SECTOR_CD char(7) null, 
+CLASS_CD char(13) null, 
+SECTOR_AM_SUM numeric(27,20) null
+)
+    
+    </query>
+    <mapping>
+      <setProperty></setProperty>
+      <getProperty></getProperty>
+    </mapping>
+  </sql>  
+</processor-info>
+
+<input>
+  <block name="arg" repeat="1">
+    <field name="DT" type="string" default="20050701"></field>
+  	<field name="FUND_CD" type="string" default="KR5105354777"></field>
+  	<field name="CLASS_CD" type="string" default="1030201111000"></field>
+  	
+
+  </block>
+</input>
+
+<output>
+  <block name="result" repeat="">
+	  <field label="업종명"					name="SECTOR_NM"			size="66"	type="string" properties="grid-align:M"></field>
+    <field label="펀드"					name="SEC_STOCK_WG"		size="70"	type="string" format="#,##0.00"
+      properties="grid-group-name:{$YEAR};grid-group-size:4"
+     ></field>
+    <field label="시장"		          name="MKT_RATIO"	size="70"	type="string" format="#,##0.00"></field>
+    <field label="유형"					name="SECTOR_AM_SUM"		size="70"	type="string" format="#,##0.00"></field>
+    
+    
+  </block>
+  
+  
+  <block name="temp" repeat="">
+    <field label="합계"					name="SUM_KOSPI"			size="50"	type="float" default='1'></field>
+	  <field label="합계"					name="SUM"			size="50"	type="float" default='0'></field>
+  </block>
+  
+    
+</output>
+
+</transaction>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" type="text/css" href="/WEB-APP/webponent/thirdParty/codemirror/codemirror.css" /><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/codemirror.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/xml.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/javascript.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/css.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/htmlmixed.js"></script><link rel="stylesheet" type="text/css" href="sample.css">
+<script type="text/javascript" src="/WEB-APP/webponent/thirdParty/jquery/jquery-1.9.1.min.js"></script><script type="text/javascript" src="sample.js"></script>
+
+<script type="text/javascript" src="/WEB-APP/webponent/databind/databind.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/websocketinfo.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/web_socket.js"></script>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>Insert title here</title>
+</head>
+<body onunload="try{SOCKET.close();}catch(e){}">
+<div id="description">
+<div class="description-item">
+    <div class="fl bind-attribute">data-cache="a.standardjuka^a.lastprevjuka"</div>
+    <div class="fr bind-target">TARGET : 바인더</div>
+    <div class="clear"></div>
+    <div class="bind-description">
+        <ol>
+            <li>
+            <div>
+                <div class="fl">
+                    &lt;form id="frm" <strong>data-cache="a.standardjuka"</strong>&gt;<br/>
+	                ....(생략)<br/>
+	                &lt;td data-bind="DB_getHokaRate(a.medohoka5,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_5,<strong>$a.standardjuka$</strong>)"&gt;&lt;/td&gt;<br/>
+	                ....(생략)<br/>
+	                &lt;/form&gt;
+                </div>
+                <div class="fr"></div>
+                <div class="clear"></div>
+            </div>
+            </li>
+        </ol>
+        <div>
+            <p>data-cache속성은 조회시 특정값을 캐쉬에 저장해 두는 기능이다. 조회표현식과 실시간 표현식은 서로 처리되는 시점이 다르기 때문에 조회된 특정값을 실시간 표현식등에서 사용 할 수가 없다. 그리하여 특정값(변화가 없는 고정값)을 저장해두고 실시간시에 사용하기 위해 만들어진 기능이다.구분자 ^ 를이용하여 여러개 등록 가능하며 표현식에서 사용시 반듯이 $로 앞뒤를 감싸주어야 한다.</p>
+            <p>조회시 cache할 데이터를 binder Element에 data-cache="a.standardjuka^a.lastprevjuka" 와 같이 ^를 구분자로 여러개 등록하며 실시간 표현식에서 사용시에는 $a.standardjuka$ 와 같이 앞뒤를 $로 감싸준다.</p>
+            <p>아래 예제는 호가별 등락률을 구하기 위해서는 조회시에 나오는 standardjuka값이 있어야하는데 실시간 데이터에서는 standardjuka가 넘어오지 않는다. 그래서 cache해두고 실시간 표현식에서 사용하는 예제이다.</p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="preview" class="preview"></div><div id="htmlview"><textarea id="html" name="html" style="display: none;"><form id="frm" data-cache="a.standardjuka">
+    <div class="div-layout two">
+	    <div class="first">
+	        <table class="hoka-table hoka-table-5">
+            <caption><b>data-cache="a.standardjuka"</b> 5단호가 정보</caption>
+            <colgroup>
+                <col width="17%" />
+                <col width="17%" />
+                <col width="20%"/>
+                <col width="12%" />
+                <col width="17%" />
+                <col width="17%" />
+            </colgroup>
+            <thead>
+                <tr class="tac">
+                    <th scope="col">대비</th>
+                    <th scope="col">매도잔량</th>
+                    <th scope="col" data-bind="a.hokatime^x12.time">호가</th>
+                    <th scope="col">등락률</th>
+                    <th scope="col">매수잔량</th>
+                    <th scope="col">대비</th>
+                </tr>
+            </thead>
+            <tbody class="5-hoka-tbody" id="${param.type}5-hoka-tbl-tbody">
+                <tr>
+                    <td class="ask5" data-bind="a.medocount5^x12.hoka_medodebi_5"></td>
+                    <td class="ask5" data-bind="a.medovol5^x12.hoka_medovol_5"></td>
+                    <td class="j-selectable j-hoka-td ask5" data-bind="DB_getColFlag(a.medohoka5, a.medohoka_f5)^DB_getColFlag(x12.hoka_medohoka_5,x12.hoka_medohoka_5_f)"></td>
+                    <td class="ask5" data-bind="DB_getHokaRate(a.medohoka5,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_5,$a.standardjuka$)"></td>
+                    <td colspan="2" rowspan="5"></td>
+                </tr>
+                <tr>
+                    <td class="ask4" data-bind="a.medocount4^x12.hoka_medodebi_4"></td>
+                    <td class="ask4" data-bind="a.medovol4^x12.hoka_medovol_4"></td>
+                    <td class="j-selectable j-hoka-td ask4" data-bind="DB_getColFlag(a.medohoka4, a.medohoka_f4)^DB_getColFlag(x12.hoka_medohoka_4,x12.hoka_medohoka_4_f)"></td>
+                    <td class="ask4" data-bind="DB_getHokaRate(a.medohoka4,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_4,$a.standardjuka$)"></td>
+                    
+                </tr>
+                <tr>
+                    <td class="ask3" data-bind="a.medocount3^x12.hoka_medodebi_3"></td>
+                    <td class="ask3" data-bind="a.medovol3^x12.hoka_medovol_3"></td>
+                    <td class="j-selectable j-hoka-td ask3" data-bind="DB_getColFlag(a.medohoka3, a.medohoka_f3)^DB_getColFlag(x12.hoka_medohoka_3,x12.hoka_medohoka_3_f)"></td>
+                    <td class="ask3" data-bind="DB_getHokaRate(a.medohoka3,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_3,$a.standardjuka$)"></td>
+                </tr>
+                <tr>
+                    <td class="ask2" data-bind="a.medocount2^x12.hoka_medodebi_2"></td>
+                    <td class="ask2" data-bind="a.medovol2^x12.hoka_medovol_2"></td>
+                    <td class="j-selectable j-hoka-td ask2" data-bind="DB_getColFlag(a.medohoka2, a.medohoka_f2)^DB_getColFlag(x12.hoka_medohoka_2,x12.hoka_medohoka_2_f)"></td>
+                    <td class="ask2" data-bind="DB_getHokaRate(a.medohoka2,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_2,$a.standardjuka$)"></td>
+                </tr>
+                <tr>
+                    <td class="ask1" data-bind="a.medocount1^x12.hoka_medodebi_1"></td>
+                    <td class="ask1" data-bind="a.medovol1^x12.hoka_medovol_1"></td>
+                    <td class="j-selectable j-hoka-td ask1 fw_b" data-bind="DB_getColFlag(a.medohoka1, a.medohoka_f1)^DB_getColFlag(x12.hoka_medohoka_1,x12.hoka_medohoka_1_f)"></td>
+                    <td class="ask5" data-bind="DB_getHokaRate(a.medohoka1,a.standardjuka)^DB_getHokaRate(x12.hoka_medohoka_1,$a.standardjuka$)"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" rowspan="5" ></td>
+                    <td class="j-selectable j-hoka-td bid1 fw_b" data-bind="DB_getColFlag(a.mesuhoka1, a.mesuhoka_f1)^DB_getColFlag(x12.hoka_mesuhoka_1,x12.hoka_mesuhoka_1_f)"></td>
+                    <td class="bid1" data-bind="DB_getHokaRate(a.mesuhoka1,a.standardjuka)^DB_getHokaRate(x12.hoka_mesuhoka_1,$a.standardjuka$)"></td>
+                    <td class="bid1" data-bind="a.mesuvol1^x12.hoka_mesuvol_1"></td>
+                    <td class="bid1" data-bind="a.mesucount1^x12.hoka_mesudebi_1"></td>
+                </tr>
+                <tr>
+                    <td class="j-selectable j-hoka-td bid2" data-bind="DB_getColFlag(a.mesuhoka2, a.mesuhoka_f2)^DB_getColFlag(x12.hoka_mesuhoka_2,x12.hoka_mesuhoka_2_f)"></td>
+                    <td class="bid2" data-bind="DB_getHokaRate(a.mesuhoka2,a.standardjuka)^DB_getHokaRate(x12.hoka_mesuhoka_2,$a.standardjuka$)"></td>
+                    <td class="bid2" data-bind="a.mesuvol2^x12.hoka_mesuvol_2"></td>
+                    <td class="bid2" data-bind="a.mesucount2^x12.hoka_mesudebi_2"></td>
+                </tr>
+                <tr>
+                    <td class="j-selectable j-hoka-td bid3" data-bind="DB_getColFlag(a.mesuhoka3, a.mesuhoka_f3)^DB_getColFlag(x12.hoka_mesuhoka_3,x12.hoka_mesuhoka_3_f)"></td>
+                    <td class="bid3" data-bind="DB_getHokaRate(a.mesuhoka3,a.standardjuka)^DB_getHokaRate(x12.hoka_mesuhoka_3,$a.standardjuka$)"></td>
+                    <td class="bid3" data-bind="a.mesuvol3^x12.hoka_mesuvol_3"></td>
+                    <td class="bid3" data-bind="a.mesucount3^x12.hoka_mesudebi_3"></td>
+                </tr>
+                <tr>
+                    <td class="j-selectable j-hoka-td bid4" data-bind="DB_getColFlag(a.mesuhoka4, a.mesuhoka_f4)^DB_getColFlag(x12.hoka_mesuhoka_4,x12.hoka_mesuhoka_4_f)"></td>
+                    <td class="bid4" data-bind="DB_getHokaRate(a.mesuhoka4,a.standardjuka)^DB_getHokaRate(x12.hoka_mesuhoka_4,$a.standardjuka$)"></td>
+                    <td class="bid4" data-bind="a.mesuvol4^x12.hoka_mesuvol_4"></td>
+                    <td class="bid4" data-bind="a.mesucount4^x12.hoka_mesudebi_4"></td>
+                </tr>
+                <tr>
+                    <td class="j-selectable j-hoka-td bid5" data-bind="DB_getColFlag(a.mesuhoka5, a.mesuhoka_f5)^DB_getColFlag(x12.hoka_mesuhoka_5,x12.hoka_mesuhoka_5_f)"></td>
+                    <td class="bid5" data-bind="DB_getHokaRate(a.mesuhoka5,a.standardjuka)^DB_getHokaRate(x12.hoka_mesuhoka_5,$a.standardjuka$)"></td>
+                    <td class="bid5" data-bind="a.mesuvol5^x12.hoka_mesuvol_5"></td>
+                    <td class="bid5" data-bind="a.mesucount5^x12.hoka_mesudebi_5"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="ask-total" data-bind="a.medodebitot^DB_getColBuho(x12.medodebitot)"></td>
+                    <td class="ask-total" data-bind="a.medotot^x12.medotot"></td>
+                    <td class="bg-total" data-bind="DB_getColBuho(a.diffmesumedo)^DB_getColBuho(x12.diffmesumedo)" colspan="2">잔량합계</td>
+                    <td class="bid-total" data-bind="a.mesutot^x12.mesutot"></td>
+                    <td class="bid-total" data-bind="a.mesudebitot^DB_getColBuho(x12.mesudebitot)"></td>
+                </tr>
+            </tfoot>
+            </table>
+	    </div>
+	    <div>
+	        
+	    </div>
+    </div>
+</form></textarea></div>
+
+<div id="scriptview"><textarea id="script" name="script" style="display: none;"><script type="text/javascript">
+    //임시 데이터
+    var jsonData = {
+        a:{
+        	   hokatime:"09:00:03",standardjuka:"1,150,000",diffmesumedo:"501"
+        	   ,medodebitot:"0",medotot:"1,416",mesutot:"1917",mesudebitot:"0"
+        	   
+               ,medocount5:"0",medovol5:"170",medohoka5:"1,157,000",medohoka_f5:"5"
+               ,medocount4:"0",medovol4:"259",medohoka4:"1,156,000",medohoka_f4:"5"
+               ,medocount3:"0",medovol3:"410",medohoka3:"1,155,000",medohoka_f3:"5"
+               ,medocount2:"0",medovol2:"437",medohoka2:"1,154,000",medohoka_f2:"5"
+               ,medocount1:"0",medovol1:"140",medohoka1:"1,153,000",medohoka_f1:"5"
+               ,mesucount5:"0",mesuvol5:"263",mesuhoka5:"1,152,000",mesuhoka_f5:"5"
+               ,mesucount4:"0",mesuvol4:"716",mesuhoka4:"1,151,000",mesuhoka_f4:"5"
+               ,mesucount3:"0",mesuvol3:"332",mesuhoka3:"1,150,000",mesuhoka_f3:"3"
+               ,mesucount2:"0",mesuvol2:"497",mesuhoka2:"1,149,000",mesuhoka_f2:"2"
+               ,mesucount1:"0",mesuvol1:"109",mesuhoka1:"1,148,000",mesuhoka_f1:"2"
+        }
+    };
+
+    var formId = "frm";
+    
+    var binder = manager.addBinder(formId,true);//해당 폼을 매니저에 등록
+    binder.bind(jsonData);//jsonData를 해당 element에 binding
+    
+    
+    //실시간 데이터 수신을 위한 웹소켓 연결
+    startWebsocket();//websocketinfo.js
+    
+    manager.send("+","005930",formId,"x12");
+</script></textarea></div><div class="clear"></div></body></html>

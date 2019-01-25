@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="basic" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<!-- 1) type 을 batch 로 정의 2) DataSet input 값에 여러개의 값이 미리 들어가 있어야 함. -->
+	<processor-info datasource="" type="dbms">
+		<transaction-type></transaction-type>
+		<sql id="query1">
+
+			<query type="batch">
+				DELETE FROM dbo.CLASS_BM WHERE CLASS_CD =? AND SEQ=?
+
+				INSERT INTO dbo.CLASS_BM (CLASS_CD,SEQ,BM_NM,WG) VALUES
+				(?,?,?,?)
+			</query>
+			<mapping>
+				<setProperty>
+					CLASS_CD,SEQ,CLASS_CD,SEQ,BM_NM,WG
+				</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field label="유형코드" name="CLASS_CD" type="string"></field>
+			<field label="순번    " name="SEQ" type="string"></field>
+			<field label="시장BM명" name="BM_NM" type="string"></field>
+			<field label="합성비율" name="WG" type="float" />
+
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat=""></block>
+	</output>
+
+</transaction>

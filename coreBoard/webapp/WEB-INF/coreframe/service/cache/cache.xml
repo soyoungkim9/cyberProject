@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <!-- Map을 사용하는 로컬 캐시 default -->
+  <bean id="coreframe.cache" class="coreframe.pool.cache.dummy.CacheManagerImpl" scope="prototype">
+  </bean>
+  
+  <!-- JCS(Java Caching System) 으로 구현한 캐시. 복수의 JVM에서 캐시를 공유가능하다. -->
+  
+  <!-- 
+  <bean id="coreframe.cache" class="coreframe.pool.cache.jcs.CacheManagerImpl" scope="prototype">
+
+  </bean>
+
+  <bean id="coreframe.cache.jcsCacheService" class="coreframe.pool.cache.jcs.JcsCacheService" >
+       
+    <property name="jcsConfig">
+    	<map>
+    		<entry key="jcs.default" value="LTCP"/>
+    		<entry key="jcs.default.cacheattributes" value="org.apache.jcs.engine.CompositeCacheAttributes"/>
+    		<entry key="jcs.default.cacheattributes.MaxObjects" value="1000"/>
+    		<entry key="jcs.default.cacheattributes.MemoryCacheName" value="org.apache.jcs.engine.memory.lru.LRUMemoryCache"/>
+    		
+    		<entry key="jcs.auxiliary.LTCP" value="org.apache.jcs.auxiliary.lateral.socket.tcp.LateralTCPCacheFactory"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes" value="org.apache.jcs.auxiliary.lateral.socket.tcp.TCPLateralCacheAttributes"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.TcpListenerPort" value="1118"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.UdpDiscoveryAddr" value="228.5.6.8"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.UdpDiscoveryPort" value="6780"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.UdpDiscoveryEnabled" value="true"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.Receive" value="true"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.AllowGet" value="false"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.IssueRemoveOnPut" value="false"/>
+    		<entry key="jcs.auxiliary.LTCP.attributes.FilterRemoveByHashCode" value="false"/>
+    	</map>
+    </property>
+    
+    <property name="serviceManager" ref="coreframe.serviceManager" />
+   
+  </bean>
+   -->
+
+</beans>

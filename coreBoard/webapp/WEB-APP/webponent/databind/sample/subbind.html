@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" type="text/css" href="/WEB-APP/webponent/thirdParty/codemirror/codemirror.css" /><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/codemirror.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/xml.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/javascript.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/css.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/htmlmixed.js"></script><link rel="stylesheet" type="text/css" href="sample.css">
+<script type="text/javascript" src="/WEB-APP/webponent/thirdParty/jquery/jquery-1.9.1.min.js"></script><script type="text/javascript" src="sample.js"></script>
+
+<script type="text/javascript" src="/WEB-APP/webponent/databind/databind.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/websocketinfo.js"></script>
+<script type="text/javascript" src="/WEB-APP/webponent/websocket/web_socket.js"></script>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>Insert title here</title>
+</head>
+<body onunload="try{SOCKET.close();}catch(e){}">
+<div id="description">
+<div class="description-item">
+    <div class="fl bind-attribute">data-subbind="subbindId"</div>
+    <div class="fr bind-target">TARGET : 바인더 하위의 bind된 element를 감싸는 모든 Element</div>
+    <div class="clear"></div>
+    <div class="bind-description">
+        <ol>
+            <li>
+            <div>
+                <div class="fl">
+                &lt;div <strong>data-subbind="subbind_normal"</strong>&gt;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;코드&nbsp;&lt;span data-bind="jongcode"&gt;&lt;/span&gt;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;종목명&lt;span data-bind="jongname"&gt;&lt;/span&gt;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;현재가&lt;span data-bind="curjuka"&gt;&lt;/span&gt;<br />
+                &lt;/div&gt;
+                </div>
+                <div class="fr">
+                &lt;table <strong>data-subbind="subbind_list"</strong>&gt;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody data-bind="_this.listItem(b.block)"&gt;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td data-bind="jongcode"&gt;&lt;/td&gt;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td data-bind="jongname"&gt;&lt;/td&gt;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;<br/>
+                &lt;/table&gt;
+                </div>
+                <div class="clear"></div>
+            </div>
+            </li>
+            <li><strong>binder.subBind(data,"subbindId");</strong></li>
+        </ol>
+        <div>
+            <p>Binder 영역 안쪽에 또 다른 작은 binder영역을 만들때 사용한다. 테이블의 종목코드를 클릭시 해당 종목의 상세 정보를 subbind영역에 출력할때 사용한다.<br/>ex) 게시판의 리스트의 row를 클릭하여 상세보기 내용을 보는경우</p> 
+            <p>subbind를 설정하면 binder.bind( data ); 시에는 binding되지 않으며 binder.subBind( subbind데이터, "subbind아이디" );를 따로 사용하여 binding한다.</p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="preview" class="preview"></div><div id="htmlview"><textarea id="html" name="html" style="display: none;"><form id="frm">
+    <div>
+        <table style="width:100%;">
+            <caption>관심종목에 대한 정보를 제공하는 표</caption>
+            <thead>
+                <tr>
+                    <th scope="col">종목코드</th>
+                    <th scope="col">종목명</th>
+                    <th scope="col">현재가</th>
+                    <th scope="col">전일비</th>
+                    <th scope="col">등락율</th>
+                    <th scope="col">거래량</th>
+                    <th scope="col">매도호가</th>
+                    <th scope="col">매도잔량</th>
+                    <th scope="col">매수호가</th>
+                    <th scope="col">매수잔량</th>
+                </tr>
+            </thead>
+            <tbody data-bind="_this.listItem(a.block)">
+                <tr data-keepdata="true">
+                    <td><a href="#" onclick="view(this);" data-bind="jongcode"></a></td>
+                    <td data-bind="jongname"></td>
+                    <td data-bind="curjuka"></td>
+                    <td data-bind="DB_getColFlag(debi,debi_f)"></td>
+                    <td data-bind="DB_getColBuho(debirate)"></td>
+                    <td data-bind="volume"></td>
+                    <td data-bind="medohoka"></td>
+                    <td data-bind="medojan"></td>
+                    <td data-bind="mesuhoka"></td>
+                    <td data-bind="mesujan"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top: 3px;">
+        <div class="fl examBox">
+            <div data-subbind="subbind_normal" >
+	            <div><b>TYPE1(일반)&nbsp;&nbsp;&nbsp;&nbsp;</b></div>
+	              코드&nbsp;<span data-bind="jongcode"></span><br />
+	              종목명<span data-bind="jongname"></span><br />
+	              현재가<span data-bind="curjuka"></span><br />
+	              전일비<span data-bind="DB_getColFlag(debi,debi_f)"></span><br />
+	              등락율<span data-bind="DB_getColBuho(debirate)"></span><br />
+	              거래량<span data-bind="volume"></span><br />
+            </div>
+        </div>
+            
+        <div class="fr examBox">
+            <b>TYPE2(LIST)</b>
+            <table data-subbind="subbind_list">
+                <caption>시간대별 체결 표(MAX:3)</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">시간</th>
+                        <th scope="col">현재가</th>
+                        <th scope="col">전일비</th>
+                        <th scope="col">등락율</th>
+                        <th scope="col">체결량</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="_this.listItem(b.block)">
+                    <tr>
+                        <td data-bind="time"></td>
+                        <td data-bind="curjuka"></td>
+                        <td data-bind="DB_getColFlag(debi,debi_f)"></td>
+                        <td data-bind="DB_getColBuho(debirate)"></td>
+                        <td data-bind="nowvol"></td>
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+         <div class="clear"></div>
+    </div>
+</form></textarea></div>
+
+<div id="scriptview"><textarea id="script" name="script" style="display: none;"><script type="text/javascript">
+    //임시 데이터
+    var jsonData = {
+        a:{
+            block:[
+                {jongcode:"005930",jongname:"삼성전자",curjuka:"1,137,000",debi:"10,000",debi_f:"2",debirate:"0.67",volume:"58,948",medohoka:"1,151,000",medojan:"1",mesuhoka:"1,150,000",mesujan:"135"},
+                {jongcode:"122630",jongname:"KODEX 레버리지",curjuka:"12,120",debi:"135",debi_f:"5",debirate:"-1.13",volume:"11,600,333",medohoka:"9,130",medojan:"385",mesuhoka:"9,125",mesujan:"8235"},
+                {jongcode:"000660",jongname:"SK하이닉스",curjuka:"31,700",debi:"300",debi_f:"2",debirate:"0.96",volume:"1,323,825",medohoka:"27,450",medojan:"825",mesuhoka:"27,000",mesujan:"185"}
+            ]
+        }
+    };
+
+    var formId = "frm";
+    
+    var binder = manager.addBinder(formId,true);//해당 폼을 매니저에 등록
+    binder.bind(jsonData);//jsonData를 해당 element에 binding
+    
+        
+    function view(ele){
+        var keepdata = ele.parentNode.parentNode.keepdata;//TR
+        var code = keepdata['jongcode'];
+        
+        //TYPE1 
+        binder.subBind(keepdata,"subbind_normal");
+        
+        
+        //TYPE2 선택된 종목의대한 상세 데이터를 ajax를 통해 가져왔다고 가정
+        var ajaxData = { b:{ block:"undefined" } };
+        if(code=="005930"){
+            ajaxData.b.block = [
+                {time:"09:00:09",curjuka:"1,495,000",debi:"30,000",debi_f:"2",debirate:"2.55",nowvol:"6"},
+                {time:"09:00:08",curjuka:"1,494,000",debi:"31,000",debi_f:"2",debirate:"2.75",nowvol:"5"},
+                {time:"09:00:07",curjuka:"1,495,000",debi:"30,000",debi_f:"2",debirate:"2.55",nowvol:"4"}
+            ];
+        }else if(code == "122630"){
+            ajaxData.b.block = [
+                {time:"09:00:06",curjuka:"8,900",debi:"175",debi_f:"5",debirate:"1.93",nowvol:"6"},
+                {time:"09:00:05",curjuka:"8,800",debi:"275",debi_f:"5",debirate:"1.73",nowvol:"5"},
+                {time:"09:00:04",curjuka:"8,900",debi:"175",debi_f:"5",debirate:"1.93",nowvol:"4"}
+            ];
+        }else if(code == "000660"){
+            ajaxData.b.block = [
+                {time:"09:00:03",curjuka:"26,900",debi:"135",debi_f:"2",debirate:"0.67",nowvol:"3"},
+                {time:"09:00:02",curjuka:"26,800",debi:"135",debi_f:"2",debirate:"1.13",nowvol:"2"},
+                {time:"09:00:01",curjuka:"26,900",debi:"300",debi_f:"2",debirate:"0.96",nowvol:"1"}
+            ];
+        }
+
+        binder.subBind(ajaxData,"subbind_list");
+    }
+</script></textarea></div><div class="clear"></div></body></html>

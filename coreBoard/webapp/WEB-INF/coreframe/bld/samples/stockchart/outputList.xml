@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="outputList" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="wpfChart" type="dbms">
+		<script language="java"><![CDATA[
+					
+			if("2".equals(input.getText("dateGubun"))) {	//주봉
+				executeSQL("weekData", connection, input, output);
+			} else if("3".equals(input.getText("dateGubun"))) {	//월봉
+				executeSQL("monthData", connection, input, output);
+			} else {	//일봉	
+				if(!"undefined".equals(input.getText("stDate")) && !"".equals(input.getText("stDate"))) {
+					executeSQL("dayDataAfter", connection, input, output);
+				} else {
+					executeSQL("dayData", connection, input, output);	
+				}						
+			}
+			
+		]]></script>
+		<transaction-type></transaction-type>
+
+		<sql id="dayData">
+			<query><![CDATA[
+				SELECT TRD_DD, CLSPRC, OPNPRC, HGPRC, LWPRC, TRDVOL, FORN_ORD_LMT_QTY 
+				FROM(
+				    SELECT ROW_NUMBER() OVER(ORDER BY TRD_DD DESC) num, 
+				        TRD_DD, CLSPRC, OPNPRC, HGPRC, LWPRC, TRDVOL, FORN_ORD_LMT_QTY 
+				    FROM CHART_TEST_DATA
+				    WHERE CODE = ?
+				    )
+				WHERE num <= 500 
+				ORDER BY TRD_DD
+				
+			]]></query>
+			<mapping>
+				<setProperty>code</setProperty>
+				<getProperty>axis, close, open, high, low, trdvol, forn_ord_lmt_qty</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="dayDataAfter">
+			<query><![CDATA[
+				SELECT TRD_DD, CLSPRC, OPNPRC, HGPRC, LWPRC, TRDVOL, FORN_ORD_LMT_QTY 
+				FROM(
+				    SELECT ROW_NUMBER() OVER(ORDER BY TRD_DD DESC) num, 
+				        TRD_DD, CLSPRC, OPNPRC, HGPRC, LWPRC, TRDVOL, FORN_ORD_LMT_QTY 
+				    FROM CHART_TEST_DATA
+				    WHERE CODE = ?
+				    AND TRD_DD <= ?
+				    )
+				WHERE num <= 100 
+				ORDER BY TRD_DD
+				
+			]]></query>
+			<mapping>
+				<setProperty>code, stDate</setProperty>
+				<getProperty>axis, close, open, high, low, trdvol, forn_ord_lmt_qty</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="weekData">
+			<query>
+				
+				SELECT a.TRD_DD, b.CLSPRC, a.OPNPRC, c.HGPRC, c.LWPRC, c.TRDVOL, a.FORN_ORD_LMT_QTY    FROM
+				           
+				    (SELECT TRD_DD, OPNPRC, FORN_ORD_LMT_QTY, DENSE_RANK() OVER(ORDER BY TRUNC(TO_DATE(TRD_DD,'yyyymmdd'),'d')) as WEEK 
+				    FROM CHART_TEST_DATA 
+				        WHERE CODE = ?
+				        AND TRD_DD IN (             
+				                SELECT MIN(s.TRD_DD) TRD_DD FROM                
+				                    (SELECT TRD_DD,
+				                        DENSE_RANK() OVER(ORDER BY TRUNC(TO_DATE(TRD_DD,'yyyymmdd'),'d')) as WEEK                         
+				                        FROM CHART_TEST_DATA
+				                        WHERE CODE = ?                                                                                        
+				                    ) s
+				                    GROUP BY s.WEEK
+				                    )) a,
+				         
+				    (SELECT TRD_DD, CLSPRC, DENSE_RANK() OVER(ORDER BY TRUNC(TO_DATE(TRD_DD,'yyyymmdd'),'d')) as WEEK 
+				    FROM CHART_TEST_DATA 
+				        WHERE CODE = ?
+				        AND TRD_DD IN (             
+				                SELECT MAX(s.TRD_DD) TRD_DD FROM                
+				                    (SELECT TRD_DD,
+				                        DENSE_RANK() OVER(ORDER BY TRUNC(TO_DATE(TRD_DD,'yyyymmdd'),'d')) as WEEK                         
+				                        FROM CHART_TEST_DATA
+				                        WHERE CODE = ?                                                                                         
+				                    ) s
+				                    GROUP BY s.WEEK
+				                    )) b,                    
+				                    
+				    (SELECT MAX(s.HGPRC) HGPRC, MIN(s.LWPRC) LWPRC, SUM(s.TRDVOL) TRDVOL, s.WEEK  FROM                
+				                    (SELECT TRD_DD, HGPRC, LWPRC,TRDVOL,
+				                        DENSE_RANK() OVER(ORDER BY TRUNC(TO_DATE(TRD_DD,'yyyymmdd'),'d')) as WEEK                         
+				                        FROM CHART_TEST_DATA
+				                        WHERE CODE = ?                                                                                         
+				                    ) s
+				                    GROUP BY s.WEEK ) c  
+				                     
+				     WHERE a.WEEK = b.WEEK
+				     AND a.WEEK = c.WEEK
+				     ORDER BY a.TRD_DD                              
+			</query>
+			<mapping>
+				<setProperty>code,code,code,code,code</setProperty>
+				<getProperty>axis, close, open, high, low, trdvol, forn_ord_lmt_qty</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="monthData">
+			<query>
+				              
+				SELECT a.TRD_DD, b.CLSPRC, a.OPNPRC, c.HGPRC, c.LWPRC, c.TRDVOL, a.FORN_ORD_LMT_QTY    
+					FROM                 				                
+				                 
+				    (SELECT TRD_DD, OPNPRC, FORN_ORD_LMT_QTY, SUBSTR(TRD_DD,1,6) YM FROM CHART_TEST_DATA 
+				        WHERE CODE = ? 
+				        AND TRD_DD IN (                
+				                SELECT MIN(TRD_DD) TRD_DD FROM CHART_TEST_DATA GROUP BY SUBSTR(TRD_DD,1,6) 
+				                )) a,
+				                
+				    (SELECT CLSPRC, SUBSTR(TRD_DD,1,6) YM FROM CHART_TEST_DATA 
+				        WHERE CODE = ? 
+				        AND TRD_DD IN (                
+				                SELECT MAX(TRD_DD) TRD_DD FROM CHART_TEST_DATA GROUP BY SUBSTR(TRD_DD,1,6) 
+				                )) b,
+				                             
+				    (SELECT MAX(HGPRC) HGPRC, MIN(LWPRC) LWPRC, SUM(TRDVOL) TRDVOL, SUBSTR(TRD_DD,1,6) YM 
+				    	FROM CHART_TEST_DATA 
+				    	WHERE CODE = ? 
+				    	GROUP BY SUBSTR(TRD_DD,1,6)) c
+					WHERE a.YM = b.YM
+					AND a.YM = c.YM
+					ORDER BY a.TRD_DD 	 
+			</query>
+			<mapping>
+				<setProperty>code,code,code</setProperty>
+				<getProperty>axis, close, open, high, low, trdvol, forn_ord_lmt_qty</getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg">
+			<field name="code" type="string"></field>
+			<field name="stDate" type="string"></field>
+			<field name="dateGubun" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block name="result">
+			<field name="axis" type="string"></field>
+			<field name="close" type="string"></field>
+			<field name="open" type="string"></field>
+			<field name="high" type="string"></field>
+			<field name="low" type="string"></field>
+			<field name="trdvol" type="string"></field>
+			<field name="forn_ord_lmt_qty" type="string"></field>
+		</block>
+	</output>
+
+</transaction>

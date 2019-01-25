@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction
+    xmlns="http://www.cyber-i.com/xml/bld"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+    <info>
+        <name>메일발송</name>
+        <description>
+            <![CDATA[메일발송]]>
+        </description>
+        <author>neoxeni</author>
+        <id>20cffd29cb036baa537e</id>
+        <version>1.0</version>
+        <http-access>false</http-access>
+        <status>confirmation</status>
+        <effective-date></effective-date>
+        <open-api>true</open-api>
+    </info>
+    <processor-info type="mail" datasource="">
+        <script language="java" import="">
+            <![CDATA[]]>
+        </script>
+        <cache>
+            <enable/>
+            <expire/>
+            <max-object-num/>
+        </cache>
+        <property name="dbridge.NEED_AUTH_KEY" value="Y" desc="인증키 사용 구분"/>
+        <property name="dbridge.AUTH_GROUP" value="a54527b2dcf07243fa85,a59fa3bb873fa6e1701f,APP,WEB" desc="디브릿지 권한 그룹"/>
+        
+        <property name="mail.smtp.host" value="smtp.gmail.com"/>
+        <property name="mail.smtp.port" value="587"/>
+        <property name="mail.auth.id" value="pvsp505@gmail.com"/>
+        <property name="mail.auth.pwd" value="Qkreodud3#"/>
+        
+        <property name="mail.smtp.starttls.enable" value="true"/>
+        
+        <property name="mail.session.reuse" value="false"/>
+        <property name="mail.debug" value="false"/>
+    </processor-info>
+    <input>
+        <block name="INPUT1" label="INPUT1" id="INPUT1">
+            <field name="to_email" label="받는 사람 메일주소" type="string"/>
+            <field name="to_name" label="받는 사람 이름" type="string"/>
+        </block>
+        <block name="INPUT2" label="INPUT2" id="INPUT2" repeat="1">
+            <field name="type" label="메일유형" type="string" default="text"/>
+            <field name="from_email" label="보내는 사람 메일주소" type="string" default="neoxeni@cyber-i.com"/>
+            <field name="from_name" label="보내는 사람 이름" type="string" default="neoxeni@cyber-i.com"/>
+            <field name="subject" label="제목" type="string"/>
+            <field name="content" label="내용" type="string"/>
+        </block>
+    </input>
+    <output>
+        <block name="OUTPUT1" label="OUTPUT1" id="OUTPUT1">
+            <field name="result" label="전송결과" type="string"/>
+        </block>
+    </output>
+</transaction>

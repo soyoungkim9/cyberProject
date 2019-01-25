@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<site-menu name="coreFRAME WebFramework" last-id="000055">
+
+    <topmenu id="coreframe_sample" name="coreFRAME example site" _authorizer="coreview.defaultWebAuthorizer">
+        <url>/coreframe</url>
+        <layout propagation="true">default</layout>
+        <child>
+            <!--
+            <menu id="sample_case1" name="자유게시판">
+                <url>/main/board/list.cmd</url>
+            </menu>
+            <menu id="sample_case1" name="출석게시판">
+                <url>/coreframe/sample-application/case1/index.jsp</url>
+                <child>
+                    <menu id="sample_case1_1" name="description">
+                        <url>/coreframe/sample-application/case1/index.jsp</url>
+                    </menu>
+                    <menu id="sample_case1_2" name="example">
+                        <url>/coreframe/sample-application/case1/list.jsp</url>
+                        <another-url>/coreframe/sample-application/case1/view.jsp</another-url>
+                        <another-url>/coreframe/sample-application/case1/update.jsp</another-url>
+                    </menu>
+                </child>
+            </menu>
+            <menu id="sample_case2" name="건의게시판">
+                <url>/coreframe/sample-application/case2/index.jsp</url>
+                <child>
+                    <menu id="sample_case2_1" name="description">
+                        <url>/coreframe/sample-application/case2/index.jsp</url>
+                    </menu>
+                    <menu id="sample_case2_2" name="example">
+                        <url>/coreframe/sample-application/case2/city.jsp</url>
+                    </menu>
+                </child>
+            </menu>
+            -->
+        </child>
+        <publish>
+            <source-url/>
+            <time-gap/>
+            <min-page-size/>
+        </publish>
+    </topmenu>
+</site-menu>

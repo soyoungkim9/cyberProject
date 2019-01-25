@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="delete" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name></name>
+		<http-access>true</http-access>
+	</info>
+
+	<processor-info type="dbms" datasource="cf-system">
+		<transaction-type></transaction-type>
+		<sql id="query1">
+			<query>DELETE FROM CF_BLDMETA</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat="">
+		</block>
+	</output>
+
+</transaction>

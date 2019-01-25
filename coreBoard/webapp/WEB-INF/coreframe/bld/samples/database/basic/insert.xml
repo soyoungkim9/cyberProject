@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- protocolName="db1" -->
+<transaction name="insert" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>일반적인 sql insert 예제</description>
+		<version>0.1</version>
+		<name></name>
+	</info>
+
+	<processor-info datasource="derbyPool" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type>rollback</transaction-type>
+		<sql id="sel1">
+			<query>SELECT max(city_id)+1 FROM  cities</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>max</getProperty>
+			</mapping>
+		</sql>
+		<sql id="ins1">
+			<query>INSERT INTO cities  (city_id,city_name,country,airport,language,country_iso_code ) 
+      VALUES (?,?,?,?,?,?)</query>
+			<mapping>
+				<setProperty>max,city_name,country,airport,language,country_iso_code</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		<block name="contries" repeat="1">
+			<field default="100" label="ID" name="city_id" type="string"></field>
+			<field default="Amsterdam" label="도시명" name="city_name" type="string"></field>
+			<field default="Netherlands" label="국가명" name="country" type="string"></field>
+			<field default="AMS" label="공항" name="airport" type="string"></field>
+			<field default="Dutch" label="language" name="language" type="string"></field>
+			<field default="NL" label="ISO CODE" name="country_iso_code"
+				type="string"></field>
+		</block>
+	</input>
+	<output>
+		<block>
+			<field default="100" label="ID" name="max" type="string"></field>
+		</block>
+	</output>
+
+	<Signature>
+		<SignatureValue>96a5f4d0c5d4618e77107cd4af8f0c578</SignatureValue>
+	</Signature>
+</transaction>

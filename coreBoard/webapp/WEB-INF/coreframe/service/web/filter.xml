@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+<!--   <bean id="coreview.filter.transform" class="coreview.transform.impl.HtmlTransformService">
+    <property name="htmlDomProcessorList">
+      <list>
+        <ref bean="coreview.filter.transform.formCheck"/>
+        <ref bean="coreview.filter.transform.waiCheck"/>
+      </list>
+    </property>
+  </bean>
+  
+   WTS 용 form check
+  <bean id="coreview.filter.transform.formCheck" class="coreview.transform.impl.FormCheckDomProcessor">
+    <property name="filterUrlRegx" value=".*"/>
+  </bean>
+  
+   접근성 검사
+  <bean id="coreview.filter.transform.waiCheck" class="coreview.transform.impl.WACheckDomProcessor">
+    <property name="filterUrlRegx" value=".*"/>
+  </bean>
+   -->
+  
+</beans>

@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+/***************************************Basic Table:E***************************************/
+div.visualContainer *{
+	font-family: '돋움',Dotum,AppleGothic,sans-serif;
+	margin: 0px;
+	padding: 0px;
+	background-color: #383d46;
+}
+
+div.visualContainer table {
+	color: #f0f0f0;
+	font-size: 12px;
+}
+
+div.visualContainer th {
+	height: 28px;
+	line-height: 28px;
+	font-size: 13px;
+	text-align: center;
+	border-bottom: 1px solid #1c1d24;
+	border-left: 1px solid #383a46;
+	border-right: 1px solid #2b2d37;
+}
+
+div.visualContainer td {
+	height: 21px;
+	line-height: 21px;
+	padding: 4px 10px;
+	border-left: 1px solid #383a46;
+	border-right: 1px solid #2b2d37;
+	border-bottom: 1px solid #2b2d37;
+}
+
+/***************************************Basic Table:E***************************************/
+DIV.gridContainer .sprite{background-image: url(img/grid.png);background-repeat: no-repeat;display:inline-block;}
+
+/* button : S*/
+DIV.gridContainer TH SPAN BUTTON{width:10px;height:10px;background-color: transparent;cursor: pointer;vertical-align: middle;}
+DIV.gridContainer TH SPAN.sort_able BUTTON	{background-position:-10px -10px;}
+DIV.gridContainer TH SPAN.sort_asc BUTTON	{background-position:-50px -10px;}
+DIV.gridContainer TH SPAN.sort_desc BUTTON	{background-position:-30px -10px;}
+DIV.gridContainer TH DIV.rotate_able BUTTON{background-position:-65px -9px;}
+/* button : E*/
+
+DIV.gridContainer td{
+	.width: 100%;  /*IE6*/
+	*:first-child+html width: 100%;  /*IE7*/
+	overflow : hidden;
+	white-space: nowrap;
+    text-overflow : ellipsis;
+	-o-text-overflow : ellipsis;
+}
+
+/* td를 클릭하여 editmode시 input 과 selectbox를 위한 공간으로 padding변경 (padding: 0px 0px 0px 0px)*/
+DIV.gridContainer TD.editMode{padding-top: 0px;padding-bottom: 0px;}
+DIV.gridContainer COL.hiddenable{display: none !important;}/*IE7 hiddenable*/
+DIV.gridContainer COL.fixable{display: none !important;}/*IE7 hiddenable*/
+DIV.gridContainer DIV.displayTable{display: table;}
+/**************************************Component Grid:E**************************************/

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>게시판 리스트</description>
+    <author>김소영</author>
+    <version>1.0</version>
+    <http-access>true</http-access>
+  </info>
+  <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      String searchList = input.getText("searchList");
+      if(searchList.equals("all")) {
+         executeSQL("countAll", connection, input, output);
+         executeSQL("selectByAll", connection, input, output);
+      } else if(searchList.equals("title")) {
+         executeSQL("countTitle", connection, input, output);
+         executeSQL("selectByTitle", connection, input, output);
+      } else if(searchList.equals("name")) {
+         executeSQL("countName", connection, input, output);
+         executeSQL("selectByName", connection, input, output);
+      }
+    </script>
+    <transaction-type></transaction-type>
+    <sql id="countAll">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS total FROM board WHERE title LIKE '%${search}%' OR name LIKE '%${search}%'
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>total</getProperty>
+      </mapping>
+    </sql>
+    <sql id="countTitle">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS total FROM board WHERE title LIKE '%${search}%'
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>total</getProperty>
+      </mapping>
+    </sql>
+    <sql id="countName">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS total FROM board WHERE name LIKE '%${search}%'
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>total</getProperty>
+      </mapping>
+    </sql>
+    <sql id="selectByAll">
+      <query>
+        <![CDATA[
+          SELECT bno, name, title, cnt, TO_CHAR(sdt,'yyyy-MM-dd')
+		  FROM (SELECT row_number() OVER(ORDER BY bno DESC)AS rnum, board.* FROM board WHERE title LIKE '%${search}%' OR name LIKE '%${search}%')
+		  board WHERE rnum > :startRow AND rnum <= :startRow + :size ORDER BY rnum ASC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>bno, name, title, cnt, sdt</getProperty>
+      </mapping>
+    </sql>
+    <sql id="selectByTitle">
+      <query>
+        <![CDATA[
+          SELECT bno, name, title, cnt, TO_CHAR(sdt,'yyyy-MM-dd')
+		  FROM (SELECT row_number() OVER(ORDER BY bno DESC)AS rnum, board.* FROM board WHERE title LIKE '%${search}%')
+		  board WHERE rnum > :startRow AND rnum <= :startRow + :size ORDER BY rnum ASC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>bno, name, title, cnt, sdt</getProperty>
+      </mapping>
+    </sql>
+    <sql id="selectByName">
+      <query>
+        <![CDATA[
+          SELECT bno, name, title, cnt, TO_CHAR(sdt,'yyyy-MM-dd')
+		  FROM (SELECT row_number() OVER(ORDER BY bno DESC)AS rnum, board.* FROM board WHERE name LIKE '%${search}%')
+		  board WHERE rnum > :startRow AND rnum <= :startRow + :size ORDER BY rnum ASC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>bno, name, title, cnt, sdt</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  <input>
+    <block name="InBlock_1">
+      <field name="startRow" type="string" label="시작행"></field>
+      <field name="size" type="string" label="게시글수"></field>
+      <field name="search" type="string" label="검색내용"></field>
+    </block>
+  </input>
+  <output>
+    <block name="OutBlock_1">
+      <field name="bno" type="string" label="게시판번호"></field>
+      <field name="name" type="string" label="이름"></field>
+      <field name="title" type="string" label="제목"></field>
+      <field name="cnt" type="string" label="조회수"></field>
+      <field name="sdt" type="string" label="작성일"></field>
+      <field name="total" type="string" label="검색수"></field>
+    </block>
+  </output>
+</transaction>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
+	<jsp:directive.page extends="coreframe.http.JspxController" />
+	<jsp:directive.page import="java.util.zip.GZIPOutputStream" />
+	<jsp:directive.page import="java.io.*,java.util.*" />
+	<jsp:directive.page import="coreframe.CoreApplication"/>
+	<jsp:directive.page import="coreframe.http.*,coreframe.data.*,coreframe.log.*" />
+	<!-- jsp:directive.page import="jxl.Workbook,javax.servlet.ServletInputStream,jxl.*,au.com.bytecode.opencsv.CSVReader" / -->
+	<jsp:declaration><![CDATA[//
+	                          
+	                          
+	String BREAK_LINE = "\n";
+	String INDENT  = "    ";
+	String INDENT2 = "        ";
+	String INDENT3 = "            ";
+	String INDENT4 = "                ";
+	String INDENT5 = "                    ";               
+	String SPLIT_DELIM = ",";                          
+	                          
+	protected String getDefaultMethodName() {
+		return "getGridData";
+	}
+	
+	public void putGridData(HttpServletRequest req, HttpServletResponse resp, ViewMeta view) throws ServletException, IOException, Exception {
+		DataSet reqInput = new DataSet();
+		
+		bind(req,reqInput);
+		
+		
+		for(int i =0, ic = reqInput.getInt("_trCount"); i < ic ; i++ ){
+			
+			DataSet input = new DataSet();
+			
+			Iterator iter = reqInput.keySet().iterator();
+			while(iter.hasNext()){
+				String key = (String)iter.next();
+				input.put(key,reqInput.getText(key,i));	
+			}
+			executeBL(reqInput.getText("_bld"),input);	
+		}
+		
+		Logger.debug.println("reqInput  = \n"+reqInput);
+	}
+	
+	public void getGridData(ViewMeta view) throws ResourceException {
+		
+		long dd = System.currentTimeMillis();
+		
+		view.processTemplate(false);
+		
+		HttpServletRequest req   = view.getHttpServletRequest();
+		HttpServletResponse resp = view.getHttpServletResponse();
+		
+		String gridDataInfo  = req.getParameter("gridDataInfo");
+		String gridHiddenKey = req.getParameter("gridHiddenKey");
+		String bldPath       = req.getParameter("bldPath");			//호출 bld경로
+		String sortTarget    = req.getParameter("sortTarget");		//타겟 필드 네임
+		String sortOrder     = req.getParameter("sortOrder");		//asc, desc
+		String sortType      = req.getParameter("sortType");		//숫자,문자열,날짜 구분
+		String rowsPerPage   = req.getParameter("gridRowsPerPage");	//페이지당 로우수
+		String pagingType    = req.getParameter("pagingType");		//페이징 유형
+		String viewPage      = req.getParameter("view");			//뷰페이지 경로
+		
+		DataSet input = new DataSet();
+		DataSet output = new DataSet();
+		
+		
+		
+		
+		bind(req,input);
+		
+		
+		System.out.println(input);
+		
+		executeBL(bldPath,input,output);
+		output.setForceFormatting(true);
+		
+		int outputCnt = 0;
+		Iterator iter = output.keySet().iterator();
+		List keyList = new ArrayList();
+		while(iter.hasNext()){
+			String key = (String) iter.next();
+			if("gridTotalCount".equals(key)){
+				continue;
+			}
+			
+			keyList.add(key);
+			int keyCount = output.getCount(key);
+			if(outputCnt < keyCount){
+				outputCnt = keyCount;
+			}
+		}
+		
+		if(sortTarget != null && !"".equals(sortTarget)){
+			Map excludeKeyMap = new HashMap();
+			excludeKeyMap.put("checkbox","checkbox");
+			excludeKeyMap.put(sortTarget,sortTarget);
+			List sortArrayList = new ArrayList();
+			
+			int arrayCount = 0;
+			for( int i =0, ic = keyList.size(); i < ic; i ++ ){
+				String key = (String)keyList.get(i);
+				if(!excludeKeyMap.containsKey(key)){
+					sortArrayList.add(key);
+				}
+			}
+			
+			String sortArray[] = new String[sortArrayList.size()];
+			sortArrayList.toArray(sortArray);
+			
+			if("asc".equals(sortOrder)){
+				output.sort(sortTarget,sortArray);
+			}else if("desc".equals(sortOrder)){
+				output.sortReverse(sortTarget,sortArray);
+			}
+			
+			//System.out.print("<sort> [target: "+sortTarget+"] [other : ");
+			for( int i =0 ; i < sortArray.length; i++ ){
+				//System.out.print(sortArray[i]+"   ");
+			}
+			//System.out.println("]");
+		}
+		
+		resp.setHeader("gridTotalCount",output.getText("gridTotalCount"));
+		
+		
+		
+		
+		
+		
+		
+		
+
+		/*
+			java.io.StringWriter w = new java.io.StringWriter();
+			writer.write(w);
+			Logger.packet.println(supportsGzip + " RESP:" + w);
+		 */
+		
+		
+		
+		
+		 viewPage = null;
+		
+		if(viewPage == null){
+			String[] gridOrder = gridDataInfo.split(",");
+			
+			StringBuffer sb = new StringBuffer();
+			int _rowsPerPage = rowsPerPage != null && !"undefined".equals(rowsPerPage) ? Integer.parseInt(rowsPerPage) : -1;
+			
+			for( int i = 0; i < outputCnt; i++ ){
+				
+				
+				if("2".equals(pagingType)&&_rowsPerPage != -1){
+					if(i == 0 ){
+						sb.append("<tbody>").append(BREAK_LINE);
+					}
+					
+					if(i!=0 && i%_rowsPerPage == 0){
+						sb.append("</tbody>").append(BREAK_LINE);
+						sb.append("<tbody>").append(BREAK_LINE);
+					}
+				}
+				
+				sb.append("<tr>").append("");
+				for(int j =0, jc = gridOrder.length; j < jc ; j++ ){
+					sb.append("<td>");
+					
+					if("checkbox".equals(gridOrder[j])){
+						sb.append("<input type=\"checkbox\" class=\"gridCheck\" />");
+					}else{
+						sb.append(output.getText(gridOrder[j],i));
+					}
+					sb.append("</td>").append("");
+				}
+				sb.append("</tr>").append(BREAK_LINE);
+				
+				if("2".equals(pagingType)&&_rowsPerPage != -1){
+					if(i==outputCnt-1){
+						sb.append("</tbody>").append(BREAK_LINE);
+					}
+				}
+			}
+			
+			
+			//데이터 뻥티기(40480건)
+			StringBuffer sbsb = new StringBuffer();
+			for( int i =0, ic = 460; i < ic; i++){
+				sbsb.append(sb.toString());
+			}
+			//데이터 뻥티기
+		
+			
+			
+			Logger.debug.println("\n=====================Grid 서버 모드 내부:S======================\n"+sb.toString()+"\n=====================Grid 서버 모드 내부:E======================\n");
+			try{
+				boolean supportsGzip = false;
+				String encoding = req.getHeader("Accept-Encoding");
+				if (encoding != null) {
+					if (encoding.toLowerCase(Locale.ENGLISH).indexOf("gzip") > -1) {
+						supportsGzip = true;
+					}
+				}
+				PrintWriter pw = null;
+				GZIPOutputStream gzipOut = null;
+				if (supportsGzip) {
+					gzipOut = new GZIPOutputStream(new BufferedOutputStream(resp.getOutputStream()));
+					pw = new PrintWriter(new OutputStreamWriter(gzipOut, "UTF-8"));
+					resp.setHeader("Content-Encoding", "gzip");
+				} else {
+					pw = resp.getWriter();
+				}
+				pw.print(sbsb.toString());
+				
+				pw.flush();
+				if (supportsGzip) {
+					gzipOut.finish();
+					gzipOut.flush();
+				}
+				
+				//System.out.println("GZip 전송!!!" + (System.currentTimeMillis()-dd));
+			}catch(Exception ex){
+				
+			}
+		}else{
+			Logger.debug.println("\n=====================Grid 서버 모드 페이지 [ "+viewPage+" ]:S======================\n<input>"+input+"\n<output>"+output+"\n=====================Grid 서버 모드 페이지 [ "+viewPage+" ]:E======================\n");			
+			if(outputCnt > 0){
+				req.setAttribute("list",output.toList());
+			}
+			
+			if(rowsPerPage!=null){
+				req.setAttribute("rowsPerPage",rowsPerPage);
+				resp.setHeader("gridTotalCount",output.getText("gridTotalCount"));
+			}
+			
+			view.setViewPage(viewPage);
+		}
+	}
+	
+	public void uploadExcel(HttpServletRequest req, HttpServletResponse resp, ViewMeta view) throws ServletException, IOException, Exception {
+		/* 
+		javax.servlet.ServletInputStream is = req.getInputStream();
+	     byte[] junk = new byte[1024];
+	     int bytesRead = 0;
+
+	     // the first four lines are request junk
+	     bytesRead = is.readLine(junk, 0, junk.length);
+	     bytesRead = is.readLine(junk, 0, junk.length);
+	     bytesRead = is.readLine(junk, 0, junk.length);
+	     bytesRead = is.readLine(junk, 0, junk.length);
+	     
+		Workbook workbook = Workbook.getWorkbook(is);
+	    Sheet sheet = null;
+	    Cell cell = null;
+	    StringBuffer htmlTable = new StringBuffer();
+	    
+	    try{
+			if( workbook != null) {
+	        	//엑셀파일에서 첫번째 Sheet를 인식
+	            sheet = workbook.getSheet(0);
+	            if( sheet != null) {
+	                //셀인식 Cell a1 = sheet.getCell( 컬럼 Index, 열 Index);
+	                //셀 내용 String stringa1 = a1.getContents();
+	                //기록물철의 경우 실제 데이터가 시작되는 Row지정
+	                int nRowStartIndex = 1;
+	                //기록물철의 경우 실제 데이터가 끝 Row지정
+	                int nRowEndIndex   = sheet.getColumn( 0).length - 1;
+	                //기록물철의 경우 실제 데이터가 시작되는 Column지정
+	                int nColumnStartIndex = 0;
+	                //기록물철의 경우 실제 데이터가 끝나는 Column지정
+	                int nColumnEndIndex = sheet.getRow( 0).length - 1;
+	                String szValue = "";
+	                for( int nRow = nRowStartIndex; nRow <= nRowEndIndex; nRow++ ){
+	                	htmlTable.append("<tr>").append(BREAK_LINE);
+	                	htmlTable.append("<td style=\"text-align:center\"><input type=\"checkbox\" checked=\"checked\" /></td>");
+	                    for( int nColumn = nColumnStartIndex; nColumn <= nColumnEndIndex ; nColumn++){
+	                        szValue = sheet.getCell( nColumn, nRow).getContents();
+	                        htmlTable.append("<td>").append(BREAK_LINE);;
+	                        htmlTable.append(szValue);
+	                        htmlTable.append("</td>").append(BREAK_LINE);;
+	                    }
+	                    htmlTable.append("</tr>").append(BREAK_LINE);;
+	                }
+	            }   else  {
+	                //System.out.println( "Sheet is null!!" );
+	            }
+	        }  else  {
+	        //    System.out.println( "WorkBook is null!!" );
+	        }
+	    }  catch( Exception e)  {
+	        e.printStackTrace();
+	    }   finally    {
+	        if( workbook != null)    {
+	            workbook.close();
+	        }
+	    }
+	    resp.setContentType("text/html");
+	    resp.getWriter().print("<html><body><table>"+htmlTable.toString()+"</table></body></html>");
+	    view.processTemplate(false);
+	    */
+	}
+	
+	public void uploadCsv(HttpServletRequest req, HttpServletResponse resp, ViewMeta view) throws ServletException, IOException, Exception {
+
+		BufferedReader bufReader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+		StringBuffer htmlTable = new StringBuffer();
+		
+		try{
+			InputStream is = req.getInputStream();
+	     	InputStreamReader isr = new InputStreamReader(is, "EUC-KR");
+			/*
+			CSVReader reader = new CSVReader(isr);
+			
+			List entity = reader.readAll();
+			
+			for(int i=5, ic=entity.size()-1; i<ic; i++){
+				String[] line = (String[])entity.get(i);
+				htmlTable.append("<tr>").append(BREAK_LINE);
+				htmlTable.append("<td style=\"text-align:center\"><input type=\"checkbox\" checked=\"checked\" /></td>");
+			    
+			    for(int j=0,jc=line.length; j<jc; j++){
+			   		htmlTable.append("<td>"+line[j]+"</td>");
+			 	}
+			    
+			    htmlTable.append("</tr>");
+			}
+			*/
+	}catch(Exception e){
+		e.printStackTrace();
+	}	    
+	    resp.setContentType("text/html");
+	    resp.getWriter().print("<html><body><table>"+htmlTable.toString()+"</table></body></html>");
+	    view.processTemplate(false);
+	}
+	
+	]]></jsp:declaration>
+
+</jsp:root>

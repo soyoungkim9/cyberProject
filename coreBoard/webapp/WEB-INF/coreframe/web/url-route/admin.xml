@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<url-routing defaultParamRegex="([a-zA-Z0-9,.;\-_]+)">
+
+	<url method="GET,POST" value="apps/admin/services/${serviceId}/${cmd}">/WEB-APP/admin/main.jspx?cmd=${http.method}_${cmd}</url>
+	<url method="GET,POST" value="apps/admin/${cmd}">/WEB-APP/admin/main.jspx?cmd=${cmd}</url>
+	<url method="GET" value="^apps/admin/view/(${resource}[a-zA-Z0-9.//_]+)$">/WEB-APP/admin/view/${resource}</url>
+	<url method="GET,POST" value="apps/admin">/WEB-APP/admin/main.jspx</url>
+
+
+</url-routing>
+

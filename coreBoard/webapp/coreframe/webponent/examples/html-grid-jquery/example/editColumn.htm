@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>New Grid</title>
+<script type="text/javascript" src='../../../jslib/jquery.js'></script>
+<script type="text/javascript" src="../jquery.dataGrid.js"></script>
+<script type="text/javascript">
+
+	var grid1;
+	var grid2;
+	$(document).ready(function() {
+		grid1 = $.dataGrid('#tbl1', {
+			width 	:  800,
+			height 	:  200,
+			editColumn	: {
+				"id"		:{events:"onblur='a(this)'; onkeyup='b(this)';"},
+				"language"	:{select:"1:Arabic,2:Bengali,3:Spanish,4:English,5:Dutch,6:Greek,7:Korean",events:"onchange='c(this)';"}
+			}
+		});
+		
+		grid2 = $.dataGrid('#tbl2', {
+			width 	:  800,
+			height 	:  200
+		});
+		
+		send();
+	});
+	
+	function send() {
+		var f = $('#excform');
+		grid1.updateBody(f);
+		grid2.updateBody(f);
+		return false;
+	}
+	
+	function a(ele){
+		alert("onblur : "+ele.value);
+	}
+	
+	function b(ele){
+		alert("onkeyup : "+ele.value);
+	}
+	
+	function c(ele){
+		alert("onchange : "+ele.value);
+	}
+</script>
+
+</head>
+<body>
+	<form id="excform" action="../../../../../corelogic/process/samples/database/listCities.xhtml?data-only=true" method="post" onSubmit="return send()">
+		<table border="1">
+			<tr>
+				<th>name : <input type="text" name="name" value=""  /></th>
+				<td><input type="submit" value="execute" /></td>
+			</tr>
+		</table>
+	</form>
+	
+	<h1>특정 컬럼 열을 수정하기</h1>
+	
+	<h2>
+		editColumn	: {<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;"id"		:{events:"onblur='a(this)'; onkeyup='b(this)';"},<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;"language"	:{select:"1:Arabic,2:Bengali,3:Spanish,4:English,5:Dutch,6:Greek,7:Korean",events:"onchange='c(this)';"}<br />
+		}<br />
+	</h2>
+	<table id="tbl1" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h2>col의 class에 editable 선언, data-events에 이벤트 선언, data-엘리먼트 이름으로 값 추가 (예제는 select)  #radio,check등 다른형식은 미구현</h2>
+	<table id="tbl2" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   class="editable" data-events="onblur='a(this)'; onkeyup='b(this)';"/>
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   class="editable" data-events="onchange='c(this)';" data-select="1:Arabic,2:Bengali,3:Spanish,4:English,5:Dutch,6:Greek,7:Korean"/>
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="derby_outputMap" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="derbyPool" type="dbms">
+		<transaction-type></transaction-type>		
+		
+		<sql id="query1">
+			<query>
+				SELECT NAME FROM CHART_TEST_DATA2 WHERE CODE = ?				
+			</query>
+			<mapping>
+				<setProperty>code</setProperty>
+				<getProperty>companyName</getProperty>
+			</mapping>
+		</sql>
+		
+	</processor-info>
+	<input>
+		<block name="arg">
+			<field name="code" type="string"></field>
+		</block>
+	</input>
+	<output>
+		<block name="result">
+			<field name="companyName" type="string"></field>
+		</block>
+	</output>
+</transaction>

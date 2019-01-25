@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd        http://www.springframework.org/schema/context        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<bean class="corelogic.adapter.file.ResourceAdapterImpl" id="adapter.file">
+  <property name="name" value="file-reader-binary"/>
+  <property name="lineDelimiter" value="\n\r"/>
+  <property name="rootDirectory" value="${COREFRAME_CONFIG_HOME}/_work/filedb/files"/>
+  <property name="mode" value="length"/>
+  <property name="numberMode" value="binary"/>
+  <property name="managementService" ref="corelogic.adapterService"/>
+</bean>
+<bean class="corelogic.adapter.file.ResourceAdapterImpl" id="adapter.file2">
+  <property name="name" value="file-reader"/>
+  <property name="lineDelimiter" value="\n\r"/>
+  <property name="rootDirectory" value="${COREFRAME_CONFIG_HOME}/_work/filedb/files"/>
+  <property name="mode" value="length"/>
+  <property name="numberMode" value="text"/>
+  
+  <property name="managementService" ref="corelogic.adapterService"/>
+</bean>
+<bean class="corelogic.adapter.file.ResourceAdapterImpl" id="adapter.file3">
+  <property name="name" value="file-writer"/>
+  <property name="readWrite" value="write"/>
+  <property name="lineDelimiter" value="\n\r"/>
+  <property name="rootDirectory" value="${COREFRAME_CONFIG_HOME}/_work/filedb/files"/>
+  <property name="mode" value="length"/>
+  <property name="numberMode" value="text"/>
+  <property name="managementService" ref="corelogic.adapterService"/>
+</bean>
+</beans>

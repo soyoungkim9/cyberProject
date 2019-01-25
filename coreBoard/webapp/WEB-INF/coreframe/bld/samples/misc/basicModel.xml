@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="basicModel" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>모델정보를 재활용한다.</description>
+		<version>0.1</version>
+		<name>기본 데이터 모델 정의</name>
+	</info>
+
+	<processor-info datasource="derbyPool" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+		<sql id="sel1">
+			<query>
+					SELECT city_id,city_name,country,airport,language,country_iso_code 
+					FROM CITIES WHERE city_id =?
+			</query>
+			<mapping>
+				<setProperty>id</setProperty>
+				<getProperty>city_id,city_name,country,airport,language,country_iso_code</getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+
+	<input>
+		<block>
+			<field default="1" name="id" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block id="city">
+			<field label="ID" name="city_id" type="string"></field>
+			<field label="도시명" name="city_name" type="string"></field>
+			<field label="국가명" name="country" type="string"></field>
+			<field label="공항" name="airport" type="string"></field>
+			<field label="language" name="language" type="string"></field>
+			<field label="ISO CODE" name="country_iso_code" type="string"></field>
+		</block>
+	</output>
+
+	<Signature>
+		<SignatureValue>2cd1b541ebc8ad97cbec5bf297772a9f</SignatureValue>
+	</Signature>
+</transaction>

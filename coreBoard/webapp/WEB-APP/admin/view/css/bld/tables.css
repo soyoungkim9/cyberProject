@@ -1,0 +1,133 @@
+* {
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.tbl {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #333;
+	border-collapse: collapse;
+	
+	border-top: 1px solid #333;
+	margin-top: 20px;
+	color: #111;
+}
+
+.tbl p {
+	margin: 0;
+}
+
+.tbl thead th,.tbl .thead th {
+	text-align: left;
+	background-color: #bbbbbb;
+	background: -moz-linear-gradient(top, #eeeeee, #aaaaaa);
+	background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),to(#aaaaaa) );
+	-ms-filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#eeeeee', EndColorStr='#aaaaaa');
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#eeeeee', EndColorStr='#aaaaaa');
+	border-right: 1px solid #333;
+}
+
+.tbl thead th:last-child,.tbl .thead th:last-child {
+	border-right: none;
+}
+
+.tbl td,.tbl th {
+	overflow: hidden;
+	vertical-align: top;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 2px 4px;
+	font-weight: normal;
+}
+
+.tbl th.wrap,.tbl td.wrap {
+	white-space: normal;
+}
+
+.tbl th.table-th-sort {
+	text-align: left;
+	background-color: #c9c9c9;
+	background: -moz-linear-gradient(top, #d6d6d6, #bbbbbb);
+	background: -webkit-gradient(linear, left top, left bottom, from(#d6d6d6), to(#bbbbbb) );
+	-ms-filter:
+		progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#d6d6d6', EndColorStr='#bbbbbb');
+	filter:
+		progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#d6d6d6', EndColorStr='#bbbbbb');
+}
+
+.tbl th .table-th-sort-span {
+	float: right;
+}
+
+.tbl tbody tr {
+	background-color: #eee;
+	border-bottom: 1px solid #333;
+}
+
+.tbl tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.tbl tbody tr .tbl tbody tr {
+	background-color: transparent;
+}
+
+.tbl tbody tr:nth-child(even) .tbl tbody tr:nth-child(even)
+	{
+	background-color: #eee;
+}
+
+.tbl tbody tr:nth-child(odd) .tbl tbody tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.tbl .iconCol,.tbl .overrideCountCol {
+	text-align: center;
+}
+
+.tbl .cmfInput.disabled {
+	background-color: transparent;
+	color: #000 !important;
+}
+
+.tbl a.erase,.tbl a.edit {
+	display: inline;
+	width: 16px;
+	height: 16px;
+	text-decoration: none;
+}
+
+.tbl a.expand,.tbl a.collapse {
+	width: 11px;
+	height: 16px;
+	text-decoration: none;
+}
+
+.tbl .tbl {
+	border: none;
+}
+
+.tbl+.tbl {
+	border-top: none;
+}
+
+label.paramName {
+	font-weight: bold;
+}
+
+.tbl col.name {
+	width: 150px;
+}
+
+.tbl col.edit {
+	width: 20px;
+	min-width: 20px;
+	max-width: 20px;
+}
+
+.tbl col.value {
+	width: 350px;
+}

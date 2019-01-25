@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>New Grid</title>
+<script type="text/javascript" src='../../../jslib/jquery.js'></script>
+<script type="text/javascript" src="../jquery.dataGrid.js"></script>
+<script type="text/javascript">
+
+	var grid;
+	
+	$(document).ready(function() {
+		
+		grid = $.dataGrid('#tbl', {
+			width  : 800,
+			height : 150,
+			gridInfo: true,
+			paging : {rows:20,type:2},
+			sortColumn:{"id":"intType","name":"stringType"}
+		});
+		send();
+	});
+	
+	
+	function send() {
+		
+		var startdate = new Date();
+		
+		var f = $('#excform');
+		
+		grid.updateBody(f,{success:function(){
+			var enddate = new Date();
+			$("#timeLog3").html("수행시간3 : "+ (enddate - startdate));
+		}});
+		
+		return false;
+	}
+	
+	function rowClick(td){
+		var rowData = grid1.getRowDataArray(grid1.getRowFromChild(td));
+		alert(rowData["name"])
+	}
+</script>
+
+</head>
+<body>
+	<form id="excform" action="userControl.jspx?cmd=list" method="post" onSubmit="return send()">
+		<table border="1">
+			<tr>
+				<th>name : <input type="text" name="name" value="" /></th>
+				<td><input type="submit" value="execute" /></td>
+			</tr>
+		</table>
+	</form>
+	<h1>대용량 로우 [paging.type :  3](40000 rows)</h1>
+	
+	<h2>
+		paging : {rows:20,type:3}<br />
+	</h2>
+	<table id="tbl" cellpadding="0" cellspacing="0">
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="400" align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<div>
+		<div id="timeLog1"></div><div id="timeLog2"></div><div id="timeLog3"></div>
+	</div>
+</body>
+</html>

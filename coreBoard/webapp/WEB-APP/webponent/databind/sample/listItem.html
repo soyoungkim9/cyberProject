@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="stylesheet" type="text/css" href="/WEB-APP/webponent/thirdParty/codemirror/codemirror.css" /><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/codemirror.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/xml.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/javascript.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/css.js"></script><script type="text/javascript" src="/WEB-APP/webponent/thirdParty/codemirror/htmlmixed.js"></script><link rel="stylesheet" type="text/css" href="sample.css">
+<script type="text/javascript" src="/WEB-APP/webponent/thirdParty/jquery/jquery-1.9.1.min.js"></script><script type="text/javascript" src="sample.js"></script>
+
+<script type="text/javascript" src="/WEB-APP/webponent/databind/databind.js"></script>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>Insert title here</title>
+</head>
+<body>
+<div id="description">
+<div class="description-item">
+    <div class="fl bind-attribute">databind="_this.listItem(array)"</div>
+    <div class="fr bind-target">TARGET : 바인더 하위의 TBODY, UL, OL Element</div>
+    <div class="clear"></div>
+    <div class="bind-description">
+        <ol>
+            <li>&lt;tbody data-bind="<strong>_this.listItem(a.block)</strong>"&gt;&lt;/tbody&gt;<br /></li>
+            <li>&lt;ul data-bind="<strong>_this.listItem(a.block)</strong>"&gt;&lt;/ul&gt;<br /></li>
+            <li>&lt;ol data-bind="<strong>_this.listItem(a.block.reverse())</strong>"&gt;&lt;/ol&gt;<br /></li>
+        </ol>
+        <div>
+            <p>LIST성격의 element를 처리 하기 위한 미리 준비된 함수로 array data를 인자로 받는다. 실시간 표현식의 경우도 _this.appendItem(array) 또는 _this.replaceItem(array,유니크키)등이 준비되어 있다.</p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="preview" class="preview"></div><div id="htmlview"><textarea id="html" name="html" style="display: none;"><form id="frm">
+    <div class="div-layout three">
+        <div class="first">
+            <h2>table</h2>
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>종목코드</th>
+                        <th>종목명</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="_this.listItem(a.block)">
+                    <tr>
+                        <td data-bind="jongcode"></td>
+                        <td data-bind="jongname"></td>
+                        <td data-bind="curjuka"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div >
+            <h2>ul &nbsp;&nbsp;&nbsp;a.block</h2>
+            <ul data-bind="_this.listItem(a.block)">
+                <li>
+                    <span data-bind="jongcode"></span>
+                    <span data-bind="jongname"></span>
+                    <span data-bind="curjuka"></span>
+                </li>
+            </ul>
+        </div>
+        
+        <div >
+            <h2>ol &nbsp;&nbsp;&nbsp;a.block.reverse()</h2>
+            <ol data-bind="_this.listItem(a.block.reverse())">
+                <li>
+                    <span data-bind="jongcode"></span>
+                    <span data-bind="jongname"></span>
+                    <span data-bind="curjuka"></span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</form></textarea></div>
+
+<div id="scriptview"><textarea id="script" name="script" style="display: none;"><script type="text/javascript">
+    //임시 데이터
+    var jsonData = {
+        a:{
+            block:[
+                {jongcode:"005930",jongname:"삼성전자",curjuka:"1,137,000"},
+                {jongcode:"122630",jongname:"KODEX 레버리지",curjuka:"12,120"},
+                {jongcode:"000660",jongname:"SK하이닉스",curjuka:"31,700"}
+            ]
+        }
+    };
+
+    var formId = "frm";
+    
+    //manager:BinderManager로 databind.js에서 초기화된 전역변수
+    var binder = manager.addBinder(formId,true);//해당 폼을 매니저에 등록
+    binder.bind(jsonData);//jsonData를 해당 element에 binding
+</script></textarea></div><div class="clear"></div></body></html>

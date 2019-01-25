@@ -1,0 +1,80 @@
+Label
+{
+	fontFamily:돋움;
+	fontSize:11px;
+	color:#666666;
+}
+CheckBox
+{
+	fontFamily:돋움;
+	fontSize:11px;
+	color:#666666;
+}
+/* 데이터 축 스타일 _ no*/
+.noAxisStyle
+{	
+	minorTickLength : 0;
+	minorTickPlacement : none;
+	showLine: true;
+	showLabels: false;
+	tickLength:4;
+	tickPlacement: none;
+}
+/* 보조차트 데이터 축 스타일 */
+.axisStyle
+{	
+	minorTickLength : 0;
+	minorTickPlacement : none;
+	showLine: true;
+	showLabels: true;
+	tickPlacement: none;
+	color:#666666;
+	fontSize:9;
+	fontWeight:bold;
+	tickLength:4;
+    tickPlacement:outside;
+
+}
+/* 보조지표 데이터 축 라벨 스타일 정의 */
+.showAxisLabelStyle 
+{
+	width:65px;
+	height:17px;
+	backgroundColor:#f6f5dc;
+	borderColor:#dddbae;
+	borderThickness:1;
+	borderStyle:solid;	
+}
+.showAxisLabelDataStyle
+{
+	textAlign:right;
+	color:#878661;
+	fontWeight:bold;
+	
+}
+.axisLabelUnitStyle
+{
+	 width:65px;
+	 height:17px;
+	 backgroundColor:#d0d0d0;
+	 borderColor:#c0c0c0;
+	 borderThickness:1px;
+	 borderStyle:solid;
+}
+.axisLabelUnitDataStyle
+{
+	 textAlign:right;
+	 color:#404040;
+}
+RadioButton {
+	fontSize:11px;
+	fontFamily:dotum, gulim;
+	color:#656565;
+}
+TabNavigator {
+	tabWidth:56px;
+	fontSize:11px;
+	fontFamily:dotum, gulim;
+	color:#656565;
+	disabledColor:#FFFFFF;
+}

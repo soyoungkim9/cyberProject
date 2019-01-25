@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="basic2" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="" type="dbms">
+		<transaction-type></transaction-type>
+		<sql id="query0">
+			<query>DELETE FROM dbo.DAILY_CLASS_PERF WHERE IN_DT = '${IN_DT}'</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="query1">
+			<query type="batch">
+				DELETE FROM dbo.DAILY_CLASS_PERF WHERE DT = ? AND CLASS_CD = ?
+
+				INSERT INTO dbo.DAILY_CLASS_PERF (DT,CLASS_CD,DD_RTN,DD_LOG_RTN,W1_RTN,M1_RTN,M1_FUND_QTY,
+				M1_MAX_FUND_RTN,M1_MIN_FUND_RTN,M1_UP_25P_FUND_RTN,M1_DN_25P_FUND_RTN,M1_MD_50P_FUND_RTN,M3_RTN,M3_FUND_QTY,
+				M3_MAX_FUND_RTN,M3_MIN_FUND_RTN,M3_UP_25P_FUND_RTN,M3_DN_25P_FUND_RTN,M3_MD_50P_FUND_RTN,M6_RTN,M6_FUND_QTY,
+				M6_MAX_FUND_RTN,M6_MIN_FUND_RTN,M6_UP_25P_FUND_RTN,M6_DN_25P_FUND_RTN,M6_MD_50P_FUND_RTN,M9_RTN,M9_FUND_QTY,
+				M9_MAX_FUND_RTN,M9_MIN_FUND_RTN,M9_UP_25P_FUND_RTN,M9_DN_25P_FUND_RTN,M9_MD_50P_FUND_RTN,M12_RTN,M12_FUND_QTY,
+				M12_MAX_FUND_RTN,M12_MIN_FUND_RTN,M12_UP_25P_FUND_RTN,M12_DN_25P_FUND_RTN,M12_MD_50P_FUND_RTN,M24_RTN,M24_FUND_QTY,
+				M24_MAX_FUND_RTN,M24_MIN_FUND_RTN,M24_UP_25P_FUND_RTN,M24_DN_25P_FUND_RTN,M24_MD_50P_FUND_RTN,M36_RTN,M36_FUND_QTY,
+				M36_MAX_FUND_RTN,M36_MIN_FUND_RTN,M36_UP_25P_FUND_RTN,M36_DN_25P_FUND_RTN,M36_MD_50P_FUND_RTN,M48_RTN,M48_FUND_QTY,
+				M48_MAX_FUND_RTN,M48_MIN_FUND_RTN,M48_UP_25P_FUND_RTN,M48_DN_25P_FUND_RTN,M48_MD_50P_FUND_RTN,M60_RTN,M60_FUND_QTY,
+				M60_MAX_FUND_RTN,M60_MIN_FUND_RTN,M60_UP_25P_FUND_RTN,M60_DN_25P_FUND_RTN,M60_MD_50P_FUND_RTN,TBOY_AFT_RTN,RTN,IN_DT)
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+				?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,'$IN_DT')
+			</query>
+			<mapping>
+				<setProperty>
+					DT,CLASS_CD,DT,CLASS_CD,DD_RTN,DD_LOG_RTN,W1_RTN,M1_RTN,M1_FUND_QTY,M1_MAX_FUND_RTN,M1_MIN_FUND_RTN,M1_UP_25P_FUND_RTN,M1_DN_25P_FUND_RTN,M1_MD_50P_FUND_RTN,M3_RTN,M3_FUND_QTY,M3_MAX_FUND_RTN,M3_MIN_FUND_RTN,M3_UP_25P_FUND_RTN,M3_DN_25P_FUND_RTN,M3_MD_50P_FUND_RTN,M6_RTN,M6_FUND_QTY,M6_MAX_FUND_RTN,M6_MIN_FUND_RTN,M6_UP_25P_FUND_RTN,M6_DN_25P_FUND_RTN,M6_MD_50P_FUND_RTN,M9_RTN,M9_FUND_QTY,M9_MAX_FUND_RTN,M9_MIN_FUND_RTN,M9_UP_25P_FUND_RTN,M9_DN_25P_FUND_RTN,M9_MD_50P_FUND_RTN,M12_RTN,M12_FUND_QTY,M12_MAX_FUND_RTN,M12_MIN_FUND_RTN,M12_UP_25P_FUND_RTN,M12_DN_25P_FUND_RTN,M12_MD_50P_FUND_RTN,M24_RTN,M24_FUND_QTY,M24_MAX_FUND_RTN,M24_MIN_FUND_RTN,M24_UP_25P_FUND_RTN,M24_DN_25P_FUND_RTN,M24_MD_50P_FUND_RTN,M36_RTN,M36_FUND_QTY,M36_MAX_FUND_RTN,M36_MIN_FUND_RTN,M36_UP_25P_FUND_RTN,M36_DN_25P_FUND_RTN,M36_MD_50P_FUND_RTN,M48_RTN,M48_FUND_QTY,M48_MAX_FUND_RTN,M48_MIN_FUND_RTN,M48_UP_25P_FUND_RTN,M48_DN_25P_FUND_RTN,M48_MD_50P_FUND_RTN,M60_RTN,M60_FUND_QTY,M60_MAX_FUND_RTN,M60_MIN_FUND_RTN,M60_UP_25P_FUND_RTN,M60_DN_25P_FUND_RTN,M60_MD_50P_FUND_RTN,TBOY_AFT_RTN,RTN
+				</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field label="기준일                   " name="DT" type="string"></field>
+			<field label="유형코드                 " name="CLASS_CD" type="string"></field>
+			<field label="하루수익률               " name="DD_RTN" type="float"></field>
+			<field label="하루로그수익률           " name="DD_LOG_RTN" type="float"></field>
+			<field label="01주수익률               " name="W1_RTN" type="float"></field>
+			<field label="01개월수익률             " name="M1_RTN" type="float"></field>
+			<field label="01개월펀드펀드수         " name="M1_FUND_QTY" type="float"></field>
+			<field label="01개월펀드최대수익률     " name="M1_MAX_FUND_RTN" type="float"></field>
+			<field label="01개월펀드최소수익률     " name="M1_MIN_FUND_RTN" type="float"></field>
+			<field label="01개월펀드상위25%수익률  " name="M1_UP_25P_FUND_RTN" type="float"></field>
+			<field label="01개월펀드하위25%수익률  " name="M1_DN_25P_FUND_RTN" type="float"></field>
+			<field label="01개월펀드중앙(50%)수익률" name="M1_MD_50P_FUND_RTN" type="float"></field>
+			<field label="03개월수익률             " name="M3_RTN" type="float"></field>
+			<field label="03개월펀드펀드수         " name="M3_FUND_QTY" type="float"></field>
+			<field label="03개월펀드최대수익률     " name="M3_MAX_FUND_RTN" type="float"></field>
+			<field label="03개월펀드최소수익률     " name="M3_MIN_FUND_RTN" type="float"></field>
+			<field label="03개월펀드상위25%수익률  " name="M3_UP_25P_FUND_RTN" type="float"></field>
+			<field label="03개월펀드하위25%수익률  " name="M3_DN_25P_FUND_RTN" type="float"></field>
+			<field label="03개월펀드중앙(50%)수익률" name="M3_MD_50P_FUND_RTN" type="float"></field>
+			<field label="06개월수익률             " name="M6_RTN" type="float"></field>
+			<field label="06개월펀드수             " name="M6_FUND_QTY" type="float"></field>
+			<field label="06개월펀드최대수익률     " name="M6_MAX_FUND_RTN" type="float"></field>
+			<field label="06개월펀드최소수익률     " name="M6_MIN_FUND_RTN" type="float"></field>
+			<field label="06개월펀드상위25%수익률  " name="M6_UP_25P_FUND_RTN" type="float"></field>
+			<field label="06개월펀드하위25%수익률  " name="M6_DN_25P_FUND_RTN" type="float"></field>
+			<field label="06개월펀드중앙(50%)수익률" name="M6_MD_50P_FUND_RTN" type="float"></field>
+			<field label="09개월수익률             " name="M9_RTN" type="float"></field>
+			<field label="09개월펀드수             " name="M9_FUND_QTY" type="float"></field>
+			<field label="09개월펀드최대수익률     " name="M9_MAX_FUND_RTN" type="float"></field>
+			<field label="09개월펀드최소수익률     " name="M9_MIN_FUND_RTN" type="float"></field>
+			<field label="09개월펀드상위25%수익률  " name="M9_UP_25P_FUND_RTN" type="float"></field>
+			<field label="09개월펀드하위25%수익률  " name="M9_DN_25P_FUND_RTN" type="float"></field>
+			<field label="09개월펀드중앙(50%)수익률" name="M9_MD_50P_FUND_RTN" type="float"></field>
+			<field label="12개월수익률             " name="M12_RTN" type="float"></field>
+			<field label="12개월펀드수             " name="M12_FUND_QTY" type="float"></field>
+			<field label="12개월펀드최대수익률     " name="M12_MAX_FUND_RTN" type="float"></field>
+			<field label="12개월펀드최소수익률     " name="M12_MIN_FUND_RTN" type="float"></field>
+			<field label="12개월펀드상위25%수익률  " name="M12_UP_25P_FUND_RTN"
+				type="float"></field>
+			<field label="12개월펀드하위25%수익률  " name="M12_DN_25P_FUND_RTN"
+				type="float"></field>
+			<field label="12개월펀드중앙(50%)수익률" name="M12_MD_50P_FUND_RTN"
+				type="float"></field>
+			<field label="24개월수익률             " name="M24_RTN" type="float"></field>
+			<field label="24개월펀드수             " name="M24_FUND_QTY" type="float"></field>
+			<field label="24개월펀드최대수익률     " name="M24_MAX_FUND_RTN" type="float"></field>
+			<field label="24개월펀드최소수익률     " name="M24_MIN_FUND_RTN" type="float"></field>
+			<field label="24개월펀드상위25%수익률  " name="M24_UP_25P_FUND_RTN"
+				type="float"></field>
+			<field label="24개월펀드하위25%수익률  " name="M24_DN_25P_FUND_RTN"
+				type="float"></field>
+			<field label="24개월펀드중앙(50%)수익률" name="M24_MD_50P_FUND_RTN"
+				type="float"></field>
+			<field label="36개월수익률             " name="M36_RTN" type="float"></field>
+			<field label="36개월펀드수             " name="M36_FUND_QTY" type="float"></field>
+			<field label="36개월펀드최대수익률     " name="M36_MAX_FUND_RTN" type="float"></field>
+			<field label="36개월펀드최소수익률     " name="M36_MIN_FUND_RTN" type="float"></field>
+			<field label="36개월펀드상위25%수익률  " name="M36_UP_25P_FUND_RTN"
+				type="float"></field>
+			<field label="36개월펀드하위25%수익률  " name="M36_DN_25P_FUND_RTN"
+				type="float"></field>
+			<field label="36개월펀드중앙(50%)수익률" name="M36_MD_50P_FUND_RTN"
+				type="float"></field>
+			<field label="48개월수익률             " name="M48_RTN" type="float"></field>
+			<field label="48개월펀드수             " name="M48_FUND_QTY" type="float"></field>
+			<field label="48개월펀드최대수익률     " name="M48_MAX_FUND_RTN" type="float"></field>
+			<field label="48개월펀드최소수익률     " name="M48_MIN_FUND_RTN" type="float"></field>
+			<field label="48개월펀드상위25%수익률  " name="M48_UP_25P_FUND_RTN"
+				type="float"></field>
+			<field label="48개월펀드하위25%수익률  " name="M48_DN_25P_FUND_RTN"
+				type="float"></field>
+			<field label="48개월펀드중앙(50%)수익률" name="M48_MD_50P_FUND_RTN"
+				type="float"></field>
+			<field label="60개월수익률             " name="M60_RTN" type="float"></field>
+			<field label="60개월펀드수             " name="M60_FUND_QTY" type="float"></field>
+			<field label="60개월펀드최대수익률     " name="M60_MAX_FUND_RTN" type="float"></field>
+			<field label="60개월펀드최소수익률     " name="M60_MIN_FUND_RTN" type="float"></field>
+			<field label="60개월펀드상위25%수익률  " name="M60_UP_25P_FUND_RTN"
+				type="float"></field>
+			<field label="60개월펀드하위25%수익률  " name="M60_DN_25P_FUND_RTN"
+				type="float"></field>
+			<field label="60개월펀드중앙(50%)수익률" name="M60_MD_50P_FUND_RTN"
+				type="float"></field>
+			<field label="연초이후수익률           " name="TBOY_AFT_RTN" type="float"></field>
+			<field label="누적수익률               " name="RTN" type="float"></field>
+			<field label="입력일자" name="IN_DT" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat=""></block>
+	</output>
+
+</transaction>

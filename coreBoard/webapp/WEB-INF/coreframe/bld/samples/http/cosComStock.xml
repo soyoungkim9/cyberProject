@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="cosComStock" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<effective-date></effective-date>
+		<description>cosCom 으로 부터 증권 주가 정보를 가져온다.</description>
+		<version>0.1</version>
+		<name>cosCom 주가정보</name>
+		<status>confirmation</status>
+		<http-access>false</http-access>
+	</info>
+	<processor-info type="http">
+		<property desc="http 통신 method" name="http.method" value="GET"></property>
+		<property desc="http encoding" name="http.encoding" value="EUC-KR"></property>
+		<property desc="http url" name="http.url"
+			value="http://stock.koscom.co.kr/jisu/jisu.xml"></property>
+
+
+	</processor-info>
+	<input>
+	</input>
+	<output>
+		<block id="user" name="result" repeat="" xpath="/market/data">
+			<field name="title" type="string" xpath="title"></field>
+			<field name="jangdate" type="string" xpath="jangdate"></field>
+			<field name="jangtime" type="string" xpath="jangtime"></field>
+			<field name="jisu" type="string" xpath="jisu"></field>
+			<field name="buho" type="string" xpath="buho"></field>
+			<field name="daebi" type="string" xpath="daebi"></field>
+			<field name="vol" type="string" xpath="vol"></field>
+			<field name="amt" type="string" xpath="amt"></field>
+		</block>
+	</output>
+	<Signature>
+		<SignatureValue>1d78436d9bb51b113b289e57ba04ae9b4</SignatureValue>
+	</Signature>
+</transaction>

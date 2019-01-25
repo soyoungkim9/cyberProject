@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="master" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date></effective-date>
+		<description></description>
+		<version>0.1</version>
+		<name>거래소 마스터 정보</name>
+	</info>
+
+	<processor-info type="file-reader-binary">
+		<property desc="" name="fileName" value="KSE.master"></property>
+		<property name="skipByteLength" value="10"></property>
+		<property name="start-row" value="0"></property>
+		<property name="select-rownum" value="3"></property>
+		<property name="direction" value="normal"></property>
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+	</processor-info>
+
+	<input>
+		<block></block>
+	</input>
+
+	<output>
+		<block>
+			<field name="data_len" size="4" type="int"></field>
+			<field name="TMP" size="2" type="int"></field>
+			<field name="jong_code" size="5" type="string"></field>
+			<field name="std_code" size="12" type="string"></field>
+			<field name="jong_name" size="20" type="string"></field>
+			<field name="jong_name_eng" size="20" type="string"></field>
+			<field name="junil_close" size="4" type="int"></field>
+			<field name="uplimit_price" size="4" type="int"></field>
+			<field name="downlimit_price" size="4" type="int"></field>
+			<field name="kijunka" size="4" type="int"></field>
+			<field name="junil_vol" size="8" type="long"></field>
+			<field name="junil_amt" size="8" type="long"></field>
+			<field name="akmyunka" size="4" type="int"></field>
+			<field name="year_high_date" size="4" type="int"></field>
+			<field name="year_high" size="4" type="int"></field>
+			<field name="year_low_date" size="4" type="int"></field>
+			<field name="year_low" size="4" type="int"></field>
+			<field name="list_jusu" size="8" type="long"></field>
+			<field name="kwangamli_f" size="1" type="string"></field>
+			<field name="trade_stop_f" size="1" type="string"></field>
+			<field name="kospi10050_f" size="1" type="string"></field>
+			<field name="it_f" size="1" type="string"></field>
+			<field name="kospi200_f" size="1" type="string"></field>
+			<field name="capital_f" size="1" type="string"></field>
+			<field name="up_middle_kospi" size="4" type="int"></field>
+			<field name="up_small_kospi" size="4" type="int"></field>
+			<field name="manufacture_f" size="2" type="string"></field>
+			<field name="venture_f" size="1" type="string"></field>
+			<field name="up_group" size="4" type="int"></field>
+			<field name="kosdaq50_f" size="1" type="string"></field>
+			<field name="kosdaqit50_f" size="1" type="string"></field>
+			<field name="up_large" size="4" type="int"></field>
+			<field name="up_middle" size="4" type="int"></field>
+			<field name="mkt_pr_tot_scale_f" size="1" type="string"></field>
+			<field name="stock_type" size="1" type="string"></field>
+			<field name="up_code" size="4" type="string"></field>
+		</block>
+	</output>
+	<Signature>
+		<SignatureValue>7767b09d42d03ebc6beb47f15932a5d2</SignatureValue>
+	</Signature>
+</transaction>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>게시판 리스트</description>
+    <author>김소영</author>
+    <version>1.0</version>
+    <http-access>true</http-access>
+  </info>
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="selectByComments">
+      <query>
+        <![CDATA[
+            SELECT cno, name, pwd, content, TO_CHAR(sdt,'yyyy-MM-dd'), bno FROM comments WHERE cno = :cno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>cno, name, pwd, content, sdt, bno</getProperty>
+      </mapping>
+    </sql>
+    <sql id="modify">
+      <query>
+        <![CDATA[
+            UPDATE comments SET content = '${content}' WHERE cno = :cno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+
+  </processor-info>
+  <input>
+    <block name="InBlock_1">
+      <field name="cno" type="string" label="댓글번호"></field>
+      <field name="content" type="string" label="내용"></field>
+    </block>
+  </input>
+  <output>
+    <block name="OutBlock_1">
+      <field name="cno" type="string" label="댓글번호"></field>
+      <field name="name" type="string" label="이름"></field>
+      <field name="pwd" type="string" label="암호"></field>
+      <field name="content" type="string" label="내용"></field>
+      <field name="sdt" type="string" label="작성일"></field>
+      <field name="bno" type="string" label="게시판번호"></field>
+    </block>
+  </output>
+</transaction>

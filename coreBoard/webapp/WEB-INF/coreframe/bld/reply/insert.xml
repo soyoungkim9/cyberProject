@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>게시판 리스트</description>
+    <author>김소영</author>
+    <version>1.0</version>
+    <http-access>true</http-access>
+  </info>
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+
+    <sql id="insert">
+      <query>
+        <![CDATA[
+            INSERT INTO reply (rno, name, pwd, content, cno)
+            VALUES(reply_seq.nextval, '${name}', '${pwd}', '${content}', :cno)
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+
+  </processor-info>
+  <input>
+    <block name="InBlock_1">
+      <field name="name" type="string" label="제목"></field>
+      <field name="pwd" type="string" label="암호"></field>
+      <field name="content" type="string" label="내용"></field>
+      <field name="cno" type="string" label="댓글번호"></field>
+    </block>
+  </input>
+  <output>
+  </output>
+</transaction>

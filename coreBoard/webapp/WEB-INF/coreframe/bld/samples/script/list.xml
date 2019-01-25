@@ -1,0 +1,146 @@
+<?xml version="1.0" ?>
+
+
+
+<transaction name="list" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+
+
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date></effective-date>
+		<description></description>
+		<version>0.1</version>
+
+	</info>
+
+	<processor-info type="java">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<script import="" language="java"><![CDATA[
+			
+			output.add("id","1");
+			output.add("title","board title 1");
+			output.add("writer","manpower");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","2");
+			output.add("title","board title 2");
+			output.add("writer","charlie");
+			output.add("date","20060202");
+			output.add("active","0");
+			
+			output.add("id","3");
+			output.add("title","board title 3");
+			output.add("writer","cyber");
+			output.add("date","20060201");
+			output.add("active","0");
+			
+			
+			output.add("id","4");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","5");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","6");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","7");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","8");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","9");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","10");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+		]]>
+    </script>
+
+		<transaction-type></transaction-type>
+	</processor-info>
+
+	<input>
+		<block></block>
+	</input>
+
+	<output>
+		<block name="board">
+			<field label="" name="id" type="string"></field>
+			<field label="" name="title" type="string"></field>
+			<field label="" name="writer" type="string"></field>
+			<field format="yyyyMMdd-&gt;yyyy/MM/dd" label="" name="date"
+				type="string"></field>
+			<field default="0" label="" name="active" type="string"></field>
+		</block>
+
+		<block name="COMMONHEADER">
+			<field name="COM_TRAN_SEQ" type="string" />
+			<field name="COM_TRAN_TYPE" type="string" default="InterfaceBank" />
+			<field name="COM_REQ_SYS_ID" type="string" />
+			<field name="COM_REQ_DATE" type="string" />
+			<field name="COM_REQ_TIME" type="string" />
+			<field name="COM_ANS_SYS_ID" type="string" />
+			<field name="COM_ANS_DATE" type="string" />
+			<field name="COM_ANS_TIME" type="string" />
+			<field name="COM_ANS_ERR" type="string" />
+			<field name="COM_USER_ID" type="string" />
+			<field name="COM_IP_ADDRESS" type="string" />
+		</block>
+		
+		<block name="COMMONMESSAGE" repeat="1">
+			<field name="COM_ERR_MSG" type="string" />
+			<field name="COM_ERR_CATEGORY" type="string" />
+			<field name="COM_ERR_COMP" type="string" />
+			<field name="COM_ERR_RESP1" type="string" />
+			<field name="COM_ERR_RESP2" type="string" />
+		</block>
+		
+		<block name="outdata">
+			<field name="RECEIPT_DATE" type="string" label="접수일자" />
+			<field name="SCHED_DATE1" type="string" label="예정일자1" />
+			<field name="SCHED_DATE2" type="string" label="예정일자2" />
+			<field name="MED_DATE" type="string" label="검진일자" />
+			<field name="COMPLETED_DATE" type="string" label="완료일자" />
+			<field name="CANCEL_DATE" type="string" label="취소일자" />
+			<field name="ABSENT_YN" type="string" label="부재중여부" />
+			<field name="MED_HOSPITAL_NAME" type="string" label="진단병원명" />
+		</block>
+	</output>
+
+
+
+</transaction>

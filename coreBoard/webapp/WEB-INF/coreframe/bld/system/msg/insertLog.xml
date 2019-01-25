@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<transaction name="insertLog" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name>insertLog</name>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>insert coreFRAME performance log</description>
+		<version>0.1</version>
+	</info>
+
+	<processor-info type="dbms" datasource="cf-system">
+		<transaction-type></transaction-type>
+
+		<sql id="ins1">
+			<query>INSERT INTO APP.CF_SERVERMSG
+				(SERVERID, TSDATE,
+				TSTIME,TYPE, TITLE,MSG,TS)
+				VALUES
+				(:SERVERID, :TSDATE, :TSTIME, 
+				:TYPE, :TITLE, :MSG, :TS )
+			</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+
+	<input>
+		<block name="performance" repeat="1">
+			<field name="SERVERID" type="string" />
+			<field name="TSDATE" type="string" />
+			<field name="TSTIME" type="string" />
+			<field name="TYPE" type="string" />
+			<field name="TITLE" type="string" />
+			<field name="MSG" type="string" />
+			<field name="TS" type="datetime" />
+		</block>
+	</input>
+
+	<output>
+		<block>
+
+		</block>
+	</output>
+
+</transaction>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="searchGoogleStock" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <status>developing</status>
+    <http-access>true</http-access>
+    <effective-date></effective-date>
+    <description>http webservice를 이용한 Google 주가 검색 예제</description>
+    <version>0.1</version>
+    <name>test</name>
+  </info>
+
+  <processor-info type="http">
+    <property name="http.method" value="GET"/>
+    <property name="http.encoding" value="utf-8"/>
+    <property name="http.url" value="http://www.google.com/ig/api"/>
+  </processor-info>
+
+  <input>
+    <block name="arg" repeat="1">
+    <field name=";ie" label="" type="string" default="utf-8"/>
+    <field name="oe" label="" type="string" default="utf-8"/>
+    <field name="hl" label="" type="string" default="ko"/>
+    <field name="stock" label="기업코드" type="string" default="MSFT"/>
+    </block>
+  </input>
+
+  <output>
+    <block id="user" name="RESULT" repeat="" xpath="/xml_api_reply/finance">
+      <field name="company" type="string" xpath="company/@data"></field>
+      <field name="exchange" type="string" xpath="exchange/@data"></field>
+      <field name="exchange_timezone" type="string" xpath="exchange_timezone/@data"></field>
+      <field name="exchange_utc_offset" type="string" xpath="exchange_utc_offset/@data"></field>
+      <field name="exchange_closing" type="string" xpath="exchange_closing/@data"></field>
+      <field name="divisor" type="string" xpath="divisor/@data"></field>
+      <field name="currency" type="string" xpath="currency/@data"></field>
+      <field name="last" type="string" xpath="last/@data"></field>
+      <field name="high" type="string" xpath="high/@data"></field>
+      <field name="low" type="string" xpath="low/@data"></field>
+      <field name="volume" type="string" xpath="volume/@data"></field>
+      <field name="avg_volume" type="string" xpath="avg_volume/@data"></field>
+      <field name="market_cap" type="string" xpath="market_cap/@data"></field>
+      <field name="open" type="string" xpath="open/@data"></field>
+      <field name="y_close" type="string" xpath="y_close/@data"></field>
+      <field name="change" type="string" xpath="change/@data"></field>
+      <field name="perc_change" type="string" xpath="perc_change/@data"></field>
+      <field name="delay" type="string" xpath="delay/@data"></field>
+      <field name="trade_timestamp" type="string" xpath="trade_timestamp/@data"></field>
+      <field name="trade_date_utc" type="string" xpath="trade_date_utc/@data"></field>
+      <field name="trade_time_utc" type="string" xpath="trade_time_utc/@data"></field>
+      <field name="current_date_utc" type="string" xpath="current_date_utc/@data"></field>
+      <field name="current_time_utc" type="string" xpath="current_time_utc/@data"></field>
+      <field name="symbol_url" type="string" xpath="symbol_url/@data"></field>
+      <field name="chart_url" type="string" xpath="chart_url/@data"></field>
+      <field name="disclaimer_url" type="string" xpath="disclaimer_url/@data"></field>
+      <field name="ecn_url" type="string" xpath="ecn_url/@data"></field>
+      <field name="isld_last" type="string" xpath="isld_last/@data"></field>
+      <field name="daylight_savings" type="string" xpath="daylight_savings/@data"></field>
+      
+      
+    </block>
+  </output>
+</transaction>

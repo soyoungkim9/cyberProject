@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-elements rootDir="/WEB-APP/webponent">
+    <element name="calendar" requires="jquery">
+        <include type="css">calendar/css/calendar.css</include>
+        <include type="js">calendar/calendar.js</include>
+    </element>
+    
+	<element name="chart" requires="jquery">
+		<include type="js">/WEB-APP/webponent/chart/comm/require.js</include>
+		<include type="js">/WEB-APP/webponent/chart/html5/ci.chart.js</include>
+		<include type="text">
+            <![CDATA[
+            <!--[if lt IE 9]>
+            <script type="text/javascript" src="/WEB-APP/webponent/chart/comm/flashcanvas.js"></script>
+            <![endif]-->
+            ]]>
+		</include>
+		<include type="js">/WEB-APP/webponent/chart/chart.skin1.js</include>
+		<include type="css">/WEB-APP/webponent/chart/chart.skin1.css</include>
+	</element>
+
+	<element name="coreframe-client">
+		<include type="js">/WEB-APP/webponent/ci/agent.js</include>
+		<include type="js">/WEB-APP/webponent/ci/util.js</include>
+		<include type="js">/WEB-APP/webponent/ci/ui.js</include>
+	</element>
+	
+	<element name="data-bind" requires="jquery">
+		<include type="js">/WEB-APP/webponent/databind/databind.js</include>
+		<include type="js">/WEB-APP/webponent/databind/databind.function.js</include>
+	</element>
+	
+	<element name="chart_comm" requires="jquery">
+	    <include type="js">/WEB-APP/webponent/chart2.0/lib/comm/jquery.touchSwipe.min.js</include>
+        <include type="js">/WEB-APP/webponent/chart2.0/lib/comm/raphael.js</include>
+        <include type="js">/WEB-APP/webponent/chart2.0/lib/comm/webponent.comm.common.js</include>
+    </element>
+	
+	<element name="chart" requires="chart_comm">
+        <include type="js">/WEB-APP/webponent/chart2.0/lib/chart/webponent.chart.js</include>
+    </element>
+
+	<element name="grid" requires="jquery">
+		<include type="css">http://cdn.cyber-i.com/webponent/product/grid/css/webponent.grid.css</include>
+        <include type="css">http://cdn.cyber-i.com/webponent/product/grid/css/webponent.grid.flat.css</include>
+        <include type="css">http://cdn.cyber-i.com/webponent/product/grid/css/webponent.pagingUI.css</include>
+        <include type="css">http://cdn.cyber-i.com/webponent/product/grid/css/webponent.Tree.css</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/external/underscore-min.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/external/jquery.mousewheel.min.js</include>
+        <include type="js">http://build.cyber-i.com/WEB-APP/webponent/grid2.0/webponent.grid.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/external/webponent.pagingUI.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/webponent.grid.UIplugin.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/external/json2.min.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/external/lz-string.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/webponent.report.js</include>
+        <include type="js">http://cdn.cyber-i.com/webponent/product/grid/webponent.grid.AjaxTree.js</include>
+	</element>
+
+	<element name="tab.pc" requires="jquery">
+		<include type="css">tab/tab.css</include>
+		<include type="js">tab/tab.js</include>
+	</element>
+
+	<element name="tab.mobile" requires="tab.pc">
+		<include type="js">tab/tab.mobile.js</include>
+	</element>
+	
+	<element name="tab.tablet" requires="tab.pc"></element>
+
+	<element name="dialog.pc" requires="jquery">
+		<include type="js">dialog/dialog.js</include>
+		<include type="js">dialog/layerlink.js</include>
+		<include type="css">dialog/dialog.css</include>
+		<include type="css">dialog/layerlink.css</include>
+	</element>
+	
+	<element name="dialog.tablet" requires="dialog.pc"></element>
+	
+	<element name="dialog.mobile" requires="dialog.pc">
+        <include type="css">dialog/dialog.mobile.css</include>
+    </element>
+
+	<!-- 웹소켓 관련:S -->
+	<element name="websocket.pc">
+		<include type="js">websocket/websocketinfo.js</include>
+		<include type="js">websocket/swfobject.js</include>
+		<include type="js">websocket/web_socket.js</include>
+	</element>
+
+	<element name="websocket.mobile">
+		<include type="js">websocket/websocketinfo.js</include>
+		<include type="js">websocket/comet_websocket.js?comp=false</include>
+	</element>
+
+	<element name="websocket.tablet" requires="websocket.pc"></element>
+	<element name="websocket.tablet-low" requires="websocket.mobile"></element>
+	<!-- 웹소켓 관련:E -->
+
+	<!-- Third Parties : S -->
+	<element name="jquery">
+		<include type="js">thirdParty/jquery/jquery-1.12.2.min.js</include>
+		<include type="css">thirdParty/jquery/jquery-ui-1.10.2.custom.css</include>
+		<include type="js">thirdParty/jquery/jquery-ui-1.10.2.custom.js</include>
+	</element>
+
+	<element name="bootstrap" requires="jquery">
+		<include type="css">thirdParty/bootstrap/css/bootstrap.min.css</include>
+		<include type="js">thirdParty/bootstrap/js/bootstrap.min.js</include>
+	</element>
+
+	<element name="codemirror">
+		<include type="css">thirdParty/codemirror/codemirror.css</include>
+		<include type="js">thirdParty/codemirror/codemirror.js</include>
+		<include type="js">thirdParty/codemirror/xml.js</include>
+		<include type="js">thirdParty/codemirror/javascript.js</include>
+		<include type="js">thirdParty/codemirror/css.js</include>
+		<include type="js">thirdParty/codemirror/htmlmixed.js</include>
+	</element>
+
+	<element name="hammer">
+		<include type="js">thirdParty/hammer/jquery.hammer.min.js</include>
+	</element>
+
+	<type-def>
+		<type name="less"><![CDATA[<link rel="stylesheet/less" type="text/css" href="${url}" />]]></type>
+	</type-def>
+	<element name="less" requires="coreframe-client">
+		<include type="js">thirdParty/less/less-1.3.3.min.js</include>
+	</element>
+
+	<element name="underscore">
+		<include type="js">thirdParty/underscore/underscore.js</include>
+	</element>
+	<!-- Third Parties : E -->
+	
+
+    <element name="getDevice.pc">
+        <include type="text">
+            <![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "pc";
+}
+</script>
+            ]]>
+        </include>
+    </element>
+
+    <element name="getDevice.mobile">
+        <include type="text">
+            <![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "mobile";
+}
+</script>
+            ]]>
+        </include>
+    </element>
+
+    <element name="getDevice.tablet">
+        <include type="text">
+            <![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "tablet";
+}
+</script>
+            ]]>
+        </include>
+    </element>
+
+    <element name="getDevice.tablet-low">
+        <include type="text">
+            <![CDATA[
+<script type="text/javascript">
+function getDevice(){
+    return "tablet-low";
+}
+</script>
+            ]]>
+        </include>
+    </element>
+</web-elements>

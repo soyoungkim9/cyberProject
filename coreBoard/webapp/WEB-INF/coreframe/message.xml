@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+example 
+import coreframe.*; 
+Message msg = new MessageBox(); 
+System.out.println( msg.getMessage("sys_err","1001") );
+-->
+<messageBox>
+	<group code="sys_err">
+		<msg code="1001">시스템 에러입니다.</msg>
+		<msg code="1002">DB 에러입니다.</msg>
+	</group>
+</messageBox>

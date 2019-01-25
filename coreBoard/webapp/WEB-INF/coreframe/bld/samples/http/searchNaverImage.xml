@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="searchNaverImage" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <status>developing</status>
+    <http-access>true</http-access>
+    <effective-date></effective-date>
+    <description>http webservice를 이용한 네이버 이미지 검색 예제</description>
+    <version>0.1</version>
+    <name>test</name>
+  </info>
+
+  <processor-info type="http">
+    <property name="http.method" value="GET"/>
+    <property name="http.encoding" value="utf-8"/>
+    <property name="http.url" value="http://openapi.naver.com/search"/>
+  </processor-info>
+
+  <input>
+    <block name="arg" repeat="1">
+      <field name="key" label="사용자인증키" type="string" default="bf706f33b34378afe6172926bd475c7c"></field>
+      <field name="target" label="검색타입" type="string" default="image"/>
+      <field name="query" label="검색어" type="string" default="dog"/>
+      <field name="start" label="검색어" type="int" default="1"/>
+      <field name="display" label="검색어" type="int" default="10"/>
+    </block>
+  </input>
+
+  <output>
+    <block id="user" name="result" repeat="" xpath="/rss/channel/item">
+      <field name="title" type="string" xpath="title"></field>
+      <field name="thumbnail" type="string" xpath="thumbnail"></field>
+      <field name="link" type="string" xpath="link"></field>
+      <field name="sizeheight" type="int" xpath="sizeheight"></field>
+      <field name="sizewidth" type="int" xpath="sizewidth"></field>
+    </block>
+  </output>
+</transaction>

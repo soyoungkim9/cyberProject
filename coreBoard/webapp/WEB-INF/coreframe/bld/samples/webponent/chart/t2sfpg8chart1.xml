@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- protocolName="db1" -->
+<transaction name="t2sfpg8chart1"  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="" type="dbms">
+		<cache>
+			<enable>true</enable>
+			<expire>600</expire>
+			<max-object-num>100</max-object-num>
+		</cache>
+
+		<script language="java" import="">
+			<![CDATA[
+
+			  output.add("DT", "대형");
+			  output.add("DT", "중형");
+			  output.add("DT", "소형");
+			  
+			  String DT = input.getText("DT"); //20050926
+			  String DT2 = DT.substring(0,6) +"01";
+			  
+			  input.put("DT2", DT2);
+			  
+			  DataSet tmpOut = new DataSet();
+			  
+			  /*
+			  input.put("SECTOR_CD", "I.001"); // KOSPI 종합
+			  executeSQL("query2", connection, input, tmpOut);
+			  tmpOut.fixNumber();
+			  double kospiSum = tmpOut.getDouble("SUM");
+			  if(kospiSum==0)
+			    kospiSum=1000000000000000D;
+			  */
+			  
+			  
+			  input.put("SECTOR_CD", "I.002"); // 대형주
+			  executeSQL("query1", connection, input, tmpOut);
+			  executeSQL("query1-1", connection, input, tmpOut);
+			  executeSQL("query2", connection, input, tmpOut);
+			  
+			  output.add("STOCK_WG", tmpOut.get("STOCK_WG") );
+			  output.add("MKT_RATIO", tmpOut.get("MKT_RATIO") );
+			  output.add("BOND_WG", tmpOut.get("BOND_WG") );
+			
+			  
+			  
+			  
+			  tmpOut.clear();
+			  input.put("SECTOR_CD", "I.003"); // 중형주
+			  executeSQL("query1", connection, input, tmpOut);
+			  executeSQL("query1-1", connection, input, tmpOut);
+			  executeSQL("query2", connection, input, tmpOut);
+			  
+			  output.add("STOCK_WG", tmpOut.get("STOCK_WG") );
+			  output.add("MKT_RATIO", tmpOut.get("MKT_RATIO") );
+			  output.add("BOND_WG", tmpOut.get("BOND_WG") );
+			
+			  
+			  
+			  tmpOut.clear();
+			  input.put("SECTOR_CD", "I.004"); // 소형주
+			  executeSQL("query1", connection, input, tmpOut);
+			  executeSQL("query1-1", connection, input, tmpOut);
+			  executeSQL("query2", connection, input, tmpOut);
+			  
+			
+			  output.add("STOCK_WG", tmpOut.get("STOCK_WG") );
+			  output.add("MKT_RATIO", tmpOut.get("MKT_RATIO") );
+			  output.add("BOND_WG", tmpOut.get("BOND_WG") );
+			
+			]]>
+		</script>
+		<transaction-type></transaction-type>
+
+
+		<sql id="query1">
+			<query>
+				SELECT SEC_STOCK_MKT_WG FROM MONTHLY_FUND_STK_INDUSTRY a
+				WHERE a.DT=(SELECT MAX(DT) FROM
+				MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;= ? AND FUND_CD=?
+				AND SECTOR_CD =?) AND FUND_CD=? AND SECTOR_CD =? at isolation 0
+			</query>
+			<mapping>
+				<setProperty>
+					DT,FUND_CD,SECTOR_CD,FUND_CD,SECTOR_CD
+				</setProperty>
+				<getProperty>STOCK_WG</getProperty>
+			</mapping>
+		</sql>
+
+
+
+		<sql id="query1-1">
+			<query>
+				SELECT MKT_RATIO FROM MONTHLY_BM_ANL WHERE DT = (SELECT
+				MAX(DT) FROM MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;= ?
+				AND FUND_CD=? AND SECTOR_CD =?) AND BM_CD =? at isolation 0
+			</query>
+			<mapping>
+				<setProperty>
+					DT,FUND_CD,SECTOR_CD,SECTOR_CD
+				</setProperty>
+				<getProperty>MKT_RATIO</getProperty>
+			</mapping>
+		</sql>
+
+
+		<sql id="query2">
+			<query>
+				SELECT AVG(SEC_STOCK_MKT_WG), B.CLASS_CD FROM
+				MONTHLY_FUND_STK_INDUSTRY A, FUND_CLASS B WHERE
+				A.FUND_CD=B.FUND_CD AND DT=(SELECT MAX(DT) FROM
+				MONTHLY_FUND_STK_INDUSTRY WHERE DT &lt;=?) AND
+				B.CLASS_CD = ? AND A.SECTOR_CD = ? GROUP BY B.CLASS_CD at isolation 0
+			</query>
+			<mapping>
+				<setProperty>DT,CLASS_CD,SECTOR_CD</setProperty>
+				<getProperty>BOND_WG</getProperty>
+			</mapping>
+		</sql>
+
+
+
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field name="DT" type="string" default="20050701"/>
+			
+			<field name="FUND_CD" type="string"
+				default="KR5105354777"/>
+			
+
+			<field name="SECTOR_CD" type="string"></field>
+			<field name="CLASS_CD" type="string"
+				default="1030201111000"/>
+			
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat="">
+			<field label="대중소" name="DT" type="int"></field>
+			<field label="펀드" name="STOCK_WG" type="string"
+				format="#,##0.00" default="0"/>
+			
+			<field label="시장" name="MKT_RATIO" type="string"
+				format="#,##0.00" default="0"/>
+			
+			<field label="동일유형" name="BOND_WG" type="double"
+				format="#,##0.00" default="0"/>
+			
+		</block>
+
+		<block name="temp" repeat="">
+
+			<field label="합계" name="SUM" size="50" type="double"
+				properties="grid-align:M"/>
+			
+		</block>
+
+	</output>
+
+</transaction>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='euc-kr'?>
+<transaction name="delete" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info type="ldap" datasource="">
+		<property name="mode" value="delete"></property>
+		<property name="relativeDN" value="uid"></property>
+		<property name="searchFilter" value="(uid={0})"></property>
+		<property name="additionalDN" value="ou=Users"></property>
+	
+	</processor-info>
+
+	<input>
+		<block repeat="">
+			<field name="uid" type="string" label="아이디" />
+			<field name="userPassword" type="string" label="패스워드" />
+		</block>
+	</input>
+		
+	<output>
+		<block repeat="">
+			
+		</block>
+	</output>
+</transaction>

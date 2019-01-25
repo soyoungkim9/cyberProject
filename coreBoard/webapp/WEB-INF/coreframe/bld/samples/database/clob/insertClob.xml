@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="insertClob" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	
+	<processor-info type="dbms" datasource="tmsPool">
+		<script language="java" import="">
+      <![CDATA[  
+  
+	executeSQL("insert", connection, input, output);
+
+	java.io.Writer writer = null;
+	String content = input.getText("content");
+            
+	try
+	{
+		if( fetchOneRow( "select_lock", connection, input, output, null )  )
+		{
+			// for weblogic			
+			//java.sql.Clob jclob = result.getResultSet().getClob("content");
+			//writer = ((weblogic.jdbc.common.OracleClob)jclob).getCharacterOutputStream();
+
+			java.sql.Clob jclob = ((oracle.jdbc.driver.OracleResultSet) result.getResultSet()).getCLOB("content");
+			writer = ((oracle.sql.CLOB)jclob).getCharacterOutputStream();
+	  	
+			writer.write( content );
+		}
+	}
+	catch(java.sql.SQLException sqle)
+	{
+		throw sqle;
+	}
+	finally
+	{
+		closeFetch();
+		if(writer!=null)
+			writer.close();
+	}
+	]]>
+    </script>
+		<transaction-type>rollback</transaction-type>
+
+		<sql id="insert">
+			<query>INSERT INTO TB_TMTF01 (cid, content, enc) VALUES (?, empty_clob(), ?)</query>
+			<mapping>
+				<setProperty>id,encode</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+		<sql id="select_lock">
+			<query>SELECT content FROM TB_TMTF01 WHERE cid = ? FOR UPDATE</query>
+			<mapping>
+				<setProperty>id</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+	<input>
+		<block name="arg" repeat="1">
+			<field name="id" type="string" default="id" />
+			<field name="content" type="string" default="content" />
+			<field name="encode" type="string" default="utf-8" />
+		</block>
+	</input>
+	<output>
+		<block name="result" repeat=""></block>
+	</output>
+</transaction>

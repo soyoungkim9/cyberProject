@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="select2" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date />
+		<description>상품 정보 추출 query</description>
+		<version>0.1</version>
+		<name> select Product</name>
+	</info>
+	<processor-info datasource="derbyPool" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type />
+		<sql id="sel1">
+			<query>SELECT PCODE, PNAME, PQUANTITY, PRICE, DELIVERY, PACKING FROM
+				PRODUCT</query>
+			<mapping>
+				<setProperty />
+				<getProperty>pcode, pname, pquantity, price, delivery, packing
+				</getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		
+	</input>
+	<output>
+		<block name="product" repeat="1">
+			<field name="pcode" type="string" />
+			<field name="pname" type="string" />
+			<field name="pquantity" type="int" />
+			<field name="price" type="double" format="###" />
+			<field name="delivery" type="int" />
+			<field name="packing" type="int" />
+		</block>
+	</output>
+	<Signature>
+		<SignatureValue>a096e599543310d8daed240e332cf5ca8</SignatureValue>
+	</Signature>
+
+</transaction>

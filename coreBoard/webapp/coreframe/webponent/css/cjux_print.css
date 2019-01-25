@@ -1,0 +1,63 @@
+body,div,td,th, input,textarea,select {
+  font-family: tahoma,arial,verdana,µ¸À½;
+  font-size: 8pt
+}
+
+
+
+
+table {
+  border-collapse:collapse;
+  border:1px solid #ccc;
+  cursor:pointer;
+  empty-cells: show;
+  -moz-user-select:none;
+} 
+
+
+
+  
+thead td, thead th {
+  text-align: center;
+  
+  background-color: oldlace;
+  color:#555;
+  font-weight: bold;
+  border: 0px solid  #f00;
+  
+  text-overflow : ellipsis;
+  overflow : hidden;
+  word-break: keep-all;
+  white-space: nowrap;
+  
+  height:20px; 
+  background:url( '../img/table_header_bg3.jpg' );
+  } 
+  
+table td {
+  color: #000;
+  
+  padding:1px 2px;
+  padding-right: 2px;
+  
+  
+  border-bottom: solid 1px #d8d8d8;
+  
+  border-right: solid 1px #dde;
+  }
+  
+
+table tfoot td {
+  text-align: right;
+  height:20px;
+  font-weight: bold;
+  background-color: #ddd;
+  color: steelblue;
+  border-top: 1px solid  slategray;
+  }
+table tfoot input {
+  border:1px solid #ccc;  
+}
+
+
+

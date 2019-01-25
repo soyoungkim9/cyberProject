@@ -1,0 +1,67 @@
+/* layer-link */
+.layer-link {
+	position: absolute;
+	min-width: 100px;
+	z-index: 99;
+	padding: 10px 24px 12px 14px;
+	border: 1px solid #606060;
+	background: #fff;
+	text-align: left;
+	color: #555;
+	font-size: 12px;
+}
+
+.layer-link .ar-left {
+	position: absolute;
+	top: 12px;
+	left: -6px;
+	width: 6px;
+	height: 11px;
+	background: url(./img/bu_ar_layer_l.gif) no-repeat 0 0;
+}
+
+.layer-link .ar-top {
+	position: absolute;
+	top: -6px;
+	left: 12px;
+	width: 11px;
+	height: 6px;
+	background: url(./img/bu_ar_layer_t.gif) no-repeat 0 0;
+}
+
+.layer-link .ar-right {
+	position: absolute;
+	top: 12px;
+	right: -6px;
+	width: 6px;
+	height: 11px;
+	background: url(./img/bu_ar_layer_r.gif) no-repeat 0 0;
+}
+
+.layer-link li {
+	padding-left: 6px;
+	background: url(./img/bu_dot.gif) no-repeat 0 11px;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+.layer-link li a {
+	color: #666;
+}
+
+.layer-link li a:hover {
+	color: #111;
+}
+
+.layer-close a {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 15px;
+	height: 15px;
+	background: url(./img/icon_close_layer.gif) no-repeat 0 0;
+}
+
+.layer-close span {
+	display: none;
+}

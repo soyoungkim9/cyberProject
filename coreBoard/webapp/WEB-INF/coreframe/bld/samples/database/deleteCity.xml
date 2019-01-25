@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<transaction name="deleteCity" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name></name>
+		<description></description>
+		<author></author>
+		<version></version>
+		<http-access>false</http-access>
+	</info>
+
+	<processor-info type="dbms" datasource="derbyPool">
+		<sql id="query1">
+			<query><![CDATA[
+      DELETE FROM CITIES WHERE city_id=?      
+      ]]></query>
+			<mapping>
+				<setProperty>id</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+
+	<input>
+		<block>
+			<field name="id" type="int" />
+		</block>
+	</input>
+
+	<output>
+
+	</output>
+
+</transaction>

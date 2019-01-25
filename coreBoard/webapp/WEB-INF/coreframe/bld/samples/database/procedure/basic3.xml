@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='euc-kr'?>
+ <!-- protocolName='db1' -->
+<transaction name='basic3' xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info type='dbms' datasource=''>
+		<script language="java" import="">
+			<![CDATA[
+    input.put("upper_co_nm", input.getText("co_nm").toUpperCase());
+		executeSQL("sql1", connection, input, output);
+		]]>
+		</script>
+		<transaction-type></transaction-type>
+		<sql id="sql1">
+			<query type="storedprocedure">
+				{? = call PKG_FN_TOTCOM.SP_SIM_CORP_LST (?,?,?,?) }
+			</query>
+			<!-- <mapping-procedure>
+				<param seq="1" mode="out" type="OracleTypes.CURSOR">
+					iss_inst_cd:iss_inst_cd,co_nm:co_nm,repr_drct:repr_drct,corp_reg_no:corp_reg_no,fiscal_mm:fiscal_mm
+				</param>
+				<param seq="2" mode="in" type="VARCHAR" size="10">
+					upper_co_nm
+				</param>
+				<param seq="3" mode="in" type="VARCHAR" size="10">
+					co_snm
+				</param>
+				<param seq="4" mode="in" type="VARCHAR" size="10">
+					co_att
+				</param>
+				<param seq="5" mode="out" type="VARCHAR" size="10">
+					sql
+				</param>
+			</mapping-procedure> -->
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+	<input>
+		<block>
+			<field name="co_nm" type="string" />
+			<field name="upper_co_nm" type="string" />
+			<field name="co_snm" type="string" />
+			<field name="co_att" type="string" />
+		</block>
+	</input>
+	<output>
+		<block>
+			<field name="sql" type="string" />
+		</block>
+		<block>
+			<field name="iss_inst_cd" type="string" />
+			<field name="co_nm" type="string" />
+			<field name="repr_drct" type="string" />
+			<field name="corp_reg_no" type="string" />
+			<field name="fiscal_mm" type="string" />
+		</block>
+	</output>
+</transaction>

@@ -1,0 +1,96 @@
+body {
+	margin: 0;
+	color: #555;
+}
+
+a {
+	color: #555;
+	text-decoration: none;
+}
+
+#wrap {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+form {
+	width: 800px;
+	margin: 0 auto;
+}
+
+table {
+	border-collapse: collapse;
+	display: inline-block;
+	border-top: 2px solid black;
+	margin-top: 35px;
+}
+
+input[name="title"] {
+	border: none;
+	width: 500px;
+	height: 50px;
+	font-size: 16px;
+}
+
+tr:nth-child(1), tr:nth-child(2), tr:nth-child(3), tr:nth-child(4), tr:nth-child(5) {
+	border-bottom: 1px solid #e6e6e6;
+	text-align: left;
+}
+
+tr:nth-child(2) > td, tr:nth-child(3) > td, tr:nth-child(5) > td {
+	padding: 10px 0;
+}
+
+input[name="name"], input[name="pwd"] {
+	height: 18px;
+}
+
+.borderCss1 {
+	display: inline-block;
+	width: 73px;
+	display: inline-block;
+}
+
+textarea {
+	resize: none;
+	border: none;
+	width: 800px;
+	height: 300px;
+	font-size: 16px;
+}
+
+#btnBox {
+	margin-top: 20px;
+}
+
+#btnBox > input, #btnBox > button {
+	border: 1px solid #007e65;
+	background: #007e65;
+	color: white;
+	border-radius: 3px;
+	padding: 8px 20px;
+	font-size: 13px;
+	margin-left: 3px;
+}
+
+#fileContent {
+	width: 800px;
+	margin-bottom: 10px
+}
+
+.validation::placeholder {
+	color: red;
+}
+
+.alert {
+	font-size: 14px;
+	color: red;
+	margin-left: 5px;
+	display: none;
+}
+
+
+
+
+

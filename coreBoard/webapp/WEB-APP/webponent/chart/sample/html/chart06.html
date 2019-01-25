@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XTHML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd"> 
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript" src="../../comm/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../comm/require.js"></script>
+<script type="text/javascript" src="../../html5/ci.chart.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="../../comm/flashcanvas.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../../chart.skin1.js"></script>
+<link rel="stylesheet" type="text/css" href="../../chart.skin1.css"/>
+<title>Insert title here</title>
+</head>
+<body>
+<h2>개인 + 외국인 + 증권 + 투신</h2>
+<input type="button" value="조회" onclick="inquery();" /><br/>
+<div class="chart06-info">
+	<span class="date"></span>
+	<span class="info1"></span>
+	<span class="info2"></span>
+	<span class="info3"></span>
+	<span class="info4"></span>
+</div>
+<div class="chart06-ctnr">
+	<div class="legend">
+		<span class="l1">개인</span>
+		<span class="l2">외국인</span>
+		<span class="l3">증권</span>
+		<span class="l4">투신</span>
+	</div>
+	<div class="chart06"></div>
+</div>
+<br/>
+<br/>
+<div class="chart06-ctnr">
+	<div class="legend">
+		<span class="l1">순매수액</span>
+	</div>
+	<div class="chart06-2"></div>
+</div>
+
+<script type="text/javascript">
+	var f = {};
+	f.jcode = 005930;
+	/* 종가 + 거래량 */
+	var chart = $.createChart().lineChart.init($(".chart06"), f, {
+		"url": "../../../chart/sample/data/chart06.txt", "datatype": "json", "usexlabelfirst": "time", 
+		"xaxisformat": "timeDataFormat4", "yaxisformat": "priceDataFormat", "functip": function(_item){
+			if(_item.data == null) return;
+			var selector = $(".chart06");
+			var item = _item.data.item;
+			var xaxisValue = dayDataFormat(item.xaxis);
+			var str = "<span>일자</span> : " + xaxisValue+"<br/><span>시간</span> : " + timeDataFormat4(item.xaxis)+"<br/>";
+				str += "<span>개인</span> : " + String(item.rate1).format()+"<br/><span>외국인</span> : " + String(item.rate2).format()+"<br/>";
+				str += "<span>증권</span> : " + String(item.rate3).format()+"<br/><span>투신</span> : " + String(item.rate4).format();
+			$(_item.container).html(str);
+			var tipWidth = _item.container.outerWidth();
+			var tPos = _item.data.top, lPos = Math.round(item.x + item.width + 5);
+			tPos = tPos - _item.container.outerHeight()/2;
+			if(tPos < 10){ tPos = 10; }
+			var tipHeight = _item.container.outerHeight();
+			if(tPos+tipHeight > selector.height()) tPos = selector.height() - tipHeight;
+			var CHART_WIDTH = selector.width();
+			if(lPos + tipWidth >= CHART_WIDTH){	lPos = CHART_WIDTH - tipWidth; }
+			if(_item != ""){
+				_item.container.show().css({top: tPos, left: lPos, "white-space": "nowrap"});
+			}
+		}
+	}, {"main":{
+		"baseatzero": true
+	}}, {"main":{
+		"series1": {"visible": true},
+		"series2": {"visible": true},
+		"series3": {"visible": true},
+		"series4": {"visible": true}
+	}});
+	
+	inquery = function(){
+		var f = {}; // Form 정보
+		f.jcode = "005930";
+		chart.inquery(f, {"url": "../../../chart/sample/data/chart06_2.txt", "xaxisformat": "dayDataFormat",  "usexlabelfirst": "month"});
+	};
+	
+	callJsMouseInfo = function(param){
+		if(param.data.item.date == " ") return;
+		var date = param.data.item.date.dateFormat();
+
+		$(".date").html(date);
+		$(".info1").html("<span>개인</span>&nbsp;" +String(param.data.item.rate1).format());
+		$(".info2").html("<span>외국인</span>&nbsp;" +String(param.data.item.rate2).format());
+		$(".info3").html("<span>증권</span>&nbsp;" +String(param.data.item.rate3).format());
+		$(".info4").html("<span>투신</span>&nbsp;" +String(param.data.item.rate4).format());
+	};
+	
+	var chart2 = $.createChart().lineChart.init($(".chart06-2"), f, {
+		"url": "../../../chart/sample/data/chart06.txt", "datatype": "json", "usexlabelfirst": "time", "usecanvasmoveall": false,
+		"xaxisformat": "timeDataFormat4", "yaxisformat": "priceDataFormat", "functip": function(_item){
+			if(_item.data == null) return;
+			var selector = $(".chart06-2");
+			var item = _item.data.item;
+			var xaxisValue = dayDataFormat(item.xaxis);
+			var str = "<span>일자</span> : " + xaxisValue+"<br/><span>시간</span> : " + timeDataFormat4(item.xaxis)+"<br/>";
+				str += "<span>순매수액</span> : " + String(item.rate2).format();
+			$(_item.container).html(str);
+			var tipWidth = _item.container.outerWidth();
+			var tPos = _item.data.top, lPos = Math.round(item.x + item.width + 5);
+			tPos = tPos - _item.container.outerHeight()/2;
+			if(tPos < 10){ tPos = 10; }
+			var tipHeight = _item.container.outerHeight();
+			if(tPos+tipHeight > selector.height()) tPos = selector.height() - tipHeight;
+			var CHART_WIDTH = selector.width();
+			if(lPos + tipWidth >= CHART_WIDTH){	lPos = CHART_WIDTH - tipWidth; }
+			if(_item != ""){
+				_item.container.show().css({top: tPos, left: lPos, "white-space": "nowrap"});
+			}
+		}
+	}, {/* styles */}, {"main":{
+		"series1": {"visible": true, "yaxis": "rate2"}
+	}});
+</script>
+
+<br/>
+* document.ready 후 혹은 스크립트를 jsp 하단에 위치<br/>
+<table width="100%" border="1">
+<tr>
+	<td>$.createChart().lineChart.init(<b>selector</b>, <b>form</b>, <b>_option</b>, <b>_styles</b>, <b>_series</b>);</td>
+	<td><ul>
+			<li>selector - 차트가 그려지는 DIV selector</li>
+			<li>form - form 정보</li>
+			<li>_option - 데이터 URL 등 차트의 옵션들 추가 정보</li>
+			<li>_styles - 차트 스타일 정의(중복되는것은 chart.skin1.js 에 정의되어 있음)</li>
+			<li>_series - 차트 시리즈 변경</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td>chart1.inquery(f, _option);</td>
+	<td><ul>
+			<li>chart1 - createChart() 하고 return 해준 Object</li>
+			<li>inquery(f, _option) - 조회 혹은 종목정보가 변경되면 다시 조회하기 위한 함수 </li>
+			<li>f는 form 정보</li>
+			<li>
+				_option - column+line[chart04.html]과 line+line[chart05.html]에서 동시 사용하므로 필요에따라 f와 url도 같이 넘겨주도록 수정하면 됩니다.<br/>
+				_option.url = "url.txt";
+			</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td>options</td>
+	<td><ul>
+			<li>url - 데이터 경로</li>
+			<li>datatype - json 데이터 사용시 "json"</li>
+			<li>functip - 툴팁 내부에 어떻게 보여줄지 변경 할 경우에 사용</li>
+			<li>usexlabelfirst - 데이터의 월 혹은 시간 중 첫 데이터만 x축으로 표현하려면 월("month") | 시간("time") - 조회버튼 클릭시 해당 내용 확인 가능(x축)</li>
+			<li>xaxisformat - X축 데이터 포맷팅("timeDataFormat4" :  "00:00" || "dayDataFormat" : "0000/00/00" - 이외에도 ci.comm.common.js에 정의되어 있음.)</li>
+			<li>yaxisformat - Y축 데이터 포매팅("priceDataFormat" : "1,000")</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td>series</td>
+	<td><ul>
+			<li>visible - false(기본세팅되어있으며 보여져야 하는 라인의 갯수에 따라 visible: true로  변경해주면 됌. 최대 4개까지 구현되어있음.)</li>
+			<li>xaxis - x축 데이터 매칭(샘플은 xaxis: date)</li>
+			<li>yaxis - y축 데이터 매칭(샘플은 yaxis: rate1, rate2, rate3, rate4)</li>
+			<li>실제 적용 중 x, y 매칭 필드가 달라질경우"series1": {"visible": true, "yaxis": "변경되는 필드 이름"} </li>
+		</ul>
+	</td>
+</tr>
+</table>
+</body>
+</html>

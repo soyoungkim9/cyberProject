@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="GetStockQuote" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<effective-date></effective-date>
+		<description></description>
+		<version>0.2</version>
+		<name>기업코드로 주가정보를 알아보는 WebService 예제</name>
+		<status>confirmation</status>
+	</info>
+	<processor-info type="soap">
+		<property desc="" name="xmlns:xsd" value="http://www.w3.org/1999/XMLSchema"></property>
+		<property desc="" name="xmlns:xsi"
+			value="http://www.w3.org/1999/XMLSchema-instance"></property>
+		<property desc="" name="xmlns:q0" value="http://www.webserviceX.NET/"></property>
+		<!-- soap 호출 url -->
+		<property desc="호출 url" name="soap.url"
+			value="http://www.webservicex.net/stockquote.asmx"></property>
+		<property desc="http header에 설정되는 SOAPAction값" name="soap.action"
+			value="http://www.webserviceX.NET/GetQuote"></property>
+		<property desc="XmlDataSet 형태 또는 DataSet 형태로 return 할지 결정"
+			name="soap.output" value="DataSet"></property>
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+	</processor-info>
+	<input>
+		<block name="arg" repeat="1">
+			<field default="MSFT" label="기업코드" name="symbol" type="string"
+				xpath="/q0:GetQuote/q0:symbol"></field>
+		</block>
+		<!-- soap body 용 -->
+		<xml-document>
+			<q0:GetQuote xmlns:q0="http://www.webserviceX.NET/">
+				<q0:symbol></q0:symbol>
+			</q0:GetQuote>
+		</xml-document>
+	</input>
+	<output>
+		<block id="result" name="result" repeat="1" xpath="//q0:GetQuoteResponse">
+			<field label="CompanyName" name="CompanyName" type="string"
+				xpath="q0:GetQuoteResult"></field>
+		</block>
+	</output>
+</transaction>

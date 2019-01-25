@@ -1,0 +1,144 @@
+body {
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#wrap {
+	position: relative;
+	margin: 0 auto;
+	width: 980px;
+}
+
+#header {
+	position: relative;
+}
+
+#quickMenu {
+	list-style: none;
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+#quickMenu > li {
+	float: left;
+	margin-left: 10px;
+}
+
+
+#utilMenu {
+	list-style: none;
+	position: absolute;
+	top: 25px;
+	right: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+#utilMenu > li {
+
+	float: left;
+	margin-left: 10px;
+
+
+}
+
+
+#globalMenu {
+	display: inline-block;
+	list-style: none;
+	margin: 20px 0 0 145px;
+	padding: 0;
+}
+
+#globalMenu > li {
+	float:left;
+	margin-left: 20px;
+}
+
+
+#contentWrap {
+	margin-top: 20px;
+}
+
+#leftMenu {
+	float: left;
+	width: 200px;
+	min-height: 600px;
+}
+
+#content {
+	float: left;
+	padding: 10px;
+	width: 760px;
+	min-height: 600px;
+}
+
+#content.submain {
+	width: 960px;
+}
+
+#rightMenu {
+	position: absolute;
+	top: 97px;
+	right: -130px;
+	width: 120px;
+	height: 400px;
+}
+
+#rightMenu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#footer {
+	margin: 0 0 30px 0;
+}
+
+#footerLogo {
+	float: left;
+	margin: 0 20px 0 145px;
+	padding: 0;
+}
+
+#footerMenu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#footerMenu > li {
+	float: left;
+	margin-right: 10px;
+}
+
+#footer .copyright {
+	float: left;
+	margin: 10px 10px 0 145px;
+	display: inline;
+}
+
+#footer .multibrowsermark {
+	float: left;
+	margin: 10px 10px 0 0;
+	background: url(../../img/multibrowser.png) no-repeat center;
+	font-size: 0px;
+	text-indent: -9999px;
+	display: inline;
+	width: 100px;
+	height: 20px;
+}
+
+#footer .familysite {
+	float: left;
+	margin: 7px 0 0 0;
+}
+

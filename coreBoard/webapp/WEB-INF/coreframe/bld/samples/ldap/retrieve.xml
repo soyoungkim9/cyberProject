@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='euc-kr'?>
+<transaction name="retrieve" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info type="ldap" datasource="">
+		<property name="mode" value="retrieve"></property>
+		<property name="searchFilter" value="(uid={0})"></property>
+		<property name="relativeDN" value="uid"></property>
+		
+	</processor-info>
+
+	<input>
+		<block repeat="">
+			<field name="objectClass" type="string" label="아이디" />
+		</block>
+	</input>
+
+	<output>
+		<block repeat="">
+			<field name="uid" type="string" label="아이디" />
+			<field name="userPassword" type="string" label="패스워드" />
+			<field name="sn" type="string" label="성" />
+			<field name="cn" type="string" label="풀네임" />
+		</block>
+	</output>
+</transaction>

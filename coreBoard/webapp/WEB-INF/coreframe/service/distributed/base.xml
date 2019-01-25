@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!--
+
+	config.xml 에 속성에   cluster.multicastIp   multicast ip 주소 추가
+	-->
+
+	<bean id="coreframe.clusteringService" class="coreframe.service.distributed.ClusteringService">
+		<property name="serviceManager" ref="coreframe.serviceManager"/>
+		<property name="clusteringMulticastUri" value="multicast://${cluster.multicastIp}:21001"/>
+	</bean>
+	
+	<bean id="coreframe.clusteringEventService" class="coreframe.service.distributed.ClusteringEventService">
+		<property name="serviceManager" ref="coreframe.serviceManager"/>
+		<property name="clusteringMulticastUri" value="multicast://${cluster.multicastIp}:21002"/>
+	</bean>
+	
+	<!--
+	<bean id="coreframe.event.test"
+	class="coreframe.service.distributed.ClusteringEventCheckListener">
+		<property name="eventScopes" value="cf:clusteringEventMsg" />
+		<property name="FrameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+	-->
+
+ 	<bean id="coreframe.ClusteringProcessor" class="coreframe.service.distributed.ClusteringProcessor">
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+	
+</beans>

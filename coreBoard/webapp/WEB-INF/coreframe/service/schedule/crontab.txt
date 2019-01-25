@@ -1,0 +1,11 @@
+
+
+###########  EXAMPLE  ###########
+
+##### every minute
+#* * * * *    corelogic.schedule.Test#test2 message2
+
+
+##### every 30 minute
+#*/30 * * * *    corelogic.schedule.Test#test
+

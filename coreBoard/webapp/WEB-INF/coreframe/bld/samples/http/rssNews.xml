@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="rssNews" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<effective-date></effective-date>
+		<description>
+			http://www.chosun.com/site/data/rss/rss.xml
+			RSS 2.0 내용 가지오는 예제, RSS 스펙에 따라 xpath 경로가 틀려진다.
+		</description>
+		<version>0.1</version>
+		<name>RSS 리더</name>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+	</info>
+
+	<processor-info type="http">
+		<property desc="http 통신 method" name="http.method" value="GET"></property>
+		<property desc="http encoding" name="http.encoding" value="utf-8"></property>
+		<property desc="RSS 주소" name="http.url"
+			value="http://www.chosun.com/site/data/rss/rss.xml"></property>
+		<property desc="http encoding" name="http.encoding" value="utf-8"></property>
+		<property desc="xml namespace" name="xmlns:dc"
+			value="http://purl.org/dc/elements/1.1/"></property>
+		<transaction-type></transaction-type>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1"></block>
+	</input>
+
+	<output>
+		<block name="items" repeat="" xpath="/rss/channel/item">
+			<field name="title" type="string" xpath="title/text()"></field>
+			<field name="link" type="string" xpath="link"></field>
+			<field name="description" type="string" xpath="description/text()"></field>
+			<field name="date" type="string" xpath="dc:date"></field>
+			<field name="author" type="string" xpath="author/text()"></field>
+		</block>
+	</output>
+
+	<Signature>
+		<SignatureValue>ca5b7b7a974afe9f877a595054120f03f</SignatureValue>
+	</Signature>
+</transaction>

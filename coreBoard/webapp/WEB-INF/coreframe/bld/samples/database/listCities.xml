@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<transaction xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld   
+       http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+       
+  <info>
+    <name></name>
+    <description/>
+    <author/>
+    <version>0.1</version>
+    <http-access>true</http-access>
+    <status>developing</status>
+    <effective-date/>
+  </info>
+  <processor-info type="dbms" datasource="derbyPool">
+    <transaction-type/>
+    
+    <sql id="query1">
+      <query type="">SELECT CITY_ID, CITY_NAME, COUNTRY, AIRPORT, LANGUAGE, COUNTRY_ISO_CODE FROM CITIES where CITY_NAME like '${name}%'</query>
+      <mapping>
+        <setProperty/>
+        <getProperty>id,name,country,airport,language,countryIsoCode</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  <input>
+    <block>
+      <field name="name" type="string"/>
+    </block>
+  </input>
+  <output>
+    <block id="" name="city">
+      <field name="id" type="int"/>
+      <field name="name" type="string"/>
+      <field name="country" type="string"/>
+      <field name="airport" type="string"/>
+      <field name="language" type="string"/>
+      <field name="countryIsoCode" type="string"/>
+    </block>
+  </output>
+  <test>
+    <case name="case1:">
+      <test-input>
+        <field name="name" value="Ath" type="string"/>
+      </test-input>
+    </case>
+    <case name="case2:">
+      <test-input>
+        <field name="name" value="xxxx" type="string"/>
+      </test-input>
+    </case>
+  </test>
+</transaction>

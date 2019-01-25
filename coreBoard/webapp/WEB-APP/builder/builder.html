@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Webponent Builder</title>
+	<style>
+
+		#build-frame-menu {
+			margin-bottom: 10px;
+		}
+
+		#build-frame-preview {
+			width: 100%;
+		}
+
+		#build-frame-preview-inner {
+			width: 100%;
+		}
+
+		.buildframe {
+			border: 1px solid #cacaca;
+			width: 700px;
+			height: 700px;
+			resize: horizontal;
+			-webkit-box-shadow: 0px 0px 3px 0px #cacaca;
+			box-shadow: 0px 0px 3px 0px #cacaca;
+
+		}
+
+		.buildframe.mobile {
+			margin-left: 30px;
+			width: 337px;
+			
+		}
+	</style>
+</head>
+<body>
+
+	<div id="build-frame-menu">
+		
+	</div>
+	
+	<div id="build-frame-preview">
+		<div id="build-frame-preview-inner">
+			<iframe class="buildframe" src="/WEB-APP/builder/builder.jspx?cmd=virtualDevice&amp;url=/WEB-APP/webponent/input/inputUnitTest.jsp"></iframe>
+		
+			<iframe class="buildframe mobile" src="/WEB-APP/builder/builder.jspx?cmd=virtualDevice&amp;
+			device=mobile&amp;url=/WEB-APP/webponent/input/inputUnitTest.jsp"></iframe>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/WEB-APP/webponent/jquery/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+
+
+
+	</script>
+
+</body>
+</html>

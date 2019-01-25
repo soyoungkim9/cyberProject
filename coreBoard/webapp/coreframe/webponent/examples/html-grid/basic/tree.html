@@ -1,0 +1,329 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>SITEMAP </title>
+
+
+
+<link rel='StyleSheet' type='text/css' href='./view/css/ui.css' />
+<link rel='StyleSheet' type='text/css' href='./view/css/form.css' />
+<link rel='StyleSheet' type='text/css' href='./view/css/cjux.css' />
+<script type='text/javascript' src='./view/js/jquery-1.6.2.min.js'></script>
+<script type="text/javascript">
+var $J = jQuery.noConflict();
+</script>
+<script type='text/javascript' src='./view/js/prototype.js'></script>
+<script type='text/javascript' src='./view/js/cjux.js'></script>
+ <script type="text/javascript">
+//
+ function fitWin() {
+	
+	 //$J("#mainContainer").height($J(window).height()-350);
+ }
+ var grid;
+ 
+ $J(document).ready(function(){
+	 
+	 grid=new webponent.HtmlGrid('grid1', '100%', '300px', {'popupMenu':true, 'isTreeMode':true});
+	 grid.setTreeTableMode(1,0,true);
+	 
+	 fitWin();
+	 $J(window).resize(fitWin);
+	 
+	 
+ $J('#sv').click(function(){
+	 alert( $J('#tblData').html() );
+ });
+ 
+ $J('.topmenu').click(function(e){
+	 var o=e.target;
+	 if( $J(o).hasClass('top') ) {
+		 alert( $J(o).attr('href'));
+	 }
+ });
+ 
+	 
+ });
+ 
+ function send() {
+  var f = $('excform');
+  grid.updateBody(f.action, {
+   parameters : f.serialize(),
+   asynchronous : true
+  });
+  return false;
+ }
+ 
+ 
+
+ //
+</script>
+<style>
+html, body {
+ margin:0px;
+ padding:0px;
+ overflow-x:hidden;
+}
+
+.topmenu a {
+ display:inline-block;
+ position:relative;
+ border:1px solid #ccc;
+ padding:5px 10px;
+ margin:0px;
+ 
+ text-decoration:none;
+}
+
+.controller {
+ width:100%;
+ background-color:#333;
+ color:#ccc;
+ padding:3px;
+}
+form {
+ padding:5px;
+}
+.mark {
+background-color:#ececec;
+}
+</style>
+</head>
+<body>
+
+<div class="ContentTabSet">
+  <div class="resourceName">sitemap management</div>
+  
+</div>
+
+<br/><br/>
+ 
+<div class="controller">
+ SITE: <select>
+  <option>기본사이트</option>
+  <option>영문사이트</option>
+  <option>사이트 추가</option>
+ </select>
+ <button type="button">삭제</button>
+ 
+ &nbsp; | &nbsp; 
+ 
+ 대메뉴 관리:
+ 
+ <button type="button">추가</button>
+ <button type="button">삭제</button>
+ <button type="button">왼쪽</button>
+ <button type="button">오른쪽</button>
+</div>
+
+<form>
+
+ <div class="topmenu">
+   <a href="#1" class="top">국내선물</a>
+   <a href="#2" class="top">해외선물</a>
+   <a href="#3" class="top">FX선물</a>
+ </div>
+ 
+ 
+</form>
+
+
+ <div id="mainContainer">
+ 
+  <table id='grid1'>
+   <colgroup>
+    <col width="60" align="right"/>
+    <col width="20" />
+    <col width="70" align="left" class="mark"/>
+    <col width="120" align="left" />
+    <col width="200" align="left"/>
+    <col width="60" />
+    <col width="100"/>
+    <col width="60" />
+    
+    <col id="g1-1" width="50" align="left"/>
+    <col id="g1-2" width="70" align="left"/>
+    <col id="g1-3" width="70" align="left"/>
+    
+    <col width="50" align="left"/>
+    <col width="70" align="left"/>
+    <col width="70" align="left"/>
+    
+    <col width="50" align="left"/>
+    <col width="70" align="left"/>
+    <col width="70" align="left"/>
+    
+    <col width="50" align="left"/>
+    <col width="70" align="left"/>
+    <col width="70" align="left"/>
+   </colgroup>
+   <thead>
+    <tr>
+     <th scope="col" colspan="8">기본정보</th>
+     
+     <th scope="col" colspan="3">기획</th>
+     
+     <th scope="col" colspan="3">디자인</th>
+     
+     <th scope="col" colspan="3">HTML</th>
+     
+     <th scope="col" colspan="3">개발</th>
+    </tr>
+    <tr>
+     <th scope="col">TREE</th>
+     <th scope="col">D</th>
+     <th scope="col" class="editable">ID</th>
+     <th scope="col" class="editable">메뉴명</th>
+     <th scope="col" class="editable" >URL</th>
+     <th scope="col" class="editable" ext-options=",black">템플릿</th>
+     <th scope="col">param</th>
+     <th scope="col" class="editable" ext-options=",기획,개발,완료">상태</th>
+     
+     <th scope="col">담당자</th>
+     <th scope="col">계획</th>
+     <th scope="col">완료</th>
+     
+     <th scope="col">담당자</th>
+     <th scope="col">계획</th>
+     <th scope="col">완료</th>
+     
+     <th scope="col">담당자</th>
+     <th scope="col">계획</th>
+     <th scope="col">완료</th>
+     
+     <th scope="col">담당자</th>
+     <th scope="col">계획</th>
+     <th scope="col">완료</th>
+    </tr>
+   </thead>
+   <tbody id="tblData">
+    <tr>
+     <td></td>
+     <td>1</td>
+     <td>UF-SD2001</td>
+     <td>개좌개설</td>
+     <td>/main/domestic/main.jspx</td>
+     <td></td>
+     <td></td>
+     <td>개발중</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+    </tr> 
+    <tr>
+     <td></td>
+     <td>2</td>
+     <td>UF-SD2001</td>
+     <td>상품정보</td>
+     <td>/main/domestic/main.jspx?DF-200101</td>
+     <td></td>
+     <td></td>
+     <td>개발중</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+    </tr> 
+    <tr>
+     <td></td>
+     <td>2</td>
+     <td>UF-SD2001</td>
+     <td>선물상품</td>
+     <td>/main/domestic/main.jspx?DF-200101</td>
+     <td>black</td>
+     <td></td>
+     <td>개발중</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+    </tr> 
+    <tr>
+     <td></td>
+     <td>3</td>
+     <td>UF-SD2001</td>
+     <td>개좌선택</td>
+     <td>/main/domestic/main.jspx?DF-20540101</td>
+     <td>red</td>
+     <td>1</td>
+     <td>개발중</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+    </tr> 
+    <tr>
+     <td></td>
+     <td>1</td>
+     <td>UF-SD2001</td>
+     <td>개좌</td>
+     <td>/main/domestic/main.jspx?DF-2020101</td>
+     <td></td>
+     <td></td>
+     <td>개발중</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+     <td>한창진</td>
+     <td>2012-02-03</td>
+     <td>2012-02-01</td>
+    </tr> 
+    
+   </tbody>
+   <tfoot>
+   <tr></tr>
+   </tfoot>
+  </table>
+ </div>
+ 
+ <form>
+  <fieldset>
+    <legend>Account information</legend>
+    <label>ID<input type="text" value=""/></label>
+   
+  </fieldset>
+ </form>
+ 
+
+</body>
+
+</html>

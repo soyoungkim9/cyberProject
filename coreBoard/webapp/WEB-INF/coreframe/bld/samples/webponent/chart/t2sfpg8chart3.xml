@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!--  protocolName="db1" -->
+<transaction name="t2sfpg8chart3"  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+<processor-info datasource="" type="dbms">
+
+<script language="java" import="">
+<![CDATA[
+
+  executeSQL("query1", connection, input, output);
+
+  for(int i=0;i<output.getCount("SEC_NM");i++){
+	if(output.getText("SEC_NM",i).length()<5){
+		output.put("SEC_NM", output.getText("SEC_NM",i).substring(0,output.getText("SEC_NM",i).length()),i);
+	}
+	else{
+		output.put("SEC_NM", output.getText("SEC_NM",i).substring(0,5),i);
+	}
+  }
+
+
+if( output.getCount("SEC_NM") == 0) {
+
+  output.put("SEC_NM", " ");
+  output.put("SEC_FUND_WG", "0");
+  output.put("SEC_STOCK_MKT_WG", "0");
+  
+}
+
+
+]]>
+</script>
+  <transaction-type></transaction-type>
+  <sql id="query1" >
+    <query>
+SET ROWCOUNT 5
+
+SELECT SEC_NM, SEC_FUND_WG, b.MKT_RATIO
+FROM MONTHLY_FUND_STK_SEC a , MONTHLY_STK_ANL b
+WHERE a.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_SEC WHERE DT &lt;=? AND FUND_CD=? AND MKT_DS='1')
+AND a.FUND_CD=?
+AND a.MKT_DS='1'
+AND a.SEC_CD = b.SEC_CD
+AND a.DT = b.DT
+ORDER BY SEC_FUND_WG DESC
+
+at isolation 0
+
+SET ROWCOUNT 0
+
+	</query>
+    <mapping>
+      <setProperty>DT,FUND_CD,FUND_CD</setProperty>
+      <getProperty>SEC_NM, SEC_FUND_WG,  SEC_STOCK_MKT_WG</getProperty>
+    </mapping>
+  </sql>
+</processor-info>
+
+<input>
+  <block name="arg" repeat="1">
+    <field name="DT"  type="string" default="20050701"></field>
+	  <field name="FUND_CD"  type="string" default="KR5105354777"></field>
+  </block>
+</input>
+
+<output>
+  <block name="result" repeat="">
+	  <field label="종목명"					name="SEC_NM"			size="75"	type="string" properties="grid-align:M"></field>
+    <field label="펀드내 비중"	  name="SEC_FUND_WG"		size="70"	type="float" format="#,##0.00"></field>
+    
+    <field label="시장비중"				name="SEC_STOCK_MKT_WG"		size="50"	type="float" format="#,##0.00"></field>
+    
+  </block>
+</output>
+
+</transaction>
