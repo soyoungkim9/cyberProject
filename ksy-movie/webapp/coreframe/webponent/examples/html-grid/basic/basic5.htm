@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<title> AJAX Grid example : Auto Column Resizing</title>
+<link rel='StyleSheet' type='text/css' href='../../../css/cjux.css' />
+<script type='text/javascript' src='../../../jslib/prototype.js'></script>
+<script type='text/javascript' src='../../../jslib/cjux.js'></script>
+
+
+<style type="text/css">
+
+.misc {
+ background-color:#eec;
+}
+
+div.corner {
+background-color:silver;
+bottom:0;
+cursor:se-resize;
+width:10px;
+height:10px;
+position:absolute;
+right:0;
+
+}
+
+</style>
+</head>
+<body>
+<form id='excform'
+	action='../../../../../corelogic/process/samples/database/listCities.xhtml?data-only=true'
+	method='post' onSubmit='return send()'>
+<table border='1'>
+	<tr>
+		<th>name</th>
+		<td><input type='text' name='name' value='' /></td>
+	</tr>
+</table>
+<input type='submit' value='execute' /></form>
+
+<div id="outline" style="width:800px">
+<table id='tbl1' border="1">
+	<colgroup>
+		<col width="5%" />
+		<col align="center" width="25%" />
+		<col width="15%" />
+		<col width="15%" class="misc"/>
+		<col width="20%" />
+		<col width="20%" />
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th scope="col" >id</th>
+			<th scope="col" class="stringType">name</th>
+			<th scope="col">country</th>
+			<th scope="col">airport</th>
+			<th scope="col">language</th>
+			<th scope="col">countryIsoCode</th>
+		</tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+</div>
+
+
+
+<input type="button" value="small" onclick="small()"/>
+<input type="button" value="big" onclick="big()"/>
+
+
+<script type="text/javascript">
+	//<![CDATA[
+	Event.observe(window, 'load', init.bind(this));
+	var grid;
+	function init() {
+		grid = new webponent.HtmlGrid('tbl1', '100%', '300px', {autoColumnResizable:true} );
+	}
+	function send() {
+		var f = $('excform');
+		grid.updateBody(f.action, {
+			parameters : f.serialize(),
+			asynchronous : true
+		});
+		return false;
+	}
+	function small() {
+		$('outline').style.width='500px';
+		
+	}
+	function big() {
+		$('outline').style.width='700px';
+		
+	}
+
+	//]]>
+</script>
+
+
+
+<div id="SomeDiv" style="position: relative; width: 200px; height:100px; border: 2px solid black; padding: 3px;">
+    One
+   <div class="corner" id="DragHandle">&nbsp;</div>
+</div>
+
+
+
+<script type="text/javascript" language="javascript">
+
+   function DragCorner(container, handle) {
+      var container = $(container);
+      var handle = $(handle);
+      
+      /* Add property to container to store position variables */
+      container.moveposition = {x:0, y:0};
+      
+      function moveListener(event) {
+         /* Calculate how far the mouse moved */
+         var moved = {
+                     x:(event.pointerX() - container.moveposition.x),
+                     y:(event.pointerY() - container.moveposition.y)
+                  };
+         /* Reset container's x/y utility property */
+         container.moveposition = {x:event.pointerX(), y:event.pointerY()};
+         /* Border adds to dimensions */
+         var borderStyle = container.getStyle('border-width');
+         var borderSize = borderStyle.split(' ')[0].replace(/[^0-9]/g,'');
+         /* Padding adds to dimensions */
+         var paddingStyle = container.getStyle('padding');
+         var paddingSize = paddingStyle.split(' ')[0].replace(/[^0-9]/g,'');
+         /* Add things up that change dimensions */
+         var sizeAdjust = (borderSize*2) + (paddingSize*2);
+         /* Update container's size */
+         var size = container.getDimensions();
+         container.setStyle({
+               height: size.height+moved.y-sizeAdjust+'px',
+               width:size.width+moved.x-sizeAdjust+'px'
+            });
+      }
+      
+      /* Listen for 'mouse down' on handle to start the move listener */
+      handle.observe('mousedown', function(event) {
+         /* Set starting x/y */
+         container.moveposition = {x:event.pointerX(),y:event.pointerY()};
+         /* Start listening for mouse move on body */
+         Event.observe(document.body,'mousemove',moveListener);
+      });
+      
+      /* Listen for 'mouse up' to cancel 'move' listener */
+      Event.observe(document.body,'mouseup', function(event) {
+         Event.stopObserving(document.body,'mousemove',moveListener);
+      });
+   }
+   
+   DragCorner('SomeDiv','DragHandle');
+   
+   
+
+   
+</script>
+
+<table class="tableHeadOutline" width="783px" cellpadding="0px" cellspacing="0px" 
+border="1"><thead>
+		<tr>
+			<th scope="col" x="0" y="0" style="cursor: default; ">id</th>
+			<th scope="col" class="stringType" x="1" y="0">name</th>
+			<th scope="col" x="2" y="0">country</th>
+			<th scope="col" x="3" y="0">airport</th>
+			<th scope="col" x="4" y="0">language</th>
+			<th scope="col" x="5" y="0">countryIsoCode</th>
+		</tr>
+	</thead><colgroup>
+		<col width="5%">
+		<col width="25%">
+		<col width="15%">
+		<col width="15%" class="misc">
+		<col width="20%">
+		<col width="20%">
+	</colgroup></table>
+
+</body>
+</html>
+
+

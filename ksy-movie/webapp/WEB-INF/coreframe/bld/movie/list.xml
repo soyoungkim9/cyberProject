@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>영화목록 리스트</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      String type1 = input.getText("tab1");
+      if(type1.equals("tab1_expected")) {
+        executeSQL("listExpected", connection, input, output);
+      } else if (input.get("mno") != "" &amp;&amp; input.get("i") != "") {
+        executeSQL("listSelectGrade", connection, input, output);
+      } else if (input.get("mno") != "" &amp;&amp; input.get("j") != "") {
+        executeSQL("listSelectReserve", connection, input, output);
+        executeSQL("listSeatTotal", connection, input, output);
+      } else if(type1.equals("tab1_current_grade")) {
+        executeSQL("listGrade", connection, input, output);
+      } else {
+        executeSQL("listCurrent", connection, input, output);
+        executeSQL("listSeatTotal", connection, input, output);
+      }
+    </script>
+    <transaction-type></transaction-type>
+    <sql id="listCurrent">
+      <query>
+        <![CDATA[
+          SELECT movie.mno, name, sdt, age, genre, fileurl, COUNT(*) AS mCnt
+          FROM movie LEFT OUTER JOIN seat
+          ON movie.mno = seat.mno
+          WHERE sdt < (SELECT SYSDATE FROM DUAL)
+          GROUP BY movie.mno, name, sdt, age, genre, fileurl
+          ORDER BY mCnt DESC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, name, sdt, age, genre, fileurl, mCnt</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listExpected">
+      <query>
+        <![CDATA[
+          SELECT mno, name, sdt, age, genre, fileurl FROM movie
+          WHERE sdt > (SELECT SYSDATE FROM DUAL)
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, name, sdt, age, genre, fileurl</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listSeatTotal">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS stotal FROM seat
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>stotal</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listSelectGrade">
+      <query>
+        <![CDATA[
+          SELECT SUM(GRADE) AS gsum, COUNT(mno) AS gcnt, mno FROM comments WHERE mno = :mno GROUP BY mno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>gsum, gcnt, mno</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listGrade">
+      <query>
+        <![CDATA[
+          SELECT m.mno, name, sdt, age, genre, fileurl, ROUND(NVL(SUM(NULLIF(c.grade, 0))/COUNT(c.mno), 0), 1) AS result, SUM(NVL(c.grade,0)) AS gsum, COUNT(c.mno) AS gcnt
+          FROM movie m FULL OUTER JOIN comments c
+          ON m.mno = c.mno
+          WHERE sdt < (SELECT SYSDATE FROM DUAL)
+          GROUP BY m.mno, name, sdt, age, genre, fileurl
+          ORDER BY result DESC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, name, sdt, age, genre, fileurl, result, gsum, gcnt</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listSelectReserve">
+      <query>
+        <![CDATA[
+          SELECT mno, COUNT(*) AS mCnt FROM seat WHERE mno = :mno GROUP BY mno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, mCnt</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="mno" type="string" label="영화번호"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+      <field name="mno" type="string" label="영화번호"></field>
+      <field name="name" type="string" label="영화이름"></field>
+      <field name="age" type="string" label="관람나이"></field>
+      <field name="sdt" type="string" label="개봉일"></field>
+      <field name="genre" type="string" label="장르번호"></field>
+      <field name="fileurl" type="string" label="영화이미지"></field>
+      <field name="mCnt" type="int" label="예매수"></field>
+      <field name="stotal" type="int" label="좌석예매전체"></field>
+      <field name="gsum" type="int" label="평점합계"></field>
+      <field name="gcnt" type="int" label="평점개수"></field>
+      <field name="result" type="double" label="평점평균"></field>
+    </block>
+  </output>  
+
+</transaction>

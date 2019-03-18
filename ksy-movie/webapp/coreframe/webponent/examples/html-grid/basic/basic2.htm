@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<title> AJAX Grid example</title>
+<link rel='StyleSheet' type='text/css' href='../../../css/cjux.css' />
+<script type='text/javascript' src='../../../jslib/prototype.js'></script>
+<script type='text/javascript' src='../../../jslib/cjux.js'></script>
+
+</head>
+<body>
+<form id='excform'
+	action='../../../../../corelogic/process/samples/database/listCities.xhtml?data-only=true'
+	method='post' onSubmit='return send()'>
+<table border='1'>
+	<tr>
+		<th>name</th>
+		<td><input type='text' name='name' value='' /></td>
+	</tr>
+</table>
+<input type='submit' value='execute' /></form>
+
+<div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td valign="top">
+
+<table id='tbl1'>
+	<colgroup>
+		<col width="99" />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th scope="col" class="intType">id</th>
+			<th scope="col" class="stringType">name</th>
+			<th scope="col" class="stringType">country</th>
+			<th scope="col" class="stringType">airport</th>
+			<th scope="col">language</th>
+			<th scope="col">countryIsoCode</th>
+		</tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+
+</td>
+<td>
+
+
+<table id='tbl2'>
+	<colgroup>
+		<col width="0" />
+		<col align="center" width="100" />
+		<col width="120" />
+		<col width="100" />
+		<col width="120" />
+		<col width="100" />
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th scope="col" class="intType">id</th>
+			<th scope="col" class="stringType">name</th>
+			<th scope="col" class="stringType">country</th>
+			<th scope="col" class="stringType">airport</th>
+			<th scope="col">language</th>
+			<th scope="col">countryIsoCode</th>
+		</tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
+
+<script type="text/javascript">
+	//<![CDATA[
+	Event.observe(window, 'load', init.bind(this));
+	var grid;
+	var grid2;
+	function init() {
+		
+		var param = {'selectClassName':'dummy', 'overflowX':'hidden', 'overflowY':'hidden'};
+		var param2 = {'selectClassName':'dummy'};
+		grid = new webponent.HtmlGrid('tbl1', '99px', '280px', param);
+		grid2 = new webponent.HtmlGrid('tbl2', '500px', '298px', param2);
+		
+
+
+		Event.observe(grid2.tblBodyOutline, 'scroll', scrollSync);
+
+		Event.observe(grid.tblHead,'mouseup', sortSync);
+		Event.observe(grid2.tblHead,'mouseup', sortSync2);
+		
+
+		
+	}
+	function scrollSync() {
+		grid.tblBodyOutline.scrollTop = grid2.tblBodyOutline.scrollTop;
+	}
+	function sortSync(e) {
+		grid2.updateBodyFromGrid(grid);
+	}
+	function sortSync2(e) {
+		grid.updateBodyFromGrid(grid2);
+	}
+	function send() {
+		var f = $('excform');
+		grid.updateBody(f.action, {
+			parameters : f.serialize(),
+			asynchronous : false
+		});
+
+		grid2.updateBodyFromGrid(grid);
+		scrollSync();
+		
+		return false;
+	}
+	//]]>
+</script>
+
+</body>
+</html>
+
+

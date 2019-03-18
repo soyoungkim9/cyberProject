@@ -1,0 +1,304 @@
+#wrap {
+    position: absolute;
+    top: -25px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.page_name {
+    display: none;
+}
+
+.tabCss2 {
+    font-weight: lighter !important;
+    border-bottom: none !important;
+}
+
+.page_name:first-child {
+    border-bottom: 2px solid black;
+}
+
+.page_name > h3 {
+    font-size: 22px;
+    margin-bottom: 13px;
+}
+
+#detail_top > div:first-child > img {
+    width: 100%;
+}
+
+#detail_top > div:first-child {
+    display: inline-block;
+    float: left;
+    width: 30%;
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+
+#detail_top > div:nth-child(2) {
+    display: inline-block;
+    padding-left: 12px;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.info_title {
+    font-weight: bold;
+    font-size: 1.0em;
+    position: absolute;
+    left: 9px;
+    top: -4px;
+}
+
+dl {
+    margin: 0;
+    line-height: 30px;
+}
+
+.info_grade_box {
+    border-bottom: 1px solid #d9d6c8;
+    padding: 16px 0 0 0;
+    margin-bottom: 3px;
+    font-size: 0.8em;
+}
+
+dl > dt {
+    font-weight: bold;
+    display: inline-block;
+}
+
+dl > dd {
+    margin-left: 0;
+    display: inline-block;
+}
+
+#detail_ex > pre {
+    font-size: 0.9em;
+    white-space: pre-line;
+}
+
+#comment_write {
+    border: 1px solid #dedede;
+    display: inline-block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.score_star {
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1px 0 4px 9px;
+}
+
+.score_textarea {
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#txtComment {
+    border: none;
+    background: #f5f5f5;
+    resize: none;
+    padding: 12px;
+    height: 63px;
+    font-size: 0.9em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#comment_write_btn {
+    display: inline-block;
+    color: #cdc197;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 0.75em;
+    background: #231f20;
+    padding: 3px 0 6px 0;
+}
+
+.rate_wrapper > span:nth-child(3) {
+    display: none;
+}
+
+#comment_list > ul {
+    display: inline-block;
+    border-top: 1px solid black;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#comment_list > ul > li {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 12px 12px 12px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.left_box, .left_update_box {
+    width: 79%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.right_box {
+    width: 21%;
+    float: left;
+    border-left: 1px solid #e5e5e5;
+    height: 73px;
+    font-size: 0.8em;
+    box-sizing: border-box;
+}
+
+.starList > .rate_wrapper > .rate_box, .starList_update > .rate_wrapper > .rate_box {
+    padding-left: 0;
+    width: inherit;
+}
+
+.starList > .rate_wrapper > .rate_box + .rate_text, .starList_update > .rate_wrapper > .rate_box + .rate_text {
+    position: relative;
+    top: -1px !important;
+    font-weight: bold;
+    font-size: 13px !important;
+}
+
+.review_date {
+    font-size: 0.8em;
+}
+
+.review_id {
+    position: relative;
+    top: 25px;
+    width: 117%;
+    box-sizing: border-box;
+    padding-left: 8px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.review_update, .review_delete, .review_update_write {
+    font-size: 0.85em;
+    position: relative;
+    top: 34px;
+    left: 6px;
+    color: #8a837e;
+}
+
+.review_update_content {
+    width: 93%;
+    height: 47px;
+    margin-top: 7px;
+    resize: none;
+    font-size: 0.9em;
+}
+
+.no_comments {
+    text-align: center;
+}
+
+#comments_page {
+    text-align: center;
+    margin: 15px;
+    color: #666;
+}
+
+#comments_page > a, #number_box > a {
+    border: 1px solid #dedede;
+    font-size: 0.7em;
+    padding: 2px 8px;
+}
+
+#number_box > a {
+    margin-right: 6px;
+}
+
+#number_box > a:last-child {
+    margin-right: 0;
+}
+
+.pageSelected {
+    color: black;
+    font-weight: bold;
+}
+
+.info_grade > .rate_wrapper > .rate_box {
+    padding-left: 0;
+    position: relative;
+    top: -4px;
+}
+
+.info_grade_text {
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.info_grade_box > .info_grade:nth-child(2) {
+    display: none;
+}
+
+.info_grade_box + dl {
+    font-size: 0.8em;
+}
+
+#detail_ex > h3 {
+    font-size: 1.0em;
+}
+
+#detail_ex {
+    float: left;
+}
+
+#review_box {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.score_star > span:nth-child(1) {
+    display: inline-block;
+    width: 10%;
+    box-sizing: border-box;
+    font-size: 0.8em;
+}
+
+.score_star > span:nth-child(2) {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 88%;
+}
+
+
+#comment_write > .score_star > span:nth-child(2) > #rateBox > .rate_wrapper > .rate_box:first-child {
+    display: inline-block;
+    width: inherit;
+    box-sizing: border-box;
+    padding-left: 0;
+}
+
+.icon {
+    font-size: 13px !important;
+}
+
+.rate_wrapper {
+    top: 1px !important;
+}
+
+.rate_text {
+    top: 0 !important;
+    left: 4px;
+    font-size: 14px !important;
+}
+
+.review_content {
+    margin: 12px 0;
+    font-size: 0.8em;
+}

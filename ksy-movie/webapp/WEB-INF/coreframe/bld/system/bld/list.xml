@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="list" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name></name>
+		<http-access>true</http-access>
+	</info>
+
+	<processor-info type="dbms" datasource="cf-system">
+		<script language="java" >
+<![CDATA[
+
+	DynamicQuery q = new DynamicQuery(input);
+	
+	q.prefix(" WHERE ");
+	q.check("name").and(" NAME like '%${name}%' ");
+	q.check("description").and(" DESCRIPTION like '%${description}%' ");
+	q.check("writer").and(" WRITER like '%${writer}%' ");
+	q.check("crudInfo").and(" DBCRUD like '%${crudInfo}%' ");
+	q.check("sqlInfo").and(" DBSQL like '%${sqlInfo}%' ");
+	q.check("type").and(" TYPE = '${type}' ");
+	
+	
+	input.put("WHERE", q.toString());
+	executeAll(input,output);
+]]>
+		</script>
+
+		<transaction-type></transaction-type>
+		<sql id="query1" max-rows="100">
+			<query>SELECT BLD_ID, NAME, DESCRIPTION, WRITER, DBCRUD, DBSQL, TYPE
+				FROM CF_BLDMETA
+				${WHERE}</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>bldId, name, description, writer, crudInfo, sqlInfo,
+					type</getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field name="name" type="string" label="이름"/>
+			<field name="description" type="string" label="설명"/>
+			<field name="writer" type="string" label="작성자"/>
+			<field name="crudInfo" type="string" label="CRUD정보"/>
+			<field name="sqlInfo" type="string" label="SQL정보"/>
+			<field name="type" type="string" label="타입"/>
+			<field name="WHERE" type="string" label="WHERE"/>
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat="">
+			<field name="bldId" type="string" label="BLD아이디"/>
+			<field name="name" type="string" label="이름"/>
+			<field name="description" type="string" label="설명"/>
+			<field name="writer" type="string" label="작성자"/>
+			<field name="crudInfo" type="string" label="CRUD정보"/>
+			<field name="sqlInfo" type="string" label="SQL정보"/>
+			<field name="type" type="string" label="타입"/>
+		</block>
+	</output>
+
+</transaction>

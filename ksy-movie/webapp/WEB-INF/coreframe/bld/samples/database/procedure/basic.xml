@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='euc-kr'?>
+<!--  protocolName='db1' -->
+<transaction name='basic' xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <processor-info type='dbms' datasource=''>
+   
+    <transaction-type></transaction-type>
+    <sql id="sql1">
+     	<query type="storedprocedure">
+        {? = call PKG_FN_TOTCOM.SP_INIT_IND_LST (?) }
+		</query>
+
+      <!-- <mapping-procedure>
+        <param seq="1" mode="out" type="OracleTypes.CURSOR">
+          nm:nm,cd:cd
+		</param>
+        <param seq="2" mode="out" type="VARCHAR" size="10">
+          sql
+		</param>
+      </mapping-procedure> -->
+
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+
+  <input>
+    <block></block>
+  </input>
+
+  <output>
+    <block>
+      <field name="sql" type="string"/>
+    </block>
+    <block>
+      <field name="nm" type="string"/>
+      <field name="cd" type="string"/>
+    </block>
+  </output>
+</transaction>

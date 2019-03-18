@@ -1,0 +1,629 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+
+<html xmlns:tool="http://www.cadvance.org/doc/tools">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=euc-kr" />
+<meta name="keywords" content="W3C, World Wide Web, Web, WWW, HTML, CSS, DHTML, JAVASCRIPT, ASP, XHTML, XML, DTD, Schema, XSLT, XPATH, XQL, standard, language, style sheet, markup, web design, page layout, 배우기, 홈페이지, 홈페이지 설계,  웹 디자인, 매뉴얼, 설명서, 예제, 언어, 글자" />
+<meta name="description" content="CADVANCE(Creative and ADVANCE)의 목표는 웹 언어에 관심이 있고, 그 것을 배우고 싶어하는 사람이 있다면, 그 사람이 설사 초보자라도 HTML부터 XML까지 단계별로 수준을 높여가며 이 사이트 내에서 웹 언어에 관한 모든 것을 섭렵할 수 있도록 이끌어 주는데 있다. 만약 한 두 가지의 간단한 tip을 얻고자 이 사이트를 찾았다면, 그 것을 찾기 힘들 수도 있고, 그게 없을 수도 있다. 왜냐하면 이 사이트의 구성은, 초보자라도 웹 언어에 쉽게 접근할 수 있도록 web markup 언어의 기본인 HTML에서 시작해서, 이 사이트의 목표이자 차세대의 웹 표준이 될 XML Family Language까지의 본질적인 내용을 다루려고 시도했기 때문이다. 하지만 tip을 찾아 이 사이트에 온 사람이라도, 나중에 기본적인 내용을 몰라서 난관에 봉착했을 경우, 이 사이트를 다시 찾을 필요가 있을 것이다. 못해서 안 하는 것이 아니라 안 하기 때문에 못하는 것이며, 시도하지 않는 사람에게는 시행착오 조차 없을 것이다. 시행착오란 무엇인가 시도해 본 사람만이 누릴 수 있는 특권이다. 시행착오를 즐기자! 시행착오를 통해 점점 나아지고, 한층 더 성숙해 질 것이다. 웹 언어에 관심이 있다면, 언제라도 이 사이트에서 자신이 웹 언어를 통해 추구하고자 하는 것을 시도해 볼 수 있을 것이다." />
+<meta name="expires" content="0" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<!--meta http-equiv="Page-Exit" CONTENT="progid:DXImageTransform.Microsoft.GradientWipe(GradientSize='0.5', Duration=1.5)" /-->
+<!-- <meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="nofollow"> -->
+<TITLE>COLGROUP | Table Column Group</TITLE>
+<link rel="stylesheet" type="text/css" href="http://www.cadvance.org/doc/include/cadvance.css">
+
+<script type="text/javascript" src="http://www.cadvance.org/doc/include/doc.js"></script>
+<script type="text/javascript" src="http://www.cadvance.org/doc/include/variables.js"></script>
+</HEAD>
+<body class="margin" style="background-color:#EFEFEF;" leftmargin="0" topmargin="0" oncontextmenu="cutBubble()" ondragstart="return true" onselectstart="return true" onload="InitializeStaticMenu();intoTheFrame();top.document.title=document.title;"><!--  -->
+
+<!-- <div class="fileMap" style="background:#ffffff;padding:10px;width:591px;font:11px verdana;text-align:center;border:1px solid #ddd;">
+<script type="text/javascript"><!--
+google_ad_client = "pub-6123521311309745";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "text_image";
+google_ad_channel = "";
+google_color_border = "ffffff";
+google_color_bg = "ffffff";
+google_color_link = "0000FF";
+google_color_text = "000000";
+google_color_url = "008000";
+//-->
+<!-- </script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br /> -->
+
+    <table align="left" cellpadding="0" cellspacing="0" border="0"><!-- style="" -->
+        <tr>
+            <td style="width:591px;">
+<!-- 타이틀 시작 -->
+
+<SPAN class="docTitle">COLGROUP | Table Column Group</SPAN>
+<!-- 타이틀  끝-->
+<HR class="blackHr">
+<div class="fileMap">
+  <a href="http://www.cadvance.org/" target="_top">Home</a>&#x0020;&gt;&#x0020;
+  <a href="http://www.cadvance.org/doc/">Document</a>&#x0020;&gt;&#x0020;
+  <a href="http://www.cadvance.org/doc/html/">HTML</a>&#x0020;&gt;&#x0020;
+  <a href="http://www.cadvance.org/doc/html/advanced/">고급 과정</a>&#x0020;&gt;&#x0020;
+
+  Table colgroup
+</div>
+<!-- Page Index 시작-->
+<BR>
+<B>페이지 목차</B>
+<UL class="lineHeight">
+<LI class="indexColor"><SPAN class="litem"><A href="colgroup.asp#colgroup_main">Table Colgroup(Column group)</A></SPAN></LI>
+<LI class="indexColor"><SPAN class="litem"><A href="colgroup.asp#col_element_example">Col Element 예제 </A></SPAN></LI>
+<LI class="indexColor"><SPAN class="litem"><A href="colgroup.asp#where_is_the_position">Colgroup, Col element 의 위치는 어디인가? </A></SPAN></LI>
+<LI class="indexColor"><SPAN class="litem"><A href="colgroup.asp#colgroup_example1">Colgroup Element 예제 1</A></SPAN></LI>
+<LI class="indexColor"><SPAN class="litem"><A href="colgroup.asp#colgroup_example2">Colgroup Element 예제 2</A></SPAN></LI>
+
+</UL>
+<!-- Page Index 끝-->
+<A name="colgroup_main"><HR class="grayHr"></A>
+<BR>
+
+<B>Colgroup</B>
+<P class="mtext">다시 Table 을 다루는 페이지로군요. 앞에서 Table을 만들면서 이런 불편을 느꼈을 지도 모르겠습니다. TR(Table Row) Element 의 경우는 &lt;TR&gt; Tag에 bgcolor, height, align, valign 등을 설정하면 그 row의 전체 Cell 들에 같은 설정이 되었지만 Column 의 경우는 컬럼 전체를 한 번에 다룰 수 있는 방법이 없어서 같은 bgcolor를 column 전체에 지정하기 위해서  아래의 예와 같이 3행 3열의 Table 의 Column 1 에 해당하는 Cell 마다 bgcolor를 지정하게 됩니다.</P>
+
+<!-- 입력 pre 시작 -->
+<B class="pos">입력</B>
+<pre class="input">
+
+&lt;HTML&gt;
+    &lt;HEAD&gt;
+        &lt;TITLE&gt; 현재 알고 있는 방법으로 Column 에 같은 bgcolor 를 지정할 경우&lt;/TITLE&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+
+        &lt;table width="100%" border="1"&gt;
+            &lt;tr&gt;
+                &lt;td <b>bgcolor="gold"</b>&gt;R1 C1&lt;/td&gt;
+                &lt;td&gt;R1 C2&lt;/td&gt;
+
+                &lt;td&gt;R1 C3&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td <b>bgcolor="gold"</b>&gt;R2 C1&lt;/td&gt;
+
+                &lt;td&gt;R2 C2&lt;/td&gt;
+                &lt;td&gt;R2 C3&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td <b>bgcolor="gold"</b>&gt;R3 C1&lt;/td&gt;
+
+                &lt;td&gt;R3 C2&lt;/td&gt;
+                &lt;td&gt;R3 C3&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/BODY&gt;
+
+&lt;/HTML&gt;
+</pre>
+<!-- 입력 pre 끝-->
+<!-- 출력결과  div 시작 -->
+<B>출력결과</B>
+<DIV class="output">
+        <table width="100%" border="1">
+            <tr>
+                <td bgcolor="gold">R1 C1</td>
+                <td>R1 C2</td>
+
+                <td>R1 C3</td>
+            </tr>
+            <tr>
+                <td bgcolor="gold">R2 C1</td>
+                <td>R2 C2</td>
+                <td>R2 C3</td>
+            </tr>
+
+            <tr>
+                <td bgcolor="gold">R3 C1</td>
+                <td>R3 C2</td>
+                <td>R3 C3</td>
+            </tr>
+        </table>
+</DIV>
+<!-- 출력결과  div 끝-->
+
+<P class="mtext">즉, 이런 식으로 일일이 지정 할 수 밖에 없었습니다. 이 Colgroup, Col 등의 Element 는 이러한 불편을 없애고 Column 전체를 한 번에 Control 할 수 있는 방법을  제공해 줍니다. 이 번 페이지에서는 Column 을 다루는 Element 들에 대해서 알아 봅니다.</P>
+<br>
+
+
+<!-- dtd table 시작 -->
+<TABLE width="100%" class="dtd">
+  <CAPTION class="general">
+	<B>Legend</B> : <B>O</B>ptional, <B>F</B>orbidden, <B>E</B>mpty, <B>D</B>eprecated, <B>L</B>oose DTD, <B>F</B>rameset DTD &nbsp;[<A href="../beginner/html_element.asp#dtd">표 보는 방법</A>]
+  </CAPTION>
+
+  <TR class="qLookTtlTr">
+    <TD>Element<TD>Start tag<TD>End tag<TD>Empty<TD>Deprecated<TD>DTD 
+  <TR class="qLookValueTr">
+    <TD>COLGROUP<TD>&nbsp;<TD>O<TD>&nbsp;<TD>&nbsp;<TD>&nbsp;
+  <TR class="qLookValueTr">
+    <TD>COL<TD>&nbsp;<TD>F<TD>E<TD>&nbsp;<TD>&nbsp;		
+  <TR class="qLookValueTr">
+
+</TABLE>
+<!-- dtd table 끝--><BR>
+<BR>
+
+<!-- 사용법 들어가는 테이블 시작 Table-->
+<TABLE  class="attributeTbl" border="0" cellpadding="0" cellspacing="2" align="">
+    <TR>
+        <TD class="titleCell" colspan="2">COLGROUP, COL Element</TD>
+    </TR>
+
+		<!-- 인라인 모듈 시작 -->
+    <TR>
+
+        <TD class="syntaxLeftCellShort">span</TD>
+            <!-- 사용법 들어가는 inline 테이블 시작 -->	  
+            <TD class="inlineRightCellTitle" width="85%">
+      		   <TABLE  width="100%" border="0" cellpadding="0" cellspacing="0" align="">
+                    <TR>
+                          <TD class="RightCellTitle" width="85%" colspan="2">사용할 column 갯수</TD>
+                    </TR>
+          					<TR>
+
+                          <TD class="inlineLeftCell" width="15%">예)</TD>
+                          <TD class="inlineRightCell" width="85%">&lt;colgroup span="2"&gt; , &lt;col span="3"&gt;</TD>
+                    </TR>
+            	</TABLE>
+         		</TD>
+            <!-- 사용법 들어가는 inline 테이블 끝-->
+
+    </TR>
+		<!-- 인라인 모듈 끝-->
+		<!-- 인라인 모듈 시작 -->
+    <TR>
+        <TD class="syntaxLeftCellShort">width</TD>
+            <!-- 사용법 들어가는 inline 테이블 시작 -->	  
+            <TD class="inlineRightCellTitle" width="85%">
+      		   <TABLE  width="100%" border="0" cellpadding="0" cellspacing="0" align="">
+                    <TR>
+
+                          <TD class="RightCellTitle" width="85%" colspan="2">절대단위 | 상대단위 &nbsp;&nbsp;테이블전체의 가로 크기,  사용 단위는 (<A href="../beginner/color_length.asp#units">색상, 길이단위</A> 참조)</TD>
+                    </TR>
+          					<TR>
+                          <TD class="inlineLeftCell" width="15%">예)</TD>
+                          <TD class="inlineRightCell" width="85%">&lt;colgroup width="600"&gt; , &lt;col width="90%"&gt;</TD>
+
+                    </TR>
+            	</TABLE>
+         		</TD>
+            <!-- 사용법 들어가는 inline 테이블 끝-->
+    </TR>
+		<!-- 인라인 모듈 끝-->
+		<!-- 인라인 모듈 시작 -->
+    <TR>
+        <TD class="syntaxLeftCellShort">bgcolor</TD>
+
+            <!-- 사용법 들어가는 inline 테이블 시작 -->	  
+            <TD class="inlineRightCellTitle" width="80%">
+      		   <TABLE width="100%" border="0" cellpadding="0" cellspacing="0" align="">
+                    <TR>
+                          <TD class="RightCellTitle" width="80%" colspan="2">테이블 Column group의 배경색, 색상값은 (<A href="../beginner/color_length.asp">색상, 길이단위</A> 참조)</TD>
+                    </TR>
+          					<TR>
+
+                          <TD class="inlineLeftCell" width="15%">예)</TD>
+                          <TD class="inlineRightCell" width="85%">&lt;colgroup bgcolor="silver"&gt; , &lt;col bgcolor="#EEEECC"&gt;</TD>
+                    </TR>
+            	</TABLE>
+         		</TD>
+            <!-- 사용법 들어가는 inline 테이블 끝-->
+
+    </TR>
+		<!-- 인라인 모듈 끝-->
+		<TR>
+        <TD class="syntaxLeftCell">공통 속성</TD>
+        <TD class="syntaxRightCell">align, class, id, dir, style, lang, valign 등은 (<A href="../beginner/basic_structure.asp#common_attribute"> 공통 속성표 </A>를 참조)
+</TD>
+</TABLE>
+<!-- 사용법 들어가는 테이블 끝--><BR>
+
+<BR>
+<A name="col_element_example"><HR class="grayHr"></A>
+<BR>
+
+<B>Col Element 예제</B>
+<P class="mtext">다음의 3행 4열 테이블로 col Element 의 예제를 해 봅시다.  </P>
+
+<!-- 입력 pre 시작 -->
+<B class="pos">입력</B>
+<pre class="input">
+&lt;HTML&gt;
+    &lt;HEAD&gt;
+
+        &lt;TITLE&gt;Col Element 를 사용한 Column 다루기&lt;/TITLE&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+        &lt;table width="100%" border="1"&gt;
+                <B>&lt;COL bgcolor="gold" align="center"&gt;</B>
+
+                <B>&lt;COL span="2" bgcolor="tomato"&gt;</B><I class="comment">&lt;!-- 2개의 column 을 사용 --&gt;</I>
+                <B>&lt;COL bgcolor="palegreen"&gt;</B>
+            &lt;tr&gt;
+                &lt;td&gt;R1 C1&lt;/td&gt;
+                &lt;td&gt;R1 C2&lt;/td&gt;
+
+                &lt;td&gt;R1 C3&lt;/td&gt;
+                &lt;td&gt;R1 C4&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;R2 C1&lt;/td&gt;
+
+                &lt;td&gt;R2 C2&lt;/td&gt;
+                &lt;td&gt;R2 C3&lt;/td&gt;
+                &lt;td&gt;R2 C4&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;R3 C1&lt;/td&gt;
+                &lt;td&gt;R3 C2&lt;/td&gt;
+                &lt;td&gt;R3 C3&lt;/td&gt;
+
+                &lt;td&gt;R3 C4&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/BODY&gt;
+&lt;/HTML&gt;
+</pre>
+
+<!-- 입력 pre 끝-->
+
+<!-- 출력결과  div 시작 -->
+<B>출력결과</B>
+<DIV class="output">
+        <table width="100%" border="1">
+                <COL bgcolor="gold" align="center">
+                <COL span="2" bgcolor="tomato"><!-- 2개의 column 을 사용 -->
+                <COL bgcolor="palegreen">
+            <tr>
+                <td>R1 C1</td>
+
+                <td>R1 C2</td>
+                <td>R1 C3</td>
+                <td>R1 C4</td>
+            </tr>
+            <tr>
+                <td>R2 C1</td>
+                <td>R2 C2</td>
+
+                <td>R2 C3</td>
+                <td>R2 C4</td>
+            </tr>
+            <tr>
+                <td>R3 C1</td>
+                <td>R3 C2</td>
+                <td>R3 C3</td>
+
+                <td>R3 C4</td>
+            </tr>
+        </table>
+</DIV>
+<!-- 출력결과  div 끝-->
+<P class="mtext">Source code 를 보면 굵은 글씨로 된 Col Element 부분 중 첫 번째 col 은 span 속성을 사용하지 않았으므로 1번 Column  1개를 사용하고, 두 번째 col 에 span="2" 가 지정되어 있으므로 2, 3번 Column 2개를 3 번째 col도 span 속성을 사용하지 않았기 때문에 4 번 Column 1개, 이렇게 총 4 개의 Column 1개, 2개, 1개로 분할하여 column 을 지정하였습니다.</P>
+<BR>
+<A name="where_is_the_position"><HR class="grayHr"></A>
+<BR>
+
+<B>Colgroup, Col element 의 위치는 어디인가?</B>
+
+<P class="mtext">Colgroup과 Col element 의 위치는 결론부터 말하자면 자기 맘대로 입니다. 물론 아무대나 라는게 아니고, Table tag 속에서 가장 먼저 나와야 될 필요는 없다는 뜻입니다. 다만 Table tag 바로 밑에 오지 않을 경우에는 &lt;/TR&gt;과 &lt;TR&gt; 사이 이기만 하면 어느 곳이건 상관 없습니다. 아래와 같이 1행과 2행 사이에 위치하면 </P>
+
+<!-- 입력 pre 시작 -->
+<B class="pos">입력</B>
+<pre class="input">
+&lt;HTML&gt;
+    &lt;HEAD&gt;
+
+        &lt;TITLE&gt;Col Element 를 사용한 Column 다루기&lt;/TITLE&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+        &lt;table width="100%" border="1"&gt;
+            &lt;tr&gt;
+
+                &lt;td&gt;R1 C1&lt;/td&gt;
+                &lt;td&gt;R1 C2&lt;/td&gt;
+                &lt;td&gt;R1 C3&lt;/td&gt;
+                &lt;td&gt;R1 C4&lt;/td&gt;
+
+            &lt;/tr&gt;
+                <B>&lt;COL bgcolor="gold" align="center"&gt;</B>
+                <B>&lt;COL span="2" bgcolor="tomato"&gt;</B><I class="comment">&lt;!-- 2개의 column 을 사용 --&gt;</I>
+                <B>&lt;COL bgcolor="palegreen"&gt;</B>
+            &lt;tr&gt;
+                &lt;td&gt;R2 C1&lt;/td&gt;
+
+                &lt;td&gt;R2 C2&lt;/td&gt;
+                &lt;td&gt;R2 C3&lt;/td&gt;
+                &lt;td&gt;R2 C4&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;R3 C1&lt;/td&gt;
+                &lt;td&gt;R3 C2&lt;/td&gt;
+                &lt;td&gt;R3 C3&lt;/td&gt;
+
+                &lt;td&gt;R3 C4&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/BODY&gt;
+&lt;/HTML&gt;
+</pre>
+
+<!-- 입력 pre 끝-->
+
+<!-- 출력결과  div 시작 -->
+<B>출력결과</B>
+<DIV class="output">
+        <table width="100%" border="1">
+            <tr>
+                <td>R1 C1</td>
+                <td>R1 C2</td>
+                <td>R1 C3</td>
+
+                <td>R1 C4</td>
+            </tr>
+                <COL bgcolor="gold" align="center">
+                <COL span="2" bgcolor="tomato"><!-- 2개의 column 을 사용 -->
+                <COL bgcolor="palegreen">
+            <tr>
+                <td>R2 C1</td>
+                <td>R2 C2</td>
+
+                <td>R2 C3</td>
+                <td>R2 C4</td>
+            </tr>
+            <tr>
+                <td>R3 C1</td>
+                <td>R3 C2</td>
+                <td>R3 C3</td>
+
+                <td>R3 C4</td>
+            </tr>
+        </table>
+</DIV>
+<!-- 출력결과  div 끝-->
+<P class="mtext">이렇게 Colgroup 또는 Col element 가 나오는 이후 부터 적용됩니다.</P><BR>
+
+<A name="colgroup_example1"><HR class="grayHr"></A>
+<BR>
+
+
+<B>Colgroup Element 예제 1</B>
+
+<P class="mtext">앞의 col Element 가 column 하나 하나에 대한 설정을 하는 element 였다면 Colgroup element 는 column 이 하나건 둘이건 column 전체를 group 으로 지정하는 element 입니다. Colgroup element 는 특히 Table 전체에 공통적으로 적용시켜야 될 속성이 있고, column 마다 따로 지정해야 될 속성이 있을 때 사용된 COL element 들을 COLGROUP element 로 묶어서 사용합니다. 아래는 Source code...</P>
+
+<!-- 입력 pre 시작 -->
+<B class="pos">입력</B>
+<pre class="input">
+&lt;HTML&gt;
+    &lt;HEAD&gt;
+        &lt;TITLE&gt;Colgroup Element 를 사용한 Column 다루기&lt;/TITLE&gt;
+
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+        &lt;table width="100%" border="1"&gt;
+                <B>&lt;COLGROUP align="center" style="color: blue;"&gt;</B>
+                &lt;COL bgcolor="gold" <B>align="left"</B>&gt;
+                &lt;COL span="2" bgcolor="tomato"&gt;
+
+                &lt;COL bgcolor="palegreen"&gt;
+                <B>&lt;/COLGROUP&gt;</B>
+            &lt;tr&gt;
+                &lt;td&gt;R1 C1&lt;/td&gt;
+                &lt;td&gt;R1 C2&lt;/td&gt;
+
+                &lt;td&gt;R1 C3&lt;/td&gt;
+                &lt;td&gt;R1 C4&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;R2 C1&lt;/td&gt;
+
+                &lt;td&gt;R2 C2&lt;/td&gt;
+                &lt;td&gt;R2 C3&lt;/td&gt;
+                &lt;td&gt;R2 C4&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;R3 C1&lt;/td&gt;
+                &lt;td&gt;R3 C2&lt;/td&gt;
+                &lt;td&gt;R3 C3&lt;/td&gt;
+
+                &lt;td&gt;R3 C4&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/BODY&gt;
+&lt;/HTML&gt;
+</pre>
+
+<!-- 입력 pre 끝-->
+
+<!-- 출력결과  div 시작 -->
+<B>출력결과</B>
+<DIV class="output">
+        <table width="100%" border="1">
+                <COLGROUP align="center" style="color: blue;">
+                <COL bgcolor="gold" align="left">
+                <COL span="2" bgcolor="tomato"><!-- 2개의 column 을 사용 -->
+                <COL bgcolor="palegreen">
+                </COLGROUP>
+
+            <tr>
+                <td>R1 C1</td>
+                <td>R1 C2</td>
+                <td>R1 C3</td>
+                <td>R1 C4</td>
+            </tr>
+            <tr>
+
+                <td>R2 C1</td>
+                <td>R2 C2</td>
+                <td>R2 C3</td>
+                <td>R2 C4</td>
+            </tr>
+            <tr>
+                <td>R3 C1</td>
+
+                <td>R3 C2</td>
+                <td>R3 C3</td>
+                <td>R3 C4</td>
+            </tr>
+        </table>
+</DIV>
+<!-- 출력결과  div 끝-->
+
+<P class="mtext">이 경우처럼 전체적으로 글씨색이 blue, 글자정렬이 center 이고, Column 1 의 경우만 글자 정렬을 왼쪽 맞춤할 경우 Colgroup element 에 글씨색과 글자정렬을 지정하고 예외적인 Column 은 Col element 를 사용하여 해당 Column 에 따로 지정합니다. </P>
+
+<A name="colgroup_example2"><HR class="grayHr"></A>
+<BR>
+
+<B>Colgroup Element 예제 2</B>
+<P class="mtext">이번에는 Col element 대신 전부 Colgroup element 로 대체 시켰을 경우를 생각해 보져. Code를 실행 시켜보면 알겠지만 아무런 차이도 없습니다만, 뒤에 나올 Table 속성 중 <B>rules</B> 속성에서 차이를 보입니다.</P>
+
+<!-- 입력 pre 시작 -->
+<B class="pos">입력</B>
+<pre class="input">
+&lt;HTML&gt;
+
+    &lt;HEAD&gt;
+        &lt;TITLE&gt;Colgroup Element 를 사용한 Column 다루기&lt;/TITLE&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY&gt;
+        &lt;table width="100%" border="1"&gt;
+
+                &lt;<B>COLGROUP</B> bgcolor="gold" <B>align="left"</B>&gt;
+                &lt;<B>COLGROUP</B> span="2" bgcolor="tomato"&gt;
+                &lt;<B>COLGROUP</B> bgcolor="palegreen"&gt;
+            &lt;tr&gt;
+
+                &lt;td&gt;R1 C1&lt;/td&gt;
+                &lt;td&gt;R1 C2&lt;/td&gt;
+                &lt;td&gt;R1 C3&lt;/td&gt;
+                &lt;td&gt;R1 C4&lt;/td&gt;
+
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;R2 C1&lt;/td&gt;
+                &lt;td&gt;R2 C2&lt;/td&gt;
+                &lt;td&gt;R2 C3&lt;/td&gt;
+
+                &lt;td&gt;R2 C4&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;R3 C1&lt;/td&gt;
+                &lt;td&gt;R3 C2&lt;/td&gt;
+
+                &lt;td&gt;R3 C3&lt;/td&gt;
+                &lt;td&gt;R3 C4&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/BODY&gt;
+
+&lt;/HTML&gt;
+</pre>
+<!-- 입력 pre 끝-->
+
+<!-- 출력결과  div 시작 -->
+<B>출력결과</B>
+<DIV class="output">
+        <table width="100%" border="1">
+                <COLGROUP bgcolor="gold" align="left">
+                <COLGROUP span="2" bgcolor="tomato">
+                <COLGROUP bgcolor="palegreen">
+
+            <tr>
+                <td>R1 C1</td>
+                <td>R1 C2</td>
+                <td>R1 C3</td>
+                <td>R1 C4</td>
+            </tr>
+            <tr>
+
+                <td>R2 C1</td>
+                <td>R2 C2</td>
+                <td>R2 C3</td>
+                <td>R2 C4</td>
+            </tr>
+            <tr>
+                <td>R3 C1</td>
+
+                <td>R3 C2</td>
+                <td>R3 C3</td>
+                <td>R3 C4</td>
+            </tr>
+        </table>
+</DIV>
+<!-- 출력결과  div 끝--><BR>
+<BR>
+다음 페이지의 Row group 에서 계속...
+
+
+<BR>
+<BR>
+<HR class="blackHr">
+<BR>
+<BR>
+<p align="center">이 문서의 저작권은 <a href="http://www.cadvance.org" target="_top">www.cadvance.org</a> 에 있습니다.</p>
+<div id="layer_01" style="filter:Alpha(Opacity=90);font-family:Verdana,Tahoma,굴림;line-height:1.5em;color: #000000;	background-color: #FDF5E6;	padding:5px 4px 3px 3px;border: 1px solid #b0bbb8; display:none;	position:absolute;text-align:justify;word-break:break-all;width:350px;"></div>
+<!-- 뜨는 레이어 Include -->
+<div id="STATICMENU" style="position:absolute;width:30px;height:30px;cursor:default;">
+    <table id="ANIMATE" border="0" cellspacing="0" cellpadding="0" width="100%" height="100%" style="border:0px solid #bfbfbf;cursor:default;color:#c0c0c0;">
+        <tr>
+
+						<td align="center" height="18"  onmouseover="this.style.backgroundColor='#dedede';" onmouseout="this.style.backgroundColor='';" onclick="window.location.href='#top';" style="border:1px solid #bfbfbf;border-bottom-width:0px;color:#0000cd;cursor:pointer"><span>Top</span></td>
+     				<td rowspan="4" id="search" style="display:none;border:0px solid red;">
+								<table border="0" cellpadding="0" style="cursor:default;border:1px solid #f25839; width:142px;background-color:#FFFFFF;filter:Alpha(Opacity=90);" cellspacing="0">
+                    <tr>
+                        <td style="border:1px solid #336600;cursor:default;background-color:#EFEFEF;height:23px;padding:0px;" width="100%">
+                            <table cellpadding="0" cellspacing="0" border="0" bgcolor="#4a7eb2" width="100%" height="100%" style="cursor:default;">
+                                <tr>
+                                    <td style="height:18px;text-align:center;color:#FFFFFF;font-weight:bold;cursor:default;">Searching for</td>
+
+                                    <td align="right" style="color:#FFFFFF;"><span style="border:1px solid #FFFFFF;font:8px normal verdana;position:relative;bottom:2px;cursor:help;padding:0px 1px 0px 0px;" onclick="TdOverLayer(search_info);" onmouseout="TdOutLayer()" title="도움말">&nbsp;? </span>&nbsp;<span style="border:1px solid #FFFFFF;font:8px normal verdana;position:relative;bottom:2px;cursor:pointer;" onClick="search.style.display='none';" title="닫기">&nbsp;X </span>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><form action="http://www.cadvance.org/doc/search/search_result.asp" name="s_form" method="post" style="width:100%;" onsubmit="return search_check()">
+                        <td class="con" align="right" style="padding:0px;height:18"><input type="text" name="search" style="border:1px solid #6699cc;font:11px verdana;height:20px;padding-top:3px;width:100%"><input type="submit" name="s_submit" value="검 색" style="width:50%;border:1px outset #99ccFF; background-color:#4a7eb2;padding-top:2px;font:11px verdana;color:#FFFFFF;cursor:pointer;"><input type="reset" value="취 소" style="width:49%;border:1px outset #99CCFF; background-color:#4a7eb2;padding-top:2px;font:11px verdana;color:#FFFFFF;cursor:pointer;"></td></form>
+                    </tr>
+
+                </table>
+						</td>
+
+        </tr>
+        <tr>
+    				<td align="center" height="17"  onmouseover="this.style.backgroundColor='#eeeecc';" onmouseout="this.style.backgroundColor='';" onclick="javascript:history.back(-1)" style="border:1px solid #bfbfbf;border-width:0px 1px;color:#0000cd;cursor:pointer">Back</td>
+        </tr>
+        <tr>
+    				<td align="center" height="17"  onmouseover="this.style.backgroundColor='#dedede';" onmouseout="this.style.backgroundColor='';" style="padding-top:2px;" onclick="javascript:document.execCommand('Refresh');" style="border:1px solid #bfbfbf;border-width:0px 1px;color:#0000cd;cursor:pointer;">New</td>
+
+        </tr>
+        <tr>
+    				<td align="center" height="18"  onmouseover="this.style.backgroundColor='#eeeecc';" onmouseout="this.style.backgroundColor='';" style="padding-top:2px;" onclick="search.style.display='';" style="border:1px solid #bfbfbf;border-top-width:0px;color:#ff6347;">검색</td>
+        </tr>				
+    </table>
+</div>
+<div id="tooltips_div" onmousedown="hideTT();"></div>
+<span id="tooltips_div2" onmousedown="hideTT2()"></span>
+<div style="text-align:center;">최종 수정일 : 2006-03-05 <span disabled="disabled">|</span> 조회수 : 12,935</div>
+
+<BR>
+</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

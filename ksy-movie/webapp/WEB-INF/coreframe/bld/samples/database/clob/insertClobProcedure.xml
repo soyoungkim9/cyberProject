@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="insertClobProcedure" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	
+  <processor-info type="dbms" datasource="demoPool">
+    <transaction-type>rollback</transaction-type>
+    <sql id="qry_insert">
+      <query><![CDATA[
+  DECLARE
+    IN_INFO_NO  VARCHAR2(14) ;
+    IN_REG_NM   VARCHAR2(20) :=?;
+    IN_PID_NO   VARCHAR2(20) :=?;
+    IN_TEL      VARCHAR2(20) :=?;
+    IN_ZIP_CD   VARCHAR2(6)  :=?;
+    IN_ADDR1    VARCHAR2(200):=?;
+    IN_ADDR2    VARCHAR2(200):=?;
+    IN_EMAIL    VARCHAR2(100):=?;
+    IN_RSLT_CHK VARCHAR2(1)  :=?;
+    IN_TTL      VARCHAR2(200):=?;
+    IN_CTNT LONG             :=?;
+    IN_FL_NM   VARCHAR2(80)    :=?;
+    IN_CUR_GDS VARCHAR2(1)     :=?;
+    IN_RSLT_CTNT LONG          :=?;
+    IN_REG_DT        VARCHAR2(14) ;
+    IN_INFO_SECT     VARCHAR2(1)  :=?;
+    IN_INFO_TYP      VARCHAR2(1)  :=?;
+    IN_FL_PATH       VARCHAR2(100):=?;
+    IN_FL_INDX_NM    VARCHAR2(80) :=?;
+    IN_USR_ID        VARCHAR2(10) :=?;
+    IN_INS_UPD_GUBUN VARCHAR2(3)  :='INS';
+    CTNT_CLOB CLOB;
+    CTNT_AMT NUMBER;
+  BEGIN
+
+      SELECT NVL(MAX(to_number(ACPT_NO)) ,0)+1
+       INTO IN_INFO_NO
+      FROM TBHP_KRX_CYB_IRRINFO;
+
+      INSERT
+      INTO TBHP_KRX_CYB_IRRINFO
+        (
+          ACPT_NO ,LANG_TP_CD ,WRTR_NM ,RESD_REG_NO ,TEL_NO ,ZIPCD ,ADDR ,DTL_ADDR ,EMAIL 
+,EMAIL_ANS_REQ_YN ,TITLE ,IRRINFO_CONTN ,ATTACH_FILE_NM ,IRRINFO_PROCS_STAT_CD ,IRRINFO_ANS_CONTN 
+,WRT_DDTM ,INFOMR_BELNG_TP_CD ,IRRINFO_PROPS_TP_CD ,FILE_PATH ,SAVE_FILE_NM ,CREATR_ID
+        )
+        VALUES
+        (
+          IN_INFO_NO ,'0' ,IN_REG_NM ,IN_PID_NO ,IN_TEL ,IN_ZIP_CD ,IN_ADDR1 ,IN_ADDR2 ,IN_EMAIL 
+,IN_RSLT_CHK ,IN_TTL ,EMPTY_CLOB() ,IN_FL_NM ,IN_CUR_GDS ,IN_RSLT_CTNT 
+,TO_CHAR(sysdate ,'yyyymmddhh24miss') ,IN_INFO_SECT ,IN_INFO_TYP ,IN_FL_PATH ,IN_FL_INDX_NM ,IN_USR_ID
+        ) ;
+      -- CLOB COLUMN DATA SETTING
+      SELECT IRRINFO_CONTN
+      INTO CTNT_CLOB
+      FROM TBHP_KRX_CYB_IRRINFO
+      WHERE ACPT_NO=IN_INFO_NO ;
+
+    /* CLOB COLUMN DATA  SETTING */
+    CTNT_AMT:=LENGTH(IN_CTNT) ;
+    DBMS_LOB.WRITE(CTNT_CLOB ,CTNT_AMT ,1 ,IN_CTNT) ;
+    COMMIT;
+  END;
+]]>
+      </query>
+      <mapping>
+        <setProperty>reg_nm, pid_no, tel, zip_cd, addr1, addr2, email, rslt_chk, ttl, ctnt, fl_nm,
+          cur_gds, rslt_ctnt, info_sect, info_typ, fl_path, fl_indx_nm, usr_id</setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  <input>
+    <block repeat="1">
+      <field name="info_no" type="string" label="접수번호" />
+      <field name="reg_nm" type="string" label="작성자" />
+      <field name="pid_no" type="string" label="주민등록번호" />
+      <field name="tel" type="string" label="전화번호" />
+      <field name="zip_cd" type="string" label="우편번호" />
+      <field name="addr1" type="string" label="주소1" />
+      <field name="addr2" type="string" label="주소2" />
+      <field name="email" type="string" label="메일" />
+      <field name="rslt_chk" type="string" label="답변메일요청" />
+      <field name="ttl" type="string" label="제목" />
+      <field name="ctnt" type="string" label="제보(신고)" />
+      <field name="fl_nm" type="string" label="첨부파일이름" />
+      <field name="cur_gds" type="string" label="현재상태" />
+      <field name="rslt_ctnt" type="string" label="답변" />
+      <field name="rslt_dt" type="string" label="답변일" />
+      <field name="info_sect" type="string" label="소속구분" />
+      <field name="info_typ" type="string" label="형태" />
+      <field name="fl_path" type="string" label="파일PATH" />
+      <field name="fl_indx_nm" type="string" label="파일INDEX" />
+      <field name="usr_id" type="string" label="사용자아이디" />
+    </block>
+  </input>
+  <output>
+    <block>
+      <field name="maxseq" type="string" label="최대 신청일련번호" />
+    </block>
+  </output>
+</transaction>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout-profile>
+    <portal>
+
+        <devices default-device-name="pc">
+            <device name="tablet" reg-exp="iPad|SHW-M380S|SHW-M480W|Macintosh| Linux|CrOS"/>
+            <device name="tablet-low" reg-exp="SCH-I800|SHW-M380W|GT-P1000"/>
+            <device name="mobile" domain="^nm\.|^m\." reg-exp="iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson"/>
+        </devices>
+
+        <layouts default="default">
+
+            <layout name="default">
+                <template-page device="*">/templets/default/templet.jsp</template-page>
+                <template-page device="mobile">/templets/mobile/templet.jsp</template-page>
+            </layout>
+
+            <layout name="admin">
+                <template-page>/templets/admin/templet.jsp</template-page>
+            </layout>
+
+            <layout name="mobile">
+                <template-page>/templets/mobile/templet.jsp</template-page>
+            </layout>
+
+        </layouts>
+
+    </portal>
+</layout-profile>

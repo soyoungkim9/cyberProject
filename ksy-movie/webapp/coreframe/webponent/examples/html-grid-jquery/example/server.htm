@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>New Grid</title>
+<script type="text/javascript" src='../../../jslib/jquery.js'></script>
+<script type="text/javascript" src="../jquery.dataGrid.js"></script>
+<script type="text/javascript">
+	var grid1;
+	var grid2;
+	var grid3;
+	
+	$(document).ready(function() {
+		grid1 = $.dataGrid('#tbl1', {
+			width  : 800,
+			height : 150,
+			server : {bld:'samples/database/listCities'}
+		});
+		
+		grid2 = $.dataGrid('#tbl2', {
+			width  : 800,
+			height : 150,
+			server : {bld:'samples/database/listCities',sort:"name"},
+			onclick: rowClick
+		});
+		
+		grid3 = $.dataGrid('#tbl3', {
+			width  : 800,
+			height : 150,
+			server : {bld:'samples/database/listCities',view:'/coreframe/webponent/examples/html-grid-jquery/example/server_data.jsp'},
+			gridInfo: true,
+			paging : {rows:100,type:2}
+		});
+		send();
+	});
+	
+	
+
+	
+	function send() {
+		
+		var startdate = new Date();
+		
+		var f = $('#excform');
+		grid1.updateBody(f,{success:function(){
+			var enddate = new Date();
+			$("#timeLog1").html("수행시간1 : "+ (enddate - startdate));
+		}});
+		grid2.updateBody(f,{success:function(){
+			var enddate = new Date();
+			$("#timeLog2").html("수행시간2 : "+ (enddate - startdate));
+		}});
+		grid3.updateBody(f,{success:function(){
+			var enddate = new Date();
+			$("#timeLog3").html("수행시간3 : "+ (enddate - startdate));
+		}});
+		
+		return false;
+	}
+	
+	function rowClick(td){
+		var rowData = grid1.getRowDataArray(grid1.getRowFromChild(td));
+		alert(rowData["name"])
+	}
+</script>
+
+</head>
+<body>
+	<form id="excform" action="?" method="post" onSubmit="return send()">
+		<table border="1">
+			<tr>
+				<th>name : <input type="text" name="name" value="" /></th>
+				<td><input type="submit" value="execute" /></td>
+			</tr>
+		</table>
+	</form>
+	<h1>내부 페이징</h1>
+	
+	<h2>server : {bld:'samples/database/listCities'}</h1>
+	<table id="tbl1" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h2>server : {bld:'samples/database/listCities',sort:"name"}</h2>
+	<table id="tbl2" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h2>server : {bld:'samples/database/listCities',view:'/common/component/grid/example/server_data.jsp'}</h2>
+	<table id="tbl3" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<div>
+		<div id="timeLog1"></div><div id="timeLog2"></div><div id="timeLog3"></div>
+	</div>
+</body>
+</html>

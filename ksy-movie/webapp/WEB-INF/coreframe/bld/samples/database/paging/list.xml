@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="list" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name>한글 테스트</name>
+		<description>test business logic 2</description>
+		<author>admin</author>
+		<version>1.1</version>
+		<effective-date>2007-05-18 11:32:00</effective-date>
+		<!-- <bld-check>true</bld-check> -->
+		<status>confirmation</status>
+		<http-access>true</http-access>
+	</info>
+	
+	<processor-info datasource="derbyPool" type="dbms">
+		<property desc="" name="dbms.page" value="1"></property>
+		<property desc="" name="dbms.row_per_page" value="15"></property>
+
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		
+		<script language="java">
+		      try {
+		      int page = input.getInt("page");
+		      input.setProperty( "dbms.page" ,
+		      String.valueOf(page) );
+		      }catch(Exception e) { System.out.println("여기서 에러??");}
+		
+		      executeAll(input, output);
+		  
+  		</script>
+  		
+		<transaction-type></transaction-type>
+		
+		<sql id="query1">
+			<query>
+				SELECT city_id,city_name,country,airport,language,country_iso_code
+		        FROM CITIES
+		        WHERE country like '${country}%'
+		        ORDER BY city_id DESC
+        	</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>city_id,city_name,country,airport,language,country_iso_code</getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		<block name="arg" repeat="1">
+			<field label="국가명" name="country" type="string"></field>
+		</block>
+	</input>
+	<output>
+		<block>
+			<field label="ID" name="city_id" type="string"></field>
+			<field label="도시명" name="city_name" type="string"></field>
+			<field label="국가명" name="country" type="string"></field>
+			<field label="공항" name="airport" type="string"></field>
+			<field label="language" name="language" type="string"></field>
+			<field label="ISO CODE" name="country_iso_code" type="string"></field>
+		</block>
+	</output>
+	<Signature>
+		<SignatureValue>e47a9e1dfc81e2463cc10ea4f98212075</SignatureValue>
+	</Signature>
+</transaction>

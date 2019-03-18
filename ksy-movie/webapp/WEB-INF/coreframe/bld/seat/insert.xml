@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>좌석등록</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="insert">
+      <query>
+        <![CDATA[
+          INSERT INTO seat(seatnum, tino, id, randomkey, mno) VALUES('${seatnum}', :tino, '${id}', '${random}', :mno)
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+    <sql id="insertPayment">
+      <query>
+        <![CDATA[
+          INSERT INTO payment(pno, adult, senior, teenager, disabled, randomkey, charge, cdate)
+           VALUES(payment_seq.nextval, :adult, :senior, :teenager, :disabled, '${random}', '${charge}', '${cdate}')
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="tino" type="string" label="상영관정보번호"></field>
+      <field name="seatnum" type="string" label="좌석번호"></field>
+      <field name="id" type="string" label="회원아이디"></field>
+      <field name="random" type="string" label="랜덤키"></field>
+      <field name="adult" type="string" label="성인"></field>
+      <field name="senior" type="string" label="노인"></field>
+      <field name="teenager" type="string" label="청소년"></field>
+      <field name="disabled" type="string" label="장애인"></field>
+      <field name="charge" type="string" label="요금"></field>
+      <field name="cdate" type="string" label="결제일"></field>
+      <field name="mno" type="string" label="영화번호"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+    </block>
+  </output>  
+
+</transaction>

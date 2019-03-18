@@ -1,0 +1,270 @@
+#wrap {
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fixed_style {
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    background: white;
+    z-index: 3;
+}
+.fixed_style > div:first-child {
+    border-bottom: 1px solid black;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.fixed_style > div:first-child > h3 {
+    margin-bottom: 9px;
+    font-size: 0.9em;
+}
+
+#resetBox {
+    display: none;
+}
+#selectBox {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#resetBox > button {
+    border: 1px solid #d1d1d1;
+    background: white;
+    padding: 5px 18px;
+    line-height: 19px;
+}
+
+.justwrap {
+    display: inline-block;
+    width: 24%;
+    vertical-align: middle;
+}
+
+.justwrap > label {
+    float: left;
+    font-size: 0.8em;
+    line-height: 28px;
+    width: 100px;
+}
+
+.selectbox__label {
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+}
+#seat_Box {
+    position: relative;
+    top: 221px;
+}
+#seat_Box > div:first-child {
+    text-align: center;
+    font-style: italic;
+    font-size: 18px;
+    width: 750px;
+}
+
+#seat_Box > div > p {
+    background: #edebe8;
+    border: 1px solid #cbcbcb;
+    padding: 5px 0;
+}
+
+#seat_arrange {
+    display: inline-block;
+}
+#seat_arrange > ul {
+    display: inline-block;
+    width: 980px;
+}
+
+#seat_arrange > ul > li {
+    display: inline-block;
+    background: #e3e0e0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 24px;
+    font-size: 15px;
+    padding: 2px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#seat_arrange > ul > li:first-child {
+    background: white;
+    font-weight: bold;
+}
+
+#seat_option_box {
+    font-size: 0.8em;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+#seat_option_box > ul > li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+#seat_option_box > ul > li > span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 5px;
+    margin-right: 9px;
+}
+
+.seat_option_style1 {
+    background: #e3e0e0;
+    border: 1px solid #e3e0e0;
+    width: 15.5px !important;
+    height: 15.5px !important;
+}
+
+.seat_option_style2 {
+    background: #848484;
+    border: 1px solid #848484;
+}
+
+.seat_option_style3 {
+    background: #000;
+    border: 1px solid #000;
+}
+
+#total_Box {
+    background: #33373a;
+    position: relative;
+    top: 244px;
+    padding-top: 12px;
+}
+
+#total_Box > ul {
+    display: inline-block;
+    width: 100%;
+}
+
+#total_Box > ul > li {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    padding: 0 15px;
+    border-left: 1px solid #515151;
+    box-sizing: border-box;
+}
+
+#total_Box > ul > li > dl {
+    margin: 0;
+}
+#movie_data > dt > img {
+    width: 85px;
+}
+
+#total_Box > ul > li > dl > dd {
+    margin: 0;
+}
+
+#total_Box > ul > li > dl > dt {
+    color: #cdc197;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#total_Box > ul > li > dl > dd {
+    font-size: 0.8em;
+}
+
+#total_Box > ul > li > dl > dd {
+    color: white;
+}
+
+#total_Box > ul > li > dl > dd > dl > dd {
+    margin: 0;
+}
+
+#movie_data > dt, #movie_data > dd {
+    display: inline-block;
+}
+
+#info_data > dt {
+    color: #a7a9ac;
+    display: inline-block;
+    width: 30%;
+    line-height: 22px;
+}
+
+#info_data > dd {
+    display: inline-block;
+    width: 69%;
+}
+
+#money_data > dd > dl > dt {
+    display: inline-block;
+    width: 30%;
+    color: #a7a9ac;
+}
+
+#money_data > dd > dl > dd {
+    display: inline-block;
+    width: 69%;
+}
+
+#money_data > strong {
+    float: right;
+    color: white;
+    font-size: 1.3em;
+    padding-bottom: 10px;
+}
+
+.seat_style_selected {
+    background: #000 !important;
+    color: white;
+}
+
+.seat_style_no {
+    background: #848484 !important;
+    color: black;
+    font-weight: bold;
+    cursor: default !important;
+}
+
+#payment_Box {
+    position: relative;
+    top: 244px;
+    width: 100%;
+}
+
+#payment_Btn {
+    background: #b49763;
+    color: #231f20;
+    border: none;
+    width: inherit;
+    height: 50px;
+    font-size: 1.2em;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+#resetBox > button {
+    cursor: pointer;
+}
+
+#selectBox > .justwrap:first-child, #selectBox > .justwrap:nth-child(2),
+#selectBox > .justwrap:nth-child(3), #selectBox > .justwrap:last-child{
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 6px 0 6px 10px;
+}
+
+#movie_data > dt:first-child {
+    display: none;
+}
+
+#movie_data {
+    margin-bottom: 0;
+}

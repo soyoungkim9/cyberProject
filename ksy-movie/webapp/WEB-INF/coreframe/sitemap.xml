@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<site-menu name="coreFRAME WebFramework" last-id="000055">
+
+    <topmenu id="coreframe_sample" name="coreFRAME example site" _authorizer="coreview.defaultWebAuthorizer">
+        <url>/coreframe</url>
+        <layout propagation="true">default</layout>
+        <child>
+            <menu id="case1" name="영화">
+                <url>/main/movie/list.jsp</url>
+                <child>
+                    <menu id="case1_1" name="박스오피스">
+                        <url>/main/movie/list.jsp</url>
+                    </menu>
+                    <menu id="case1_2" name="무비파인더">
+                        <url>/main/movie/search.cmd</url>
+                    </menu>
+                </child>
+            </menu>
+            <menu id="case2" name="예매">
+                <url>/main/movie/reserve.jsp</url>
+                <another-url>/main/movie/seat.jsp</another-url>
+            </menu>
+            <menu id="case3" name="마이페이지">
+                <url>/main/movie/mypage.jsp</url>
+            </menu>
+            <menu id="case4" name="상세페이지">
+                <url>/main/movie/listDetail.jsp</url>
+            </menu>
+        </child>
+        <publish>
+            <source-url/>
+            <time-gap/>
+            <min-page-size/>
+        </publish>
+    </topmenu>
+</site-menu>

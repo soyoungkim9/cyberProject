@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="sendMail" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+		<name></name>
+		<description />
+		<author />
+		<version>0.1</version>
+		<http-access>true</http-access>
+		<status>developing</status>
+		<effective-date />
+	</info>
+  
+  <processor-info type="mail">
+    <property name="mail.smtp_host" value="mail.cyber-i.com" />
+    <property name="mail.auth.id" value="neoxeni" />
+    <property name="mail.auth.pwd" value="올바른패스워드입력" />
+  </processor-info>
+
+  <input>
+        <block name="INPUT1" label="INPUT1" id="INPUT1" repeat="1">
+            <field name="to_email" label="받는 사람 메일주소" type="string"/>
+            <field name="to_name" label="받는 사람 이름" type="string"/>
+        </block>
+        <block name="INPUT2" label="INPUT2" id="INPUT2" repeat="1">
+            <field name="type" label="메일유형" type="string" default="text"/>
+            <field name="from_email" label="보내는 사람 메일주소" type="string" default="neoxeni@cyber-i.com"/>
+            <field name="from_name" label="보내는 사람 이름" type="string" default="neoxeni@cyber-i.com"/>
+            <field name="subject" label="제목" type="string"/>
+            <field name="content" label="내용" type="string"/>
+        </block>
+    </input>
+    <output>
+        <block name="OUTPUT1" label="OUTPUT1" id="OUTPUT1">
+            <field name="result" label="전송결과" type="string"/>
+        </block>
+    </output>
+  
+</transaction>

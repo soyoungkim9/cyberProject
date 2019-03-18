@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="list" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name>한글 테스트</name>
+		<description>test business logic 2</description>
+		<author>admin</author>
+		<version>1.1</version>
+		<effective-date>2007-05-18 11:32:00</effective-date>
+		<!-- <bld-check>true</bld-check> -->
+		<status>confirmation</status>
+		<http-access>true</http-access>
+	</info>
+	<processor-info datasource="msSql" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+
+
+
+		<sql id="query1" max-rows="300">
+			<query type="">SELECT writer,title
+        FROM board WHERE writer like '${name}%'</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>name, address</getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		<block name="arg" repeat="1">
+			<!-- size="-1" -->
+			<field name="name" type="string" default="" label=""></field>
+		</block>
+	</input>
+	<output>
+		<block class="com.cyberimagination.examples.web.model.TestModel"
+			name="result" repeat=""></block>
+	</output>
+	<test>
+		<case name="test">
+			<!-- <input> <field name="test" value="etst" /> </input> -->
+			<test-input>
+				<field name="test" value="etst" type="string" />
+			</test-input>
+		</case>
+	</test>
+
+	<Signature>
+		<SignatureValue>e47a9e1dfc81e2463cc10ea4f98212075</SignatureValue>
+	</Signature>
+</transaction>

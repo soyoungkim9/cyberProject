@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+    <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"/>
+    <jsp:directive.page extends="coreframe.http.JspxController"/>
+    <jsp:directive.page import="coreframe.data.DataSet"/>
+    <jsp:directive.page import="coreframe.http.ViewMeta,java.io.IOException"/>
+    <jsp:directive.page import="java.util.List"/>
+    <jsp:directive.page import="java.util.ArrayList"/>
+    <jsp:directive.page import="java.net.URLDecoder"/>
+    <c:set scope="request" var="viewpage.prefix" value="/main/movie/"/>
+    <c:set scope="request" var="viewpage.postfix" value=".jsp"/>
+    <jsp:declaration><![CDATA[//
+
+        protected String getDefaultMethodName() {
+            return "list";
+        }
+
+        public void insertMember(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+
+            DataSet output1 = executeBL("member/list", input);
+            if(output1.toList().size() != 0) return;
+
+            DataSet output2 = executeBL("member/insert", input);
+        }
+
+        public void getPage(ViewMeta view, String bld, int viewSize) throws IOException {
+            String pageNoVal = view.getRequestParameter("pageNo");
+            int size = viewSize;
+            int pageNo = 1;
+            if (pageNoVal != null) {
+                pageNo = Integer.parseInt(pageNoVal);
+            }
+
+            DataSet input = view.getInputDataSet();
+            input.put("startRow", (pageNo - 1) * size);
+            input.put("size", size);
+            DataSet output = executeBL(bld, input);
+            // 페이징
+            int total = output.getInt("total");
+            int totalPages = total / size;
+            if(total % size > 0) {
+                totalPages++;
+            }
+
+            int modVal = pageNo % 5;
+            int startPage = pageNo / 5 * 5 + 1;
+            if(modVal == 0) startPage -= 5;
+
+            int endPage = startPage + 4;
+            if (endPage > totalPages) endPage = totalPages;
+
+            // 검색관련
+            List<Integer> genre = new ArrayList<Integer>();
+            for(int i = 0; i < input.getCount("genre"); i++) {
+                genre.add(input.getInt("genre", i));
+            }
+            view.setAttribute("genre", genre);
+
+            List<String> nation = new ArrayList<String>();
+            for(int i = 0; i < input.getCount("nation"); i++) {
+                nation.add(URLDecoder.decode(input.getText("nation", i), "UTF-8"));
+            }
+            view.setAttribute("nation", nation);
+            view.setAttribute("sdt", input.getText("sdt"));
+            view.setAttribute("edt", input.getText("edt"));
+            view.setAttribute("searchPage", output.toList());
+            view.setAttribute("searchTitle", input.getText("search"));
+            view.setAttribute("searchList", input.getText("searchList"));
+            view.setAttribute("total", total);
+            view.setAttribute("startPage", startPage);
+            view.setAttribute("endPage", endPage);
+            view.setAttribute("totalPages", totalPages);
+            view.setAttribute("pageNo", pageNo);
+        }
+
+        public void getCommentsPage(ViewMeta view, String bld, int viewSize) throws IOException {
+            String pageNoVal = view.getRequestParameter("pageNo");
+            int size = viewSize;
+            int pageNo = 1;
+            if (pageNoVal != null) {
+                pageNo = Integer.parseInt(pageNoVal);
+            }
+
+            DataSet input = view.getInputDataSet();
+            input.put("startRow", (pageNo - 1) * size);
+            input.put("size", size);
+            DataSet output = executeBL(bld, input);
+            // 페이징
+            int total = output.getInt("total");
+            int totalPages = total / size;
+            if(total % size > 0) {
+                totalPages++;
+            }
+
+            int modVal = pageNo % 5;
+            int startPage = pageNo / 5 * 5 + 1;
+            if(modVal == 0) startPage -= 5;
+
+            int endPage = startPage + 4;
+            if (endPage > totalPages) endPage = totalPages;
+
+            if(output.getInt("total") != 0) {
+                view.setAttribute("comments", output.toList());
+                view.setAttribute("startPage", startPage);
+                view.setAttribute("endPage", endPage);
+                view.setAttribute("totalPages", totalPages);
+            }
+            view.setAttribute("total", total);
+        }
+
+        public void list(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            DataSet output1 = executeBL("movie/list", input);
+
+            if(input.get("mno") != "" && input.get("i") != "") {
+                DataSet output2 = executeBL("movie/list", input);
+                view.setAttribute("selectList", output2.toList());
+                view.setAttribute("i", input.get("i"));
+            } else if(input.get("mno") != "" && input.get("j") != "") {
+                DataSet output3 = executeBL("movie/list", input);
+                view.setAttribute("selectList", output3.toList());
+                view.setAttribute("j", input.get("j"));
+            } else {
+                view.setAttribute("movieList", output1.toList());
+                view.setAttribute("size", output1.toList().size());
+            }
+            view.printJSON();
+        }
+
+        public void search(ViewMeta view) throws IOException {
+            getPage(view, "movie/search", 8);
+
+            view.setViewName("search");
+        }
+
+        public void reserve(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            input.put("ano1", input.getText("ano[]", 0));
+            input.put("ano2", input.getText("ano[]", 1));
+
+            DataSet output1 = executeBL("reserve/list", input);
+            DataSet output2 = executeBL("movie/list", input);
+            if(input.get("infomno[]") != "" && input.get("infoano[]") != "") {
+                for(int i = 0; i < input.toList().size(); i++) {
+                    input.put("infomno", input.getText("infomno[]", i));
+                    input.put("infoano", input.getText("infoano[]", i));
+                    DataSet output3 = executeBL("theater/list", input);
+                    view.setAttribute("theater" + i, output3.toList());
+                }
+            }
+
+            if(input.get("tino") != "") {
+                DataSet output4 = executeBL("reserve/list", input);
+                view.setAttribute("i", input.getInt("i"));
+                view.setAttribute("seatcnt", output4.toList());
+            }
+
+            view.setAttribute("reserveList", output1.toList());
+            view.setAttribute("movieList", output2.toList());
+
+            view.printJSON();
+        }
+
+        public void listSeat(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            DataSet output = executeBL("seat/list", input);
+
+            view.setAttribute("theaterInfo", output.toList());
+            if(output.get("seatnum") != "") {
+                String[] seat = new String[output.toList().size()];
+                for (int i = 0; i < output.toList().size(); i++) {
+                    if (output.getText("seatnum", i) == "") {
+                        return;
+                    }
+                    seat[i] = output.getText("seatnum", i);
+                }
+                view.setAttribute("seat", seat);
+            }
+
+            view.printJSON();
+        }
+
+        public void insertSeat(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            for(int i = 0; i < input.toList().size(); i++) {
+                input.put("seatnum", input.get("seatArr[]", i));
+                executeBL("seat/insert", input);
+            }
+        }
+
+        public void mypage(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+
+            if(input.getText("id") != "" && input.get("ticket[]") == "") {
+                DataSet output = executeBL("ticket/list", input);
+                view.setAttribute("ticket", output.toList());
+            } else if(input.get("ticket[]") != "") {
+                for(int i = 0; i < input.toList().size(); i++) {
+                    input.put("tino", input.getText("ticket[]", i));
+                    DataSet output = executeBL("ticket/list", input);
+                    view.setAttribute("info"+i, output.toList());
+                }
+            } else if(input.get("randomkey[]") != "") {
+                for(int i = 0; i < input.toList().size(); i++) {
+                    input.put("randomkey", input.getText("randomkey[]", i));
+                    DataSet output = executeBL("ticket/list", input);
+                    view.setAttribute("randomkey"+i, output.toList());
+                }
+            }
+
+            view.printJSON();
+        }
+
+        public void deleteTicket(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            executeBL("ticket/delete", input);
+        }
+
+        public void listDetail(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            DataSet output = executeBL("detail/list", input);
+
+            view.setAttribute("movie", output.toList());
+            view.printJSON();
+        }
+
+        public void insertComments(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            DataSet output = executeBL("comments/list", input);
+
+            if(output.toList().size() != 0)
+                view.setAttribute("charge", output.toList());
+            if(input.get("grade") != "")
+                executeBL("comments/insert", input);
+            System.out.println(input);
+            System.out.println(output.toList());
+            view.printJSON();
+        }
+
+        public void listComments(ViewMeta view) throws IOException {
+            getCommentsPage(view, "comments/list", 4);
+            view.printJSON();
+        }
+
+        public void deleteComments(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            executeBL("comments/delete", input);
+        }
+
+        public void updateComments(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            executeBL("comments/update", input);
+        }
+
+        public void getpdf(ViewMeta view) throws IOException {
+
+        }
+
+
+
+
+
+//]]></jsp:declaration>
+</jsp:root>

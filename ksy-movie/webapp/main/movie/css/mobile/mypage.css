@@ -1,0 +1,160 @@
+#wrap {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: absolute;
+    top: -42px;
+}
+
+#wrap > div:first-child {
+    display: none;
+}
+
+#wrap > div:nth-child(2) {
+    padding: 10px 12px 0 10px;
+}
+
+h3 {
+    font-size: 22px;
+}
+.ticket_box {
+    border: 1px solid #e5e5e5;
+    display: inline-block;
+    width: 100%;
+    color: #4b4646;
+    margin-bottom: 10px;
+}
+
+.ticket_box:first-child {
+    margin-top: 10px;
+}
+
+#tab {
+    border-bottom: 1px solid #231f20;
+    width: 100%;
+    display: inline-block;
+}
+
+#tab > li {
+    background: #231f20;
+    color: #cdc197;
+    float: left;
+    display: inline-block;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 10px 15px;
+}
+
+.ticket_number, .ticket_date, .ticket_time, .ticket_location, .ticket_seat, .ticket_charge {
+    margin-left: 0;
+}
+
+.ticket_number_box {
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.7em;
+    padding: 2px 0 4px 13px;
+}
+
+.ticket_number_box > dt {
+    width: 20%;
+    display: inline-block;
+}
+
+.ticket_number {
+    width: 79%;
+    display: inline-block;
+}
+
+.ticket_menu {
+    font-size: 0.75em;
+    float: right;
+    margin-bottom: 14px;
+    margin-top: 3px;
+    margin-right: 4px;
+}
+
+.ticket_img {
+    float: left;
+    padding-left: 13px;
+    padding-top: 27px;
+    width: 24%;
+    box-sizing: border-box;
+}
+
+.ticket_img > img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.ticket_info {
+    float: left;
+    margin: 0;
+    box-sizing: border-box;
+    width: 76%;
+    position: relative;
+    top: -0.7em;
+}
+
+.ticket_info_detail {
+    margin: 0;
+}
+
+.ticket_info_detail > dt {
+    width: 24%;
+    font-size: 0.8em;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.ticket_info_detail > dd {
+    width: 73%;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.ticket_charge_box {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #e5e5e5;
+    margin: 0;
+    padding: 0px 0 5px 12px;
+    background: #f9f6ec;
+}
+
+.ticket_charge_box > dt {
+    width: 28%;
+    font-size: 0.75em;
+    display: inline-block;
+}
+
+.ticket_charge_box > dd {
+    width: 25%;
+    font-size: 0.75em;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.ticket_menu > a {
+    margin-left: 12px;
+    color: #F44336;
+}
+
+.tabCss1 {
+    font-weight: lighter !important;
+}
+
+.success_Btn {
+    color: #3F51B5 !important;
+}
+
+.ticket_info > dd:nth-child(2) {
+    margin-left: 10px;
+}
+
+.ticket_info_detail > dt:nth-child(7) {
+    position: relative;
+    top: -11px;
+}

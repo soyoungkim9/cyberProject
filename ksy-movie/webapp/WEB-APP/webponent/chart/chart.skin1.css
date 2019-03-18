@@ -1,0 +1,159 @@
+* {font-family: Tahoma, dotum, gulim; font-size: 12px;}
+a {text-decoration: none;}
+
+div.stockchart-personal {position: relative; width: 98px !important; font-size: 0.75em; height: 501px; font-size: 12px; border-right: 1px solid #c1c1c1; border-bottom: 1px solid #c1c1c1;}
+div.stockchart-personal .title {width: 100%; height: 24px; line-height: 24px; font-size: 12px;}
+div.stockchart-personal .item {width: 100%; border-bottom: 1px solid #c1c1c1; border-top: 0px !important;}
+div.stockchart-personal .item.open.history {border-bottom: 0;}
+div.stockchart-personal .open .title {border-bottom: 1px solid #c1c1c1;}
+div.stockchart-personal .title h4 a {font-size: 12px !important;}
+div.stockchart-personal .list {padding-top: 5px;}
+div.stockchart-personal .list li {height: 22px; padding: 0 0 0 1px; font-size: 12px; color: #333333;}
+div.stockchart-personal .list li.line2 {height: 35px;}
+div.stockchart-personal .list li span.blank {margin-left: 18px;}
+div.stockchart-personal .list li input[type='radio'], div.stockchart-personal .list li input[type='checkbox'] {margin-right: 0px;}
+div.stockchart-personal h4 {background: url('/WEB-APP/webponent/chart/html5/img/acc_mnback_off.gif') left top no-repeat !important; /* padding: 5px 5px; */ margin: 0px;}
+div.stockchart-personal h4 span {color: #5b564a; font-weight: bold;}
+div.stockchart-personal h4 a {display:block; padding-left: 10px;}
+div.stockchart-personal ul {list-style: none; margin: 0; padding: 0;}
+div.stockchart-personal .content {background: #fff;}
+div.stockchart-personal .ui-accordion-content { padding: 0.5em; height: 357px; position: relative;}
+div.stockchart-personal .stockchart-overlay .over-tab01, div.stockchart-personal .stockchart-overlay .over-tab02,
+div.stockchart-personal .stockchart-subindex .over-tab01, div.stockchart-personal .stockchart-subindex .over-tab02 {width: 49px; height: 21px; margin: 0px; padding: 0px; border: 0;}
+div.stockchart-personal .stockchart-overlay .over-tab01, div.stockchart-personal .stockchart-subindex .over-tab01 { background: url('/WEB-APP/webponent/chart/html5/img/tab01_off.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab02, div.stockchart-personal .stockchart-subindex .over-tab02 { background: url('/WEB-APP/webponent/chart/html5/img/tab02_off.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab01.sel, div.stockchart-personal .stockchart-subindex .over-tab01.sel { background: url('/WEB-APP/webponent/chart/html5/img/tab01_on.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab02.sel, div.stockchart-personal .stockchart-subindex .over-tab02.sel { background: url('/WEB-APP/webponent/chart/html5/img/tab02_on.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab01:hover, div.stockchart-personal .stockchart-subindex .over-tab01:hover {background: url('/WEB-APP/webponent/chart/html5/img/tab01_on.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab02:hover, div.stockchart-personal .stockchart-subindex .over-tab02:hover {background: url('/WEB-APP/webponent/chart/html5/img/tab02_on.gif') left top no-repeat transparent;}
+div.stockchart-personal .stockchart-overlay .over-tab01 span, div.stockchart-personal .stockchart-overlay .over-tab02 span,
+div.stockchart-personal .stockchart-subindex .over-tab01 span, div.stockchart-personal .stockchart-subindex .over-tab02 span {visibility: hidden;}
+
+div.stockchart-personal .stockchartover-list-layer, div.stockchart-personal .stockchartsub-list-layer {margin-top: 8px;}
+div.stockchart-personal .stockchartover-option-layer, div.stockchart-personal .stockchartsub-option-layer {margin: 8px 0 0 5px;}
+div.stockchart-personal .stockchartover-option-select, div.stockchart-personal .stockchartsub-option-select {width: 86px;}
+div.stockchart-personal .stockchartover-option-layer,
+div.stockchart-personal .stockchartsub-option-layer { 
+	/* position: absolute; top: 5px; left: 5%; 
+	width: 83%; height: auto;  
+	border: 1px solid #ddd; background: #eee;
+	padding: 5px; */
+}
+div.stockchart-personal .stockchartover-option-layer button.close,
+div.stockchart-personal .stockchartsub-option-layer button.close {
+	position: absolute; top: 0px; right: 0px;
+}
+div.stockchart-personal .stockchartover-option-layer button.default-setting,
+div.stockchart-personal .stockchartsub-option-layer button.default-setting { }
+
+div.stockchart-personal .stockchartover-option-layer p,
+div.stockchart-personal .stockchartsub-option-layer p {margin: 5px 0 0 0;}
+div.stockchart-personal .stockchartover-option-layer p span,
+div.stockchart-personal .stockchartsub-option-layer p span {}
+div.stockchart-personal .stockchartover-option-layer p span button.default-setting,
+div.stockchart-personal .stockchartsub-option-layer p span button.default-setting {width: 86px;}
+div.stockchart-personal .stockchartover-option-layer dl, div.stockchart-personal .stockchartsub-option-layer dl {margin-top: 6px;}
+div.stockchart-personal .stockchartover-option-layer dl dt,
+div.stockchart-personal .stockchartsub-option-layer dl dt { height: 14px; line-height: 14px; font-size: 12px; color: #6e5d53;}
+div.stockchart-personal .stockchartover-option-layer dl dd,
+div.stockchart-personal .stockchartsub-option-layer dl dd { height: 28px; margin: 0; font-size: 0px;}
+div.stockchart-personal .stockchartover-option-layer dl dd input[type=text],
+div.stockchart-personal .stockchartsub-option-layer dl dd input[type=text] {width: 32px; margin: 0 3px;}
+div.stockchart-personal .stockchartover-option-layer dl dd button,
+div.stockchart-personal .stockchartsub-option-layer dl dd button { margin: 0; padding: 0; width: 22px; height: 22px; border: 0px;}
+div.stockchart-personal .stockchartover-option-layer dl dd button.minus,
+div.stockchart-personal .stockchartsub-option-layer dl dd button.minus {background: url('/WEB-APP/webponent/chart/html5/img/number_minus.gif') left top no-repeat;}
+div.stockchart-personal .stockchartover-option-layer dl dd button.plus,
+div.stockchart-personal .stockchartsub-option-layer dl dd button.plus {background: url('/WEB-APP/webponent/chart/html5/img/number_plus.gif') left top no-repeat;}
+div.stockchart-personal .stockchartover-option-layer dl dd button span { visibility: hidden !important;}
+
+div.stockchart-personal ul.stockchartover-option, 
+div.stockchart-personal ul.stockchartsub-option { display: none; }
+
+div.chart01 {position: relative; width: 748px; height: 500px; border: 1px solid #c1c1c1; overflow: hidden;-webkit-user-select:none;}
+div.chart01.pc {width: 749px; height: 500px; border: 0; border-right:1px solid #c1c1c1; overflow-y: hidden;}
+div.stockchart-info { width: 748px; border: 1px solid #d9d8d7; border-bottom: 0px; background: #fff; line-height: 31px; heieght: 31px; margin-top: 5px;}
+div.stockchart-info .stockchart-name {color: #333; padding: 0 5px 0 10px;}
+div.stockchart-info .stockchart-open, div.stockchart-info .stockchart-high, div.stockchart-info .stockchart-low, div.stockchart-info .stockchart-close, div.stockchart-info .stockchart-prev, div.stockchart-info .stockchart-volume {background: url('/WEB-APP/webponent/chart/html5/img/stockchart_infobar.gif') left 50% no-repeat; padding-left: 8px; padding-right: 5px; font-weight: bold; color: #333;}
+div.stockchart-info .stockchart-open span, div.stockchart-info .stockchart-high span, div.stockchart-info .stockchart-low span, div.stockchart-info .stockchart-close span, div.stockchart-info .stockchart-prev span, div.stockchart-info .stockchart-volume span {color: #555;}
+
+.webponent-chart-chart01-container {border-bottom: 1px solid #c1c1c1;border-left: 1px solid #c1c1c1;background: #fbfaf9; }
+.webponent-chart-chart01_back {}
+.webponent-chart-chart01-slider-box { background: url('/WEB-APP/webponent/chart/html5/img/slider_bg.gif') 50% 55% no-repeat;}
+.webponent-chart-chart01-tooltip {border: 1px solid #999999 !important;
+									background-color: #f0f0f0 !important;
+									filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#f0f0f0, GradientType=0 ) !important; /*(IE5.5 to IE9)*/
+									background-image: -moz-linear-gradient(top, #ffffff 0%, #f0f0f0 100%) !important; /*(Firefox 3.6+) */
+									background-image: -webkit-linear-gradient(top, #ffffff 0%, #f0f0f0 100%) !important; /*(Chrome10+,Safari5.1+) */
+									background-image: -ms-linear-gradient(top, #ffffff 0%, #f0f0f0 100%) !important; /*(IE10) */
+									background-image: linear-gradient(top, #ffffff 0%, #f0f0f0 100%) !important; /*(W3C) */
+									background-image: -o-linear-gradient(top, #ffffff 0%, #f0f0f0 100%) !important; /*(Opera 11.10+) */
+									background-image: -webkit-gradient(linear, right top, right bottom, color-stop(0%, #ffffff), color-stop(100%, #f0f0f0) ) !important; /*(Safari 4+,Chrome 2+) */
+									font-size: 12px !important; font-family: Dotum, dotum, gulim;
+}
+div.chart01 .slider-button {background: url('/WEB-APP/webponent/chart/html5/img/slider_cent.gif') 50% 50% no-repeat; height: 17px;}
+div.chart01 .slider-button span.slider-left {display: block; background: url('/WEB-APP/webponent/chart/html5/img/slider_left.gif') left 50% no-repeat; height: 17px;}
+div.chart01 .slider-button span.slider-right {display: block; background: url('/WEB-APP/webponent/chart/html5/img/slider_right.gif') right 50% no-repeat; height: 17px;}
+div.chart01 .slider-button span span span {visibility: hidden;}
+
+div.chart01 .accordionArea {height: 470px !important;}
+
+div.webponent-chart-chart01-container button {border: 0; background: url('/WEB-APP/webponent/chart/html5/legend.png') 0px -594px no-repeat;}
+div.webponent-chart-chart01-container button span {visibility: hidden; }
+
+div.chart01 button.button-plus { border: 0; bottom: 5px !important; width: 18px !important; height: 19px !important; right: 70px !important; background: url('/WEB-APP/webponent/chart/html5/img/button_plus.gif') no-repeat; }
+div.chart01 button.button-plus:hover, div.stockChart button.button-plus:focus { background: url('/WEB-APP/webponent/chart/html5/img/button_plus_over.gif') no-repeat; }
+div.chart01 button.button-plus:active { background: url('/WEB-APP/webponent/chart/html5/img/button_plus_down.gif') no-repeat; }
+div.chart01 button.button-minus { border: 0; bottom: 5px !important; width: 18px !important; height: 19px !important; right: 50px !important; background: url('/WEB-APP/webponent/chart/html5/img/button_minus.gif') no-repeat; }
+div.chart01 button.button-minus:hover, div.stockChart button.button-minus:focus { background: url('/WEB-APP/webponent/chart/html5/img/button_minus_over.gif') no-repeat; }
+div.chart01 button.button-minus:active { background: url('/WEB-APP/webponent/chart/html5/img/button_minus_down.gif') no-repeat; }
+div.chart01 button.button-default { border: 0; bottom: 5px !important; width: 43px !important; height: 19px !important; right: 5px !important; background: url('/WEB-APP/webponent/chart/html5/img/button_default.gif') no-repeat; }
+div.chart01 button.button-default:hover, div.stockChart button.button-default:focus { background: url('/WEB-APP/webponent/chart/html5/img/button_default_over.gif') no-repeat; }
+div.chart01 button.button-default:active { background: url('/WEB-APP/webponent/chart/html5/img/button_default_down.gif') no-repeat; }
+
+
+
+div.chart02, div.chart02-vol {position: relative; width: 105px; height: 140px; overflow: hidden;-webkit-user-select:none;}
+div.chart03 {position: relative; width: 773px; height: 326px; overflow: hidden;-webkit-user-select:none; border: 1px solid #cccccc; background: #f9f9f9;}
+.webponent-chart-chart03-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333; font-size: 12px !important;}
+div.chart04, div.chart04-2, div.chart04-3 {position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;-webkit-user-select:none; border: 1px solid #cccccc; background: #f9f9f9;}
+div.chart04-ctnr {position: relative; width: 773px; height: 208px;}
+div.chart04-ctnr .legend {position: absolute; top: 13px; left: 100px; z-index: 10;}
+div.chart04-ctnr .legend span {display: inline-block; padding-left: 23px; font-size:11px;}
+div.chart04-ctnr .legend .l1 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 3px; padding-right: 10px;}
+div.chart04-ctnr .legend .l2 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -9px;}
+div.chart04-ctnr .legend2 .l2 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -19px; padding-left: 13px;}
+div.chart04-ctnr .legend3 .l2 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -29px; padding-left: 13px;}
+.webponent-chart-chart04-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333;}
+.webponent-chart-chart04-tooltip span {display: inline-block; width:42px; text-align: center;}
+.webponent-chart-chart04-2-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333;}
+.webponent-chart-chart04-2-tooltip span {display: inline-block; width:60px; text-align: center;}
+.webponent-chart-chart04-3-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333;}
+.webponent-chart-chart04-3-tooltip span {display: inline-block; width:60px; text-align: center;}
+
+div.chart05 {position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;-webkit-user-select:none; border: 1px solid #cccccc; background: #f9f9f9;}
+div.chart05-ctnr {position: relative; width: 773px; height: 208px;}
+div.chart05-ctnr .legend {position: absolute; top: 13px; left: 100px; z-index: 10;}
+div.chart05-ctnr .legend span {display: inline-block; padding-left: 23px; font-size:11px;}
+div.chart05-ctnr .legend .l1 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -29px; padding-left: 13px; padding-right: 10px;}
+div.chart05-ctnr .legend .l2 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -19px; padding-left: 13px; padding-right: 10px;}
+div.chart05-ctnr .legend .l3 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -39px; padding-left: 13px;}
+.webponent-chart-chart05-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333;}
+.webponent-chart-chart05-tooltip span {display: inline-block; width:65px; text-align: center;}
+
+div.chart06, div.chart06-2 {position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;-webkit-user-select:none; border: 1px solid #cccccc; background: #f9f9f9;}
+div.chart06-ctnr {position: relative; width: 773px; height: 208px;}
+div.chart06-ctnr .legend {position: absolute; top: 13px; left: 100px; z-index: 10;}
+div.chart06-ctnr .legend span {display: inline-block; padding-left: 23px; font-size: 11px;}
+div.chart06-ctnr .legend .l1 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -29px; padding-left: 13px; padding-right: 10px;}
+div.chart06-ctnr .legend .l2 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -19px; padding-left: 13px; padding-right: 10px;}
+div.chart06-ctnr .legend .l3 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -39px; padding-left: 13px; padding-right: 10px;}
+div.chart06-ctnr .legend .l4 {background:url('/WEB-APP/webponent/chart/html5/img/wts_legend.png') no-repeat 0 -49px; padding-left: 13px;}
+.webponent-chart-chart06-tooltip, .webponent-chart-chart06-2-tooltip {border: 1px solid #999999 !important; background: #f9f9f9 !important; color: #333333;}
+.webponent-chart-chart06-tooltip span, .webponent-chart-chart06-2-tooltip span {display: inline-block; width:45px; text-align: center;}
+div.chart06-info { width: 753px; border: 1px solid #cccccc; border-bottom:0; padding: 5px 10px;}
+div.chart06-info .date {padding: 0  10px 0 0;}
+div.chart06-info .info1 {background:url('/WEB-APP/webponent/chart/html5/img/stockchart_infobar.gif') no-repeat 0 50%; padding: 0 10px;}
+div.chart06-info .info2 {background:url('/WEB-APP/webponent/chart/html5/img/stockchart_infobar.gif') no-repeat 0 50%; padding: 0 10px;}
+div.chart06-info .info3 {background:url('/WEB-APP/webponent/chart/html5/img/stockchart_infobar.gif') no-repeat 0 50%; padding: 0 10px;}
+div.chart06-info .info4 {background:url('/WEB-APP/webponent/chart/html5/img/stockchart_infobar.gif') no-repeat 0 50%; padding: 0 10px;}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="GetCityForecastByZIP" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<effective-date></effective-date>
+		<description>test</description>
+		<version>0.2</version>
+		<name>미국의도시 ZIP code로 일기예보를 알아보는 WebService 예제</name>
+		<status>confirmation</status>
+	</info>
+	<processor-info type="soap">
+		<property desc="" name="xmlns:xsd" value="http://www.w3.org/1999/XMLSchema"></property>
+		<property desc="" name="xmlns:xsi"
+			value="http://www.w3.org/1999/XMLSchema-instance"></property>
+		<property desc="" name="xmlns:q0" value="http://ws.cdyne.com/WeatherWS/"></property>
+
+		<!-- soap 호출 url -->
+		<property name="soap.url" value="http://wsf.cdyne.com/WeatherWS/Weather.asmx" />
+		<property desc="http header에 설정되는 SOAPAction값" name="soap.action"
+			value="http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP"></property>
+
+		<property name="soap.output" value="DataSet" />
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field default="07631" label="지역코드" name="placeCode" type="string"
+				xpath="/q0:GetCityForecastByZIP/q0:ZIP" />
+		</block>
+		<xml-document>
+			<q0:GetCityForecastByZIP xmlns:q0="http://ws.cdyne.com/WeatherWS/">
+				<q0:ZIP></q0:ZIP>
+			</q0:GetCityForecastByZIP>
+		</xml-document>
+
+	</input>
+	<output>
+		<block name="DATA"
+			xpath="//q0:GetCityForecastByZIPResponse/q0:GetCityForecastByZIPResult">
+			<field name="Success" type="string" xpath="q0:Success" />
+			<field name="ResponseText" type="string" xpath="q0:ResponseText" />
+			<field name="State" type="string" xpath="q0:State" />
+			<field name="City" type="string" xpath="q0:City" />
+			<field name="WeatherStationCity" type="string" xpath="q0:WeatherStationCity" />
+		</block>
+
+		<block id="ForecastResult" name="ForecastResult" xpath="//q0:Forecast">
+			<field name="Date" type="string" xpath="q0:Date" />
+			<field name="WeatherID" type="string" xpath="q0:WeatherID" />
+			<field name="Desciption" type="string" xpath="q0:Desciption" />
+			<field name="MorningLow" type="string" xpath="q0:Temperatures/q0:MorningLow"></field>
+			<field name="DaytimeHigh" type="string" xpath="q0:Temperatures/q0:DaytimeHigh"></field>
+			<field name="Nighttime" type="string"
+				xpath="q0:ProbabilityOfPrecipiation/q0:Nighttime"></field>
+			<field name="Daytime" type="string"
+				xpath="q0:ProbabilityOfPrecipiation/q0:Daytime"></field>
+		</block>
+
+	</output>
+</transaction>

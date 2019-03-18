@@ -1,0 +1,35 @@
+<html>
+<head>
+	<script>
+	function getThisScriptNode(){
+		document.write("<span></span>");
+		var els=document.getElementsByTagName("span");
+		var e=els[els.length-1];
+		var thisScript=e.previousSibling;
+		e.parentNode.removeChild(e);//junk span dummy
+		return thisScript;
+	}
+	
+	</script>
+</head>
+<body>
+<form id="d">
+<span>
+	<script type="text/javascript">
+		var thisScript = getThisScriptNode();
+		alert(thisScript.parentNode.parentNode.getAttribute("id"));
+	</script>
+</span>
+</form>
+
+<form id="c">
+<span>
+	<script type="text/javascript">
+		var thisScript = getThisScriptNode();
+		alert(thisScript.parentNode.parentNode.getAttribute("id"));
+	</script>
+</span>
+</form>
+
+</body>
+</html>

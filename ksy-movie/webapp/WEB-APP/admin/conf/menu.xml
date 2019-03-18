@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<admin-sitemap>
+	<group name="Basement">
+	
+	    <menu type="link" name="Information" id="sitemap" href="./admin/sysinfo" />
+	
+		<menu type="core" name="Log Management" id="core.log" config="config.xml" />
+		<!-- 
+        <menu type="link" name="Information" id="sitemap" href="./admin/info" />
+         -->
+	</group>
+
+	<group name="Service">
+		<menu type="service" name="Database" id="service.dbPoolService" config="config.xml" />
+		<menu type="service" name="Resource Adapter" id="service.adapter" config="config.xml" />
+	</group>
+	
+	<group name="Resource Adapter">
+		<menu type="adapter" name="File Adapter" id="adapter.file" config="service/adapters/file.xml" />
+		
+	</group>
+	
+	<group name="Business Logic">
+	    <menu type="link" name="DBMS" id="adapter.file" href="./admin/dbms" />
+		<menu type="link" name="BLD Management" id="adapter.file" href="./admin/bld" />
+		
+	</group>
+	
+	<group name="web application">
+		<menu type="link" name="Sitemap" id="sitemap" href="./admin/sitemap" />
+		<menu type="link" name="Templet" id="templet" href="./admin/layout" />
+	</group>
+
+
+</admin-sitemap>

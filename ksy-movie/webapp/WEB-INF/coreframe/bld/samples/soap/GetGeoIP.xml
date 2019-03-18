@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="GetGeoIP" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+	<info>
+		<effective-date></effective-date>
+		<description>IP 주소로 위치를 알아보는 WebService 예제</description>
+		<version>0.2</version>
+		<name>WebServiecs 예제</name>
+		<status>confirmation</status>
+	</info>
+	
+  <processor-info type="soap">
+    <property name="xmlns:xsd" value="http://www.w3.org/1999/XMLSchema"/>
+    <property name="xmlns:xsi" value="http://www.w3.org/1999/XMLSchema-instance"/>
+    <property name="xmlns:q0" value="http://www.webservicex.net/"></property>
+    <property name="soap.url" value= "http://www.webservicex.net/geoipservice.asmx"/>
+    <property name="soap.action" value="http://www.webservicex.net/GetGeoIP"/>
+    <property name="soap.output" value="DataSet"/>
+  </processor-info>
+  
+  
+  <input>
+    <block name="arg" repeat="1">
+      <field default="222.122.195.5" name="IPAddress" type="string" xpath="/q0:GetGeoIP/q0:IPAddress"/>
+    </block>
+    
+    <xml-document>
+      <q0:GetGeoIP xmlns:q0="http://www.webservicex.net/">
+        <q0:IPAddress></q0:IPAddress>
+      </q0:GetGeoIP>
+    </xml-document>
+    
+  </input>
+  <output>
+    <block id="result" name="Address_Data" repeat="1" xpath="//q0:GetGeoIPResponse/q0:GetGeoIPResult">
+      <field name="ReturnCode" type="int" xpath="q0:ReturnCode"></field>
+      <field name="IP" type="string" xpath="q0:IP"></field>
+      <field name="ReturnCodeDetails" type="string" xpath="q0:ReturnCodeDetails"></field>
+      <field name="CountryName" type="string" xpath="q0:CountryName"></field>
+      <field name="CountryCode" type="string" xpath="q0:CountryCode"></field>
+    </block>
+  </output>
+</transaction>

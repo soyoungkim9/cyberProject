@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+<title> AJAX Grid example : Auto Column Resizing</title>
+<link rel='StyleSheet' type='text/css' href='../../../css/cjux.css' />
+<script type='text/javascript' src='../../../jslib/prototype.js'></script>
+<script type='text/javascript' src='../../../jslib/cjux.js'></script>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+
+<style type="text/css">
+
+.misc {
+ background-color:#eec;
+}
+
+div.corner {
+background-color:silver;
+bottom:0;
+cursor:se-resize;
+width:10px;
+height:10px;
+position:absolute;
+right:0;
+
+}
+
+</style>
+</head>
+<body>
+<form id='excform'
+	action='../../../../../corelogic/process/samples/database/listCities.xhtml?data-only=true'
+	method='post' onSubmit='return send()'>
+	
+	
+<textarea id="test"></textarea>	
+<table border='1'>
+	<tr>
+		<th>name</th>
+		<td><input type='text' name='name' value='' /></td>
+	</tr>
+</table>
+<input type='submit' value='execute' /></form>
+
+<p>
+
+<span> 컬럼 width 가변  (%로 컬럼 width 를 정의하고 autoColumnResizable:true  옵션으로 그리드 생성)<span>
+<div id="outline1" style="width:800px">
+<table id='tbl1' border="1">
+	<colgroup>
+		<col width="5%" />
+		<col align="center" width="25%" />
+		<col width="15%" />
+		<col width="15%" class="misc"/>
+		<col width="20%" />
+		<col width="20%" />
+	</colgroup>
+
+	<thead>
+	   <tr>
+		<th scope="col" colspan="2">G1</th>
+		<th scope="col" >G2</th>
+		<th scope="col" colspan="3">G3</th>
+	   </tr>
+	   <tr>
+		<th scope="col" class="intType">id</th>
+		<th scope="col" class="stringType">name</th>
+		<th scope="col">country</th>
+		<th scope="col">airport</th>
+		<th scope="col">language</th>
+		<th scope="col">countryIsoCode</th>
+	   </tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+</div>
+
+<input type="button" value="small" onclick="small(1)"/>
+<input type="button" value="big" onclick="big(1)"/>
+
+</p>
+
+
+<p>
+
+<span> 컬럼 width 가변이지만 최소 width를 600px로 정의, 테이블 width 가 600px 이하로 되면 가로 scroll이 생김  (%로 컬럼 width 를 정의하고 autoColumnResizable:true ,tableMinWidth:'600px' 옵션으로 그리드 생성)<span>
+<div id="outline2" style="width:500px">
+<table id='tbl2' border="1">
+	<colgroup>
+		<col width="5%" />
+		<col align="center" width="25%" />
+		<col width="15%" />
+		<col width="15%" class="misc"/>
+		<col width="20%" />
+		<col width="20%" />
+	</colgroup>
+
+	<thead>
+	   <tr>
+		<th scope="col" colspan="2">G1</th>
+		<th scope="col" >G2</th>
+		<th scope="col" colspan="3">G3</th>
+	   </tr>
+	   <tr>
+		<th scope="col" class="intType">id</th>
+		<th scope="col" class="stringType">name</th>
+		<th scope="col">country</th>
+		<th scope="col">airport</th>
+		<th scope="col">language</th>
+		<th scope="col">countryIsoCode</th>
+	   </tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+</div>
+
+<input type="button" value="small" onclick="small(2)"/>
+<input type="button" value="big" onclick="big(2)"/>
+
+</p>
+
+
+
+
+<p>
+
+<span> 컬럼 width 고정  (px로 컬럼 width 를 정의하고 autoColumnResizable:true  옵션없이 그리드 생성)<span>
+<div id="outline3" style="width:500px">
+<table id='tbl3' border="1">
+	<colgroup>
+		<col width="50" />
+		<col align="center" width="150" />
+		<col width="70" />
+		<col width="170" class="misc"/>
+		<col width="100" />
+		<col width="100" />
+	</colgroup>
+
+	<thead>
+	   <tr>
+		<th scope="col" colspan="2">G1</th>
+		<th scope="col" >G2</th>
+		<th scope="col" colspan="3">G3</th>
+	   </tr>
+	   <tr>
+		<th scope="col" class="intType">id</th>
+		<th scope="col" class="stringType">name</th>
+		<th scope="col">country</th>
+		<th scope="col">airport</th>
+		<th scope="col">language</th>
+		<th scope="col">countryIsoCode</th>
+	   </tr>
+	</thead>
+	<tbody><!-- data area --></tbody>
+</table>
+</div>
+
+<input type="button" value="small" onclick="small(3)"/>
+<input type="button" value="big" onclick="big(3)"/>
+
+</p>
+
+<script type="text/javascript">
+	//<![CDATA[
+	Event.observe(window, 'load', init.bind(this));
+	var grid;
+	var grid2;
+	var grid3;
+	function init() {
+		grid = new webponent.HtmlGrid('tbl1', '100%', '300px', {autoColumnResizable:true} );
+		grid2 = new webponent.HtmlGrid('tbl2', '100%', '300px', {autoColumnResizable:true, tableMinWidth:'600px'} );
+		grid3 = new webponent.HtmlGrid('tbl3', '100%', '300px', {} );
+	}
+	function send() {
+		var f = $('excform');
+		grid.updateBody(f.action, {
+			parameters : f.serialize(),
+			asynchronous : true
+		});
+		grid2.updateBody(f.action, {
+			parameters : f.serialize(),
+			asynchronous : true
+		});
+		grid3.updateBody(f.action, {
+			parameters : f.serialize(),
+			asynchronous : true
+		});
+		return false;
+	}
+	function small(seq) {
+		$('outline'+seq).style.width='500px';
+		
+	}
+	function big(seq) {
+		$('outline'+seq).style.width='700px';
+		
+	}
+
+	//]]>
+</script>
+
+</body>
+</html>
+
+

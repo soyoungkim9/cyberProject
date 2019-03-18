@@ -1,0 +1,185 @@
+@import url("base.css");
+
+@import url("button.css");
+
+body {
+	min-width: 920px;
+	margin: 0px;
+	padding: 0px 15px;
+	background: url( '../img/bg2.gif');
+	background-repeat: repeat-x;
+	background-color: #576470;
+}
+.dummy {
+	display:none;
+}	
+	
+#header {
+	margin: 0px;
+	padding: 0px;
+	height: 62px;
+	background-color: #222;
+	border: 1px solid #555;
+	border-top-color: #222;
+}
+
+#header h1 {
+	font-size: 100%;
+}
+
+#info {
+	margin: 0px;
+	height: 10px;
+	padding: 0px 10px;
+	color: #e33;
+	text-align: right;
+
+}
+
+ul.linkbar  {
+	margin-top: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	list-style: none;
+	display:block;
+}
+
+ul.linkbar li {
+	margin: 0px;
+	padding: 8px 7px;
+	color: #333;
+	display:inline;
+}
+
+
+
+
+#hTitle {
+	margin: 0px;
+	vertical-align: bottom;
+	background: url(../img/glow.jpg) no-repeat;
+	padding: 17px;
+	color: #ccc;
+	font-weight: bold;
+	font-size: 140%;
+}
+
+
+#menu {
+	height: 22px;
+	background: url( '../img/menu-1px.gif' ) repeat;
+	border: 1px solid #ddd;
+	padding: 0px;
+	font-weight: bold;
+	color: #333;
+}
+
+#menu ul {
+	margin: 0px;
+	margin-top: 0px;
+	margin-left: 10px;
+	height: 22px;
+	padding: 0px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	
+}
+
+#menu li {
+	marign: 0px;
+	padding: 3px 14px;
+	height: 15px;
+	float: left;
+	cursor: pointer;
+	border: 1px solid #ccc;
+}
+
+#menu li.selected {
+	background-color: #f9f9f9;
+	border-bottom-color: #eee;
+	color: #f62;
+}
+
+#main {
+	min-height: 600px;
+	background: url(../img/body_bg.jpg) repeat-y;
+	background-color: #fafafa;
+	border: 1px solid #fff;
+	border-bottom-color: #ccc;
+}
+
+#left-bar {
+	width:100%;
+	display:none;
+}
+
+#subNavi {
+	width: 100%;
+	color: #ccc;
+}
+
+
+#subNavi div.title {
+
+}
+
+#subNavi ul {
+	margin-top: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+#subNavi li {
+	float:left;
+}
+
+#subNavi li.selected {
+	background-color: #f2f2f2;
+	color: #333;
+	font-weight: bold;
+}
+
+div.inform {
+	border: 1px solid #ccc;
+	height: 100px;
+	padding: 7px;
+	background-color: #ffd;
+}
+
+.minContentWidth {
+	width: 600px;
+	height: 0px;
+	margin: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	line-height: 0px;
+}
+
+#content {
+	padding: 20px;
+	min-width: 600px;
+	min-height: 300px;
+}
+
+.pageTitle{
+	font-size: 180%;
+	font-weight: bold;
+	color: #222;
+	padding: 5px 34px;
+	margin: 0px 0px 10px 0px;
+	border: 0px solid #ccc;
+	border-bottom-width: 1px;
+	background: url(../img/rightarrow.jpg) no-repeat;
+}
+
+#footer {
+	height: 40px;
+	padding: 5px 12px;
+	text-align: right;
+	color: #ccc;
+	font-size: 120%;
+}
+

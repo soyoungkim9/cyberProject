@@ -1,0 +1,249 @@
+#wrap {
+    position: relative;
+    top: -34px;
+    overflow-x: hidden;
+}
+
+#ticket_Picker_Box {
+    border-top: 1px solid #dedede;
+    display: inline-block;
+    width: 100%;
+}
+
+#ticket_Picker_Box > div > div > h3 {
+    padding-left: 20px;
+    margin: 10px 0 11px 0;
+    font-size: 1em;
+}
+
+#ticket_right > div:nth-child(2) {
+    padding-left: 0 !important;
+}
+
+#ticket_left > div:nth-child(1), #ticket_right > div:nth-child(1) {
+    border-bottom: 1px solid #dedede;
+}
+
+#ticket_left{
+    width: 100%;
+    display: inline-block;
+    height: inherit;
+    border-bottom: 1px solid #dedede;
+}
+
+#ticket_right{
+    width: 100%;
+    height: inherit;
+}
+
+#selectMv_Area_Box {
+    display: inline-block;
+    width: 100%;
+    background: #dad2b4;
+    font-size: 0.9em;
+    padding: 5px 0 9px 0;
+}
+
+#selectMv_Area_Box > dl {
+    padding-left: 18px;
+    margin: 6px 0;
+}
+
+#selectMv_Area_Box > dl > dt, #selectMv_Area_Box > dl > dd {
+    display: inline-block;
+}
+
+#selectMv_Area_Box > dl > dd {
+    margin: 0;
+    font-weight: bold;
+}
+
+#area_Zone {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#area_Zone_Content {
+    float: right;
+    width: 50%;
+    height: 278px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    border-bottom: 1px solid #dedede;
+}
+
+.city_selected {
+    background: #231f20;
+    color: white !important;
+}
+
+#area_Zone > ul > li {
+    color: #666666;
+    margin-bottom: 7px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#area_Zone > ul > li > a, #area_Zone_Content > ul > li > a {
+    display: inherit;
+    padding: 10px;
+}
+
+#area_Zone_Content > ul > li > a {
+    display: block;
+}
+
+#area_Zone_Content > ul > li {
+    display: inline-block;
+    border-bottom: 1px solid #e5e5e5;
+    background: #efefef;
+    width: 100%;
+    color: #666;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 18px;
+}
+
+#tab {
+    height: 25px;
+    font-size: 0.8em;
+    color: #231f20;
+    margin-top: 10px;
+}
+
+#tab > ul {
+    float: right;
+}
+
+#tab > ul > li {
+    display: inline-block;
+    border-right: 1px solid #dedede;
+    padding-right: 13px;
+}
+
+#movieList > ul > li > a {
+    display: inherit;
+}
+
+#tab > ul > li:nth-child(2) {
+    border-right: none;
+    padding-left: 8px;
+}
+
+.ageStyle {
+    border-radius: 50%;
+    padding: 2px 5px 5px 5px;
+    font-size: 0.7em;
+    color: white;
+    margin-right: 10px;
+    margin-left: 23px;
+}
+
+#movieList {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#movieList > ul > li {
+    line-height: 33px;
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+.tabStyle {
+    font-weight: bold;
+}
+
+.area_selected {
+    border: 1px solid #999;
+    font-weight: bold;
+    color: black;
+    background: white;
+}
+
+.movie_selected {
+    border: 1px solid #999;
+    font-weight: bold;
+    color: black;
+}
+
+#time_noData {
+    color: #777;
+    text-align: center;
+    font-size: 0.9em;
+    padding: 10px;
+}
+
+.time_title {
+    background: #efebdb;
+    padding: 10px 0 10px 13px;
+    font-size: 0.9em;
+}
+
+.time_line > dd {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.time_line > dd > ul > a {
+    display: inline-block;
+}
+
+.time_line > dd > ul > a:hover {
+    background: #efeaea;
+}
+
+.time_line > dd > ul > a > li {
+    border: 1px solid #e5e5e5;
+    display: inline-block;
+    width: 79px;
+    margin: 1px;
+    color: #666666;
+}
+
+.time_line > dd > ul > a > li > span {
+    border-bottom: 1px solid #e5e5e5;
+    display: block;
+    text-align: center;
+}
+
+.time_line > dd > ul > a > li > span:last-child {
+    border-bottom: none;
+}
+
+.theater_name, .theater_seat {
+    font-size: 0.7em;
+}
+
+.theater_time {
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 32px;
+}
+
+.theater_time_delete {
+    color: #b9b9b9 !important;
+    cursor: default;
+}
+
+#demo {
+    width: inherit;
+}
+
+#selectMv_Area_Box > dl > dt {
+    width: 50px;
+}
+
+#time_Picker_Box > div:first-child {
+    display: none;
+}
+
+.time_line > dt > .ageStyle {
+    margin-left: 15px;
+    font-size: 0.6em;
+}
+
+.time_line > dt > span:nth-child(2) {
+    font-size: 0.8em;
+}

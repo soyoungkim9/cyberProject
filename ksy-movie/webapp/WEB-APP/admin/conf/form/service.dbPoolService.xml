@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>manpower</Author>
+  <LastAuthor>manpower</LastAuthor>
+  <Created>2011-11-23T01:38:50Z</Created>
+  <LastSaved>2011-12-21T06:56:11Z</LastSaved>
+  <Version>14.00</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>5820</WindowHeight>
+  <WindowWidth>14880</WindowWidth>
+  <WindowTopX>240</WindowTopX>
+  <WindowTopY>105</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="11"
+    ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62">
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="9"
+    ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s63">
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="9"
+    ss:Color="#000000"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s64">
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="9"
+    ss:Color="#000000"/>
+   <Interior ss:Color="#948A54" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s65">
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="9"
+    ss:Color="#000000"/>
+   <Interior ss:Color="#948A54" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s66">
+   <Alignment ss:Vertical="Center" ss:WrapText="1"/>
+   <Font ss:FontName="맑은 고딕" x:CharSet="129" x:Family="Modern" ss:Size="9"
+    ss:Color="#000000"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Common">
+  <Table ss:ExpandedColumnCount="12" ss:ExpandedRowCount="25" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="54"
+   ss:DefaultRowHeight="16.5">
+   <Column ss:StyleID="s62" ss:Width="33"/>
+   <Column ss:StyleID="s62" ss:Width="42"/>
+   <Column ss:StyleID="s62" ss:Width="26.25"/>
+   <Column ss:StyleID="s62" ss:Width="18.75" ss:Span="1"/>
+   <Column ss:Index="6" ss:StyleID="s62" ss:Width="88.5"/>
+   <Column ss:StyleID="s62" ss:Width="41.25"/>
+   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="161.25"/>
+   <Column ss:StyleID="s63" ss:Width="149.25"/>
+   <Column ss:Index="11" ss:StyleID="s62" ss:Width="61.5"/>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s65">
+    <Cell><Data ss:Type="String">L1</Data></Cell>
+    <Cell><Data ss:Type="String">L2</Data></Cell>
+    <Cell><Data ss:Type="String">L3</Data></Cell>
+    <Cell><Data ss:Type="String">L4</Data></Cell>
+    <Cell><Data ss:Type="String">L5</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">subType</Data></Cell>
+    <Cell><Data ss:Type="String">typeParam</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">xpath</Data></Cell>
+    <Cell><Data ss:Type="String">id</Data></Cell>
+    <Cell><Data ss:Type="String">cssStyle</Data></Cell>
+    <Cell><Data ss:Type="String">description</Data></Cell>
+   </Row>
+   <Row ss:Index="3" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">group</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2"><Data ss:Type="String">tableList</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">Database Connection</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">connection type</Data></Cell>
+    <Cell><Data ss:Type="String">radio</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="String">values:framework,jndi</Data></Cell>
+    <Cell><Data ss:Type="String">/config/db/@type</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">Contion type을 결정한다.jndi 방식은 WAS에서 JNDI 방식으로 connection pool 을 제공하는 경우 사용하며, WAS에서 제공한다면 가장 권장하는 방식이다.</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">default datasource</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/db/@default-datasource</Data></Cell>
+    <Cell ss:Index="12" ss:StyleID="s66"><Data ss:Type="String">기본 datasource 명을 결정한다. 이 기본 데이터 소스는 특별히 datasource &#10;기록하지 않는 경우 이 datasource 명을 사용한다.</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">datasource-prefix</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/db/@datasource-prefix</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">framework 에서 제공하는 datasource 사용시 prefix 값은 &lt;strong&gt;jdbc:coreframe:pool:&lt;/strong&gt; 로 설정</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">driver</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/db/@driver</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">framework 에서 기본사용할 jdbc driver 설정한다.기본적으로 설정할 필요가 없으며, WAS에서 제공하는 pooling driver를 사용하고자 하는 경우 설정한다.</Data></Cell>
+   </Row>
+   <Row ss:Index="10" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">group</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2"><Data ss:Type="String">table</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">Database Connection</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/connectionPool/*</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="24">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">connection name</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:StyleID="s66"/>
+    <Cell><Data ss:Type="String">$nodename</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">Contion type을 결정한다.</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">driver</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@driver</Data></Cell>
+    <Cell ss:Index="12" ss:StyleID="s66"><Data ss:Type="String">기본 datasource 명을 결정한다. 이 기본 데이터 소스는 특별히 datasource &#10;기록하지 않는 경우 이 datasource 명을 사용한다.</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">url</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@url</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">framework 에서 제공하는 datasource 사용시 prefix 값은 &lt;strong&gt;jdbc:coreframe:pool:&lt;/strong&gt; 로 설정</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">initialCapacity</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@initialCapacity</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">초기 구동시 connection 연결 개수</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">maxCapacity</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@maxCapacity</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">최대 connection 연결 개수</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">capacityIncrement</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@capacityIncrement</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="String">display:none;</Data></Cell>
+    <Cell><Data ss:Type="String">connection 부족시 몇개씩 connection을 생성할것인 결정</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">testTableName</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@testTableName</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="String">display:none;</Data></Cell>
+    <Cell><Data ss:Type="String">DB연결 테스트를 위하여 여기에 설정된 table 데이터를 조회해 본다.</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">refreshMinTime</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@refreshMinTime</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="String">display:none;</Data></Cell>
+    <Cell><Data ss:Type="String">조회 주기, 단위 분</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">timeout</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@timeout</Data></Cell>
+    <Cell ss:Index="11"><Data ss:Type="String">display:none;</Data></Cell>
+    <Cell><Data ss:Type="String">timeout 설정시간 초단위</Data></Cell>
+   </Row>
+   <Row ss:Index="22" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">group</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2"><Data ss:Type="String">table</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/connection-mapping/mapping</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">mapping name</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@name</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">col</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">real name</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">@real-name</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Selected/>
+   <LeftColumnVisible>1</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>4</ActiveRow>
+     <ActiveCol>11</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Database">
+  <Table ss:ExpandedColumnCount="12" ss:ExpandedRowCount="9" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="54"
+   ss:DefaultRowHeight="16.5">
+   <Column ss:StyleID="s62" ss:Width="33" ss:Span="1"/>
+   <Column ss:Index="3" ss:StyleID="s62" ss:Width="26.25" ss:Span="1"/>
+   <Column ss:Index="5" ss:StyleID="s62" ss:Width="18.75"/>
+   <Column ss:StyleID="s62" ss:Width="147"/>
+   <Column ss:StyleID="s62" ss:Width="41.25"/>
+   <Column ss:StyleID="s62" ss:Width="123.75"/>
+   <Column ss:StyleID="s63" ss:Width="126"/>
+   <Row ss:AutoFitHeight="0" ss:StyleID="s65">
+    <Cell><Data ss:Type="String">L1</Data></Cell>
+    <Cell><Data ss:Type="String">L2</Data></Cell>
+    <Cell><Data ss:Type="String">L3</Data></Cell>
+    <Cell><Data ss:Type="String">L4</Data></Cell>
+    <Cell><Data ss:Type="String">L5</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">subType</Data></Cell>
+    <Cell><Data ss:Type="String">typeParam</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">xpath</Data></Cell>
+    <Cell ss:Index="12"><Data ss:Type="String">descript</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">group</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">General Config</Data></Cell>
+    <Cell ss:Index="12" ss:StyleID="s66"><Data ss:Type="String">${g1}</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="2"><Data ss:Type="String">select</Data></Cell>
+    <Cell ss:Index="9"><Data ss:Type="String">/config/properties/property/</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">group</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">use coreFRAME ConnectionPool</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="4"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">Pool name</Data></Cell>
+    <Cell><Data ss:Type="String">select</Data></Cell>
+    <Cell><Data ss:Type="String">ref:/config/connectionPool/*</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="4"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">jdbc Driver name</Data></Cell>
+    <Cell><Data ss:Type="String">text</Data></Cell>
+   </Row>
+   <Row ss:Index="8" ss:AutoFitHeight="0">
+    <Cell ss:Index="3"><Data ss:Type="String">group</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:Index="4"><Data ss:Type="String">field</Data></Cell>
+    <Cell ss:Index="6"><Data ss:Type="String">DataSourceName</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>600</HorizontalResolution>
+    <VerticalResolution>600</VerticalResolution>
+   </Print>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>14</ActiveRow>
+     <ActiveCol>5</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <Table ss:ExpandedColumnCount="5" ss:ExpandedRowCount="6" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="16.5">
+   <Row ss:AutoFitHeight="0"/>
+   <Row ss:Index="5" ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">관계</Data></Cell>
+    <Cell><Data ss:Type="String">성명</Data></Cell>
+    <Cell><Data ss:Type="String">생년월일</Data></Cell>
+    <Cell><Data ss:Type="String">직업</Data></Cell>
+    <Cell><Data ss:Type="String">동거여부</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="String">a</Data></Cell>
+    <Cell><Data ss:Type="String">b</Data></Cell>
+    <Cell><Data ss:Type="String">c</Data></Cell>
+    <Cell><Data ss:Type="String">d</Data></Cell>
+    <Cell><Data ss:Type="String">e</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <TopRowVisible>3</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>table thead 고정 tbody 스크롤</title>
+
+<style type="text/css">
+.wrapper {
+	width: 600px;
+	height: 150px;
+	overflow-y: scroll;
+}
+
+table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+thead {
+	margin: -1px 0 0 -1px;
+	width: 582px;
+	display: table;
+	table-layout: fixed;
+	position: absolute;
+	background-color: #ffff1f;
+}
+
+tbody tr:first-child td {
+	padding-top: 32px;
+}
+
+th,td {
+	padding: 6px;
+}
+</style>
+
+ <!--[if IE]>
+     <style type="text/css">
+         div {
+             position: relative;
+             height: 200px;
+             width: 416px;
+             overflow-y: scroll;
+             overflow-x: hidden;
+             border: solid #66CC99;
+             border-width: 0px 0px 1px 0px;
+         }
+         table {
+             border-width: 1px 1px 0px 0px;
+         }
+         thead tr {
+             position: absolute;
+             top: expression(this.offsetParent.scrollTop);
+         }
+         tbody {
+             height: auto;
+         }
+         table tbody tr:first-child td {
+             padding: 29px 4px 4px 4px;
+         }
+     </style>
+ <![endif]--> 
+
+
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+		<TABLE border=1>
+			<colgroup>
+				<col width="100" />
+				<col width="100" />
+				<col width="100" />
+				<col width="100" />
+			</colgroup>
+
+
+
+			<THEAD>
+
+				<TR>
+					<TH>Weekday</TH>
+					<TH>Date</TH>
+					<TH>Manager</TH>
+					<TH>Qty</TH>
+				</TR>
+
+			</THEAD>
+
+
+
+
+			<TBODY>
+
+				<TR>
+					<TD>Mon</TD>
+					<TD>09/11</TD>
+					<TD>Kelsey</TD>
+					<TD>639</TD>
+				</TR>
+
+				<TR>
+					<TD>Tue</TD>
+					<TD>09/12</TD>
+					<TD>Lindsey</TD>
+					<TD>596</TD>
+				</TR>
+
+				<TR>
+					<TD>Wed</TD>
+					<TD>09/13</TD>
+					<TD>Randy</TD>
+					<TD>1135</TD>
+				</TR>
+
+				<TR>
+					<TD>Thu</TD>
+					<TD>09/14</TD>
+					<TD>Susan</TD>
+					<TD>1002</TD>
+				</TR>
+
+				<TR>
+					<TD>Fri</TD>
+					<TD>09/15</TD>
+					<TD>Randy</TD>
+					<TD>908</TD>
+				</TR>
+
+				<TR>
+					<TD>Sat</TD>
+					<TD>09/16</TD>
+					<TD>Lindsey</TD>
+					<TD>371</TD>
+				</TR>
+
+				<TR>
+					<TD>Sun</TD>
+					<TD>09/17</TD>
+					<TD>Susan</TD>
+					<TD>272</TD>
+				</TR>
+
+			</TBODY>
+
+
+
+
+			<TFOOT>
+
+				<TR>
+					<TH ALIGN=LEFT COLSPAN=3>Total</TH>
+					<TH>4923</TH>
+				</TR>
+
+			</TFOOT>
+
+
+
+
+		</TABLE>
+
+	</div>
+
+</body>
+
+</html>

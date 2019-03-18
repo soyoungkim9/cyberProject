@@ -1,0 +1,29 @@
+li.top {
+
+	display:block;
+	width:180px;
+	height:200px;
+	border:1px solid #ccc;
+	margin:10px;
+	padding:5px;
+	
+	float:left;
+	font-size:130%;
+}
+
+li.top a {
+	display:block;
+	width:100%;
+}
+li.top ul {
+  display:block;
+  
+  padding:7px;
+}
+
+li.top ul  li{
+  display:block;
+  font-size:80%;
+  
+  margin:3px;
+}

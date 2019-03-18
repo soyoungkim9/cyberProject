@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>좌석목록</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      if(input.getText("id") != "" 	&amp;&amp; input.get("tino") == "") {
+        executeSQL("listRandomkey", connection, input, output);
+      }
+      if(input.getText("tino") != "") {
+        executeSQL("listTheaterinfo", connection, input, output);
+      }
+      if(input.getText("randomkey") != "") {
+      executeSQL("listPayment", connection, input, output);
+      }
+    </script>
+    <transaction-type></transaction-type>
+    <sql id="listTheaterinfo">
+      <query>
+        <![CDATA[
+          SELECT theater.tno, theater.name, theater.mno, theater.ano, theaterinfo.tino, TO_CHAR(theaterinfo.time, 'HH24:MI'),
+                 theaterinfo.seatlimit, movie.name, movie.age, movie.fileurl, movie.price, area.name
+          FROM theater INNER JOIN theaterinfo ON theater.tno = theaterinfo.tno AND theaterinfo.tino = :tino
+                       INNER JOIN movie ON theater.mno = movie.mno
+                       INNER JOIN area ON theater.ano = area.ano
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>theater.tno, theater.name, theater.mno, theater.ano, theaterinfo.tino, theaterinfo.time,
+          theaterinfo.seatlimit, movie.name, movie.age, movie.fileurl, movie.price, area.name</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listRandomkey">
+      <query>
+        <![CDATA[
+          SELECT distinct seat.randomkey, id, tino, cdate FROM seat
+          INNER JOIN payment ON seat.randomkey = payment.randomkey
+          WHERE id LIKE '${id}'
+          ORDER BY cdate DESC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>seat.randomkey, id, tino, cdate</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listPayment">
+      <query>
+        <![CDATA[
+          SELECT count(randomkey) as ticketcount, randomkey, adult, senior, disabled, teenager, charge, cdate
+          FROM payment WHERE RANDOMKEY LIKE '${randomkey}'
+          GROUP BY randomkey, adult, senior, disabled, teenager, charge, cdate
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>ticketcount, randomkey, adult, senior, disabled, teenager, charge, cdate</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="tino" type="string" label="상영관정보번호"></field>
+      <field name="id" type="string" label="회원아이디"></field>
+      <field name="randomkey" type="string" label="랜덤키"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+      <field name="theaterinfo.tino" type="string" label="상영정보번호"></field>
+      <field name="theaterinfo.time" type="string" label="상영시간"></field>
+      <field name="theaterinfo.seatlimit" type="string" label="전체좌석"></field>
+      <field name="theater.tno" type="string" label="상영관번호"></field>
+      <field name="theater.name" type="string" label="상영관이름"></field>
+      <field name="theater.mno" type="string" label="영화번호"></field>
+      <field name="theater.ano" type="string" label="지역번호"></field>
+      <field name="area.name" type="string" label="지역이름"></field>
+      <field name="movie.age" type="string" label="관람가"></field>
+      <field name="movie.fileurl" type="string" label="영화이미지"></field>
+      <field name="movie.name" type="string" label="영화이름"></field>
+      <field name="movie.price" type="string" label="영화가격"></field>
+      <field name="randomkey" type="string" label="랜덤키"></field>
+      <field name="seat.randomkey" type="string" label="랜덤키"></field>
+      <field name="adult" type="string" label="성인"></field>
+      <field name="senior" type="string" label="노인"></field>
+      <field name="disabled" type="string" label="장애인"></field>
+      <field name="teenager" type="string" label="청소년"></field>
+      <field name="charge" type="string" label="결제금액"></field>
+      <field name="ticketcount" type="string" label="티켓수"></field>
+      <field name="id" type="string" label="티켓수"></field>
+      <field name="tino" type="string" label="상영관정보번호"></field>
+      <field name="cdate" type="string" label="예매일"></field>
+    </block>
+  </output>  
+
+</transaction>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="searchDaumGeo" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <status>developing</status>
+    <http-access>true</http-access>
+    <effective-date></effective-date>
+    <description>http webservice를 이용한 daum (위치->좌표) 변환 검색 예제</description>
+    <version>0.1</version>
+    <name>test</name>
+  </info>
+
+  <processor-info type="http">
+    <property name="http.method" value="GET"/>
+    <property name="http.encoding" value="utf-8"/>
+    <property name="http.url" value="http://apis.daum.net/local/geo/addr2coord"/>
+  </processor-info>
+
+  <input>
+    <block name="arg" repeat="1">
+      <field name="apikey" label="사용자인증키" type="string" default="9d6ac6f4d7dfe4828a4a32aa7fd3f3d66158b9d0"></field>
+      <field name="q" label="검색어" type="string" default="영등포동7가 29-22"/>
+      <field name="output" label="타입" type="string" default="xml"/>
+    </block>
+  </input>
+
+  <output>
+    <block id="user" name="result" repeat="" xpath="/channel/item">
+      <field name="title" type="string" xpath="title"></field>
+      <field name="localName_1" type="string" xpath="localName_1"></field>
+      <field name="localName_2" type="string" xpath="localName_2"></field>
+      <field name="localName_3" type="string" xpath="localName_3"></field>
+      <field name="newAddress" type="string" xpath="newAddress"></field>
+      <field name="lng" type="string" xpath="lng"></field>
+      <field name="lat" type="string" xpath="lat"></field>
+    </block>
+  </output>
+</transaction>

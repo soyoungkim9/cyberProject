@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Webponet grid</title>
+<style>
+table {
+  border-collapse:collapse;
+  margin:0px 0px 0px 0px;
+}
+
+th {
+ background-color:#ccc;
+}
+</style>
+</head>
+<body>
+
+<h2>WebPonent Ajax Grid</h2>
+
+
+<h3>개요</h3>
+<p>WebPonent Ajax Grid는 기존 HTML table 의 기능을 확장하기 위하여 Html 양식의 table
+을 간단한 javascript 함수를 이용하여 RIA 수준의 Grid를 구현하기 위한 HTML/JavaScript 기반의 Grid
+이다.</p>
+
+<p>기본적인 디자인이나 데이터 양식은 HTML 의 Table 태그를 그대로 이용하여 구현하고, new
+webponent.HtmlGrid('테이블ID', '가로크기', '세로크기'); 와 같은 방식으로 기존의 table을 확장한다.
+</p>
+
+<p>
+<ul>
+	<li>헤더가 고정된 상태에서 가로/세로축 scrolling 기능</li>
+	<li>컬럼폭 resize 기능</li>
+	<li>컬럼 타입별 sort 기능</li>
+	<li>AJAX 방식에 의핸 외부 데이터 호출기능</li>
+	<li>오른쪽 팝업메뉴기능</li>
+	<li>다중 row 선택 기능</li>
+	<li>엑셀출력기능</li>
+	<li>웹표준 준수</li>
+</ul>
+</p>
+
+
+<h4>목차</h4>
+<p>
+<ol>
+	<li><a href="#ch2">사용법</a></li>
+	<li><a href="#ch3">생성자 확장속성</a></li>
+	<li><a href="#ch4">grid 함수</a></li>
+	<li><a href="#ch5">예제목록</a></li>
+	<li><a href="#ch6">예제목록(칼럼 계산)</a></li>
+	<li><a href="#ch7">grid 입력폼 예제목록</a></li>
+</ol>
+</p>
+
+
+
+
+<div>
+<h3 id="ch2">사용법</h3>
+
+<p>
+<ol>
+	<li>표현하고자 하는 그리드 모양을 일반적인 표준 HTML table를 작성한다.</li>
+	<li>작성한 HTML table은 반듯이 고유한 id를 부여한다.</li>
+	<li>HMTL document 로드 완료후 원하는 html를 Webponent Grid로 변환하기 위하여 아래와 같이
+	Javascript API 를 이용하여 호출한다.</li>
+	<li>var grid = new webponent.HtmlGrid('tabldID', '600px',
+	'300px',{ 확장 options});</li>
+	<li>확장옵션은 {'option1':'value1', 'option2':'value2'} 형태와 같은 JSON 형태로
+	기술한다.</li>
+
+</ol>
+
+</p>
+
+</div>
+
+<div>
+<h3  id="ch3">생성자 확장속성</h3>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>속성명</th>
+			<th>이름</th>
+			<th>설명</th>
+			<th>기본값</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td>selectClassName</td>
+			<td>row 선택 class명</td>
+			<td>사용자 정의</td>
+			<td>selected</td>
+		</tr>
+
+		<tr>
+			<td>overflowX</td>
+			<td>데이터 X축 overflow,감추고 싶은 경우만 사용한다.</td>
+			<td>hidden</td>
+			<td></td>
+		</tr>
+
+
+		<tr>
+			<td>overflowY</td>
+			<td>데이터 Y축 overflow</td>
+			<td>auto | hidden | scroll</td>
+			<td>scroll</td>
+		</tr>
+
+		<tr>
+			<td>columnResizable</td>
+			<td>컬럼폭 조정</td>
+			<td>true | false</td>
+			<td>true</td>
+		</tr>
+
+		<tr>
+			<td>displayHeader</td>
+			<td>헤더를 표시하지 않을때 사용한다.</td>
+			<td>none</td>
+			<td></td>
+		</tr>
+
+	</tbody>
+
+</table>
+
+</div>
+
+
+
+
+
+<div>
+<h3  id="ch4">grid 관련 function</h3>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>함수명</th>
+			<th>파라미터</th>
+			<th>이름</th>
+			<th>예</th>
+
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td>updateBody</td>
+			<td>url, params</td>
+			<td>AJAX 형태로 외부 데이터를 호출하여 grid 의 tabld tbody 에 삽입한다. params 는
+			prototype JS 의 <a href="http://www.prototypejs.org/api/ajax/options"
+				target="_new">AJAX options</a> 을 참조하면 된다.</td>
+			<td>grid.updateBody('data.jsp', { parameters :
+			formObj.serialize(), asynchronous : true });</td>
+		</tr>
+
+		<tr>
+			<td>overflowX</td>
+			<td>데이터 X축 overflow,감추고 싶은 경우만 사용한다.</td>
+			<td>hidden</td>
+			<td></td>
+		</tr>
+
+
+		<tr>
+			<td>overflowY</td>
+			<td>데이터 Y축 overflow</td>
+			<td>auto | hidden | scroll</td>
+			<td>scroll</td>
+		</tr>
+
+		<tr>
+			<td>columnResizable</td>
+			<td>컬럼폭 조정</td>
+			<td>true | false</td>
+			<td>true</td>
+		</tr>
+
+		<tr>
+			<td>displayHeader</td>
+			<td>헤더를 표시하지 않을때 사용한다.</td>
+			<td>none</td>
+			<td></td>
+		</tr>
+
+	</tbody>
+
+</table>
+
+</div>
+
+
+
+
+<div>
+<h3  id="ch5">예제목록</h3>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>설명</th>
+			<th>보기</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>기본기능(소팅,데이터 입력등)</td>
+			<td><a href="basic/basic1.htm" target="_exam">예제1</a></td>
+		</tr>
+		<tr>
+			<td>좌측컬럼고정 (가로 일부컬럼 고정)</td>
+			<td><a href="basic/basic2.htm" target="_exam">예제2</a></td>
+		</tr>
+
+		<tr>
+			<td>컬럼사이즈 고정</td>
+			<td><a href="basic/basic3.htm" target="_exam">예제3</a></td>
+		</tr>
+
+
+
+		<tr>
+			<td>멀티헤더 (multi row header 예제)</td>
+			<td><a href="basic/basic4.htm" target="_exam">예제4</a></td>
+		</tr>
+
+		<tr>
+			<td>컬럼사이즈 자동조정 (화면 폭에 따른 컬럼 사이즈 자동조정, 개별 컬럼 width 조정은 불가)</td>
+			<td><a href="basic/basic5.htm" target="_exam">예제5</a></td>
+		</tr>
+
+		<tr>
+			<td>헤더 감추기</td>
+			<td><a href="basic/basic6.htm" target="_exam">예제6</a></td>
+		</tr>
+
+		<tr>
+			<td>하단 데이터 row 고정</td>
+			<td><a href="basic/basic7.htm" target="_exam">예제7</a></td>
+		</tr>
+		
+		<tr>
+			<td>테이블폭 가변 과 2단 헤더(KRX) </td>
+			<td><a href="basic/basic10.htm" target="_exam">예제10</a></td>
+		</tr>
+	</tbody>
+
+
+</table>
+</div>
+
+<div>
+<h3  id="ch6">예제목록(칼럼 계산)</h3>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>설명</th>
+			<th>보기</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>AJAX Request Example</td>
+			<td><a href="./view/gridview1.htm" target="_exam">예제1</a></td>
+		</tr>
+		<tr>
+			<td>계산식을 이용한 컬럼 계산</td>
+			<td><a href="./view/gridview2.htm" target="_exam">예제2</a></td>
+		</tr>
+
+		<tr>
+			<td>컬럼 합계 (하단)</td>
+			<td><a href="./view/gridview3_1.htm" target="_exam">예제3</a></td>
+		</tr>
+		
+		<tr>
+			<td>컬럼 합계 고정 (하단)</td>
+			<td><a href="./view/gridview3.htm" target="_exam">예제4</a></td>
+		</tr>
+		
+		<tr>
+			<td>컬럼 합계 (상단)</td>
+			<td><a href="./view/gridview4_1.htm" target="_exam">예제5</a></td>
+		</tr>
+		
+		<tr>
+			<td>컬럼 합계 고정 (상단)</td>
+			<td><a href="./view/gridview4.htm" target="_exam">예제6</a></td>
+		</tr>
+		
+		<tr>
+			<td>체크박스 표현</td>
+			<td><a href="./view/gridview5.htm" target="_exam">예제7</a></td>
+		</tr>
+	</tbody>
+
+
+</table>
+</div>
+<div>
+<h3  id="ch7">grid 입력폼 예제목록</h3>
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>설명</th>
+			<th>보기</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Grid에 TextBox 사용</td>
+			<td><a href="./entity/entity_1.htm" target="_exam">예제1</a></td>
+		</tr>
+		<tr>
+			<td>Header 값을 Grid에 반영</td>
+			<td><a href="./entity/entity_2.htm" target="_exam">예제2</a></td>
+		</tr>
+		<tr>
+			<td>Header의 checkbox 상태 값을 Grid에 반영</td>
+			<td><a href="./entity/entity_3.htm" target="_exam">예제3</a></td>
+		</tr>
+		<tr>
+			<td>Grid에 checkbox 표시</td>
+			<td><a href="./entity/entity_4.htm" target="_exam">예제4</a></td>
+		</tr>
+		<tr>
+			<td>Header의 radio 상태 값을 Grid에 반영</td>
+			<td><a href="./entity/entity_5.htm" target="_exam">예제5</a></td>
+		</tr>
+		<tr>
+			<td>Grid에 radio 표시</td>
+			<td><a href="./entity/entity_6.htm" target="_exam">예제6</a></td>
+		</tr>
+		<tr>
+			<td>select의 value 속성 값/text를 Grid에 반영</td>
+			<td><a href="./entity/entity_7.htm" target="_exam">예제7</a></td>
+		</tr>
+		<tr>
+			<td>cell 값 체크</td>
+			<td><a href="./entity/entity_8.htm" target="_exam">예제8</a></td>
+		</tr>
+		<tr>
+			<td>cell 값을 합산하여 bottom 에 표시</td>
+			<td><a href="./entity/entity_9.htm" target="_exam">예제9</a></td>
+		</tr>
+		<tr>
+			<td>cell 값을 합산하여 top 에 표시</td>
+			<td><a href="./entity/entity_10.htm" target="_exam">예제10</a></td>
+		</tr>
+		<tr>
+			<td>Header 서제스트 값을 Grid에 반영</td>
+			<td><a href="./entity/entity_11.htm" target="_exam">예제11</a></td>
+		</tr>
+		<tr>
+			<td>cell의 서제스트 값을 cell 에 반영</td>
+			<td><a href="./entity/entity_12.htm" target="_exam">예제12</a></td>
+		</tr>
+	</tbody>
+
+
+</table>
+</div>
+</body>
+</html>

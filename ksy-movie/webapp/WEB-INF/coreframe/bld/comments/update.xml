@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>평점 댓글 수정</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="listCurrent">
+      <query>
+        <![CDATA[
+          UPDATE comments SET grade = :grade, content = '${content}'
+          WHERE cmo = :cmo
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+        <field name="grade" type="string" label="평점"></field>
+        <field name="content" type="string" label="내용"></field>
+        <field name="cmo" type="string" label="댓글번호"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+    </block>
+  </output>  
+
+</transaction>

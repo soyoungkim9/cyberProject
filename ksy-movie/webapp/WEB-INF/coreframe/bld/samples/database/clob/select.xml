@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='euc-kr'?>
+
+<!--
+
+protocolName='db1'
+-->
+<transaction name='select' xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+  
+    <processor-info type='dbms' datasource=''>
+	    <transaction-type>rollback</transaction-type>
+	    <sql id='run1'>
+	        
+	        <query>SELECT e.hname,e.ename,e.content.getClobVal(),e.taxonomy_url,e.check_xsl_url FROM xbrl_style e WHERE code=? AND version=?</query>
+	        
+	        <!--
+	        <query>SELECT e.hname,e.ename,e.content,e.taxonomy_url,e.check_xsl_url FROM xbrl_style e WHERE code=? AND version=?</query>
+	        -->
+	        <mapping>
+	            <setProperty>code,version</setProperty>			
+			      <getProperty>hname,ename,content,taxonomy_url,check_xsl_url</getProperty>
+	        </mapping>
+	    </sql>
+	   
+	    
+	</processor-info>
+	
+    
+	<input>
+	  <block>
+	    <field name="code" type="string"/>
+	    <field name="version" type="string"/>
+	  </block>
+	</input>
+
+  <output>
+    <block>
+	    
+	    <field name="hname" type="string"/>
+	    <field name="ename" type="string"/>
+	    <field name="content" type="clob"/>
+	    <field name="taxonomy_url" type="string"/>
+	    <field name="check_xsl_url" type="string"/>
+	  </block>
+  </output>	    
+		
+</transaction>
+

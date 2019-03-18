@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+	<global>
+		<validator name="required"
+		classname="coreview.validation.FieldChecks"
+		method="validateRequired"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"  msg="errors.required"
+		jsFunctionName="require"
+		>
+			<javascript>
+				<![CDATA[
+				function require(val,msg, vars) {
+
+				if(val && val.length>0) {
+				return true;
+				}
+
+				return false;
+				};
+				]]>
+			</javascript>
+		</validator>
+		<validator name="requiredif"
+		classname="coreview.validation.FieldChecks"
+		method="validateRequiredIf"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		msg="errors.required"/>
+		<validator name="minlength"
+		classname="coreview.validation.FieldChecks"
+		method="validateMinLength"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.minlength"
+		jsFunctionName="validateMinLength">
+			<javascript>
+				<![CDATA[
+				function validateMinLength(val,msg, vars) {
+				var minlength=vars['minlength'];
+				if(val && val.length>=minlength) {
+				return true;
+				}
+				return false;
+				};
+				]]>
+			</javascript>
+		</validator>
+		<validator name="maxlength"
+		classname="coreview.validation.FieldChecks"
+		method="validateMaxLength"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.maxlength"
+		jsFunctionName="validateMaxLength">
+			<javascript>
+				<![CDATA[
+				function validateMaxLength(val,msg, vars) {
+				var maxlength=vars['maxlength'];
+				if(val && val.length<=maxlength) {
+				return true;
+				}
+				return false;
+				};
+				]]>
+			</javascript>
+
+		</validator>
+		<validator name="mask"
+		classname="coreview.validation.FieldChecks"
+		method="validateMask"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.invalid"/>
+		<validator name="byte"
+		classname="coreview.validation.FieldChecks"
+		method="validateByte"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.byte"
+		/>
+		<validator name="short"
+		classname="coreview.validation.FieldChecks"
+		method="validateShort"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.short"
+		/>
+		<validator name="integer"
+		classname="coreview.validation.FieldChecks"
+		method="validateInt"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.integer"
+		jsFunctionName="IntegerValidations">
+
+			<javascript>
+				<![CDATA[
+				function IntegerValidations(val,msg, vars) {
+				var iValue = parseInt(val, 10);
+
+				if (isNaN(iValue) || !(iValue >= -2147483648 && iValue <= 2147483647)) {
+				return false;
+				}
+				return true;
+				};
+				]]>
+			</javascript>
+
+		</validator>
+		<validator name="long"
+		classname="coreview.validation.FieldChecks"
+		method="validateLong"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.long"/>
+		<validator name="float"
+		classname="coreview.validation.FieldChecks"
+		method="validateFloat"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.float"
+		/>
+		<validator name="double"
+		classname="coreview.validation.FieldChecks"
+		method="validateDouble"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.double"/>
+		<validator name="date"
+		classname="coreview.validation.FieldChecks"
+		method="validateDate"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.date"
+		jsFunctionName="DateValidations"/>
+		<validator name="intRange"
+		classname="coreview.validation.FieldChecks"
+		method="validateIntRange"
+		methodParams="java.lang.Object,org.apache.commons.validator.Field"
+		depends="integer"
+		msg="errors.range"/>
+		<validator name="floatRange"
+		classname="coreview.validation.FieldChecks"
+		method="validateFloatRange"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends="float"
+		msg="errors.range"/>
+		<validator name="doubleRange"
+		classname="coreview.validation.FieldChecks"
+		method="validateDoubleRange"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends="double"
+		msg="errors.range"/>
+		<validator name="creditCard"
+		classname="coreview.validation.FieldChecks"
+		method="validateCreditCard"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.creditcard"/>
+		<validator name="email"
+		classname="coreview.validation.FieldChecks"
+		method="validateEmail"
+		methodParams="java.lang.Object,
+		org.apache.commons.validator.Field"
+		depends=""
+		msg="errors.email"/>
+
+	</global>
+
+</form-validation>

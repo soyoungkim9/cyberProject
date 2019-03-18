@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- /** * 서버 시작 */ public final static String SERVER_START = "cf:serverStart"; 
+		/** * 서버 중지 signal */ public final static String SERVER_STOPPING = "cf:serverStopping"; 
+		/** * web 사용자 로그인 */ public final static String WEBUSER_LOGIN = "cf:webuserLogin"; 
+		/** * 웹사용자 로그아웃 */ public final static String WEBUSER_LOGOUT = "cf:webuserLogout"; 
+		/** * BLD 처리 과부하 */ public final static String SERVER_BIZ_OVERLOAD = "cf:serverBizOverload"; 
+		/** * http session 생성시 */ public final static String WEBUSER_SESSION_CREATE 
+		= "cf:webuserSessionCreate"; /** * http session 삭제시 */ public final static 
+		String WEBUSER_SESSION_DESTORY = "cf:webuserSessionDestory"; /** * cf:webuserWebpageError 
+		* 사용자 화면에서 에러 발생시 발생 * */ public final static String WEBUSER_WEBPAGE_ERROR= 
+		"cf:webuserWebpageError"; /** * 웹화면 처리 지연시 */ public final static String 
+		WEBUSER_PROCESS_DELAY= "cf:webuserProcessDelay"; -->
+
+	<bean id="coreframe.eventManager" class="coreframe.service.event.FrameworkEventManagerImpl">
+
+	</bean>
+
+
+	
+
+
+
+
+
+	<!-- <bean id="coreframe.event.listener1" class="coreframe.service.event.listener.DefaultFrameworkEventListener"> 
+		<property name="eventScopes" value="*" /> </bean> -->
+
+
+	<bean id="coreframe.event.webpageAccess"
+		class="coreframe.service.event.listener.WebpageAccessEventListener">
+		<property name="userIdSessionName" value="userId" />
+		<property name="eventScopes" value="cf:webuserWebpageAccess" />
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+
+
+
+
+
+	<!-- <bean id="coreframe.event.listener.searchIndex"
+		class="corelogic.spi.load_listener.SearchIndexerBldLoadListener">
+		<property name="eventScopes" value="cf:corelogicLoadBld" />
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean> -->
+
+
+
+
+</beans>

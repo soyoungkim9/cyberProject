@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="searchKmaWeather" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <status>developing</status>
+    <http-access>true</http-access>
+    <effective-date></effective-date>
+    <description>http webservice를 이용한 기상청 날씨 검색 예제</description>
+    <version>0.1</version>
+    <name>test</name>
+  </info>
+
+  <processor-info type="http">
+    <property name="http.method" value="GET"/>
+    <property name="http.encoding" value="EUC-KR"/>
+    <property name="http.url" value="http://www.kma.go.kr/weather/forecast/mid-term-rss.jsp"/>
+  </processor-info>
+
+  <input>
+    <block name="arg" repeat="1">
+      <field name="stnId" label="지역코드" type="int" default="108"/>
+    </block>
+  </input>
+
+  <output>
+    <block id="user" name="result" repeat="" xpath="/rss/channel/item/description/body/location">
+      <field name="province" type="string" xpath="province"></field>
+      <field name="city" type="string" xpath="city"></field>
+      <field name="날짜" type="string" xpath="data/tmEf"></field>
+      <field name="날씨" type="string" xpath="data/wf"></field>
+      <field name="최저온도" type="string" xpath="data/tmn"></field>
+      <field name="최고온도" type="string" xpath="data/tmx"></field>
+    </block>
+  </output>
+</transaction>

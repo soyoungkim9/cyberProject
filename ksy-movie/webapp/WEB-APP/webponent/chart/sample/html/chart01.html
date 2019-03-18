@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XTHML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd"> 
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript" src="../../comm/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../comm/require.js"></script>
+<script type="text/javascript" src="../../html5/ci.chart.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="../../comm/flashcanvas.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../../chart.skin1.js"></script>
+<link rel="stylesheet" type="text/css" href="../../chart.skin1.css"/>
+<title>Insert title here</title>
+</head>
+<body>
+<div class="stockchart-info">
+	<span class="stockchart-name"></span>
+	<span class="stockchart-open"></span>
+	<span class="stockchart-high"></span>
+	<span class="stockchart-low"></span>
+	<span class="stockchart-close"></span>
+	<span class="stockchart-volume"></span>
+</div>
+<div class="chart01"></div>
+<script type="text/javascript">
+	var selector = $(".chart01");
+	var f = {};
+	f.jcode = 005930;
+	var chart = $.stockchart(selector, f);
+	
+	callJsMouseInfo = function(param){
+		if(param.data.item.date == " ") return;
+		var date = param.data.item.date.dateFormat();
+
+		$(".stockchart-name").html(date);
+		$(".stockchart-open").html("<span>시</span>&nbsp;" +param.data.item.open.toString().format());
+		$(".stockchart-high").html("<span>고</span>&nbsp;" +param.data.item.high.toString().format());
+		$(".stockchart-low").html("<span>저</span>&nbsp;" +param.data.item.low.toString().format());
+		$(".stockchart-close").html("<span>종</span>&nbsp;" +param.data.item.close.toString().format());
+		$(".stockchart-volume").html("<span>거래량</span>&nbsp;" +param.data.item.volume.toString().format());
+	};
+</script>
+</body>
+</html>

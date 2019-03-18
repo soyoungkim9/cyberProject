@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+
+<transaction name="cache_read_2" xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+  <info>
+    <name>read data</name>
+    <http-access>false</http-access>
+  </info>
+
+
+  <processor-info type="dbms" datasource="unitDbTestPool">
+    <cache>
+      <!-- 캐시를 사용/비사용 설정  -->
+      <enable>true</enable>
+      <!-- 아래 설정된 시간(초)이 지나면 캐시가 리셋된다. -->
+      <expire>500</expire>
+      <!-- 이 캐쉬가 속한 그룹 -->
+      <group>cache_reading_group</group>
+    </cache>
+    <transaction-type></transaction-type>
+    <sql id="query1">
+      <query>SELECT IDX,COL_INT FROM CF_TEST</query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>idx,colint</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+
+  <input>
+    <block name="in" repeat="1">
+      
+    </block>
+  </input>
+
+  <output>
+    <block name="out" repeat="1">
+      <field name="idx" type="string"></field>
+      <field name="colint" type="int"></field>
+    </block>
+  </output>
+
+</transaction>

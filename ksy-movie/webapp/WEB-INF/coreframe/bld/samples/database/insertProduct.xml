@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="insertProduct" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>product insert</description>
+		<version>0.1</version>
+		<name></name>
+	</info>
+
+	<processor-info type="dbms" datasource="derbyPool">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+
+
+		<sql id="sel1">
+			<query>SELECT max(pnum)+1 FROM product</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>max</getProperty>
+			</mapping>
+		</sql>
+		<sql id="ins1">
+			<query>INSERT INTO product (pnum, pcode, pname, pquantity, price,
+        delivery, packing, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)</query>
+			<mapping>
+				<setProperty>max, pcode, pname, pquantity, price, delivery, packing,
+          date</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+
+	<input>
+		<block name="product" repeat="1">
+			<field name="pnum" type="string"></field>
+			<field name="pcode" type="string"></field>
+			<field name="pname" type="string"></field>
+			<field name="pquantity" type="string"></field>
+			<field name="price" type="string"></field>
+			<field name="delivery" type="int"></field>
+			<field name="packing" type="int"></field>
+			<field name="date" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block>
+			<field default="100" label="ID" name="max" type="string"></field>
+		</block>
+	</output>
+
+</transaction>

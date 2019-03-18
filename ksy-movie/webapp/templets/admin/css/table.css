@@ -1,0 +1,75 @@
+
+table.tbl
+{   	
+    width:100%;
+    border-collapse:collapse;
+    margin:2px 0px 6px 0px;
+    
+    border-top-width:2px;
+    border-top-color:#00457c;
+    border-top-style:solid;
+    border-top:2px solid #00457c; 
+    border-bottom:2px solid #dcdcdc;
+}
+
+
+table.tbl th {
+	font-size:9pt;
+    height:28px; 
+    text-align:center;    
+    padding: 1px 0px 0px; 
+    color:#00457c;   
+	
+	 /*  ---background gradient---  */
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorStr=#fcfcfc, endColorStr=#fcfcfc); /* For Internet Explorer 5.5 - 7 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fcfcfc', endColorstr='#e8e8e8')"; /* For Internet Explorer 8 */
+	background:#fcfcfc -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fcfcfc), to(#e8e8e8)); /* For WebKit (Safari, Google Chrome etc) */	
+	background:#fcfcfc -moz-linear-gradient(top, #fcfcfc, #e8e8e8); /* For Mozilla/Gecko (Firefox etc) */	
+	background:#fcfcfc -o-linear-gradient(top, #fcfcfc, #e8e8e8);  /* Opera 11.10+ */	
+    border-right:1px solid #dcdcdc;       
+}
+
+table.tbl td
+{	
+	font-size:9pt;
+   /*  height:27px; */     
+    border: 1px;
+    border-style:solid; 
+    
+    border-top-color: #ddd;
+    border-right-color:#ddd;
+    border-left-color:#ddd;
+    border-bottom-color:#ddd;
+  
+  	/* padding:0px 7px; */
+  	padding-left: 25px;
+}
+
+table.tbl td a{
+	text-decoration: none;
+	color: #666666;
+}
+
+table.tbl th:last-CHILD, table.tbl td:last-CHILD {
+	border-right: 0px;
+	padding-left:0;
+	text-align: center;
+}
+
+table.tbl th:FIRST-CHILD, table.tbl td:FIRST-CHILD{
+	border-left: 0px;	
+	padding-left:0;
+	text-align: center;
+}
+
+table.tbl.detail th{
+	text-align: left; 
+	padding-left: 20px;		
+	background: #f6f6f6;	
+	border-bottom: 1px solid #dcdcdc;
+}
+
+table.tbl.detail td{
+	text-align: left; 
+	padding-left: 20px;
+}

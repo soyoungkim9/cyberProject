@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>회원등록</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="insert">
+      <query>
+        <![CDATA[
+          INSERT INTO member(mno, id) VALUES(member_seq.nextval, '${id}')
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="id" type="string" label="회원아이디"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+    </block>
+  </output>  
+
+</transaction>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<transaction name="updateCity" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	
+	<info>
+		<name></name>
+		<description></description>
+		<author></author>
+		<version></version>
+		<http-access>false</http-access>
+	</info>
+
+	<processor-info type="dbms" datasource="derbyPool">
+		<sql id="query1">
+			<query>
+				<![CDATA[
+			      UPDATE CITIES SET CITY_NAME = ? , COUNTRY = ? , AIRPORT = ? , LANGUAGE = ? , COUNTRY_ISO_CODE = ?  
+			      WHERE CITY_ID = ?      
+      			]]>
+      		</query>
+			<mapping>
+				<setProperty>name,country,airport,language,countryIsoCode, id</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+
+	<input>
+		<block name="city">
+			<field name="id" type="int" />
+			<field name="name" type="string" />
+			<field name="country" type="string" />
+			<field name="airport" type="string" />
+			<field name="language" type="string" />
+			<field name="countryIsoCode" type="string" />
+		</block>
+	</input>
+
+	<output>
+		<block></block>
+	</output>
+
+</transaction>

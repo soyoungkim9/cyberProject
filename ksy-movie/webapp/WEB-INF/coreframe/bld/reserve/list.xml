@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>예약가능목록</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+       if(input.getKeyObjectList().contains("ano[]")) {
+          if(input.getText("len").equals("1")) {
+            executeSQL("listMovie1", connection, input, output);
+          } else if(input.getText("len").equals("2")) {
+            executeSQL("listMovie2", connection, input, output);
+          }
+      } else if(input.get("tino") != "") {
+        executeSQL("listSeatCnt", connection, input, output);
+      } else {
+           executeSQL("listCity", connection, input, output);
+           executeSQL("listArea", connection, input, output);
+       }
+    </script>
+    <transaction-type></transaction-type>
+    <sql id="listCity">
+      <query>
+        <![CDATA[
+          SELECT cno, name FROM city
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>cno, name</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listArea">
+      <query>
+      <![CDATA[
+        SELECT ano, name, cno FROM area WHERE cno = :cno
+      ]]>
+      </query>
+      <mapping>
+          <setProperty></setProperty>
+          <getProperty>ano, name, cno</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listMovie1">
+      <query>
+        <![CDATA[
+          SELECT areamovie.ano, area.name, areamovie.mno, movie.name, movie.age
+          FROM areamovie
+          INNER JOIN area ON areamovie.ano = area.ano AND area.ano = :ano1
+          INNER JOIN movie ON areamovie.mno = movie.mno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>areamovie.ano, area.name, areamovie.mno, movie.name, movie.age</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listMovie2">
+      <query>
+        <![CDATA[
+          SELECT areamovie.ano, area.name, areamovie.mno, movie.name, movie.age
+          FROM areamovie
+          INNER JOIN area ON areamovie.ano = area.ano AND (area.ano = :ano1 OR area.ano = :ano2)
+          INNER JOIN movie ON areamovie.mno = movie.mno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>areamovie.ano, area.name, areamovie.mno, movie.name, movie.age</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listSeatCnt">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS seatcnt FROM seat WHERE tino = :tino
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>seatcnt</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="cno" type="string" label="시번호"></field>
+      <field name="ano1" type="string" label="지역번호1"></field>
+      <field name="ano2" type="string" label="지역번호2"></field>
+      <field name="tino" type="string" label="지역번호2"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+      <field name="cno" type="string" label="시번호"></field>
+      <field name="ano" type="string" label="지역번호"></field>
+      <field name="name" type="string" label="지역이름"></field>
+      <field name="areamovie.ano" type="string" label="지역번호"></field>
+      <field name="area.name" type="string" label="지역이름"></field>
+      <field name="areamovie.mno" type="string" label="영화번호"></field>
+      <field name="movie.name" type="string" label="영화이름"></field>
+      <field name="movie.age" type="string" label="영화나이"></field>
+      <field name="seatcnt" type="string" label="예매수"></field>
+    </block>
+  </output>  
+
+</transaction>

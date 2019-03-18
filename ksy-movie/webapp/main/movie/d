@@ -1,0 +1,38 @@
+insert into seat(seatnum, tino, id, randomkey, mno) values('I1', 2341, 'soyoung', 'r181', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r181', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I2', 2341, 'inging', 'r182', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r182', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I4', 2341, 'wowww', 'r1805', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r1805', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I5', 2341, 'Ingel1004', 'r184', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r184', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I19', 2341, 'lovelove', 'r185', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r185', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I8', 2341, 'king1009', 'r186', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r186', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I9', 2341, 'king1009', 'r187', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r187', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I10', 2341, 'king1009', 'r188', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r188', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I11', 2341, 'king1009', 'r189', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r189', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I12', 2341, 'king1009', 'r1810', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r1810', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I13', 2341, 'king1009', 'r1813', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r1813', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I14', 2341, 'king1009', 'r1814', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r1814', '12000', payment_seq.nextval, '2019.02.26(화)');
+
+insert into seat(seatnum, tino, id, randomkey, mno) values('I15', 2341, 'king1009', 'r1815', 18);
+insert into payment(adult, senior, teenager, disabled, randomkey, charge, pno, cdate) values(1, 0, 0, 0, 'r1815', '12000', payment_seq.nextval, '2019.02.26(화)');

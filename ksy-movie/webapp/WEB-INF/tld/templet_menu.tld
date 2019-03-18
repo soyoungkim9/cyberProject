@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<!-- a tag library descriptor -->
+<taglib>
+    <tlibversion>1.0</tlibversion>
+    <jspversion>1.1</jspversion>
+    <shortname>first</shortname>
+    <uri></uri>
+    <info>A simple tab library for the examples</info>
+    <tag>
+        <name>list</name>
+        <tagclass>coreview.menu.taglibs.ListTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+        <attribute>
+            <name>depth</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>param</name>
+        <tagclass>coreview.menu.taglibs.ParamTag</tagclass>
+        <bodycontent>empty</bodycontent>
+        <info>Tag with body and parameter</info>
+        <attribute>
+            <name>attr</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>checkParent</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>selected</name>
+        <tagclass>coreview.menu.taglibs.SelectedTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>unselected</name>
+        <tagclass>coreview.menu.taglibs.UnselectedTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>accessible</name>
+        <tagclass>coreview.menu.taglibs.AccessibleTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>notAccessible</name>
+        <tagclass>coreview.menu.taglibs.NotAccessibleTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>isFirst</name>
+        <tagclass>coreview.menu.taglibs.IsFirstTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>isLast</name>
+        <tagclass>coreview.menu.taglibs.IsLastTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>isNotLast</name>
+        <tagclass>coreview.menu.taglibs.IsNotLastTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>isLastDepth</name>
+        <tagclass>coreview.menu.taglibs.IsLastDepthTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>isNotLastDepth</name>
+        <tagclass>coreview.menu.taglibs.IsNotLastDepthTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+    </tag>
+    <tag>
+        <name>equals</name>
+        <tagclass>coreview.menu.taglibs.EqualsTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+        <attribute>
+            <name>attr</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>notEquals</name>
+        <tagclass>coreview.menu.taglibs.NotEqualsTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+        <attribute>
+            <name>attr</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+   
+    <tag>
+        <name>header</name>
+        <tagclass>coreview.menu.taglibs.HeaderTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>header presentation header</info>
+    </tag>
+    <tag>
+        <name>footer</name>
+        <tagclass>coreview.menu.taglibs.FooterTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>footer presentation tag</info>
+    </tag>
+    
+    
+    <tag>
+        <name>when</name>
+        <tagclass>coreview.menu.taglibs.WhenTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Tag with body and parameter</info>
+        <attribute>
+            <name>test</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

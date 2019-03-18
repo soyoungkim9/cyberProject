@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="multi-query" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date></effective-date>
+		<description>국가,도시 정보 추출 multi query</description>
+		<version>0.1</version>
+		<name>기본 select 쿼리</name>
+	</info>
+	<processor-info datasource="derbyPool" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<transaction-type></transaction-type>
+		<sql id="sel1">
+			<query>SELECT country,country_iso_code ,region FROM countries WHERE country like '${country2}%'</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>country2,country_iso_code2 ,region</getProperty>
+			</mapping>
+		</sql>
+		<sql id="sel2">
+			<query>SELECT city_id,city_name,country,airport,language,country_iso_code FROM CITIES</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>city_id,city_name,country,airport,language,country_iso_code</getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		<block>
+			<field default="Korea" label="국가명" name="country2"
+				type="string"></field>
+		</block>
+	</input>
+	<output>
+		<block name="conttries">
+			<field label="국가명" name="country2" type="string"></field>
+			<field label="ISO CODE" name="country_iso_code2" type="string"></field>
+			<field label="지역" name="region" type="string"></field>
+		</block>
+		<block name="cities">
+			<field label="ID" name="city_id" type="string"></field>
+			<field label="도시명" name="city_name" type="string"></field>
+			<field label="국가명" name="country" type="string"></field>
+			<field label="공항" name="airport" type="string"></field>
+			<field label="language" name="language" type="string"></field>
+			<field label="ISO CODE" name="country_iso_code" type="string"></field>
+		</block>
+	</output>
+	<Signature>
+		<SignatureValue>13c427f62ee5a8a9108be871014db68f116</SignatureValue>
+	</Signature>
+</transaction>

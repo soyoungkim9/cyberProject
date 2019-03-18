@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>XHML and CSS Lightbox</title>
+
+    <style type="text/css">
+    html {
+    font-size: 75%;} 
+
+    html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;}
+
+    body {
+    background-color: #f8f8f8;
+    font-family: arial, helvetica, sans-serif;
+    color: #777;
+    text-align: center;
+    font-size: 1.0833em;
+    line-height: 1.6923em;}
+
+    a {
+    color: #09F;}
+
+    h2 {
+    font-weight: normal;}
+
+    p {
+    margin: 0 0 1.6923em 0;}        
+
+    #container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;}
+
+    #header,
+    #content,
+    #footer {
+    text-align: left;
+    width: 870px;
+    margin: 0 auto;
+    padding: 40px;}
+
+    #header,
+    #footer {
+    background-color: #eee;}
+
+    #header h1 {
+    margin: 0;}
+
+    #header p {
+    margin: 5px 0 0;}
+
+    #content {
+    background-color: #fff;}		
+
+    /* ---------------------------------------------------------- */
+    /* LIGHTBOXES
+    /* ---------------------------------------------------------- */
+    #lightboxes {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: left;
+    overflow: hidden;}
+
+    #lightboxes li {
+    width: 100%;
+    height: 9999px;
+    position: relative;
+    background: rgba(0,0,0,.5);}
+
+    #lightboxes .box {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    left: 50%;
+    top: 50px;
+    border: 10px solid #999;
+    margin-left: -230px;
+    background-color: #fff;
+    padding: 20px;}
+
+    #lightboxes h3 {
+    font-weight: normal;
+    font-size: 1.8461em;
+    margin: 0 0 0.4583em 0;}
+
+    #lightboxes a.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: block;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #ddd;
+    text-decoration: none;
+    font-weight: bold;
+    color: #999;
+    font-size: 1.2em;}
+
+    #lightboxes a.close:hover {
+    background-color: #999;
+    color: #fff;}
+
+    #lightboxes #close {
+    background-color: transparent;
+    z-index: -1;}
+    </style>
+
+    <!--[if IE]>
+    <style type="text/css">
+    html {
+    overflow-y: auto;}
+
+    #lightboxes {
+    position: relative;}
+
+    #lightboxes .ie-bg {
+    background: #000;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=75);}
+    </style>
+    <![endif]-->
+</head>
+
+<body>
+
+<div id="container">
+    <div id="header">
+        <h1>A valid XHTML and CSS Lightbox (no JavaScript)</h1>
+        <p><strong>by Jenna Smith</strong></p>
+    </div>
+    <div id="content">
+        <h2>Click any of the links below to see it in action</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur <a href="#lightbox-about">about us</a> adipiscing elit.
+        Donec massa lorem, elementum et mollis non, viverra a est. Proin nunc orci, tristique at egestas et,
+        interdum ac ipsum. Nulla <a href="#lightbox-more">more info</a> vulputate erat ac gravida. Mauris facilisis, leo ac condimentum commodo,
+        justo eros molestie dolor, a posuere orci tortor sed lacus. Suspendisse dictum, magna eu posuere tempor,
+        augue diam tempor lacus, sed hendrerit nulla ante quis justo. Aliquam eget tellus risus.</p>
+
+        <p>Proin sollicitudin <a href="#lightbox-more">more info</a>
+        elementum sem id pulvinar. Nunc vitae nulla nunc, at tempor nisi. Vivamus condimentum tempus auctor. Vivamus
+        aliquet lorem at mauris rutrum vitae molestie nunc hendrerit. Pellentesque condimentum metus sed mi euismod
+        lobortis id sit amet orci. Duis eros nibh, tempor sed ultricies eget, malesuada id nunc. Praesent a purus non
+        risus dignissim placerat et eu dolor. Maecenas rutrum odio vitae libero sagittis a faucibus metus tincidunt.
+        Praesent bibendum sagittis elit, nec convallis enim tincidunt quis. Duis vitae risus sed ipsum varius volutpat
+        in in tortor. Duis nec est at mi condimentum consequat sed vitae metus. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur <a href="#lightbox-about">about us</a> elit. Donec massa lorem,
+        elementum et mollis non, viverra a est. Proin nunc orci, tristique at egestas et, interdum ac ipsum. Nulla
+        ullamcorper vulputate erat ac gravida. Mauris facilisis, leo ac condimentum commodo, justo eros molestie dolor,
+        a posuere orci tortor sed lacus. Suspendisse dictum, magna eu posuere tempor, augue diam tempor lacus, sed
+        hendrerit nulla ante quis justo. Aliquam eget tellus risus. Proin sollicitudin elementum sem id pulvinar. Nunc
+        vitae nulla nunc, at tempor nisi. Vivamus condimentum tempus auctor. Vivamus aliquet lorem at mauris rutrum vitae
+        molestie nunc hendrerit. Pellentesque condimentum metus sed mi euismod lobortis id sit amet orci. Duis eros
+        nibh, tempor sed ultricies eget, malesuada id nunc. Praesent a purus non risus dignissim placerat et eu dolor.
+        Maecenas rutrum odio vitae libero sagittis a faucibus metus tincidunt. Praesent bibendum sagittis elit, nec
+        convallis enim tincidunt quis. Duis vitae risus sed ipsum varius volutpat in in tortor. Duis nec est at mi
+        condimentum consequat sed vitae metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div id="footer">
+    	<p>Copyright 2009 Jenna Smith</p>
+    </div>
+</div>
+
+<ul id="lightboxes">
+    <li id="close"></li>
+    <li id="lightbox-about">
+        <div class="box">
+            <h3>About</h3>
+            <p>
+                Duis eros nibh, tempor sed ultricies eget, malesuada id nunc. Praesent a purus non
+                risus dignissim placerat et eu dolor. Maecenas rutrum odio vitae libero sagittis a faucibus metus tincidunt.
+                Praesent bibendum sagittis elit, nec convallis enim tincidunt quis.
+            </p>
+            <p>
+                Duis eros nibh, tempor sed ultricies eget, malesuada id nunc. Praesent a purus non
+                risus dignissim placerat et eu dolor. Maecenas rutrum odio vitae libero sagittis a faucibus metus tincidunt.
+                Praesent bibendum sagittis elit, nec convallis enim tincidunt quis.
+            </p>
+            <a href="#close" class="close" title="close window">x</a>
+        </div>
+        <!--[if IE]>
+        <div class="ie-bg"></div>
+        <![endif]-->
+    </li>
+    <li id="lightbox-more">
+        <div class="box">
+            <h3>More stuff</h3>
+            <p>
+                Duis eros nibh, tempor sed ultricies eget, malesuada id nunc. Praesent a purus non
+                risus dignissim placerat et eu dolor. Maecenas rutrum odio vitae libero sagittis a faucibus metus tincidunt.
+                Praesent bibendum sagittis elit, nec convallis enim tincidunt quis.
+            </p>
+            <a href="#close" class="close" title="close window">x</a>
+        </div>
+        <!--[if IE]>
+        <div class="ie-bg"></div>
+        <![endif]-->
+    </li>
+</ul>
+
+</body>
+</html>

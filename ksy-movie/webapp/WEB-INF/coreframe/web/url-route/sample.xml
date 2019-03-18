@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+
+<url-routing  defaultParamRegex="([a-zA-Z0-9_//-]+)">
+
+
+	<url method="*" value="${dir}/${controller}/${cmd}[.]cmd$">/${dir}/${controller}.jspx?cmd=${cmd}</url>
+	<url method="*" value="${dir}/${dir2}/${controller}/${cmd}[.]cmd$">/${dir}/${dir2}/${controller}.jspx?cmd=${cmd}</url>
+	<url method="*" value="${dir}/${dir2}/${dir3}/${controller}/${cmd}[.]cmd$">/${dir}/${dir2}/${dir3}/${controller}.jspx?cmd=${cmd}</url>
+	
+
+  <!-- 4자리 연도  year 변수로 받음
+     /articles/2003/   -> test.jsp  (year=2003 은 request setAttribute 로 설정)
+  -->
+	<url method="GET" value="^articles/(${year}\d{4})/$">/test2.jsp</url>
+	
+	
+	
+	
+	
+	<!-- 4자리 연도  year, 2자리수 월을 mm  변수로 받음
+     /articles/2007/02/   -> 2007-02.jsp  (year=2007,mm=02 은 request setAttribute 로 설정)
+  -->
+	<url method="GET" value="^articles/(${year}\d{4})/(${mm}\d{2})/$">/${year}-${mm}.jsp</url>
+	
+	
+	
+	<!-- 4자리 연도  year, 2자리수 월을 mm  변수로 받음
+     /bbs/2007/02/   -> /bbs.jspx?cmd=getArticie  (year=2007,mm=02 은 request setAttribute 로 설정)
+  -->
+	<url method="GET" value="^bbs/(${year}\d{4})/(${mm}\d{2})/$">/bbs.jspx?cmd=getArticie</url>
+	
+	
+	<!-- 4자리 연도  year, 2자리수 월을 mm  변수로 받음
+     /bbs/2007/02/   -> /bbs.jspx?cmd=addArticie  (year=2007,mm=02 은 request setAttribute 로 설정)
+  -->
+	<url method="POST" value="^bbs/(${year}\d{4})/(${mm}\d{2})/$">/bbs.jspx?cmd=addArticie</url>
+	
+	
+	<!-- id변수로 영문형태 문자로만 받음.
+     /news/newFramework/   -> test.jsp  (id=newFramework 은 request setAttribute 로 설정)
+     GET 및  POST 방식으로 받음
+  -->
+	<url method="GET" value="^news/(${id}[a-zA-Z0-9]+)/$">/test2.jsp</url>
+	
+	
+	
+	<!-- 4자리 연도  year 변수로 받음
+     /comment/2003/   -> test.jsp  (year=2003 은 request setAttribute 로 설정)
+     GET 및  POST , DELETE 등 모든 상태 방식으로 받음
+  -->
+	<url method="*" value="^comment/(${year}\d{4})/$">/test.jsp</url>
+	
+	
+	
+	<url method="GET" value="^board/(${id}[a-zA-Z0-9]+)$">/sample/bbs.jspx</url>
+	
+	
+	
+	<!--
+		정규식을 쓰지 않는 경우
+	-->
+	<url method="GET" value="board/${id}">/sample/bbs.jspx?id={id}</url>
+	
+	
+</url-routing>
+

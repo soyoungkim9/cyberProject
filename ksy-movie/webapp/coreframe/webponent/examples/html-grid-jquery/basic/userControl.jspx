@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
+	<jsp:directive.page extends="coreframe.http.JspxController" />
+	<jsp:directive.page import="java.io.*,java.util.*" />
+	<jsp:directive.page import="coreframe.CoreApplication"/>
+	<jsp:directive.page import="coreframe.http.*,coreframe.data.*,coreframe.log.*" />
+	<!-- jsp:directive.page import="jxl.Workbook,javax.servlet.ServletInputStream,jxl.*,au.com.bytecode.opencsv.CSVReader" / -->
+	<jsp:declaration><![CDATA[//
+	                          
+	                          
+	String BREAK_LINE = "\n";
+	String INDENT  = "    ";
+	String INDENT2 = "        ";
+	String INDENT3 = "            ";
+	String INDENT4 = "                ";
+	String INDENT5 = "                    ";               
+	String SPLIT_DELIM = ",";                          
+	                          
+	protected String getDefaultMethodName() {
+		return "list";
+	}
+	
+	
+	
+	public void list(ViewMeta view) throws ResourceException {
+		view.processTemplate(false);
+		
+		HttpServletRequest req   = view.getHttpServletRequest();
+		HttpServletResponse resp = view.getHttpServletResponse();
+		
+		int MAX_ROW = 40000;
+		
+		StringBuffer sb = new StringBuffer();
+		for( int i = 0; i < MAX_ROW; i++  ){
+			sb.append("<tr>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("<td>"+(i+1)+"</td>");
+			sb.append("</tr>");
+		}
+		
+		try{
+			resp.getWriter().println(sb.toString());	
+		}catch(Exception ex){
+			
+		}
+		
+	}
+	
+	]]></jsp:declaration>
+
+</jsp:root>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<transaction name="list" xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+
+  <processor-info type="java" datasource="">
+
+    <script language="java" import="">
+		<![CDATA[
+			
+			output.add("id", new Integer(1) );
+			output.add("title", "게시판 예제1" );
+			output.add("writer", "예제1" );
+			output.add("date",  "20060701" );
+			output.add("viewNum",  new Integer(324) );
+			
+			output.add("id", new Integer(2) );
+			output.add("title", "게시판 예제2" );
+			output.add("writer", "예제1" );
+			output.add("date",  "20060701" );
+			output.add("viewNum",  new Integer(324) );
+			
+			output.add("id", new Integer(3) );
+			output.add("title", "게시판 예제3" );
+			output.add("writer", "예제1" );
+			output.add("date",  "20060701" );
+			output.add("viewNum",  new Integer(324) );
+			
+			output.add("id", new Integer(4) );
+			output.add("title", "게시판 예제4" );
+			output.add("writer", "예제1" );
+			output.add("date",  "20060701" );
+			output.add("viewNum",  new Integer(324) );
+		]]>
+    </script>
+    
+    
+  </processor-info>
+
+  <input>
+    <block>
+      <field name="p_gubun" type="string" default="1" label="구분" />
+
+
+    </block>
+
+  </input>
+
+  <output>
+
+    <block>
+      <field name="id" type="int" />
+      <field name="title" type="string" />
+      <field name="writer" type="string" />
+      <field name="date" type="string" />
+      <field name="viewNum" type="int" />
+
+
+    </block>
+  </output>
+
+</transaction>

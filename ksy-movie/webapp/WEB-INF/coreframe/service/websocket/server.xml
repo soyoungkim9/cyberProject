@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  
+  <!--
+  
+  <bean id="websocket.sessionMananger" class="com.ci.server.websocket.WtsWebSocketSessionManager">
+  </bean>
+  
+  
+  
+  <bean id="coreframe.websocketServer" class="coreframe.service.websocket.WebSocketServerService">
+    <property name="serviceManager" ref="coreframe.serviceManager"/>
+    
+    <property name="listenPort" value="8081"/>
+    
+    <property name="webSocketSessionManagerId" value="websocket.sessionMananger"/>
+    <property name="webSocketSessionClassname" value="com.ci.server.websocket.WtsWebSocketSession"/>
+  </bean>
+  
+  
+  <bean id="websocket.data.publish" class="com.ci.server.websocket.RandomStockPricePubService">
+    <property name="serviceManager" ref="coreframe.serviceManager"/>
+    <property name="wtsWebSocketSessionManager" ref="websocket.sessionMananger"/>
+    
+    <property name="priceFilePath" value="${COREFRAME_CONFIG_HOME}/service/websocket/treemap_20100810_price.txt" />
+  </bean>
+  -->
+</beans>

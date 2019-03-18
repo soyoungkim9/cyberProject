@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+
+    <!--  web security manager -->
+	<bean id="coreframe.webSecurityManager" class="coreframe.security.impl.EsapiSecurityManager">
+		<!-- dummy class:coreframe.security.impl.DummySecurityManager -->
+		<property name="skipUrlRegExp" value="/apps/admin"/>
+	</bean>
+
+
+
+
+	<!-- <bean id="corelogic.httpWebAuthorizer" class="coreframe.security.impl.DefaultFrameworkAdminAuthorizer"> 
+		<property name="userinfoMap"> <map> <entry key="admin" value="21232f297a57a5a743894ae4a801fc3" 
+		/> <entry key="test" value="98f6bcd4621d373cade4e832627b4f6" /> </map> </property> 
+		</bean> -->
+
+	<bean id="coreview.defaultWebAuthorizer" class="coreframe.security.impl.DefaultFrameworkAdminAuthorizer">
+		<property name="userinfoMap">
+			<map>
+				<entry key="admin" value="21232f297a57a5a743894ae4a801fc3"/>
+				<entry key="test" value="98f6bcd4621d373cade4e832627b4f6"/>
+			</map>
+		</property>
+	</bean>
+
+
+
+
+</beans>

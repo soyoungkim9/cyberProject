@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- protocolName="db1" -->
+<transaction name="insertXTM" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="taxonomyPool" type="dbms">
+
+		<script language="java"
+			import="coreframe.log.*,coreframe.util.*,java.io.*,java.sql.*,oracle.sql.CLOB">
+			<![CDATA[  
+
+		  // 기본 데이터 입력  실행
+		  executeSQL("query1", connection, input, output);
+		  executeSQL("query2", connection, input, output);
+		  executeSQL("query3", connection, input, output);
+		
+		  try {
+		
+		
+		    Statement tmp=connection.createStatement();
+		    Connection oracleConnection = tmp.getConnection();
+		    oracle.sql.CLOB clob = CLOB.createTemporary( oracleConnection, true, CLOB.DURATION_SESSION );
+		    //tmp.close();
+		    
+		    String ctnt = input.getText("FL_BD");
+		    
+		
+		    //encoding 변경 필요시
+		    //xmlText = new String(xmlText.getBytes("euc-kr"), "ISO8859_1");
+		    clob.putString(1,ctnt);
+		
+		    String UPDATE_STATEMENT_TEXT = "UPDATE TBL_XTM_002 SET FL_BD=XMLTYPE(?) WHERE TXN_FL_SEQ_NO=?";
+		    CallableStatement updateStatement = connection.prepareCall( UPDATE_STATEMENT_TEXT );
+		    
+		    updateStatement.setClob(1, clob );
+		    updateStatement.setString(2, output.getText("FILE_SEQ") );
+		    updateStatement.execute();
+		    //clob.trim(0);
+		    //clob.freeTemporary();
+		    
+		    updateStatement.close();
+		
+		  } 
+		  catch(Exception ee) 
+		  {
+		    //ee.printStackTrace();
+		    Logger.err.println("insertXTM_002.xml error",ee);
+		    throw ee;
+		  }      
+
+  ]]>
+		</script>
+		<transaction-type>rollback</transaction-type>
+
+
+		<sql id="query1">
+			<query>
+				SELECT DECODE(MAX(TXN_FL_SEQ_NO), '', 0,
+				MAX(TXN_FL_SEQ_NO))+1 FROM TBL_XTM_002
+			</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>FILE_SEQ</getProperty>
+			</mapping>
+		</sql>
+		<sql id="query2">
+			<query>
+				SELECT CD_ID FROM TBL_XCC_001 WHERE CD_ENG_NM = ?
+			</query>
+			<mapping>
+				<setProperty>TXN_FL_TP</setProperty>
+				<getProperty>TXN_FL_CD</getProperty>
+			</mapping>
+		</sql>
+		<sql id="query3">
+			<query>
+				INSERT INTO TBL_XTM_002 (TXN_FL_SEQ_NO, TXN_SEQ_NO,
+				TXN_FL_TP, FL_NM) VALUES (?, ?, ?, ?)
+			</query>
+			<mapping>
+				<setProperty>
+					FILE_SEQ, TXN_SEQ_NO, TXN_FL_CD, FL_NM
+				</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg" repeat="1">
+			<field name="TXN_SEQ_NO" type="int"></field>
+			<field name="TXN_FL_TP" type="string"></field>
+			<field name="FL_NM" type="string"></field>
+			<field name="FL_BD" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block name="result" repeat="">
+			<field name="FILE_SEQ" type="int"></field>
+			<field name="TXN_FL_CD" type="string"></field>
+		</block>
+	</output>
+
+</transaction>

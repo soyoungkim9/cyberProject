@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>영화목록 리스트</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      String searchList = input.getText("searchList");
+      String search = input.getText("search");
+      int genre = input.getCount("genre");
+      int nation = input.getCount("nation");
+      int age = input.getCount("age");
+      String sql = "";
+
+      // 초기화면
+      if((input.size() &lt;= 4) || (input.size() == 10 &amp;&amp; genre == 5 &amp;&amp; nation == 6 &amp;&amp; age == 4 &amp;&amp; search == "")) {
+        executeSQL("listAll", connection, input, output);
+        executeSQL("countAll", connection, input, output);
+        return;
+      }
+
+      // 영화검색이 있는 경우
+      if(search != "") {
+        if(searchList.equals("all")) {
+          sql = " AND (name, director, actor) IN (SELECT name, director, actor"
+                + " FROM movie"
+                + " WHERE name LIKE '%" + search + "%' OR director LIKE '%" + search + "%' OR actor LIKE '%" + search + "%')";
+          input.put("sql", sql);
+        } else if(searchList.equals("name")) {
+          sql = " AND name IN (SELECT name"
+                + " FROM movie"
+                + " WHERE name LIKE '%" + search + "%')";
+          input.put("sql", sql);
+        } else if(searchList.equals("director")) {
+          sql = " AND director IN (SELECT director"
+                + " FROM movie"
+                + " WHERE director LIKE '%" + search + "%')";
+          input.put("sql", sql);
+        } else if(searchList.equals("actor")) {
+          sql = " AND actor IN (SELECT actor"
+                + " FROM movie"
+                + " WHERE actor LIKE '%" + search + "%')";
+        }
+      }
+
+      // 장르가 있는 경우
+      if(genre > 0) {
+        String tempSql = "";
+        for(int i = 0; i &lt; genre; i++) {
+          if(i != 0) {
+            tempSql += " OR";
+          }
+          tempSql += " genre = " + input.get("genre", i);
+        }
+        sql += " AND genre IN (SELECT genre"
+                + " FROM movie"
+                + " WHERE "
+                + tempSql + ")";
+      }
+
+      // 제작국가가 있는 경우
+      if(nation > 0) {
+        String tempSql = "";
+        for(int i = 0; i &lt; nation; i++) {
+          if(i != 0) {
+            tempSql += " OR";
+          }
+          tempSql += " nation = '" + input.get("nation", i) + "'";
+        }
+        sql += " AND nation IN (SELECT nation"
+                + " FROM movie"
+                + " WHERE "
+                + tempSql + ")";
+      }
+
+      // 관람등급이 있는 경우
+      if(age > 0) {
+        String tempSql = "";
+        for(int i = 0; i &lt; age; i++) {
+          if(i != 0) {
+           tempSql += " OR";
+          }
+          tempSql += " age = " + input.get("age", i);
+        }
+        sql += " AND age IN (SELECT age"
+                + " FROM movie"
+                + " WHERE "
+                + tempSql + ")";
+      }
+
+      input.put("sql", sql);
+      executeSQL("listSearch", connection, input, output);
+      executeSQL("countSearch", connection, input, output);
+    </script>
+    <transaction-type></transaction-type>
+    <sql id="listAll">
+      <query>
+        <![CDATA[
+          SELECT mno, name, TO_CHAR(sdt, 'yyyy'), age, genre, fileurl, director, nation, actor
+          FROM (SELECT row_number() OVER(ORDER BY sdt DESC)AS rnum, movie.* FROM movie) movie
+          WHERE TO_CHAR(sdt, 'yyyy') >= 2000 AND TO_CHAR(sdt, 'yyyy') <= 2020
+          AND rnum > :startRow AND rnum <= :startRow + :size ORDER BY rnum ASC
+        ]]>
+      </query>
+    <mapping>
+      <setProperty></setProperty>
+      <getProperty>mno, name, sdt, age, genre, fileurl, director, nation, actor</getProperty>
+    </mapping>
+    </sql>
+    <sql id="countAll">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS total
+          FROM movie
+          WHERE TO_CHAR(sdt, 'yyyy') >= 2000 AND TO_CHAR(sdt, 'yyyy') <= 2020
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>total</getProperty>
+      </mapping>
+    </sql>
+    <sql id="listSearch">
+      <query>
+        <![CDATA[
+          SELECT mno, name, TO_CHAR(sdt, 'yyyy'), age, genre, fileurl, director, nation, actor
+          FROM (SELECT row_number() OVER(ORDER BY sdt DESC)AS rnum, movie.* FROM movie
+                WHERE sdt IN(SELECT sdt
+                             FROM MOVIE
+                             WHERE TO_CHAR(sdt, 'yyyy') >= :sdt AND TO_CHAR(sdt, 'yyyy') <= :edt)${sql}) movie
+          WHERE rnum > :startRow AND rnum <= :startRow + :size ORDER BY rnum ASC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, name, sdt, age, genre, fileurl, director, nation, actor</getProperty>
+      </mapping>
+    </sql>
+    <sql id="countSearch">
+      <query>
+        <![CDATA[
+          SELECT COUNT(*) AS total
+          FROM movie
+          WHERE sdt IN(SELECT sdt
+                       FROM MOVIE
+                       WHERE TO_CHAR(sdt, 'yyyy') >= :sdt AND TO_CHAR(sdt, 'yyyy') <= :edt)${sql}
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>total</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="sql" type="string" label="검색어"></field>
+      <field name="search" type="string" label="검색어"></field>
+      <field name="genre" type="int" label="장르"></field>
+      <field name="nation" type="string" label="국가"></field>
+      <field name="age" type="int" label="나이"></field>
+      <field name="sdt" type="string" label="시작일"></field>
+      <field name="edt" type="string" label="종료일"></field>
+      <field name="startRow" type="int" label="시작행"></field>
+      <field name="size" type="int" label="게시글수"></field>
+    </block>
+  </input>
+
+  <output>
+    <block name="OutBlock_1">
+      <field name="mno" type="int" label="영화번호"></field>
+      <field name="name" type="string" label="영화이름"></field>
+      <field name="sdt" type="string" label="개봉일"></field>
+      <field name="age" type="int" label="관람나이"></field>
+      <field name="genre" type="int" label="장르번호"></field>
+      <field name="fileurl" type="string" label="영화이미지"></field>
+      <field name="director" type="string" label="감독"></field>
+      <field name="nation" type="string" label="국가"></field>
+      <field name="actor" type="string" label="배우"></field>
+      <field name="total" type="int" label="검색수"></field>
+    </block>
+  </output>  
+</transaction>

@@ -1,0 +1,1 @@
+{"name":"grid","type":"png24","gridSize":10,"maxWidth":3000,"maxHeight":1000,"imageList":[{"src":"sort_able.png","width":7,"height":10,"top":10,"left":10},{"src":"sort_down.png","width":7,"height":10,"top":10,"left":30},{"src":"sort_up.png","width":7,"height":10,"top":10,"left":50}]}

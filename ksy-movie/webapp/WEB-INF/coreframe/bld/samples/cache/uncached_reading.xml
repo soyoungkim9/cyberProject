@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+
+<transaction name="none_cache_read" xmlns="http://www.cyber-i.com/xml/bld" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+  <info>
+    <name>read data</name>
+    <http-access>false</http-access>
+  </info>
+
+
+  <processor-info type="dbms" datasource="unitDbTestPool">
+    <transaction-type></transaction-type>
+    <sql id="query1">
+      <query>SELECT IDX,COL_INT,COL_TXT FROM CF_TEST</query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>idx,colint,coltxt</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+
+  <input>
+    <block name="in" repeat="1">
+      
+    </block>
+  </input>
+
+  <output>
+    <block name="out" repeat="1">
+      <field name="idx" type="string"></field>
+      <field name="colint" type="int"></field>
+      <field name="coltxt" type="string"></field>
+    </block>
+  </output>
+
+</transaction>

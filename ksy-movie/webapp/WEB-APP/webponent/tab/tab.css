@@ -1,0 +1,175 @@
+.ci-tab {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: none;
+margin-bottom:35px;
+ }
+
+/**tab base*/
+.ci-tab .tab-selector {
+  height: 25px;
+  margin: 0;
+  padding: 0;
+  border-top: none; 
+}
+
+.ci-tab .tab-selector > li {
+  background: #fff;
+  list-style: none;
+  float: left;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+ }
+
+ .ci-tab .tab-selector > li.ci-tab-disabled {
+  background: #e1e1e1;
+ }
+
+.ci-tab .tab-selector > li:first-child {
+  margin-left: 0px;
+}
+
+.ci-tab .tab-selector li a {  
+  height: 100%;
+  width:100%;
+  display: block;
+  text-decoration: none;
+  color:#ccc;
+}
+
+.ci-tab .tab-selector li.ci-tab-disabled a {  
+  color:#808080;
+}
+
+.ci-tab .tab-selector li.active {
+
+}
+
+.ci-tab .tab-selector li.active a {
+  color: #333;
+  padding-right: 0 !important;
+  background: none !important; 
+}
+
+.ci-tab .tab-panel{
+  clear:both;
+}
+
+.ci-tab .tab-panel > li {
+  list-style: none;
+  display: none;
+}
+
+.ci-tab .tab-panel > li.active {
+  display: block;
+}
+
+.tab-panel > li.ajax-mode {
+  display: block;
+}
+
+
+/* tab type2 */
+.ci-tab2 {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: none;  
+}
+
+/**tab base*/
+.ci-tab2 .tab-selector {
+	border-top:1px solid #dbdbdb;
+	border-bottom:1px solid #dbdbdb; 
+	margin:16px 0 23px; 
+	padding:0 0 12px 5px;
+	height:44px;   
+}
+
+.ci-tab2 .tab-selector > li {
+	display:inline; 
+	background:url(../../../templets/main/img/OB/bar_menulist.gif) no-repeat right 14px;
+	color:#777; font-weight:bold; float:left;
+}
+
+ .ci-tab2 .tab-selector > li.last{
+	background:none; 
+}
+
+.ci-tab2 .tab-selector > li:first-child {
+  margin-left: 0px;
+}
+
+.ci-tab2 .tab-selector li a {  
+  height: 43px;
+  width:100%;
+  /*padding:8px 10px 0 10px;*/
+  display: block;
+  text-decoration: none;
+  color:#777 !important; 
+}
+
+.ci-tab2 .tab-selector li.active {
+	
+}
+
+.ci-tab2 .tab-selector li.active a { 
+	display:inline-block;
+	height:43px; 
+	font-weight:bold; 
+	color:#333 !important; 
+	/*background:url(../../../templets/main/img/OB/bu_menupointer.gif) no-repeat right 11px;*/
+	background:url('/templets/main/img/common/bg_tab2on.gif') no-repeat center 100%;
+}
+
+.ci-tab2 .tab-panel{
+  clear:both; 
+}
+
+.ci-tab2 .tab-panel > li {
+  list-style: none;
+  display: none;
+}
+
+.ci-tab2 .tab-panel > li.active {
+  display: block;
+}
+
+
+/* mobile용 */
+.tab-selector-wrapper {
+  background-image: url('/WEB-APP/webponent/tab/bg_tab_underline.png');
+  background-size: 1px 1px;
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+
+.tab-selector-left-arrow {
+  height: 41px;
+  width: 28px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url('/WEB-APP/webponent/tab/btn_tab_l.png');
+  z-index: 2001;
+  background-size: 28px 41px;
+  background-repeat: no-repeat;
+}
+
+.tab-selector-right-arrow {
+  height: 41px;
+  width: 28px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-image: url('/WEB-APP/webponent/tab/btn_tab_r.png');
+  z-index: 2001;
+  background-size: 28px 41px;
+  background-repeat: no-repeat;
+}

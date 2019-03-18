@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<transaction name="calc" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>true</http-access>
+		<effective-date></effective-date>
+		<description>사칙연산 수행</description>
+		<version>0.1</version>
+		<name>계산로직</name>
+	</info>
+
+	<processor-info datasource="" type="java">
+	
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+		<script import="" language="java"><![CDATA[
+
+				int n1 = input.getInt("num1");
+				int n2 = input.getInt("num2");
+			
+				int result =0;
+				String op = input.getText("operator");
+				
+				if("*".equals(op) )
+				  result = n1*n2;
+				else if("/".equals(op) )
+				  result = n1/n2;  
+				else if("+".equals(op) )
+				  result = n1+n2;
+				else if("-".equals(op) )
+				  result = n1-n2;
+				  
+				output.put("result", new Integer(result) );
+	]]></script>
+
+		<transaction-type></transaction-type>
+	</processor-info>
+
+	<input>
+		<block repeat="1">
+			<field default="4" label="변수1" name="num1" type="int"></field>
+			<field default="2" label="변수2" name="num2" type="int"></field>
+			<field default="+" label="연산자" name="operator" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block>
+			<field name="result" type="int"></field>
+		</block>
+	</output>
+
+	<Signature>
+		<SignatureValue>16a9167bac862110ec57ff9b9d9bf30129</SignatureValue>
+	</Signature>
+</transaction>

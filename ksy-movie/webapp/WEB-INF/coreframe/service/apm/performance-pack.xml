@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- Performance Monitor Service -->
+	<bean id="coreframe.service.performance" class="coreframe.service.performance.PerformanceMonitorService">
+		<property name="serviceManager" ref="coreframe.serviceManager" />
+	</bean>
+
+
+	<!-- 페이지 조회 성능 측정 event listener -->
+	<bean id="coreframe.event.listener.chkPerform"
+		class="coreframe.service.event.listener.PerformanceCheckListener">
+		<property name="maxTpsPerUser" value="30" />
+		<property name="eventScopes" value="cf:webuserWebpageAccess" />
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+
+	<!-- BLD 성능측정 event listener -->
+	<bean id="coreframe.event.listener.chkPerformBld"
+		class="coreframe.service.event.listener.BldProcessEventListener">
+		<property name="eventScopes" value="cf:corelogicBldProcess" />
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+
+	<!-- BLD 처리지연 event listener -->
+	<!-- config.xml /framework-event/bldProcessDelay/@time-cutline 에 설정된 시간 
+		이상으로 처리되는 경우 발생 -->
+	<bean id="coreframe.event.processDelay"
+		class="coreframe.service.event.listener.ProcessDelayEventListener">
+		<property name="eventScopes" value="cf:webuserProcessDelay" />
+		<property name="recordDb" value="false"/>
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+	<bean id="coreframe.event.listener.webpageError"
+		class="coreframe.service.event.listener.WebpageErrorEventListener">
+		<property name="eventScopes" value="cf:webuserWebpageError" />
+		<property name="recordDb" value="false"/>
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+
+
+	<bean id="coreframe.event.sessionMonitor" class="coreframe.service.monitor.WebuserCounter">
+		<property name="eventScopes"
+			value="cf:webuserSessionCreate,cf:webuserSessionDestory" />
+		<property name="frameworkEventManager" ref="coreframe.eventManager" />
+	</bean>
+
+
+
+	<!-- performance record -->
+    <!-- 
+	<bean id="coreframe.service.monitor.PerformanceRecordService"
+		class="coreframe.service.monitor.PerformanceRecordService">
+		<property name="checkTimeGap" value="60000" />
+		<property name="serviceManager" ref="coreframe.serviceManager" />
+
+	</bean>
+    -->
+
+</beans>

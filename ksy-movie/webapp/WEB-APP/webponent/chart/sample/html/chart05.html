@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XTHML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd"> 
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript" src="../../comm/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../comm/require.js"></script>
+<script type="text/javascript" src="../../html5/ci.chart.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="../../comm/flashcanvas.js"></script>
+<![endif]-->
+<script type="text/javascript" src="../../chart.skin1.js"></script>
+<link rel="stylesheet" type="text/css" href="../../chart.skin1.css"/>
+<title>Insert title here</title>
+</head>
+<body>
+<h2>종가(좌) + 융자잔고율/대주잔고율(우)</h2>
+<input type="button" value="조회" onclick="inquery();" /><br/>
+<div class="chart05-ctnr">
+	<div class="legend">
+		<span class="l1">종가</span>
+		<span class="l2">융자잔고율</span>
+		<span class="l3">대주잔고율</span>
+	</div>
+	<div class="chart05"></div>
+</div>
+<div id="console"></div>
+
+<script type="text/javascript">
+	var f = {};
+	f.jcode = 005930;
+	/* 종가 + 거래량 */
+	var chart = $.createChart().multiChart.init($(".chart05"), f, {
+		"url": "../../../chart/sample/data/chart05.txt", "datatype": "json", "functip": function(_item){
+			if(_item.data == null) return;
+			var selector = $(".chart05");
+			var item = _item.data.item;
+			var xaxisValue = dayDataFormat(item.xaxis);
+			
+			$(_item.container).html("<span>일자</span> : " + xaxisValue+"<br/><span>종가</span> : " + String(item.close).format()+"<br/><span>융자잔고율</span> : " + String(item.rate1).format()+"<br/><span>대주잔고율</span> : " + String(item.rate2).format());
+			var tipWidth = _item.container.outerWidth();
+			var tPos = _item.data.top, lPos = Math.round(item.x + item.width + 5);
+			tPos = tPos - _item.container.outerHeight()/2;
+			if(tPos < 10){ tPos = 10; }
+			var CHART_WIDTH = selector.width();
+			if(lPos + tipWidth >= CHART_WIDTH){	lPos = CHART_WIDTH - tipWidth; }
+			if(_item != ""){
+				_item.container.show().css({top: tPos, left: lPos, "white-space": "nowrap"});
+			}
+		}
+	}, {
+		"main":{
+			"series1" : { "strokecolor": "#be0001", "yaxisalign": "left", "ylabelalign": "right", "overfillcolor": "#be0001", "overstrokewidth": 0 },
+			"series2" : { "strokecolor": "#1a83d9", "yaxisalign": "right", "ylabelalign": "left", "overfillcolor": "#1a83d9", "overstrokewidth": 0 },
+			"series3" : { "strokecolor": "#82cd14", "yaxisalign": "right", "ylabelalign": "left","baseatzero": false, "overstrokewidth":0,
+				"yaxisalign": "left", "ylabelalign": "right", "ylabelgap": 60, "ylabelpaddingright": 10, "ylabelpaddingleft": 10, "overfillcolor": "#82cd14" }
+		}
+	}, {"main":{
+		"series1": { "series": "line", "yaxis": "close", "yaxisid": "series1", "label": "종가" },
+		"series2": { "series": "line", "yaxis": "rate1", "yaxisid": "series2", "label": "융자잔고율" }, // 전일종가 기준으로 상승, 하락 표현
+		"series3": { "series": "line", "xaxis": "date", "yaxis": "rate2", "yaxisid": "series2", "label": "대주잔고율" }
+	}});
+	
+	inquery = function(){
+		var f = {}; // Form 정보
+		f.jcode = "005930";
+		chart.inquery(f, {"url": "../../../chart/sample/data/chart05_2.txt"});
+	};
+</script>
+
+<br/>
+* document.ready 후 혹은 스크립트를 jsp 하단에 위치<br/>
+<table width="100%" border="1">
+<tr>
+	<td>$.createChart().multiChart.init(<b>selector</b>, <b>form</b>, <b>_option</b>, <b>_styles</b>, <b>_series</b>);</td>
+	<td><ul>
+			<li>selector - 차트가 그려지는 DIV selector</li>
+			<li>form - form 정보</li>
+			<li>_option - 데이터 URL 등 차트의 옵션들 추가 정보</li>
+			<li>_styles - 차트 스타일 정의(중복되는것은 chart.skin1.js 에 정의되어 있음)</li>
+			<li>_series - 차트 시리즈 변경</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td>chart1.inquery(f, _option);</td>
+	<td><ul>
+			<li>chart1 - createChart() 하고 return 해준 Object</li>
+			<li>inquery(f, _option) - 조회 혹은 종목정보가 변경되면 다시 조회하기 위한 함수 </li>
+			<li>f는 form 정보</li>
+			<li>
+				_option - column+line[chart04.html]과 line+line[chart05.html]에서 동시 사용하므로 필요에따라 f와 url도 같이 넘겨주도록 수정하면 됩니다.<br/>
+				_option.url = "url.txt";
+			</li>
+		</ul>
+	</td>
+</tr>
+<tr>
+	<td>options</td>
+	<td><ul>
+			<li>url - 데이터 경로</li>
+			<li>datatype - json 데이터 사용시 "json"</li>
+			<li>functip - 툴팁 내부에 어떻게 보여줄지 변경 할 경우에 사용</li>
+		</ul>
+	</td>
+</tr>
+</table>
+</body>
+</html>

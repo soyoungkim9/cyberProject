@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="delete" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<status>confirmation</status>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>국가 정보 삭제</description>
+		<version>0.1</version>
+		<name>기본 delete 쿼리</name>
+	</info>
+	<processor-info datasource="derbyPool" type="dbms">
+		<cache>
+			<enable>false</enable>
+			<expire></expire>
+			<max-object-num></max-object-num>
+			<event></event>
+		</cache>
+
+		<transaction-type></transaction-type>
+		<sql id="sel1">
+			<query>DELETE FROM cities WHERE city_id =?</query>
+			<mapping>
+				<setProperty>city_id</setProperty>
+				<getProperty></getProperty>
+			</mapping>
+		</sql>
+
+	</processor-info>
+	<input>
+		<block>
+			<field default="100" name="city_id" type="string"></field>
+		</block>
+	</input>
+	<output>
+		<block></block>
+	</output>
+	<Signature>
+		<SignatureValue>bc3b67bd6fca9be3445228b3964495e</SignatureValue>
+	</Signature>
+</transaction>

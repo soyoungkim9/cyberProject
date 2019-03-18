@@ -1,0 +1,208 @@
+#searchBox {
+    margin-bottom: 50px;
+}
+#movieSearch > table, #movieSearch > table > tbody {
+    width: inherit;
+    display: block;
+    border-collapse: collapse;
+}
+
+#movieSearch > table {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+#movieSearch > table > tbody > tr > th {
+    width: 130px;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+#movieSearch > table > tbody > tr > td {
+    width: 825px;
+}
+
+#movieSearch > table > tbody > tr {
+    border-top: 1px solid  #dedede;
+    padding: 8px 0;
+    display: inline-block;
+}
+
+#sliderStyle {
+    width: 700px;
+    position: relative;
+    top: 10px;
+    height: 50px;
+}
+
+#searchInput {
+    height: 25px;
+    width: 450px;
+    margin-left: 10px;
+    font-size: 12px;
+    position: relative;
+    top: 2px;
+    border: 1px solid #eee;
+    padding-left: 8px;
+}
+
+#searchBox > h2 {
+    margin-bottom: 12px;
+}
+#searchResultImgBox {
+    text-align: center;
+    margin-top: 25px;
+}
+
+#searchResultImg {
+    width: 316px;
+}
+
+#searchResultImgBox > h3 {
+    font-size: 18px;
+}
+
+#searchTextBox {
+    background: #f7f6f2;
+    width: inherit;
+    height: 156px;
+    text-align: left;
+    padding: 2px 25px;
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 30px;
+}
+
+#searchButtonBox {
+    float: left;
+    width: 975px !important;
+    text-align: center;
+    padding: 20px 0 5px 0;
+}
+
+#searchButtonBox > button {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #cf283c;
+    border-radius: 5px;
+    background: #cf283c;
+    margin-right: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.icheck-material-teal:first-child {
+    margin-right: 30px;
+}
+
+.movie_img > img{
+    width: 205px;
+}
+
+#search_content > ul > li {
+    display: inline-block;
+    margin-right: 45px;
+    border: 1px solid #dedede;
+    margin-bottom: 25px;
+    border-bottom: none;
+    height: 345px;
+}
+
+#search_content > ul > li:nth-child(4n+0) {
+    margin-right: 0;
+}
+
+#searchResultImgBox > h3 {
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+#searchTotal {
+    color: red;
+}
+
+#searchTextBox > dl > dt {
+    width: 200px;
+    display: inline-block;
+}
+
+#searchTextBox > dl > dd {
+    margin-left: 0;
+    display: inline-block;
+    width: 710px;
+}
+
+.movie_text {
+    margin: 0;
+    height: 74px;
+}
+
+.movie_text > dt {
+    height: 43px;
+    border-bottom: 1px solid #dedede;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 42px;
+    padding-left: 12px;
+}
+
+.movie_text dt span {
+    border-radius: 50%;
+    padding: 2px 4px;
+    font-size: 11px;
+    color: white;
+    margin-right: 8px;
+}
+
+#noSearchStyle {
+    border: none !important;
+    display: inherit !important;
+    text-align: center;
+    color: #666;
+}
+
+#search_page {
+    text-align: center;
+    margin-top: 25px;
+}
+
+#search_page > a {
+    border: 1px solid #dedede;
+    color: #666;
+    font-size: 14px;
+    padding: 2px 8px;
+}
+
+.selected {
+    color: black !important;
+    font-weight: bold;
+}
+
+.hoverStyle {
+    position: absolute;
+    z-index: 2;
+    display: inline-block;
+    width: 205px;
+    height: 302px;
+    background: black;
+    opacity: 0.8;
+}
+
+.hoverStyle > span {
+    color: #cdc197;
+    display: inline-block;
+    font-weight: bold;
+    border: 1px solid #cdc197;
+    width: 167px;
+    line-height: 43px;
+    text-align: center;
+    position: relative;
+    left: 18px;
+    top: 103px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}

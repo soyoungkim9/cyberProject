@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<transaction name="listLog" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<info>
+		<name>listLog</name>
+		<http-access>false</http-access>
+		<effective-date></effective-date>
+		<description>insert coreFRAME performance log</description>
+		<version>0.1</version>
+	</info>
+
+	<processor-info type="dbms" datasource="cf-system">
+		<transaction-type></transaction-type>
+
+		<sql id="ins1" max-rows="10">
+			<query>SELECT 
+                 SERVERID, TSDATE, TSTIME,TYPE, TITLE,MSG,TS
+				FROM APP.CF_SERVERMSG 
+				WHERE TYPE= :TYPE
+				ORDER BY TSDATE DESC, TSTIME DESC
+				</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>SERVERID, TSDATE, TSTIME,TYPE, TITLE,MSG,TS
+				</getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+
+	<input>
+		<block>
+             <field name="TYPE" type="string" default="E" />
+		</block>
+	</input>
+
+	<output>
+		<block name="performance" repeat="1">
+			<field name="SERVERID" type="string" />
+			<field name="TSDATE" type="string" />
+			<field name="TSTIME" type="string" format="HHmmss->HH:mm:ss"/>
+			
+			<field name="TYPE" type="string" />
+			<field name="TITLE" type="string" />
+			<field name="MSG" type="string" />
+			<field name="TS" type="string" />
+			
+		</block>
+	</output>
+
+</transaction>

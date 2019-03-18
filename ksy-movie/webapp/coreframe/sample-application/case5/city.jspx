@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="EUC-KR" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+ <jsp:directive.page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" />
+ <jsp:directive.page extends="coreframe.http.JspxController" />
+ <jsp:directive.page import="java.io.*" />
+ <jsp:directive.page import="coreframe.http.*,coreframe.data.*" />
+ <c:set scope="request" var="viewpage.prefix" value="/coreframe/sample-application/case5/view/" />
+ <c:set scope="request" var="viewpage.postfix" value=".jsp" />
+ <jsp:declaration><![CDATA[//
+
+	private static final String URL_LIST = "./city.jspx";
+
+	protected String getDefaultMethodName() {
+		return "list";
+	}
+
+	public void list(ViewMeta view) throws IOException {
+
+		DataSet input = view.getInputDataSet();
+		DataSet output = executeBL("samples/database/listCities", input);
+
+		view.setAttribute("output", output.toList());
+		// request.setAttribute 와 동일
+		view.setViewName("list");
+	}
+
+	/**
+	 * 내용 보기
+	 */
+	public void view(ViewMeta view) throws IOException {
+
+		DataSet input = view.getInputDataSet();
+		DataSet output = executeBL("samples/database/readCity", input);
+
+		view.setAttribute("output", output);
+		view.setViewName("view");
+	}
+
+	/**
+	 * 내용 보기
+	 */
+	public void delete(ViewMeta view) throws IOException {
+		DataSet input = view.getInputDataSet();
+		// input.put("id", req.getParameter("id") );
+
+		executeBL("samples/database/deleteCity", input);
+
+		view.setViewPage(URL_LIST);
+		view.setViewMethod(ViewMeta.REDIRECT);
+	}
+
+	/**
+	 * 내용 보기
+	 */
+	public void preUpdate(ViewMeta view) throws IOException {
+		view(view);
+		view.setViewName("update");
+	}
+
+	/**
+	 * 내용 수정
+	 */
+	public void update(ViewMeta view) throws IOException {
+		DataSet input = view.getInputDataSet();
+
+		executeBL("samples/database/updateCity", input);
+
+		view.setViewPage(URL_LIST);
+		view.setViewMethod(ViewMeta.REDIRECT);
+	}
+
+	//]]></jsp:declaration>
+</jsp:root>

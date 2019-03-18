@@ -1,0 +1,52 @@
+1. /WEB-INF/coreframe/service/web/web-sitemap.xml 수정
+
+    1-1. [layout,sitemap] DataBase 버전 bean을 활성화하고 File 버전 비활성화
+
+        <bean id="coreview.layout.dao" class="coreview.layout.dao.XmlDbDao" />
+        <bean id="coreview.menuDao" class="coreview.menu.dao.XmlDbMenuDao" />
+
+    1-2. LayoutManager와 MenuMgrBean에 sourceInfo Property 설정!! 파일기반은 기본이 layout.xml, sitemap.xml임
+         ** DB버전일땐 sourceInfo에 해당 사이트의 아이디를 적는다. ex)http://www.webponent.com --> webponent를 사용
+         ** Layout이 경우 sourceInfo를 사이트마다 동일한 아이디로 구성하여도 경로만 다르지 않다면 공통으로 사용 가능
+
+        <bean id="coreview.layout.layoutMgr" class="coreview.layout.LayoutManager">
+            <property name="sourceInfo" value="webponent"/><!-- db버전일땐 사이트아이디를 입력 -->
+        </bean>
+
+        <bean id="coreview.menuMgr" class="coreview.menu.bean.MenuMgrBean">
+            <property name="menuDao" ref="coreview.menuDao"/>
+            <property name="sourceInfo" value="webponent"/><!-- db버전일땐 사이트아이디를 입력 -->
+        </bean>
+
+2. 설정들이 저장될 TABLE을 생성
+
+    2-1. Oracle
+        CREATE TABLE CFT_SITEMAP (
+            SITE_ID    	 VARCHAR2(25)   NOT NULL,
+            ELEMENT_TP   VARCHAR2(25)   NOT NULL,
+            ELEMENT_ID   VARCHAR2(25)   NOT NULL,
+            ELEMENT_PID  VARCHAR2(25)   NOT NULL,
+            ELEMENT_SEQ  NUMBER(2,0)    NOT NULL,
+            ELEMENT_NM   VARCHAR2(100)  NOT NULL,
+            ELEMENT_TEXT VARCHAR2(100)  NULL,
+            JSON       	 VARCHAR2(4000) NOT NULL,
+            CONSTRAINT CFT_SITEMAP_PK  PRIMARY KEY(SITE_ID,ELEMENT_TP,ELEMENT_ID)
+        );
+
+    2-2 Mysql
+        CREATE TABLE CFT_SITEMAP (
+            SITE_ID     	varchar(25) NOT NULL,
+            ELEMENT_TP  	varchar(25) NOT NULL,
+            ELEMENT_ID  	varchar(25) NOT NULL,
+            ELEMENT_PID 	varchar(25) NOT NULL,
+            ELEMENT_SEQ 	int(2) NOT NULL,
+            ELEMENT_NM  	varchar(100) NOT NULL,
+            ELEMENT_TEXT	varchar(100) NULL,
+            JSON        	varchar(4000) NOT NULL,
+            CONSTRAINT CFT_SITEMAP_PK  PRIMARY KEY(SITE_ID,ELEMENT_TP,ELEMENT_ID)
+        );
+
+3. 필요하다면 layoutSelect, layoutTransform등 각 BLD의 <processor-info type="dbms" datasource="">부분의  datasource 설정
+
+4. 과거 버전의 esapi설정은 .xml 파일의 업로드를 허용하지 않으므로.. /WEB-INF/coreframe/security/ESAPI.properties
+    HttpUtilities.ApprovedUploadExtensions = "~~~~~~~" <-- 부분에 .xml 확장자 추가

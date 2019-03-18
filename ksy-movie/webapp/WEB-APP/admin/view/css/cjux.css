@@ -1,0 +1,344 @@
+body,div,td,th, input,textarea,select,li {
+    font-family: tahoma,arial,verdana;
+    font-size: 8pt;
+}
+
+
+/*******************
+  cjux.HtmlGrid
+*/
+
+div.tableContainer {
+	
+    margin: 0 auto;
+    border-bottom:2px solid #AFBBCA;
+	border-top:1px solid #AFBBCA;
+	border-right:0px solid #AFBBCA;
+	border-left:0px solid #AFBBCA;
+	margin:0px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border:1px solid #aaa;
+}
+
+
+div.tableContainer table{
+    border-width:0px;
+    cursor:pointer;
+    empty-cells: show;
+}
+div.tableBodyOutline {
+  background-color:#f9f9fd;	
+  margin:0px;
+}
+
+div.tableBodyOutline table{
+ border-collapse:collapse;
+ margin:0px 0px 0px 0px;
+ background-position: relative;
+}
+
+
+
+div.tableBodyOutline {
+  b_ackground-image:url('../img/table_body_bg.jpg');
+  background-repeat:repeat ;
+}
+
+div.tableContainer .tableHeadDiv{
+		background-color:#E0E7F1;
+		
+}
+
+
+table.tableHeadOutline {
+	border-collapse: collapse;
+	margin:0px;padding:0px;
+	-moz-user-select:none;
+	border:1px solid #f00;
+}
+
+table.tableHeadOutline thead
+{
+	padding:0px;
+	margin:0px;
+}
+
+
+	
+
+div.tableContainer table td   {
+    color: #000;
+    height:23px;
+    line-height:22px;
+    padding-left: 7px;
+    padding-right: 2px;
+    text-overflow : ellipsis;
+    
+    white-space: pre;
+    overflow : hidden;
+    
+    border:1px solid #ccc;
+    border-width:0px 1px 1px 0px;
+    
+}
+
+
+
+table.tableHeadOutline thead th{
+		margin:0px;
+		color:#496480;
+		background-color:#E0E7F1;
+		text-align: center;
+		text-overflow : ellipsis;
+		overflow : hidden;
+		white-space: pre;
+		padding:0px;
+		
+		height:22px;
+		border:1px solid #ccc;
+		border-width:0px 1px 1px 0px;
+}
+
+
+div.tableContainer tfoot td {
+    text-align: right;
+    height:20px;
+    font-weight: bold;
+    background-color: #ddd;
+    color: steelblue;
+    border-top: 1px solid  slategray;
+    }
+div.tableContainer tfoot input {
+  border:1px solid #ccc;
+}
+
+
+
+
+tr.selected {
+    background-color:#dde;
+    background-image:url('');
+}
+
+tr.child-selected {
+  background-color:#eee;
+}
+
+
+tr.focus {
+  background-color:#d7d7d7;
+}
+
+tr.focus td, tr.focus th{
+  border-bottom:1px solid #922;
+}
+
+
+
+div.popup {
+  background-color:#eee;
+  border:0px solid #999;
+  border-width:0px 0px 1px 0px;
+  cursor:pointer;
+}
+
+div.popup div {
+
+  padding:2px 15px 2px 5px;
+  border:1px solid #999;
+  border-width:1px 1px 0px 1px;
+}
+
+div.popup div.popup-mouseover {
+  background-color:#ddd;
+}
+
+
+div.drag {
+    background-color:#fff;
+
+}
+div.drag table {
+    border-collapse:collapse;
+}
+
+div.drag table td{
+    padding:2px 5px;
+    border: 1px solid  #ccc;
+    background-color:#ffc;
+}
+
+
+
+
+.sortAscIcon  {
+  width:9px;
+  height:8px;
+  
+  background-image:url('../img/sort_desc.gif');	
+  background-repeat:no-repeat;
+  
+  
+  
+}
+
+.sortDescIcon  {
+  width:9px;
+  height:8px;
+  
+  background-image:url('../img/sort_asc.gif');
+  background-repeat:no-repeat;
+  
+  
+  
+  
+}
+
+
+.tableBodyBackgoundForFirefox {
+	background-image:url('../img/table_body_bg_ff.jpg');
+		
+}
+
+.tableBodyBackgoundForNotFirefox {
+	background-image:url('../img/table_body_bg.jpg');	
+}
+
+div.displayProcessStatusImage{
+	width:30px;
+	height:30px;
+	display:block;
+	margin:50px auto;
+	
+	background-image:url('../img/wait30trans.gif');
+	background-repeat:no-repeat;
+	
+}
+
+
+.treegridFolderIcon{
+	width:11px;
+	height:11px;
+	display:block;
+	float:left;
+	background-image:url('../img/folder/plus.gif');
+	background-repeat:no-repeat;
+	
+}
+.treegridUnfolderIcon{
+	width:11px;
+	height:11px;
+	display:block;
+	float:left;
+	background-image:url('../img/folder/minus.gif');
+	background-repeat:no-repeat;
+	
+}
+.treegridNoChildIcon{
+	width:11px;
+	height:11px;
+	display:block;
+	float:left;
+	
+	background-image:url('../img/folder/blank.gif');
+	background-repeat:no-repeat;
+	
+}
+
+
+/*******************
+  cjux.TabManager
+*/
+
+.tabColseIcon  {
+  position: absolute;
+  width:11px;
+  height:11px;
+  margin:3px 0px 0px -2px;
+  
+  background-image:url('../img/tab-close.gif');
+  background-repeat:no-repeat;
+  
+  
+}
+ul.tabHeader{
+padding: 3px 0;
+margin: 0px;
+font: bold 12px Verdana;
+border-bottom: 1px solid gray;
+
+list-style-type: none;
+text-align: left; /*set to left, center, or right to align the menu as desired*/
+
+}
+
+ul.tabHeader li{
+display: inline;
+margin: 0;
+border: 1px solid gray;
+border-bottom: none;
+
+padding: 3px 10px;
+margin-right: 0px;
+border: 1px solid gray;
+border-bottom: none;
+border-left: none;
+background-color: #e5e5e5;
+color: #999;
+text-decoration: none;
+
+}
+
+
+.tabHeader li.selected { 
+position: relative;
+top: 1px;
+padding-top: 4px;
+background-color: #f9f9f9;
+color: #496480;
+text-decoration: none;
+border-top:2px solid #ff0000;
+}
+
+div.tabMainBody {
+ 
+ border-width:0px 1px 1px 1px;
+ 
+ 
+ 
+}
+
+iframe.tabBody {
+	width:100%;
+	height:100%;
+	border:0px solid #f00;
+	margin:0px;
+}
+
+div.tabBody {
+  height:100%;
+  padding:10px;
+}
+
+
+
+div.layout .outline {
+  border:0px solid #aaa;
+  background-color:#f9f9f9;
+  F_ilter: Alpha(Opacity=95);
+}
+
+div.layout .splitBar{
+ background--color:#fff;
+}
+
+
+div.layout .splitBar_hidden{
+ background-color:#bbb;
+ 
+}
+
+
+

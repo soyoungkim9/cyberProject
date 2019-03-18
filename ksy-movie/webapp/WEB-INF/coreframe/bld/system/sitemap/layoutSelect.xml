@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction
+    xmlns="http://www.cyber-i.com/xml/bld"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cyber-i.com/xml/bld http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+    <info>
+        <name>select</name>
+        <description>
+            <![CDATA[SITE_ID 이용하여 layout정보를 가져옴]]>
+        </description>
+        <author>neoxeni</author>
+        <id>26ceba2b0e1b5ad671d7</id>
+        <version>1.0</version>
+        <http-access>true</http-access>
+        <status>confirmation</status>
+        <effective-date> </effective-date>
+        <open-api>false</open-api>
+    </info>
+    <processor-info type="dbms" datasource="">
+        <transaction-type></transaction-type>
+        <script language="java" import="">
+            <![CDATA[
+                String sqlId = input.getText("sqlId");
+                if("".equals(sqlId)){
+                    executeSQL("selectBySiteID",connection,input,output);
+                }else{
+                    executeSQL(sqlId,connection,input,output);
+                }
+            ]]>
+        </script>
+        <sql id="selectBySiteID">
+            <query type="normal">
+                <![CDATA[
+               SELECT SITE_ID, ELEMENT_TP, ELEMENT_ID, ELEMENT_PID, ELEMENT_SEQ, ELEMENT_NM, ELEMENT_TEXT, JSON
+               FROM CFT_SITEMAP
+               WHERE SITE_ID = :SITE_ID
+               AND ( ELEMENT_TP = 'layout' OR ELEMENT_TP = 'device')
+                ]]>
+            </query>
+            <mapping>
+                <setProperty/>
+                <getProperty></getProperty>
+            </mapping>
+        </sql>
+        <sql id="selectByParentID">
+            <query type="normal">
+                <![CDATA[
+               SELECT SITE_ID, ELEMENT_TP, ELEMENT_ID, ELEMENT_PID, ELEMENT_SEQ, ELEMENT_NM, ELEMENT_TEXT, JSON
+               FROM CFT_SITEMAP
+               WHERE SITE_ID = :SITE_ID
+               AND ELEMENT_PID = :ELEMENT_PID
+               AND ELEMENT_TP = :ELEMENT_TP
+                ]]>
+            </query>
+            <mapping>
+                <setProperty/>
+                <getProperty></getProperty>
+            </mapping>
+        </sql>
+        <sql id="selectByElementID">
+            <query type="normal">
+                <![CDATA[
+               SELECT SITE_ID, ELEMENT_TP, ELEMENT_ID, ELEMENT_PID, ELEMENT_SEQ, ELEMENT_NM, ELEMENT_TEXT, JSON
+               FROM CFT_SITEMAP
+               WHERE SITE_ID = :SITE_ID
+               AND ELEMENT_ID = :ELEMENT_ID
+               AND ELEMENT_TP = :ELEMENT_TP
+                ]]>
+            </query>
+            <mapping>
+                <setProperty/>
+                <getProperty></getProperty>
+            </mapping>
+        </sql>
+    </processor-info>
+    <input>
+        <block name="InBlock_1" label="InBlock_1" id="InBlock_1">
+            <field name="SITE_ID" label="사이트아이디"  type="string" />
+            <field name="ELEMENT_TP" label="엘리먼트구분"  type="string" >device, layout</field>
+            <field name="ELEMENT_ID" label="엘리먼트아이디"  type="string" />
+            <field name="ELEMENT_PID" label="부모엘리먼트아이디"  type="string" />
+        </block>
+    </input>
+    <output>
+        <block name="OutBlock_1" label="OutBlock_1" id="OutBlock_1">
+            <field name="SITE_ID" label="사이트아이디"  type="string" />
+            <field name="ELEMENT_TP" label="엘리먼트구분"  type="string" >device, layout</field>
+            <field name="ELEMENT_ID" label="엘리먼트아이디"  type="string" />
+            <field name="ELEMENT_PID" label="부모엘리먼트아이디"  type="string" />
+            <field name="ELEMENT_SEQ" label="엘리먼트순번"  type="int" />
+            <field name="ELEMENT_NM" label="엘리먼트이름"  type="string" />
+            <field name="ELEMENT_TEXT" label="엘리먼트내용"  type="string" />
+            <field name="JSON" label="추가속성JSON"  type="string" />
+        </block>
+    </output>
+</transaction>

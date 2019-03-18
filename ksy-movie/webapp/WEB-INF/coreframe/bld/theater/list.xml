@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>예약가능목록</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="list">
+      <query>
+        <![CDATA[
+          SELECT theater.tno, name, mno, ano, tino, TO_CHAR(theaterinfo.time, 'HH24:MI'), theaterinfo.seatlimit
+          FROM theater
+          INNER JOIN theaterinfo ON theater.tno = theaterinfo.TNO
+                                  AND mno = :infomno AND ano = :infoano
+          ORDER BY theaterinfo.time ASC
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>theater.tno, name, mno, ano, tino, theaterinfo.time, theaterinfo.seatlimit</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+      <field name="infomno" type="string" label="상영관영화번호"></field>
+      <field name="infoano" type="string" label="상영관지역번호"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+      <field name="ano" type="string" label="지역번호"></field>
+      <field name="theater.tno" type="string" label="상영관번호"></field>
+      <field name="name" type="string" label="상영관이름"></field>
+      <field name="mno" type="string" label="상영관영화번호"></field>
+      <field name="tino" type="string" label="상영정보번호"></field>
+      <field name="theaterinfo.time" type="string" label="상영시간"></field>
+      <field name="theaterinfo.seatlimit" type="string" label="전체좌석"></field>
+    </block>
+  </output>  
+
+</transaction>

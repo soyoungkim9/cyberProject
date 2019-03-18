@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<transaction name="createCity" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+
+	<info>
+		<name></name>
+	</info>
+
+
+	<processor-info type="dbms">
+		<sql id="query1">
+			<query type="">
+			</query>
+			<mapping>
+				<setProperty></setProperty>
+
+				<getProperty>test</getProperty>
+
+			</mapping>
+
+		</sql>
+	</processor-info>
+
+
+	<input>
+		<block>
+			<field name="namte" type="string" />
+		</block>
+	</input>
+
+
+	<output>
+		<block name="test">
+			<field name="test" type="int" />
+			<field name="group" type="int" />
+			<field name="test" type="int" />
+
+
+
+		</block>
+	</output>
+</transaction>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>New Grid</title>
+<script type="text/javascript" src='../../../jslib/jquery.js'></script>
+<script type="text/javascript" src="../jquery.dataGrid.js"></script>
+<script type="text/javascript">
+
+	var grid1;
+	var grid2;
+	$(document).ready(function() {
+		grid1 = $.dataGrid('#tbl1', {
+			width 	:  800,
+			height 	:  200,
+			onclick :  function(td){
+				alert(td.innerHTML);
+				//부모인 TR이 필요 하다면
+				//grid1.getRowFromChild(td);
+			}
+		});
+		
+		grid2 = $.dataGrid('#tbl2', {
+			width 	:  800,
+			height 	:  200
+		});
+		
+		send();
+	});
+	
+	function send() {
+		var f = $('#excform');
+		grid1.updateBody(f);
+		grid2.updateBody(f);
+		return false;
+	}
+</script>
+
+</head>
+<body>
+	<form id="excform" action="../../../../../corelogic/process/samples/database/listCities.xhtml?data-only=true" method="post" onSubmit="return send()">
+		<table border="1">
+			<tr>
+				<th>name : <input type="text" name="name" value="" /></th>
+				<td><input type="submit" value="execute" /></td>
+			</tr>
+		</table>
+	</form>
+	
+	<h1>onclick 이벤트 설정 ( onclick :  function(td){alert(td.innerHTML);} )</h1>
+	<table id="tbl1" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h1>onclick 이벤트 설정 ( onclick : undefined )</h1>
+	<table id="tbl2" >
+		<colgroup>
+			<col id="col_id"             width="50"  align="left"   />
+			<col id="col_name"           width="100" align="center" />
+			<col id="col_country"        width="120" align="center" />
+			<col id="col_airport"        width="70"  align="left"   />
+			<col id="col_language"       width="150" align="left"   />
+			<col id="col_countryIsoCode" width="" 	 align="left"   />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>country</th>
+				<th>airport</th>
+				<th>language</th>
+				<th>countryIsoCode</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

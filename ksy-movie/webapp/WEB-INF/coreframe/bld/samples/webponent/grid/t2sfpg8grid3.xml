@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+
+<!--
+코스피,코스닥 구분을 해야하는데....?
+-->
+<!--  protocolName="db1" -->
+<transaction name="t2sfpg8grid3" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+<processor-info datasource="" type="dbms">
+
+<!--script language="java" import="">
+<![CDATA[
+
+  System.out.println( ">>>>>>>"+input.getText("DT") +"<<<<<<<");
+  executeSQL("query1", connection, input, output);
+
+]]>
+</script-->
+  <transaction-type></transaction-type>
+  <sql id="query1">
+    <query>
+SET ROWCOUNT 20
+
+SELECT SEC_NM, SEC_FUND_WG, SEC_STOCK_WG, b.MKT_RATIO
+FROM MONTHLY_FUND_STK_SEC a , MONTHLY_STK_ANL b
+WHERE a.DT=(SELECT MAX(DT) FROM MONTHLY_FUND_STK_SEC WHERE DT &lt;=? AND FUND_CD=? AND MKT_DS='1')
+AND a.FUND_CD=?
+AND a.MKT_DS='1'
+AND a.SEC_CD = b.SEC_CD
+AND a.DT = b.DT
+ORDER BY SEC_FUND_WG DESC
+at isolation 0
+
+SET ROWCOUNT 0
+
+	</query>
+    <mapping>
+      <setProperty>DT,FUND_CD,FUND_CD</setProperty>
+      <getProperty>SEC_NM, SEC_FUND_WG, SEC_STOCK_WG, SEC_STOCK_MKT_WG</getProperty>
+    </mapping>
+  </sql>
+</processor-info>
+
+<input>
+  <block name="arg" repeat="1">
+    <field name="DT" type="string" default="20050701"></field>
+	  <field name="FUND_CD" type="string" default="KR5105354777"></field>
+  </block>
+</input>
+
+<output>
+  <block name="result" repeat="">
+	  <field label="종목명"		name="SEC_NM"			size="78"	type="string" properties="grid-align:M"></field>
+    <field label="펀드내비중"	name="SEC_FUND_WG"		size="62"	type="float" format="#,##0.00" properties="grid-type:CI"></field>
+    <field label="주식내비중"	name="SEC_STOCK_WG"		size="62"	type="float" format="#,##0.00" properties="grid-type:CI"></field>
+    <field label="시장비중"		name="SEC_STOCK_MKT_WG"	size="50"	type="float" format="#,##0.00" properties="grid-type:CI"></field>
+    
+  </block>
+</output>
+
+</transaction>

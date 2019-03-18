@@ -1,0 +1,163 @@
+@CHARSET "UTF-8";
+
+.CodeMirror {
+	height: 700px;
+}
+
+#htmlview {
+	width: 50%;
+	float: left;
+}
+
+#scriptview {
+	width: 50%;
+	float: right;
+}
+
+#preview{
+	border:1px solid black;
+	padding:5px;
+	margin-bottom: 5px;
+	max-height: 300px;
+	overflow: auto;
+}
+
+#description{
+	margin-bottom: 5px;
+	display:none;
+}
+
+.description-item{
+	border: 1px solid black;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+.bind-description{
+	border-top:1px solid #dfdfdf;
+	margin-top:5px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table tr{ border:1px solid black;}table td{ border:1px solid black;}table th{ border:1px solid black;}
+
+.fr {
+	float: right;
+}
+
+.fl {
+	float: left;
+}
+
+.clear {
+	clear: both;
+}
+
+.examBox {
+	border: 1px solid black;
+	padding:5px;
+	margin-left: 5px;
+	height:100%;
+}
+
+.jisu-ul{
+    list-style: none;
+}
+
+.jisu-ul li{
+    display: inline-block;
+    width: 16%;
+}
+
+
+.hoka-table TD{
+	text-align: right;
+}
+
+
+
+.div-layout{
+	
+	
+}
+
+.div-layout.two > div{
+    width:49%;
+    float:right;
+}
+.div-layout.two > div.first{
+    float:left;
+}
+
+.div-layout.three > div{
+    width:32%;
+    float:left;
+    margin-left: 2%;
+}
+.div-layout.three > div.first{
+    float:left;
+    margin-left: 0;
+}
+
+
+
+
+
+
+
+
+
+tr.hover{
+    background-color: #e9e9e9 !important;
+}
+
+tr.CI-GRID-ROW-SELECTED{
+    background-color: #d1d1d1 !important;
+}
+
+tr.even{
+	background-color: #edf6f9;
+}
+
+/* 실시간 셀렉트된 색상 */
+.p-on-r .c-on-r {
+  background-color: #f8f8dd !important;
+}
+
+.cb {
+    color: #0046a6 !important;
+    font-style: normal;
+}
+
+.cr {
+    color: #b70001 !important;
+    font-style: normal;
+}
+
+.wfl {
+  background-image: url('/WEB-APP/webponent/databind/sample/buho_sprite.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  margin-top: 4px;
+  width: 15px;
+  height: 15px;
+  float: left;
+}
+.wfl.f1 {
+  background-position: 0 3px;
+}
+.wfl.f2 {
+  background-position: -16px 3px;
+}
+.wfl.f3 {
+  background-position: -32px 3px;
+}
+.wfl.f4 {
+  background-position: -48px 3px;
+}
+.wfl.f5 {
+  background-position: -64px 3px;
+}

@@ -1,0 +1,236 @@
+#calendar_Box {
+    margin-top: 30px;
+}
+#ticket_Picker_Box {
+    border-top: 2px solid black;
+    clear: both;
+    display: inline-block;
+    width: 100%;
+    height: 400px;
+}
+
+#ticket_Picker_Box > div > div > h3 {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+#ticket_Picker_Box > div > div:nth-child(2) {
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+#ticket_right > div:nth-child(2) {
+    padding-left: 0 !important;
+}
+
+#ticket_left > div:nth-child(1), #ticket_right > div:nth-child(1) {
+    border-bottom: 1px solid #dedede;
+}
+
+#ticket_left{
+    float: left;
+    width: 59%;
+    border-right: 1px solid #c0c0c0;
+    height: inherit;
+}
+
+#ticket_right{
+    float: left;
+    width: 40.6%;
+    height: inherit;
+}
+
+#selectMv_Area_Box {
+    display: inline-block;
+    width: 980px;
+    background: #dad2b4;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+#selectMv_Area_Box > dl {
+    margin-right: 45px;
+    display: inline-block;
+}
+
+#selectMv_Area_Box > dl > dt, #selectMv_Area_Box > dl > dd {
+    display: inline-block;
+}
+
+#selectMv_Area_Box > dl > dd {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 3px;
+}
+
+#area_Zone {
+    float: left;
+    width: 25%;
+}
+
+#area_Zone_Content {
+    float: right;
+    width: 73%;
+}
+
+.city_selected {
+    background: #231f20;
+    color: white !important;
+}
+
+#area_Zone > ul > li {
+    color: #666666;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#area_Zone > ul > li > a, #area_Zone_Content > ul > li > a {
+    display: inherit;
+    padding: 10px;
+}
+
+#area_Zone_Content > ul > li > a {
+    display: block;
+}
+
+#area_Zone_Content > ul > li {
+    display: inline-block;
+    background: #efefef;
+    width: 30%;
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 7px;
+    margin-right: 1px;
+    line-height: 18px;
+}
+
+#tab {
+    height: 25px;
+    font-size: 14px;
+    color: #231f20;
+}
+
+#tab > ul {
+    float: right;
+}
+
+#tab > ul > li {
+    display: inline-block;
+    border-right: 1px solid #dedede;
+    padding-right: 13px;
+}
+
+#movieList > ul > li > a {
+    display: inherit;
+}
+
+#tab > ul > li:nth-child(2) {
+    border-right: none;
+    padding-left: 8px;
+}
+
+.ageStyle {
+    border-radius: 50%;
+    padding: 2px 4px;
+    font-size: 11px;
+    color: white;
+    margin-right: 10px;
+    margin-left: 23px;
+}
+
+#movieList {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#movieList > ul > li {
+    line-height: 38px;
+    font-size: 15px;
+    margin: 6px 0;
+}
+
+.tabStyle {
+    font-weight: bold;
+}
+
+.area_selected {
+    border: 1px solid #999;
+    font-weight: bold;
+    color: black;
+    background: white;
+}
+
+.movie_selected {
+    border: 1px solid #999;
+    font-weight: bold;
+    color: black;
+}
+
+#time_noData {
+    color: #777;
+    text-align: center;
+    height: 324px;
+    font-size: 18px;
+    line-height: 250px;
+}
+
+.time_title {
+    background: #efebdb;
+    padding: 17px;
+    font-size: 17px;
+}
+
+.time_line {
+    margin-bottom: 35px;
+}
+.time_line > dd {
+    margin-left: 26px;
+    margin-top: 16px;
+}
+
+.time_line > dd > ul > a {
+    display: inline-block;
+    width: 12.5%;
+}
+
+.time_line > dd > ul > a:hover {
+    background: #efeaea;
+}
+
+.time_line > dd > ul > a > li {
+    border: 1px solid #e5e5e5;
+    display: inline-block;
+    width: 115px;
+    margin: 1px;
+    color: #666666;
+}
+
+.time_line > dd > ul > a > li > span {
+    border-bottom: 1px solid #e5e5e5;
+    display: block;
+    text-align: center;
+}
+
+.time_line > dd > ul > a > li > span:last-child {
+    border-bottom: none;
+}
+
+.theater_name, .theater_seat {
+    font-size: 13px;
+}
+
+.theater_time {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 38px;
+}
+
+.theater_time_delete {
+    color: #b9b9b9 !important;
+    cursor: default;
+}

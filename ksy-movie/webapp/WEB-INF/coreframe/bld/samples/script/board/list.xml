@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='euc-kr'?>
+
+<transaction name='list' xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <processor-info type='java' datasource=''>
+    <script language='java' import=''>
+		<![CDATA[
+			
+			output.add("id","1");
+			output.add("title","board title 1");
+			output.add("writer","manpower");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","2");
+			output.add("title","board title 2");
+			output.add("writer","charlie");
+			output.add("date","20060202");
+			output.add("active","0");
+			
+			output.add("id","3");
+			output.add("title","board title 3");
+			output.add("writer","cyber");
+			output.add("date","20060201");
+			output.add("active","0");
+			
+			
+			output.add("id","4");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","5");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","6");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","7");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","8");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","9");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+			output.add("id","10");
+			output.add("title","anyXFORM 데모 시험중");
+			output.add("writer","관리자");
+			output.add("date","20060201");
+			output.add("active","1");
+			
+		]]>
+    </script>
+  </processor-info>
+  <input>
+    <block>
+
+    </block>
+  </input>
+  <output>
+    <block name="board">
+      <field name="id" type="string" label="" />
+      <field name="title" type="string" label="" />
+      <field name="writer" type="string" label="" />
+      <field name="date" type="string" label=""
+        format="yyyyMMdd->yyyy/MM/dd" />
+      <field name="active" type="string" label="" default="0" />
+    </block>
+  </output>
+</transaction>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- bld data transformer -->
+	<bean id="transform.xml" class="corelogic.transform.impl.XmlTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.soap" class="corelogic.transform.impl.SoapTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.json" class="corelogic.transform.impl.JSONTransformerImpl"
+	scope="prototype"/>
+    <bean id="transform.htm" class="corelogic.transform.impl.HtmlTransformerImpl"
+    scope="prototype"/>
+	<bean id="transform.html" class="corelogic.transform.impl.HtmlTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.xhtml" class="corelogic.transform.impl.XhtmlTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.cvs" class="corelogic.transform.impl.CommaTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.txt" class="corelogic.transform.impl.TabSplitTextTransformerImpl"
+	scope="prototype"/>
+	<bean id="transform.binary" class="corelogic.transform.impl.BinaryTransformerImpl"
+	scope="prototype"/>
+
+	<!-- bld schema transformer -->
+	<bean id="schemaTransform.xml" class="corelogic.transform.schema.impl.XmlSchemaTransformer"/>
+	<bean id="schemaTransform.xsd" class="corelogic.transform.schema.impl.XsdSchemaTransformer"/>
+	<bean id="schemaTransform.wsdl" class="corelogic.transform.schema.impl.WsdlSchemaTransformer">
+		<!-- <property name="wsdlTemplateFilePath" value="${COREFRAME_CONFIG_HOME}/wsdl/wsdl_templates.txt" /> -->
+	</bean>
+	
+	<bean id="schemaTransform.json" class="corelogic.transform.schema.impl.JSONSchemaTransformer"/>
+
+	<!-- bld source generator -->
+	<bean id="corelogic.sourceGenerator.jsp" class="corelogic.transform.sourcecode.impl.JspSourceGenerator"/>
+	<bean id="corelogic.sourceGenerator.jstl" class="corelogic.transform.sourcecode.impl.JstlSourceGenerator"/>
+	<bean id="corelogic.sourceGenerator.ajax" class="corelogic.transform.sourcecode.impl.AjaxSourceGenerator"/>
+
+</beans>

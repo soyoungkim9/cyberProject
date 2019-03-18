@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+body{
+	font-size: 15px;
+}
+
+.contents{
+	position: absolute; 
+	left: 100%; 
+	width:100%;
+}
+
+caption.tableCaption{
+	text-align:left;
+	width:100%;
+	height:40px;
+}
+
+table.dateTable {
+	width:100%;
+	text-align: center;
+	padding-top: 2px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	border: 1px solid #DDDDDD;
+}
+
+table.dateTable tr {
+	border: 1px solid #FFFFFF;
+	border-bottom-color: #DDDDDD;
+	height: 30px;
+}
+
+table.dateTable th {
+	background-color: #F5F5F5;
+	font-weight: normal;
+}
+
+table.kidtab {
+	width: 100%;
+	text-align: center;
+	padding-top: 2px;
+	font-size: 15px;
+	background-color: #F5F5F5;
+	margin-bottom: 10px;
+}
+
+table.kidtab td {
+	border: 1px solid #DDDDDD;
+	height: 37px;
+}
+
+table.kidtab .ton {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #F5F5F5;
+}
+
+
+table.flashTable {
+	width: 100%;
+	font-size: 15px;
+	height: 100px;
+	border: 1px solid #DDDDDD;
+}
+
+table.dtb {
+	width: 100%;
+	text-align: center;
+	padding-top: 2px;
+	font-size: 15px;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+table.dtb td {
+	border: 1px solid #DDDDDD;
+	height: 37px;
+}
+
+table.dtb .ton {
+	background-color: #F5F5F5;
+}
+
+table.dstb {
+	width: 100%;
+	background-color: #FFFFFF;
+	margin-bottom: 0px;
+	border: 1px solid #DDDDDD;
+}
+
+table.dstb th {
+	text-align: left;
+	font-size: 15px;
+}
+
+table.dstb tr {
+	height: 20px;
+}
+
+table.dstb td {
+	text-align: left;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+table.dstb .bktd {
+	height: 10px;
+}
+
+.blueTD {
+	color: #176AD9;
+	font-weight: bold;
+}
+
+.redTD {
+	color: #D30000;
+	font-weight: bold;
+}
+
+.tableInfo {
+	width: 100%;
+	margin-top: 0px;
+	text-align: center;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+	border: 1px solid #DDDDDD;
+}
+
+table.table_jisu {
+	width: 100%;
+	font-size: 15px;
+	height: 100px;
+	border: 0px;;
+}
+
+.iconLayout{
+	float: right;
+	margin-bottom: 10px;
+}

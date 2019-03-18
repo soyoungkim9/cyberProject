@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<transaction name=""  xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+  <info>
+    <name>list</name>
+    <description>영화목록 리스트</description>
+    <author>김소영</author>
+    <version></version>
+    <http-access>true</http-access>
+  </info>
+  
+  <processor-info type="dbms" datasource="ksyboard">
+    <transaction-type></transaction-type>
+    <sql id="listCurrent">
+      <query>
+        <![CDATA[
+          SELECT m.mno, name, TO_CHAR(sdt, 'yyyy.mm.dd'), age, genre, fileurl, director, nation, actor, ex, ROUND(NVL(SUM(NULLIF(c.grade, 0))/COUNT(c.mno), 0), 1) AS result
+          FROM movie m FULL OUTER JOIN comments c ON m.mno = c.mno
+          FULL OUTER JOIN seat s ON m.mno = s.mno
+          WHERE m.mno = :mno
+          GROUP BY m.mno, name, TO_CHAR(sdt, 'yyyy.mm.dd'), age, genre, fileurl, director, nation, actor, ex
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>m.mno, name, sdt, age, genre, fileurl, director, nation, actor, ex, result</getProperty>
+      </mapping>
+    </sql>
+  </processor-info>
+  
+  <input>
+    <block name="InBlock_1">
+        <field name="mno" type="string" label="영화번호"></field>
+    </block>
+  </input>
+  
+  <output>
+    <block name="OutBlock_1">
+      <field name="m.mno" type="string" label="영화번호"></field>
+      <field name="name" type="string" label="영화이름"></field>
+      <field name="age" type="string" label="관람나이"></field>
+      <field name="sdt" type="string" label="개봉일"></field>
+      <field name="genre" type="string" label="장르번호"></field>
+      <field name="fileurl" type="string" label="영화이미지"></field>
+      <field name="director" type="string" label="감독"></field>
+      <field name="nation" type="string" label="국가"></field>
+      <field name="actor" type="string" label="배우"></field>
+      <field name="ex" type="string" label="설명"></field>
+      <field name="result" type="string" label="평점평균"></field>
+    </block>
+  </output>  
+
+</transaction>

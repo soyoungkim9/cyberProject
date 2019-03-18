@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+
+
+  <bean id="corelogic.httpCommandManager" class="corelogic.servlet.CommandManager">
+    <property name="commandMap">
+      <map>
+        <entry key="process" value-ref="corelogic.BldExecutorCommand" />
+        <entry key="ioschema" value-ref="corelogic.BldSchemaCommand" />
+        <entry key="source" value-ref="corelogic.codeGenCommand" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="corelogic.BldExecutorCommand" class="corelogic.servlet.command.BldExecutorCommand" />
+
+  <bean id="corelogic.BldSchemaCommand" class="corelogic.servlet.command.BldSchemaCommand" />
+  
+  <bean id="corelogic.codeGenCommand" class="corelogic.servlet.command.CodeGenCommand" />
+
+
+
+</beans>

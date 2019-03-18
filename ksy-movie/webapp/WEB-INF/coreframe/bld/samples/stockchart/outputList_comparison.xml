@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+
+<transaction name="outputList_comparison" xmlns="http://www.cyber-i.com/xml/bld"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
+	<processor-info datasource="wpfChart" type="dbms">
+		<script language="java"><![CDATA[
+		
+			if("2".equals(input.getText("dateGubun"))) {	//주봉
+				executeSQL("weekData", connection, input, output);
+			} else if("3".equals(input.getText("dateGubun"))) {	//월봉
+				executeSQL("monthData", connection, input, output);
+			} else {	//일봉						
+				if(!"".equals(input.getText("stDate"))) {
+					executeSQL("dayDataAfter", connection, input, output);
+				} else {
+					executeSQL("dayData", connection, input, output);	
+				}
+			}		
+				
+		]]></script>
+		<transaction-type></transaction-type>
+
+		<sql id="dayData">
+			<query><![CDATA[
+				
+				SELECT TRD_DD, CLSPRC, CODE
+				  FROM CHART_TEST_DATA
+				 WHERE CODE IN (${code})
+				   AND TRD_DD BETWEEN ? AND ?
+				 ORDER BY TRD_DD  
+				
+			]]></query>
+			<mapping>
+				<setProperty>sDate, eDate</setProperty>
+				<getProperty>axis, close, code</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="dayDataAfter">
+			<query><![CDATA[
+				 		
+				SELECT TRD_DD, CLSPRC, CODE 
+				  FROM (
+				        SELECT TRD_DD, CODE, CLSPRC, ROW_NUMBER() OVER (PARTITION BY CODE ORDER BY CODE, TRD_DD DESC) RN
+				         FROM CHART_TEST_DATA
+				        WHERE CODE IN (${code})
+				          AND TRD_DD <= ?
+				       )
+				 WHERE RN <= 100      
+				 ORDER BY CODE,TRD_DD		
+				 		
+			]]></query>
+			<mapping>
+				<setProperty>stDate</setProperty>
+				<getProperty>axis, close, code</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="weekData">
+			<query>
+		        SELECT TRD_DD, CLSPRC, CODE
+		         FROM CHART_TEST_DATA
+		        WHERE CODE IN (${code})
+		          AND TO_CHAR(TO_DATE(TRD_DD,'YYYYMMDD'),'D') = 2
+		        ORDER BY CODE,TRD_DD
+			</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>axis, close, code</getProperty>
+			</mapping>
+		</sql>
+
+		<sql id="monthData">
+			<query>
+				SELECT a.TRD_DD, a.CLSPRC, a.CODE
+				FROM CHART_TEST_DATA a,
+					 (SELECT MIN(TRD_DD) TRD_DD FROM SCOTT.CHART_TEST_DATA GROUP BY SUBSTR(TRD_DD,1,6)) b
+				WHERE a.TRD_DD = b.TRD_DD
+				AND a.CODE IN (${code})
+				ORDER BY a.CODE, a.TRD_DD	 
+			</query>
+			<mapping>
+				<setProperty></setProperty>
+				<getProperty>axis, close, code</getProperty>
+			</mapping>
+		</sql>
+	</processor-info>
+
+	<input>
+		<block name="arg">
+			<field name="code" type="string"></field>
+			<field name="sDate" type="string"></field>
+			<field name="eDate" type="string"></field>
+			<field name="stDate" type="string"></field>
+		</block>
+	</input>
+
+	<output>
+		<block name="result">
+			<field name="axis" type="string"></field>
+			<field name="close" type="string"></field>
+			<field name="code" type="string"></field>
+		</block>
+	</output>
+
+</transaction>

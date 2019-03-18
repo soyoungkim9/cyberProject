@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+  <bean id="coreframe.serviceManager" class="coreframe.service.ServiceManager" />
+
+
+  <!-- DB Pooling Service -->
+  <bean id="coreframe.dbPoolService" class="coreframe.db.DbPoolService">
+    <property name="serviceManager" ref="coreframe.serviceManager" />
+  </bean>
+
+
+  <bean id="corelogic.connectionFactory" class="corelogic.adapter.BaseConnectionFactory">
+    <property name="bldServerUrl" value="" />
+  </bean>
+
+
+  <!-- Adapter Management Service -->
+  <bean id="corelogic.adapterService" class="corelogic.spi.management.AdapterManagementService">
+    <property name="serviceManager" ref="coreframe.serviceManager" />
+    <property name="dependencyServiceIds" value="coreframe.dbPoolService" />
+  </bean>
+  
+<!--   
+   <bean id="coreframe.frameworkFileWriteService" class="coreframe.io.distrib.DistributeFileWriteService">
+     <property name="multicastIp" value="239.1.1.1" />
+     <property name="multicastPort" value="12000" />
+     <property name="serviceManager" ref="coreframe.serviceManager" />
+   </bean>
+ -->  
+
+
+</beans>

@@ -1,0 +1,128 @@
+h3 {
+    font-size: 22px;
+}
+.ticket_box {
+    border: 1px solid #e5e5e5;
+    display: inline-block;
+    width: 100%;
+    color: #4b4646;
+    margin-bottom: 20px;
+}
+
+.ticket_box:first-child {
+    margin-top: 20px;
+}
+
+#tab {
+    border-bottom: 1px solid #231f20;
+    height: 42px;
+}
+
+#tab > li {
+    background: #231f20;
+    color: #cdc197;
+    float: left;
+    display: inline-block;
+    width: 139px;
+    height: 42px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.ticket_number, .ticket_date, .ticket_time, .ticket_location, .ticket_seat, .ticket_charge {
+    margin-left: 0;
+}
+
+.ticket_number_box {
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+    padding: 2px 0 5px 24px;
+}
+
+.ticket_number_box > dt {
+    width: 20%;
+    display: inline-block;
+}
+
+.ticket_number {
+    width: 79%;
+    display: inline-block;
+}
+
+.ticket_menu {
+    font-size: 15px;
+    float: right;
+    position: relative;
+    top: 155px;
+    right: 22px;
+}
+
+.ticket_img {
+    float: left;
+    padding-left: 32px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+
+.ticket_img > img {
+    width: 100px;
+}
+
+.ticket_info {
+    float: left;
+    margin: 0;
+}
+
+.ticket_info_detail {
+    line-height: 22px;
+}
+
+.ticket_info_detail > dt {
+    width: 30%;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.ticket_info_detail > dd {
+    width: 69%;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.ticket_charge_box {
+    display: inline-block;
+    width: 96.9%;
+    border-top: 1px solid #e5e5e5;
+    margin: 0;
+    font-size: 15px;
+    padding: 8px 0 8px 30px;
+    background: #f9f6ec;
+}
+
+.ticket_charge_box > dt {
+    width: 30%;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.ticket_charge_box > dd {
+    width: 69%;
+    font-size: 15px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.ticket_menu > a {
+    margin-left: 12px;
+    color: #F44336;
+}
+
+.tabCss1 {
+    font-weight: lighter !important;
+}
+
+.success_Btn {
+    color: #3F51B5 !important;
+}
