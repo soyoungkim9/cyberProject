@@ -13,15 +13,15 @@
   
   <processor-info type="dbms" datasource="ksyboard">
     <transaction-type></transaction-type>
-    <sql id="insert">
+    <sql id="list">
       <query>
         <![CDATA[
-          SELECT id FROM member WHERE id LIKE '${id}'
+          SELECT mno, id FROM member WHERE id LIKE '${id}'
         ]]>
       </query>
       <mapping>
         <setProperty></setProperty>
-        <getProperty>id</getProperty>
+        <getProperty>mno, id</getProperty>
       </mapping>
     </sql>
   </processor-info>
@@ -35,6 +35,7 @@
   <output>
     <block name="OutBlock_1">
       <field name="id" type="string" label="회원아이디"></field>
+      <field name="mno" type="string" label="회원번호"></field>
     </block>
   </output>  
 

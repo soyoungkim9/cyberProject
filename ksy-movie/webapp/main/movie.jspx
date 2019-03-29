@@ -7,6 +7,8 @@
     <jsp:directive.page import="java.util.List"/>
     <jsp:directive.page import="java.util.ArrayList"/>
     <jsp:directive.page import="java.net.URLDecoder"/>
+    <jsp:directive.page import="java.util.HashMap"/>
+    <jsp:directive.page import="java.util.Map"/>
     <c:set scope="request" var="viewpage.prefix" value="/main/movie/"/>
     <c:set scope="request" var="viewpage.postfix" value=".jsp"/>
     <jsp:declaration><![CDATA[//
@@ -19,9 +21,14 @@
             DataSet input = view.getInputDataSet();
 
             DataSet output1 = executeBL("member/list", input);
-            if(output1.toList().size() != 0) return;
-
-            DataSet output2 = executeBL("member/insert", input);
+            if(output1.toList().size() != 0) {
+                return;
+            } else {
+                executeBL("member/insert", input);
+                output1 = executeBL("member/list", input);
+                input.put("mno", output1.getInt("mno"));
+                executeBL("member/insert", input);
+            }
         }
 
         public void getPage(ViewMeta view, String bld, int viewSize) throws IOException {
@@ -253,10 +260,44 @@
             executeBL("comments/update", input);
         }
 
-        public void getpdf(ViewMeta view) throws IOException {
+        public void registerMember(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            String method = view.getHttpServletRequest().getMethod();
 
+            if("POST".equals(method)) {
+                Map<String, Boolean> errors = new HashMap<String, Boolean>();
+                if(input.getText("id") == "") {
+                    errors.put("id", Boolean.TRUE);
+                }
+                if(input.getText("password") == "") {
+                    errors.put("pwd", Boolean.TRUE);
+                }
+                if(input.getText("confirmPassword") == "") {
+                    errors.put("confirmPwd", Boolean.TRUE);
+                }
+                if(input.getText("name") == "") {
+                    errors.put("name", Boolean.TRUE);
+                }
+                if(input.getText("gender", 0).equals("0")) {
+                    errors.put("gender", Boolean.TRUE);
+                }
+                if(input.getText("birth") == "") {
+                    errors.put("birth", Boolean.TRUE);
+                }
+
+                // 공백입력불가처리와 한글 입력시 엄청난 에러가 발생함 이거 처리!!
+                // 이미 존재하는 아이디도 처리 (중복확인 버튼 별도로 추가 / 중복된 아이디이면 가입불가)
+                // 일치하지 않는 비밀번호도 처리 (비밀번호 일치여부 함수 따로 만들기 / 비밀번호 변경시에도 써야하니까)
+
+                view.setAttribute("errors", errors);
+                if(!errors.isEmpty()) {
+                    view.setViewName("registerMember");
+                }
+            } else {
+                System.out.println("설마 너도?!");
+                view.setViewName("registerMember");
+            }
         }
-
 
 
 

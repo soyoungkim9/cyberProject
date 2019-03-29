@@ -51,7 +51,7 @@
 		<!-- 1. DB 커넥션 풀 설정 -->
 		<ksyboard driver="oracle.jdbc.driver.OracleDriver"
 				  url="jdbc:oracle:thin:@localhost:1521:orcl"
-				  props="user=movie;password=****"
+				  props="user=movie;password=0911"
 				  initialCapacity="1"
 				  maxCapacity="10"
 				  capacityIncrement="1"

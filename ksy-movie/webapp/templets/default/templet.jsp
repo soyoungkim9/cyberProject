@@ -20,6 +20,7 @@
 			<li id="logoutBtnBox"><a id="logoutBtn">로그아웃</a></li>
 			<li id="mypageBtnBox"><a href='/main/movie/mypage.jsp'>마이페이지</a></li>
 			<li id="statusBox"><a id="status"></a></li>
+			<li id="joinBtnBox"><a href='/main/movie/registerMember.cmd'>회원가입</a></li>
 			<li id="loginBtnBox"><a id="loginBtn">로그인</a></li>
 		</ul>
 	</div>
@@ -112,7 +113,7 @@
                         // console.log(authObj.access_token); // 토큰값 출력!!
 						var email = res.kaccount_email;
 						var id = email.split('@')[0];
-						$.post("insertMember.cmd", {id : id});
+						$.post("insertMember.cmd", {id : id, name : res.properties['nickname']});
 						location.reload();
                     }
                 });
@@ -127,6 +128,7 @@
     Kakao.Auth.getStatus(function(statusObj){
         if(statusObj.status == "not_connected") {
             $("#loginBtnBox").show();
+            $("#joinBtnBox").show();
             $("#logoutBtnBox").hide();
             $("#mypageBtnBox").hide();
             $("#statusBox").hide();
@@ -135,6 +137,7 @@
             loginName = "kakao";
             loginId = statusObj.user.kaccount_email.split('@')[0];
             $("#loginBtnBox").hide();
+            $("#joinBtnBox").hide();
             $("#logoutBtnBox").show();
             $("#mypageBtnBox").show();
             $("#status").text(statusObj.user.properties.nickname + "님");
@@ -181,7 +184,7 @@
     naverLogin.getLoginStatus(function (status) {
         if (status) {
             var email = naverLogin.user.getEmail();
-            var name = naverLogin.user.getNickName();
+            var name = naverLogin.user.name;
             var id = email.split('@')[0];
 
             loginOn = true;
@@ -189,13 +192,14 @@
             loginId = id;
 
             $("#loginBtnBox").hide();
+            $("#joinBtnBox").hide();
             $("#logoutBtnBox").show();
             $("#mypageBtnBox").show();
             $("#status").text(name + "님");
             $("#status").attr("data-id", loginId);
             $("#statusBox").show();
 
-            $.post("insertMember.cmd", {id : id});
+            $.post("insertMember.cmd", {id : id, name : name});
 
             //var profileImage = naverLogin.user.getProfileImage();
             //var birthday = naverLogin.user.getBirthday();
@@ -205,6 +209,7 @@
         } else {
             console.log("사용자 정보를 얻을 수 없습니다. 네이버 로그인 해주세요!");
             $("#loginBtnBox").show();
+            $("#joinBtnBox").show();
             $("#logoutBtnBox").hide();
             $("#mypageBtnBox").hide();
             $("#statusBox").hide();

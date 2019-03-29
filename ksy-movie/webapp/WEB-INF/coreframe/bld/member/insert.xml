@@ -10,8 +10,16 @@
     <version></version>
     <http-access>true</http-access>
   </info>
-  
+
   <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      if(input.getInt("mno") != 0){
+        executeSQL("updateMember", connection, input, output);
+        executeSQL("insertProfile", connection, input, output);
+      } else {
+        executeSQL("insert", connection, input, output);
+      }
+    </script>
     <transaction-type></transaction-type>
     <sql id="insert">
       <query>
@@ -24,11 +32,38 @@
         <getProperty></getProperty>
       </mapping>
     </sql>
+    <sql id="updateMember">
+      <query>
+        <![CDATA[
+          UPDATE member SET password='${password}' WHERE mno = :mno
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
+    <sql id="insertProfile">
+      <query>
+        <![CDATA[
+          INSERT INTO profile(mno, name, gender, birth) VALUES(:mno, '${name}', '${gender}', '${birth}')
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty></getProperty>
+      </mapping>
+    </sql>
   </processor-info>
   
   <input>
     <block name="InBlock_1">
       <field name="id" type="string" label="회원아이디"></field>
+      <field name="mno" type="int" label="회원번호"></field>
+      <field name="password" type="string" label="암호"></field>
+      <field name="name" type="string" label="이름"></field>
+      <field name="gender" type="string" label="성별"></field>
+      <field name="birth" type="string" label="생일"></field>
     </block>
   </input>
   
