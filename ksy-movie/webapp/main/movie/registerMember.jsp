@@ -12,17 +12,20 @@
 <div id="wrap">
     <div><h3>회원가입</h3></div>
     <div>
-        <form action="registerMember.cmd" method="post">
+        <form action="registerMember.cmd" method="post" accept-charset="UTF-8">
             <div>
                 <label for="id">아이디</label><br/>
-                <input type="text" id="id" name="id">
+                <input type="text" id="id" name="id" placeholder="5자 이상 15자 이내" value="${param.id}">
                 <c:if test="${errors.id}"><span>아이디를 입력해 주세요.</span></c:if>
+                <c:if test="${errors.idWiteSpace}"><span>아이디에 공백을 포함할 수 없습니다.</span></c:if>
+                <c:if test="${errors.idLength}"><span>아이디는 5자 이상 15자 이내로 작성해 주세요.</span></c:if>
                 <c:if test="${errors.duplicatedId}"><span>이미 존재하는 아이디 입니다.</span></c:if>
             </div>
             <div>
                 <label for="password">비밀번호</label><br/>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" placeholder="5자 이상 15자 이내">
                 <c:if test="${errors.pwd}"><span>비밀번호를 입력해 주세요.</span></c:if>
+                <c:if test="${errors.passwordLength}"><span>비밀번호는 5자 이상 15자 이내로 작성해 주세요.</span></c:if>
             </div>
             <div>
                 <label for="confirmPassword">비밀번호 재확인</label><br/>
@@ -32,21 +35,23 @@
             </div>
             <div>
                 <label for="name">이름</label><br/>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" placeholder="5자 이상 10자 이내" value="${param.name}">
                 <c:if test="${errors.name}"><span>이름을 입력해 주세요.</span></c:if>
+                <c:if test="${errors.nameWiteSpace}"><span>이름에 공백을 포함할 수 없습니다.</span></c:if>
+                <c:if test="${errors.nameLength}"><span>이름은 5자 이상 10자 이내로 작성해 주세요.</span></c:if>
             </div>
             <div>
                 <label for="gender">성별</label><br/>
-                <select id="gender" name="gender">
+                <select id="gender" name="gender" value="${param.gender}">
                     <option value="0">성별</option>
-                    <option value="남">남자</option>
-                    <option value="여">여자</option>
+                    <option value="y" <c:if test="${param.gender == 'y'}">selected='selected'</c:if>>남자</option>
+                    <option value="x" <c:if test="${param.gender == 'x'}">selected='selected'</c:if>>여자</option>
                 </select>
                 <c:if test="${errors.gender}"><span>성별을 선택해 주세요.</span></c:if>
             </div>
             <div>
                 <label for="birth">생년월일</label><br/>
-                <input type="date" id="birth" name="birth">
+                <input type="date" id="birth" name="birth" value="${param.birth}">
                 <c:if test="${errors.birth}"><span>생년월일을 입력해 주세요.</span></c:if>
             </div>
             <div>

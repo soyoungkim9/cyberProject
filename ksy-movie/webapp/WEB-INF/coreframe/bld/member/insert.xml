@@ -13,15 +13,16 @@
 
   <processor-info type="dbms" datasource="ksyboard">
     <script language="java" import="">
-      if(input.getInt("mno") != 0){
-        executeSQL("updateMember", connection, input, output);
-        executeSQL("insertProfile", connection, input, output);
+      if(input.getText("social") != ""){
+      executeSQL("insertId", connection, input, output);
+      executeSQL("insertProfile", connection, input, output);
       } else {
         executeSQL("insert", connection, input, output);
+        executeSQL("insertProfile", connection, input, output);
       }
     </script>
     <transaction-type></transaction-type>
-    <sql id="insert">
+    <sql id="insertId">
       <query>
         <![CDATA[
           INSERT INTO member(mno, id) VALUES(member_seq.nextval, '${id}')
@@ -32,10 +33,10 @@
         <getProperty></getProperty>
       </mapping>
     </sql>
-    <sql id="updateMember">
+    <sql id="insert">
       <query>
         <![CDATA[
-          UPDATE member SET password='${password}' WHERE mno = :mno
+          INSERT INTO member(mno, id, password) VALUES(member_seq.nextval, '${id}', '${password}')
         ]]>
       </query>
       <mapping>
@@ -46,7 +47,7 @@
     <sql id="insertProfile">
       <query>
         <![CDATA[
-          INSERT INTO profile(mno, name, gender, birth) VALUES(:mno, '${name}', '${gender}', '${birth}')
+          INSERT INTO profile(name, gender, birth, id) VALUES('${name}', '${gender}', '${birth}', '${id}')
         ]]>
       </query>
       <mapping>

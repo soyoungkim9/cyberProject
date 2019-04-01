@@ -6,9 +6,9 @@
     </root>
     <schema id="2" parent="1" name="MOVIE">
       <ObjectId>92</ObjectId>
-      <IntrospectionTimestamp>2019-03-29.23:51:27</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2019-04-01.23:08:00</IntrospectionTimestamp>
       <CreatedTimestamp>2019-01-28.19:30:18</CreatedTimestamp>
-      <ModifiedTimestamp>2019-03-29.20:15:40</ModifiedTimestamp>
+      <ModifiedTimestamp>2019-04-01.23:07:59</ModifiedTimestamp>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -216,7 +216,7 @@
     <table id="56" parent="2" name="MEMBER">
       <ObjectId>75111</ObjectId>
       <CreatedTimestamp>2019-01-28.19:30:18</CreatedTimestamp>
-      <ModifiedTimestamp>2019-03-29.20:15:40</ModifiedTimestamp>
+      <ModifiedTimestamp>2019-04-01.23:07:39</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="57" parent="2" name="MOVIE">
@@ -234,7 +234,7 @@
     <table id="59" parent="2" name="PROFILE">
       <ObjectId>75827</ObjectId>
       <CreatedTimestamp>2019-02-08.00:49:54</CreatedTimestamp>
-      <ModifiedTimestamp>2019-03-29.19:20:45</ModifiedTimestamp>
+      <ModifiedTimestamp>2019-04-01.23:07:59</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="60" parent="2" name="SEAT">
@@ -422,7 +422,6 @@
     <column id="89" parent="56" name="MNO">
       <Position>1</Position>
       <DataType>NUMBER(5 digit)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="90" parent="56" name="ID">
       <Position>2</Position>
@@ -433,21 +432,21 @@
       <Position>3</Position>
       <DataType>VARCHAR2(30 byte)|0s</DataType>
     </column>
-    <index id="92" parent="56" name="SYS_C0011181">
-      <ObjectId>75112</ObjectId>
+    <index id="92" parent="56" name="SYS_C0012441">
+      <ObjectId>77585</ObjectId>
       <NameSurrogate>1</NameSurrogate>
-      <CreatedTimestamp>2019-01-28.19:30:18</CreatedTimestamp>
-      <ModifiedTimestamp>2019-01-28.19:30:18</ModifiedTimestamp>
+      <CreatedTimestamp>2019-04-01.23:07:39</CreatedTimestamp>
+      <ModifiedTimestamp>2019-04-01.23:07:39</ModifiedTimestamp>
       <TablespaceName>USERS</TablespaceName>
-      <ColNames>MNO</ColNames>
+      <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="93" parent="56" name="SYS_C0011181">
+    <key id="93" parent="56" name="SYS_C0012441">
       <NameSurrogate>1</NameSurrogate>
-      <ModifiedTimestamp>2019-01-28.19:30:18</ModifiedTimestamp>
-      <ColNames>MNO</ColNames>
+      <ModifiedTimestamp>2019-04-01.23:07:39</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>SYS_C0011181</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C0012441</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <column id="94" parent="57" name="MNO">
@@ -596,32 +595,32 @@
       <Position>3</Position>
       <DataType>DATE|0s</DataType>
     </column>
-    <column id="122" parent="59" name="MNO">
+    <column id="122" parent="59" name="ID">
       <Position>4</Position>
-      <DataType>NUMBER(5 digit)|0s</DataType>
+      <DataType>VARCHAR2(30 byte)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <index id="123" parent="59" name="PK_PROFILE">
-      <ObjectId>77579</ObjectId>
-      <CreatedTimestamp>2019-03-29.19:20:45</CreatedTimestamp>
-      <ModifiedTimestamp>2019-03-29.19:20:45</ModifiedTimestamp>
+      <ObjectId>77584</ObjectId>
+      <CreatedTimestamp>2019-04-01.22:43:23</CreatedTimestamp>
+      <ModifiedTimestamp>2019-04-01.22:43:23</ModifiedTimestamp>
       <TablespaceName>USERS</TablespaceName>
-      <ColNames>MNO</ColNames>
+      <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="124" parent="59" name="PK_PROFILE">
-      <ModifiedTimestamp>2019-03-29.19:20:45</ModifiedTimestamp>
-      <ColNames>MNO</ColNames>
+      <ModifiedTimestamp>2019-04-01.22:43:23</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
       <UnderlyingIndexName>PK_PROFILE</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="125" parent="59" name="FK_MNO">
-      <ModifiedTimestamp>2019-02-08.00:49:54</ModifiedTimestamp>
-      <ColNames>MNO</ColNames>
+    <foreign-key id="125" parent="59" name="FK_PROFILE">
+      <ModifiedTimestamp>2019-04-01.23:07:59</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
       <RefSchemaName>MOVIE</RefSchemaName>
       <RefTableName>MEMBER</RefTableName>
-      <RefKeyName>SYS_C0011181</RefKeyName>
+      <RefKeyName>SYS_C0012441</RefKeyName>
       <OnDelete>restrict</OnDelete>
     </foreign-key>
     <column id="126" parent="60" name="SEATNUM">

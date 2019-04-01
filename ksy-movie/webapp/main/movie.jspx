@@ -20,13 +20,11 @@
         public void insertMember(ViewMeta view) throws IOException {
             DataSet input = view.getInputDataSet();
 
-            DataSet output1 = executeBL("member/list", input);
-            if(output1.toList().size() != 0) {
+            if(executeBL("member/list", input).toList().size() != 0) {
                 return;
             } else {
-                executeBL("member/insert", input);
-                output1 = executeBL("member/list", input);
-                input.put("mno", output1.getInt("mno"));
+                // 소셜로그인 한 경우
+                input.put("social", "social");
                 executeBL("member/insert", input);
             }
         }
@@ -266,18 +264,36 @@
 
             if("POST".equals(method)) {
                 Map<String, Boolean> errors = new HashMap<String, Boolean>();
+
                 if(input.getText("id") == "") {
                     errors.put("id", Boolean.TRUE);
+                } else if(input.getText("id").contains(" ")) {
+                    errors.put("idWiteSpace", Boolean.TRUE);
+                } else if(input.getText("id").length() < 5 || input.getText("id").length() >= 15) {
+                    errors.put("idLength", Boolean.TRUE);
+                } else if(executeBL("member/list", input).toList().size() > 0) {
+                    errors.put("duplicatedId", Boolean.TRUE);
                 }
+
                 if(input.getText("password") == "") {
                     errors.put("pwd", Boolean.TRUE);
+                } else if(input.getText("password").length() < 5 || input.getText("password").length() >= 15) {
+                    errors.put("passwordLength", Boolean.TRUE);
                 }
                 if(input.getText("confirmPassword") == "") {
                     errors.put("confirmPwd", Boolean.TRUE);
+                } else if(!input.getText("password").equals(input.getText("confirmPassword"))) {
+                    errors.put("notMatch", Boolean.TRUE);
                 }
+
                 if(input.getText("name") == "") {
                     errors.put("name", Boolean.TRUE);
+                } else if(input.getText("name").contains(" ")) {
+                    errors.put("nameWiteSpace", Boolean.TRUE);
+                } else if(input.getText("name").length() < 5 || input.getText("name").length() >= 10) {
+                    errors.put("nameLength", Boolean.TRUE);
                 }
+
                 if(input.getText("gender", 0).equals("0")) {
                     errors.put("gender", Boolean.TRUE);
                 }
@@ -285,16 +301,14 @@
                     errors.put("birth", Boolean.TRUE);
                 }
 
-                // 공백입력불가처리와 한글 입력시 엄청난 에러가 발생함 이거 처리!!
-                // 이미 존재하는 아이디도 처리 (중복확인 버튼 별도로 추가 / 중복된 아이디이면 가입불가)
-                // 일치하지 않는 비밀번호도 처리 (비밀번호 일치여부 함수 따로 만들기 / 비밀번호 변경시에도 써야하니까)
-
                 view.setAttribute("errors", errors);
                 if(!errors.isEmpty()) {
                     view.setViewName("registerMember");
+                } else {
+                    executeBL("member/insert", input);
+                    view.setViewName("list");
                 }
             } else {
-                System.out.println("설마 너도?!");
                 view.setViewName("registerMember");
             }
         }
