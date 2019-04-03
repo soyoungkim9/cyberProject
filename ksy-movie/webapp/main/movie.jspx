@@ -263,54 +263,21 @@
             String method = view.getHttpServletRequest().getMethod();
 
             if("POST".equals(method)) {
-                Map<String, Boolean> errors = new HashMap<String, Boolean>();
-
-                if(input.getText("id") == "") {
-                    errors.put("id", Boolean.TRUE);
-                } else if(input.getText("id").contains(" ")) {
-                    errors.put("idWiteSpace", Boolean.TRUE);
-                } else if(input.getText("id").length() < 5 || input.getText("id").length() >= 15) {
-                    errors.put("idLength", Boolean.TRUE);
-                } else if(executeBL("member/list", input).toList().size() > 0) {
-                    errors.put("duplicatedId", Boolean.TRUE);
-                }
-
-                if(input.getText("password") == "") {
-                    errors.put("pwd", Boolean.TRUE);
-                } else if(input.getText("password").length() < 5 || input.getText("password").length() >= 15) {
-                    errors.put("passwordLength", Boolean.TRUE);
-                }
-                if(input.getText("confirmPassword") == "") {
-                    errors.put("confirmPwd", Boolean.TRUE);
-                } else if(!input.getText("password").equals(input.getText("confirmPassword"))) {
-                    errors.put("notMatch", Boolean.TRUE);
-                }
-
-                if(input.getText("name") == "") {
-                    errors.put("name", Boolean.TRUE);
-                } else if(input.getText("name").contains(" ")) {
-                    errors.put("nameWiteSpace", Boolean.TRUE);
-                } else if(input.getText("name").length() < 5 || input.getText("name").length() >= 10) {
-                    errors.put("nameLength", Boolean.TRUE);
-                }
-
-                if(input.getText("gender", 0).equals("0")) {
-                    errors.put("gender", Boolean.TRUE);
-                }
-                if(input.getText("birth") == "") {
-                    errors.put("birth", Boolean.TRUE);
-                }
-
-                view.setAttribute("errors", errors);
-                if(!errors.isEmpty()) {
-                    view.setViewName("registerMember");
-                } else {
-                    executeBL("member/insert", input);
-                    view.setViewName("list");
-                }
+                executeBL("member/insert", input);
+                view.setViewName("list");
             } else {
                 view.setViewName("registerMember");
             }
+        }
+
+        public void confirmId(ViewMeta view) throws IOException {
+            DataSet input = view.getInputDataSet();
+            if(executeBL("member/list", input).toList().size() > 0) {
+                view.setAttribute("result", "Y");
+            } else {
+                view.setAttribute("result", "n");
+            }
+            view.printJSON();
         }
 
 

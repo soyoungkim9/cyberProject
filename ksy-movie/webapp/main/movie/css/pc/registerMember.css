@@ -1,0 +1,9 @@
+.info_error {
+    display: none;
+    color: red;
+    font-size: 15px;
+}
+
+.green {
+    color: green;
+}
