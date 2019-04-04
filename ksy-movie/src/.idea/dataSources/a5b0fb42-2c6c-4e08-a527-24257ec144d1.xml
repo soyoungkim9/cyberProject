@@ -6,7 +6,7 @@
     </root>
     <schema id="2" parent="1" name="MOVIE">
       <ObjectId>92</ObjectId>
-      <IntrospectionTimestamp>2019-04-01.23:08:00</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2019-04-05.00:17:38</IntrospectionTimestamp>
       <CreatedTimestamp>2019-01-28.19:30:18</CreatedTimestamp>
       <ModifiedTimestamp>2019-04-01.23:07:59</ModifiedTimestamp>
       <Current>1</Current>

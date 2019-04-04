@@ -9,6 +9,12 @@
     <jsp:directive.page import="java.net.URLDecoder"/>
     <jsp:directive.page import="java.util.HashMap"/>
     <jsp:directive.page import="java.util.Map"/>
+    <jsp:directive.page import="member.join"/>
+    <jsp:directive.page import="java.util.regex.Pattern"/>
+    <jsp:directive.page import="java.util.regex.Matcher"/>
+    <jsp:directive.page import="coreframe.data.InteractionBean"/>
+    <jsp:directive.page import="coreframe.data.ResourceException"/>
+    <jsp:directive.page import="member.DuplicatedException"/>
     <c:set scope="request" var="viewpage.prefix" value="/main/movie/"/>
     <c:set scope="request" var="viewpage.postfix" value=".jsp"/>
     <jsp:declaration><![CDATA[//
@@ -253,7 +259,7 @@
             executeBL("comments/delete", input);
         }
 
-        public void updateComments(ViewMeta view) throws IOException {
+        public void updateComments(ViewMeta view) throws ResourceException, IOException {
             DataSet input = view.getInputDataSet();
             executeBL("comments/update", input);
         }
@@ -263,8 +269,28 @@
             String method = view.getHttpServletRequest().getMethod();
 
             if("POST".equals(method)) {
-                executeBL("member/insert", input);
-                view.setViewName("list");
+                Map<String, Boolean> errors = new HashMap<String, Boolean>();
+                if(join.checkId(input) == false){
+                    errors.put("id", Boolean.TRUE);
+                }
+
+                // 나머지 유효성 검사 진행하기
+
+
+
+                if(!errors.isEmpty()){
+                    view.setViewName("registerMember");
+                }
+
+                try {
+                    // 성공시!
+                    //executeBL("member/insert", input);
+                    //view.setViewName("list");
+                } catch(DuplicatedException) {
+                    errors.put("duplicateId", Boolean.TRUE);
+                    // ***** 이거 제대로 되나 꼭 확인하기!!
+                    // ***** return false를 던지지 않아서 쫌 걱정됨
+                }
             } else {
                 view.setViewName("registerMember");
             }
