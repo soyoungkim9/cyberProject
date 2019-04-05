@@ -50,7 +50,7 @@
                 <span class="info_error" id="birthMsg"></span>
             </div>
             <div>
-                <input id="joinBtn" type="submit" value="가입하기">
+                <input id="joinBtn" type="button" value="가입하기">
             </div>
         </form>
     </div>

@@ -9,10 +9,8 @@
     <jsp:directive.page import="java.net.URLDecoder"/>
     <jsp:directive.page import="java.util.HashMap"/>
     <jsp:directive.page import="java.util.Map"/>
-    <jsp:directive.page import="member.join"/>
-    <jsp:directive.page import="java.util.regex.Pattern"/>
-    <jsp:directive.page import="java.util.regex.Matcher"/>
-    <jsp:directive.page import="coreframe.data.InteractionBean"/>
+    <jsp:directive.page import="member.Join"/>
+    <jsp:directive.page import="member.Sha256"/>
     <jsp:directive.page import="coreframe.data.ResourceException"/>
     <jsp:directive.page import="member.DuplicatedException"/>
     <c:set scope="request" var="viewpage.prefix" value="/main/movie/"/>
@@ -270,29 +268,27 @@
 
             if("POST".equals(method)) {
                 Map<String, Boolean> errors = new HashMap<String, Boolean>();
-                if(join.checkId(input) == false){
+                if(Join.checkId(input) == false){
                     errors.put("id", Boolean.TRUE);
                 }
 
-                if(join.checkPswd1(input) == false) {
-                    System.out.println("응 안돼1~");
+                if(Join.checkPswd1(input) == false) {
                     errors.put("pwd1", Boolean.TRUE);
                 }
 
-                if(join.checkPswd2(input) == false) {
-                    System.out.println("응 안돼2~");
+                if(Join.checkPswd2(input) == false) {
                     errors.put("pwd2", Boolean.TRUE);
                 }
 
-                if(join.checkName(input) == false) {
+                if(Join.checkName(input) == false) {
                     errors.put("name", Boolean.TRUE);
                 }
 
-                if(join.checkGender(input) == false) {
+                if(Join.checkGender(input) == false) {
                     errors.put("gender", Boolean.TRUE);
                 }
 
-                if(join.checkBirth(input) == false) {
+                if(Join.checkBirth(input) == false) {
                     errors.put("birth", Boolean.TRUE);
                 }
 
@@ -302,10 +298,11 @@
                 }
 
                 try {
-                    System.out.println("okok!");
-                    // 성공시!
-                    //executeBL("member/insert", input);
-                    //view.setViewName("list");
+                    String shaPwd = Sha256.encrypt(input.getText("password"));
+
+                    input.put("shaPwd", shaPwd);
+                    executeBL("member/insert", input);
+                    view.setViewName("list"); // 나중에 회원가입 성공 페이지 별도로 만들기
                 } catch(DuplicatedException e) {}
             } else {
                 view.setViewName("registerMember");

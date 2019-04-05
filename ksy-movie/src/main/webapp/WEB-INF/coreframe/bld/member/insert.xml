@@ -36,7 +36,7 @@
     <sql id="insert">
       <query>
         <![CDATA[
-          INSERT INTO member(mno, id, password) VALUES(member_seq.nextval, '${id}', '${password}')
+          INSERT INTO member(mno, id, password) VALUES(member_seq.nextval, '${id}', '${shaPwd}')
         ]]>
       </query>
       <mapping>
@@ -65,6 +65,7 @@
       <field name="name" type="string" label="이름"></field>
       <field name="gender" type="string" label="성별"></field>
       <field name="birth" type="string" label="생일"></field>
+      <field name="shaPwd" type="string" label="암호화"></field>
     </block>
   </input>
   

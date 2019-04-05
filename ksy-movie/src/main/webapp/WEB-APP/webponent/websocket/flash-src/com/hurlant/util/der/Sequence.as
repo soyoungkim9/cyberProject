@@ -60,7 +60,7 @@ package com.hurlant.util.der
 				}
 				if (!found) t+=this[i]+"\n";
 			}
-//			var t:String = join("\n");
+//			var t:String = Join("\n");
 			DER.indent= s;
 			return DER.indent+"Sequence["+type+"]["+len+"][\n"+t+"\n"+s+"]";
 		}

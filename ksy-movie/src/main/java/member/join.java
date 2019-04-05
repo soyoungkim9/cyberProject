@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import coreframe.data.DataSet;
 import coreframe.data.InteractionBean;
 
-public class join {
+public class Join {
     public static boolean checkId(DataSet input) throws IOException {
         if(input.getText("id") == "")
             return false;
@@ -25,7 +25,6 @@ public class join {
         return true;
     }
 
-    // 비밀번호
     public static boolean checkPswd1(DataSet input) {
         if(input.getText("password") == "")
             return false;
@@ -36,7 +35,6 @@ public class join {
         return true;
     }
 
-    // 비밀번호 재확인
     public static boolean checkPswd2(DataSet input) {
         if(input.getText("confirmPassword") == "")
             return false;
