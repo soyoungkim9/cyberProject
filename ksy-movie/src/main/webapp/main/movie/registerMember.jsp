@@ -45,12 +45,12 @@
                 <span class="info_error" id="genderMsg"></span>
             </div>
             <div id="birthBox">
-                <label for="birth">생년월일ㄹ</label><br/>
+                <label for="birth">생년월일</label><br/>
                 <input type="date" id="birth" name="birth" value="${param.birth}">
                 <span class="info_error" id="birthMsg"></span>
             </div>
             <div>
-                <input id="joinBtn" type="button" value="가입하기">
+                <input id="joinBtn" type="submit" value="가입하기">
             </div>
         </form>
     </div>
@@ -78,19 +78,18 @@
         });
 
         $("#password").blur(function(){
-            checkpswd1();
+            checkPswd1();
         });
 
         $("#confirmPassword").blur(function(){
-            checkpswd2();
+            checkPswd2();
         });
 
         $("#joinBtn").click(function(){
             if(checkInputBox()) {
                 $("#join_form").submit();
             } else {
-                checkInputBox();
-                // 공백만 체크하기
+                checkWhiteSpace();
             }
         });
     })();
@@ -125,7 +124,7 @@
         return true;
     }
 
-    function checkpswd1() {
+    function checkPswd1() {
         var pwd = $("#password").val();
         var oMsg = $("#pwdMsg");
 
@@ -139,15 +138,12 @@
             return false;
         }
 
-        // 이 부분에 서버단에서도 처리처리! 유효성검사가 서버단에서도 인증이 돼면 그때서야 true를 리턴!
-        // pwdFlag 추가해서 서버단에서 유효성검사 올바르게 수행했는지 결과 알려주기
-
         pwdFlag = true;
         hideMsg(oMsg);
         return true;
     }
 
-    function checkpswd2() {
+    function checkPswd2() {
         var pwd1 = $("#password");
         var pwd2 = $("#confirmPassword");
         var oMsg = $("#pwdConfirmMsg");
@@ -229,6 +225,15 @@
         obj.hide();
     }
 
+    function checkWhiteSpace() {
+        if($("#id").val() == "") showErrorMsg($("#idMsg"), "아이디를 입력해 주세요!");
+        if($("#password").val() == "") showErrorMsg($("#pwdMsg"), "비밀번호를 입력해 주세요!");
+        if($("#confirmPassword").val() == "") showErrorMsg($("#pwdConfirmMsg"), " 비밀번호를 입력해 주세요!");
+        if($("#name").val() == "") showErrorMsg($("#nameMsg"), "이름을 입력해 주세요!");
+        if($("#gender").val() == "") showErrorMsg($("#genderMsg"), "성별을 입력해 주세요!");
+        if($("#birth").val() == "") showErrorMsg($("#birthMsg"), "생년월일을 입력해 주세요!");
+    }
+
     function checkSpace(str) {
         if(str.search(/\s/) != -1) {
             return true;
@@ -264,7 +269,7 @@
 
     function checkInputBox() {
         if(idFlag && pwdFlag &&
-            checkId() && checkName() && checkGender() && checkBirth() && checkpswd1() && checkpswd2()) {
+            checkId() && checkName() && checkGender() && checkBirth() && checkPswd1() && checkPswd2()) {
             return true;
         } else {
             return false;
