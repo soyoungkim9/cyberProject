@@ -5,13 +5,21 @@
 	xsi:schemaLocation="http://www.cyber-i.com/xml/bld   http://www.cyber-i.com/xml/ns/bld-5.0.xsd">
   <info>
     <name>list</name>
-    <description>회원등록</description>
+    <description>회원확인</description>
     <author>김소영</author>
     <version></version>
     <http-access>true</http-access>
   </info>
-  
   <processor-info type="dbms" datasource="ksyboard">
+    <script language="java" import="">
+      System.out.println("실행해?");
+      if(!input.getText("shaPwd").equals("")) {
+        System.out.println("이거통과해?");
+        executeSQL("listMember", connection, input, output);
+      } else {
+        executeSQL("list", connection, input, output);
+      }
+    </script>
     <transaction-type></transaction-type>
     <sql id="list">
       <query>
@@ -24,11 +32,23 @@
         <getProperty>mno, id</getProperty>
       </mapping>
     </sql>
+    <sql id="listMember">
+      <query>
+        <![CDATA[
+          SELECT mno, id, password FROM member WHERE id LIKE '${id}' AND password LIKE '${shaPwd}'
+        ]]>
+      </query>
+      <mapping>
+        <setProperty></setProperty>
+        <getProperty>mno, id</getProperty>
+      </mapping>
+    </sql>
   </processor-info>
   
   <input>
     <block name="InBlock_1">
       <field name="id" type="string" label="회원아이디"></field>
+      <field name="shaPwd" type="string" label="회원아이디"></field>
     </block>
   </input>
   

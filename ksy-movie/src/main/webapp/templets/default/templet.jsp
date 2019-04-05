@@ -25,6 +25,11 @@
 		</ul>
 	</div>
 	<div id="loginBox">
+		<form id="member_login">
+			<input type="text" id="member_login_id" name="name" placeholder="아이디">
+			<input type="password" id="member_login_password" name="password" placeholder="비밀번호">
+			<input type="button" id="member_login_btn" value="로그인">
+		</form>
 		<ul>
 			<li>
 				<a id="kakao-login-btn"><img src="${TEMPLET_DIR}/img/kakaolink_btn_small.png"><span>카카오 로그인</span></a>
@@ -215,6 +220,46 @@
             $("#statusBox").hide();
         }
     });
+
+    // 일반로그인
+	$("#member_login_btn").click(function(){
+	    var id = $("#member_login_id").val();
+	    var pwd = $("#member_login_password").val();
+	    if(id == "") {
+	        alert("아이디를 입력해 주세요!");
+	        return;
+		}
+
+		if(pwd == "") {
+	        alert("비밀번호를 입력해 주세요!");
+	        return;
+		}
+
+		$.ajax({
+			type: "GET",
+			url: "confirmId.cmd?id=" + id + "&password=" + pwd,
+            success : function (data) {
+			    if(data.result == "Y") {
+			        // 페이지 넘어가는거 미해결 ㅠㅠㅠ
+                    // 서버단에서 하고싶은데
+                    alert("성공");
+
+                } else {
+                    alert("아이디나 비밀번호가 일치하지 않습니다.");
+                }
+            }
+		});
+
+	    // 일반로그인은 세션에 저장해서 불러오기
+        // 현재로서는 로그인 성공하면 list페이지로 이동한다.
+
+		// 만약에 로그인 필터를 전체 다 적용하고 싶으면
+		// url 패턴을 / 로 하면 됨
+
+		// 로그인 체크 필터에서
+		// response.sendRedirect(request.getContextPath() + "login.do"); 이 부분은
+		// 로그인이 안됐으니까 login 하라고 로그인 화면으로 유도 하는 것임!
+	});
 </script>
 </body>
 </html>

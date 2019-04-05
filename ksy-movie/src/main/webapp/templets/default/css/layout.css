@@ -140,11 +140,12 @@ a {
     right: 0;
     margin-right: 22px;
     background: white;
-    padding-bottom: 12px;
 }
 
 #loginBox > ul {
-    margin: 20px 20px 0 20px;
+    margin: 0 20px 0 20px;
+    position: relative;
+    top: -20px;
 }
 
 #loginBox > ul > li {
@@ -161,6 +162,8 @@ a {
     float: right;
     cursor: pointer;
     margin-right: 14px;
+    position: relative;
+    top: -20px;
 }
 
 #loginBox > ul > li > a {
@@ -209,4 +212,31 @@ a {
     font-weight: bold;
     color: #231f20;
     font-size: 17px;
+}
+
+#member_login {
+    padding: 20px 20px 0 20px;
+    clear: both;
+    height: inherit;
+    display: inline-block;
+}
+
+#member_login_id, #member_login_password {
+    padding: 7px 10px;
+    width: 180px;
+    margin-bottom: 3px;
+    float: left;
+}
+
+#member_login_btn {
+    float: left;
+    border: none;
+    position: relative;
+    top: -36px;
+    height: 70px;
+    width: 62px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #231f20;
+    color: #cdc197;
 }

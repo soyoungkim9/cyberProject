@@ -311,6 +311,10 @@
 
         public void confirmId(ViewMeta view) throws IOException {
             DataSet input = view.getInputDataSet();
+            if(!input.getText("password").equals("")) {
+                String shaPwd = Sha256.encrypt(input.getText("password"));
+                input.put("shaPwd", shaPwd);
+            }
             if(executeBL("member/list", input).toList().size() > 0) {
                 view.setAttribute("result", "Y");
             } else {
@@ -318,9 +322,5 @@
             }
             view.printJSON();
         }
-
-
-
-
 //]]></jsp:declaration>
 </jsp:root>
