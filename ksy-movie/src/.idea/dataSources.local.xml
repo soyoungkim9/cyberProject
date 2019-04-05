@@ -9,6 +9,7 @@
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>movie</user-name>
+      <introspection-schemas>*:MOVIE</introspection-schemas>
     </data-source>
   </component>
 </project>

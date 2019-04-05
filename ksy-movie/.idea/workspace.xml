@@ -3836,7 +3836,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -3859,8 +3860,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3869,7 +3869,7 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Oracle" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -4151,11 +4151,12 @@
       <workItem from="1553849241275" duration="17000" />
       <workItem from="1554354727574" duration="229000" />
       <workItem from="1554356982385" duration="600000" />
+      <workItem from="1554422461206" duration="89000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="913886000" />
+    <option name="totallyTimeSpent" value="913975000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -4174,23 +4175,23 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info id="Image Layers" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.5021322" side_tool="true" visible="true" weight="0.32931355" />
+      <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.5021322" side_tool="true" visible="true" weight="0.32900834" />
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49957228" weight="0.34476367" />
       <window_info anchor="right" id="Maven Projects" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6178038" weight="0.43929565" />
-      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4978678" weight="0.32900834" />
+      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" sideWeight="0.4978678" weight="0.32900834" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49946696" weight="0.32900834" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6445367" visible="true" weight="0.26226014" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6436464" visible="true" weight="0.26492536" />
       <window_info anchor="right" id="Database" order="7" visible="true" weight="0.12526652" />
       <window_info id="Structure" order="1" sideWeight="0.5006916" side_tool="true" weight="0.15884861" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="3" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="bottom" x="1940" y="394" width="1876" height="431" id="Debug" order="3" sideWeight="0.49946696" weight="0.36515293" />
-      <window_info id="Favorites" order="4" sideWeight="0.35546336" side_tool="true" visible="true" weight="0.26226014" />
+      <window_info id="Favorites" order="4" sideWeight="0.35635358" side_tool="true" visible="true" weight="0.26492536" />
       <window_info id="Web" order="6" sideWeight="0.5006916" side_tool="true" weight="0.15884861" />
       <window_info anchor="bottom" id="Messages" order="9" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

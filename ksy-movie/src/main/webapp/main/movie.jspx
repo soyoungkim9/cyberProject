@@ -286,8 +286,10 @@
                     // 성공시!
                     //executeBL("member/insert", input);
                     //view.setViewName("list");
-                } catch(DuplicatedException) {
+                } catch(DuplicatedException e) {
+                    view.setViewName("registerMember");
                     errors.put("duplicateId", Boolean.TRUE);
+                    System.out.println("아이디 중복중복!");
                     // ***** 이거 제대로 되나 꼭 확인하기!!
                     // ***** return false를 던지지 않아서 쫌 걱정됨
                 }
