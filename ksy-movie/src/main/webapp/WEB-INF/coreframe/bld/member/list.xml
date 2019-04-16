@@ -12,9 +12,7 @@
   </info>
   <processor-info type="dbms" datasource="ksyboard">
     <script language="java" import="">
-      System.out.println("실행해?");
       if(!input.getText("shaPwd").equals("")) {
-        System.out.println("이거통과해?");
         executeSQL("listMember", connection, input, output);
       } else {
         executeSQL("list", connection, input, output);
@@ -35,12 +33,14 @@
     <sql id="listMember">
       <query>
         <![CDATA[
-          SELECT mno, id, password FROM member WHERE id LIKE '${id}' AND password LIKE '${shaPwd}'
+          SELECT m.mno, m.id, p.name, p.gender, TO_CHAR(p.birth, 'yyyy-mm-dd')
+          FROM member m INNER JOIN profile p ON m.id = p.id
+          WHERE m.id LIKE '${id}' AND m.password LIKE '${shaPwd}'
         ]]>
       </query>
       <mapping>
         <setProperty></setProperty>
-        <getProperty>mno, id</getProperty>
+        <getProperty>m.mno, m.id, p.name, p.gender, p.birth</getProperty>
       </mapping>
     </sql>
   </processor-info>
@@ -56,6 +56,11 @@
     <block name="OutBlock_1">
       <field name="id" type="string" label="회원아이디"></field>
       <field name="mno" type="string" label="회원번호"></field>
+      <field name="m.id" type="string" label="회원아이디"></field>
+      <field name="m.mno" type="string" label="회원번호"></field>
+      <field name="p.name" type="string" label="회원이름"></field>
+      <field name="p.gender" type="string" label="회원성별"></field>
+      <field name="p.birth" type="string" label="회원생일"></field>
     </block>
   </output>  
 

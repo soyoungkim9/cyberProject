@@ -25,7 +25,7 @@
 		</ul>
 	</div>
 	<div id="loginBox">
-		<form id="member_login">
+		<form id="member_login" accept-charset="UTF-8">
 			<input type="text" id="member_login_id" name="name" placeholder="아이디">
 			<input type="password" id="member_login_password" name="password" placeholder="비밀번호">
 			<input type="button" id="member_login_btn" value="로그인">
@@ -237,13 +237,10 @@
 
 		$.ajax({
 			type: "GET",
-			url: "confirmId.cmd?id=" + id + "&password=" + pwd,
+			url: "confirmId.cmd?id=" + encodeURI(id) + "&password=" + encodeURI(pwd),
             success : function (data) {
 			    if(data.result == "Y") {
-			        // 페이지 넘어가는거 미해결 ㅠㅠㅠ
-                    // 서버단에서 하고싶은데
-                    alert("성공");
-
+					location.reload();
                 } else {
                     alert("아이디나 비밀번호가 일치하지 않습니다.");
                 }
@@ -252,6 +249,11 @@
 
 	    // 일반로그인은 세션에 저장해서 불러오기
         // 현재로서는 로그인 성공하면 list페이지로 이동한다.
+
+		// -> jsp 표현식  이용용
+
+
+
 
 		// 만약에 로그인 필터를 전체 다 적용하고 싶으면
 		// url 패턴을 / 로 하면 됨

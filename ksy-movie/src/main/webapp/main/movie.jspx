@@ -4,15 +4,13 @@
     <jsp:directive.page extends="coreframe.http.JspxController"/>
     <jsp:directive.page import="coreframe.data.DataSet"/>
     <jsp:directive.page import="coreframe.http.ViewMeta,java.io.IOException"/>
-    <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="java.util.ArrayList"/>
     <jsp:directive.page import="java.net.URLDecoder"/>
-    <jsp:directive.page import="java.util.HashMap"/>
-    <jsp:directive.page import="java.util.Map"/>
     <jsp:directive.page import="member.Join"/>
     <jsp:directive.page import="member.Sha256"/>
     <jsp:directive.page import="coreframe.data.ResourceException"/>
     <jsp:directive.page import="member.DuplicatedException"/>
+    <jsp:directive.page import="member.User"/>
+    <jsp:directive.page import="java.util.*"/>
     <c:set scope="request" var="viewpage.prefix" value="/main/movie/"/>
     <c:set scope="request" var="viewpage.postfix" value=".jsp"/>
     <jsp:declaration><![CDATA[//
@@ -309,13 +307,21 @@
             }
         }
 
-        public void confirmId(ViewMeta view) throws IOException {
+        public void confirmId(ViewMeta view) throws IOException, Exception {
             DataSet input = view.getInputDataSet();
             if(!input.getText("password").equals("")) {
                 String shaPwd = Sha256.encrypt(input.getText("password"));
                 input.put("shaPwd", shaPwd);
             }
-            if(executeBL("member/list", input).toList().size() > 0) {
+            DataSet output = executeBL("member/list", input);
+            if(output.toList().size() > 0) {
+                String id = output.getText("m.id");
+                String name = output.getText("p.name");
+                String gender = output.getText("p.gender");
+                String birth = output.getText("p.birth");
+
+                User user = new User(id, name, gender, birth);
+                view.getHttpServletRequest().getSession().setAttribute("user", user);
                 view.setAttribute("result", "Y");
             } else {
                 view.setAttribute("result", "n");
