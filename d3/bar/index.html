@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>d3.js learning</title>
+  <style type="text/css">
+  svg {
+    font: 10px sans-serif;
+    shape-rendering: crispEdges;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+  }
+
+  path.domain {
+    stroke: none;
+  }
+
+  .y .tick line {
+    stroke: #ddd;
+  }
+  </style>
+
+</head>
+<body>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-hierarchy.v1.js"></script>
+<script type="text/javascript">
+// 출처 : http://bl.ocks.org/mstanaland/6100713
+// Setup svg using Bostock's margin convention
+var margin = {top: 20, right: 160, bottom: 35, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+/* Data in strings like it would be if imported from a csv */
+d3.json("data.json", function(error, data) {
+  if(error) throw error;
+  // console.log(data);
+
+ // 데이터 매핑 : x축 : 위치, y축 : 과일
+ var root = d3.hierarchy(data);
+ var fruits = root.leaves();
+ var stack = ["pineapple", "banana", "oranges", "watermelon", "grape", "strawberry", "mango", "apple"];
+ var dataset = [];
+ for(var i = 0; i < stack.length; i++) {
+   var temp = [];
+   var before = 0;
+   for(var j in fruits) {
+     // 지역별로 축척된 과일의 양
+     if(i == 0) {
+       before = 0;
+     } else if (fruits[j].parent.parent.data.name == fruits[(j-1 < 0) ? 0 : j-1].parent.parent.data.name){
+       before += fruits[j].data.value;
+     } else {
+       before = 0;
+       before += fruits[j].data.value;
+     }
+     if(fruits[j].data.hasOwnProperty(stack[i])) { // 과일종류별로 배열을 만듬
+       temp.push({x: fruits[j].parent.parent.data.name,
+         y: fruits[j].data[stack[i]],
+         y0: (before - fruits[j].data[stack[i]] < 0) ? 0 : before - fruits[j].data[stack[i]]});
+     }
+   }
+   dataset.push(temp);
+ }
+
+  // Transpose the data into layers
+  var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+  // Set x, y and colors
+  var x = d3.scale.ordinal()
+    .domain(dataset[0].map(function(d) { return d.x; }))
+    .rangeRoundBands([10, width-10], 0.01); // x축 넓이와 간격
+
+  var y = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) { return d3.max(d, function(d) { return d.y0 + d.y; });})]) // 이전 y와 현재y를 더함
+    .range([height, 0]);
+
+  var colors = ["#795548","#ffeb3b","#ff9800","#4caf50","#9c27b0", "#d25c4d", "#f2b447", "#d9d574"];
+
+  // Define and draw axes y축과 축을 그려낸닷!
+  var yAxis = d3.svg.axis()
+    .scale(y) // y 축
+    .orient("left") // 왼쪽기준 축
+    .ticks(5) // 눈금 갯수
+    .tickSize(-width)
+    .tickPadding(5)
+    .tickFormat( function(d) { return d } );
+
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .tickPadding(5);
+
+  // zoom 기능
+  var zoom = d3.behavior.zoom()
+    .y(y)
+    .scaleExtent([1, 20])
+    .on("zoom", zoomed);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .attr("font-weight", "bold")
+    .call(yAxis);
+
+  // Create groups for each series, rects for each segment
+  var groups = svg.selectAll("g.cost")
+    .data(dataset)
+    .enter().append("g")
+    .attr("class", "cost")
+    .attr("data-name", function(d, i) {
+          switch (i) {
+            case 7: return "사과";
+            case 6: return "망고";
+            case 5: return "딸기";
+            case 4: return "포도";
+            case 3: return "수박";
+            case 2: return "오렌지";
+            case 1: return "바나나";
+            case 0: return "파인애플";
+          }})
+    .style("fill", function(d, i) { return colors[i]; });
+
+  var rect = groups.selectAll("rect")
+    .data(function(d) { return d; })
+    .enter()
+    .append("rect")
+      .attr("x", function(d) { return x(d.x); }) // x를 순서대로 가져오는건가?
+      .attr("y", function(d) { return y(d.y0 + d.y); }) // y를 순서대로 가져오는건가?
+      .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); }) // 각 박스의 높이
+      .attr("width", x.rangeBand()) // 각 박스의 넓이
+    .on("mouseover", function() { tooltip.style("display", null); })
+    .on("mouseout", function() { tooltip.style("display", "none"); })
+    .on("mousemove", function(d) { // mousemove : hover로 하고싶으면 위의 주석 해제하고 "click"을 mousemove로 할것
+      tooltip.style("display", null);
+      var xPosition = d3.mouse(this)[0] - 15;
+      var yPosition = d3.mouse(this)[1] - 35;
+      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+      tooltip.selectAll("tspan").remove();
+      tooltip.select("text").append("tspan").text(d3.select(this.parentNode).attr("data-name"));
+      tooltip.select("text").append("tspan").attr("x", "2.5em").attr("dy", "1.1em").text(d.y);
+    });
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("font-weight", "bold")
+      .attr("transform", "translate(0," + height + ")") // ****** 이게 x축의 위치를 잡아줌!!
+      .call(xAxis);
+
+  // Draw legend 오른쪽 박스 그리기
+  var legend = svg.selectAll(".legend")
+    .data(colors)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(30," + i * 20 + ")"; });
+
+  legend.append("rect")
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function(d, i) {return colors.slice().reverse()[i];}); // color변수에 있는 값 반대 순으로 채운다.
+
+  legend.append("text")
+    .attr("x", width + 5)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .text(function(d, i) {
+      switch (i) {
+        case 0: return "사과";
+        case 1: return "망고";
+        case 2: return "딸기";
+        case 3: return "포도";
+        case 4: return "수박";
+        case 5: return "오렌지";
+        case 6: return "바나나";
+        case 7: return "파인애플";
+      }
+    });
+
+  // Prep the tooltip bits, initial display is hidden 툴팁그리기
+  var tooltip = svg.append("g")
+    .attr("class", "tooltip")
+    .style("display", "none");
+
+  tooltip.append("rect")
+    .attr("width", 60)
+    .attr("height", 32)
+    .attr("fill", "white")
+    .style("opacity", 0.5);
+
+  tooltip.append("text")
+    .attr("x", 30)
+    .attr("dy", "1.2em")
+    .style("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold");
+
+  function zoomed() {
+    svg.select(".y.axis").call(yAxis);
+    rect.attr("y", function(d) { return y(d.y0 + d.y); })
+    .attr("height", function(d) {return y(d.y0) - y(d.y0 + d.y); });
+  }
+
+  svg.call(zoom);
+
+  });
+</script>
+</body>
+</html>
+</body>
+</html>

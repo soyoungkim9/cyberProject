@@ -1,0 +1,855 @@
+{
+"name": "점포",
+"children": [
+  {
+    "name": "강남점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "강남점파인애플",
+              "pineapple":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "강남점바나나",
+              "banana":15,
+              "value":15
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "강남점오렌지",
+              "oranges":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "강남점메론",
+              "watermelon":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "강남점포도",
+              "grape":2,
+              "value":2
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "강남점딸기",
+              "strawberry":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "강남점망고",
+              "mango":30,
+              "value":30
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "강남점사과",
+              "apple":6,
+              "value":6
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "구로점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "구로점파인애플",
+              "pineapple":12,
+              "value":12
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "구로점바나나",
+              "banana":18,
+              "value":18
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "구로점오렌지",
+              "oranges":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "구로점메론",
+              "watermelon":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "구로점포도",
+              "grape":12,
+              "value":12
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "구로점딸기",
+              "strawberry":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "구로점망고",
+              "mango":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "구로점사과",
+              "apple":6,
+              "value":6
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "노량진점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "노량진점파인애플",
+              "pineapple":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "노량진점바나나",
+              "banana":12,
+              "value":12
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "노량진점오렌지",
+              "oranges":8,
+              "value":8
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "노량진점메론",
+              "watermelon":2,
+              "value":2
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "노량진점포도",
+              "grape":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "노량진점딸기",
+              "strawberry":8,
+              "value":8
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "노량진점망고",
+              "mango":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "노량진점사과",
+              "apple":9,
+              "value":9
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "부천점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "부천점파인애플",
+              "pineapple":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "부천점바나나",
+              "banana":15,
+              "value":15
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "부천점오렌지",
+              "oranges":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "부천점메론",
+              "watermelon":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "부천점포도",
+              "grape":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "부천점딸기",
+              "strawberry":2,
+              "value":2
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "부천점망고",
+              "mango":13,
+              "value":13
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "부천점사과",
+              "apple":20,
+              "value":20
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "성수점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "성수점파인애플",
+              "pineapple":2,
+              "value":2
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "성수점바나나",
+              "banana":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "성수점오렌지",
+              "oranges":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "성수점메론",
+              "watermelon":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "성수점포도",
+              "grape":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "성수점딸기",
+              "strawberry":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "성수점망고",
+              "mango":17,
+              "value":17
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "성수점사과",
+              "apple":13,
+              "value":13
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "의정부점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "의정부점파인애플",
+              "pineapple":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "의정부점바나나",
+              "banana":12,
+              "value":12
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "의정부점오렌지",
+              "oranges":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "의정부점메론",
+              "watermelon":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "의정부점포도",
+              "grape":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "의정부점딸기",
+              "strawberry":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "의정부점망고",
+              "mango":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "의정부점사과",
+              "apple":7,
+              "value":7
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "여의도점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "여의도점파인애플",
+              "pineapple":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "여의도점바나나",
+              "banana":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "여의도점오렌지",
+              "oranges":8,
+              "value":8
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "여의도점메론",
+              "watermelon":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "여의도점포도",
+              "grape":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "여의도점딸기",
+              "strawberry":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "여의도점망고",
+              "mango":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "여의도점사과",
+              "apple":2,
+              "value":2
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "영등포점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "영등포점파인애플",
+              "pineapple":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "영등포점바나나",
+              "banana":11,
+              "value":11
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "영등포점오렌지",
+              "oranges":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "영등포점메론",
+              "watermelon":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "영등포점포도",
+              "grape":8,
+              "value":8
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "영등포점딸기",
+              "strawberry":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "영등포점망고",
+              "mango":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "영등포점사과",
+              "apple":15,
+              "value":15
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "합정점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "합정점파인애플",
+              "pineapple":10,
+              "value":10
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "합정점바나나",
+              "banana":13,
+              "value":13
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "합정점오렌지",
+              "oranges":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "합정점메론",
+              "watermelon":5,
+              "value":5
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "합정점포도",
+              "grape":11,
+              "value":11
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "합정점딸기",
+              "strawberry":3,
+              "value":3
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "합정점망고",
+              "mango":15,
+              "value":15
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "합정점사과",
+              "apple":4,
+              "value":4
+            }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "홍대점",
+    "children": [
+      {
+        "name": "파인애플",
+        "children":[
+            {
+              "name": "홍대점파인애플",
+              "pineapple":16,
+              "value":16
+            }
+        ]
+      },
+      {
+        "name": "바나나",
+        "children":[
+            {
+              "name": "홍대점바나나",
+              "banana":12,
+              "value":12
+            }
+        ]
+      },
+      {
+        "name": "오렌지",
+        "children":[
+            {
+              "name": "홍대점오렌지",
+              "oranges":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "메론",
+        "children":[
+            {
+              "name": "홍대점메론",
+              "watermelon":9,
+              "value":9
+            }
+        ]
+      },
+      {
+        "name": "포도",
+        "children":[
+            {
+              "name": "홍대점포도",
+              "grape":4,
+              "value":4
+            }
+        ]
+      },
+      {
+        "name": "딸기",
+        "children":[
+            {
+              "name": "홍대점딸기",
+              "strawberry":1,
+              "value":1
+            }
+        ]
+      },
+      {
+        "name": "망고",
+        "children":[
+            {
+              "name": "홍대점망고",
+              "mango":6,
+              "value":6
+            }
+        ]
+      },
+      {
+        "name": "사과",
+        "children":[
+            {
+              "name": "홍대점사과",
+              "apple":1,
+              "value":1
+            }
+        ]
+      }
+    ]
+  }
+]
+}
