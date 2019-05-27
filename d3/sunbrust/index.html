@@ -8,8 +8,8 @@
   }
 
   #gameboard {
-    height: 600px;
-    width: 600px;
+    height: 750px;
+    width: 650px;
   }
 
   path {
@@ -18,6 +18,10 @@
 
   text {
     pointer-events: none;
+  }
+
+  rect {
+    fill : #5387b7;
   }
 </style>
 <body>
@@ -40,7 +44,6 @@ $(function () {
     } else {
       tab_structure = bvsa;
       root = d3.hierarchy(tab_structure);
-      //console.log(root);
       update(); // 최초로 한번만 실행 (초기데이터)
     }
   });
@@ -52,6 +55,10 @@ $(function () {
     radius = (Math.min(gWidth, gHeight) / 2) - 10,
     svg = d3.select("svg").append("g").attr("id", "bigG").attr("transform", "translate(" + gWidth / 2 + "," + (gHeight / 2) + ")"),
     color_palettes = [['#4abdac', '#fc4a1a', '#f7b733'], ['#f03b20', '#feb24c', '#ffeda0'], ['#007849', '#0375b4', '#ffce00'], ['#373737', '#dcd0c0', '#c0b283'], ['#e37222', '#07889b', '#eeaa7b'], ['#062f4f', '#813772', '#b82601'], ['#565656', '#76323f', '#c09f80']];
+
+  // 이동경로 박스 추가
+  var pathWidth = 100;
+  var pathBox = d3.select("svg").append("g").attr("id", "pathG").attr("transform", "translate(" + ((gHeight/3)-pathWidth) + "," + (gHeight-10) + ")");
 
   var x = d3.scaleLinear().range([0, 2 * Math.PI]),
     y = d3.scaleLinear().range([0, radius]), //scaleSqrt
@@ -70,18 +77,23 @@ $(function () {
   // Build the sunburst.
   var first_build = true;
   function update() {
-    root.sum(function (d) { return d.value; }); /* 맨 끝에값, 과일값의 숫자로 grapsize를 대체 할 것임 */
+    //console.log(root);
+    root.sum(function (d) { return d.size == undefined ? 0 : d.size; }); /* slice 사이즈 크기를 측정함 */
 
     if (first_build) { // 최초로 데이터를 그려낸다.
-      var gSlices = svg.selectAll("g").data(partition(root).descendants(), function (d) { return d.height == 0 ? d.value : d.data.name; }).enter().append("g");
+      var gSlices = svg.selectAll("g").data(partition(root).descendants(),
+        function (d) { return d.height == 0 ? d.data.value : d.data.name; }).enter().append("g");
       gSlices.exit().remove();
       // root이면 흰색으로 칠한다.
       gSlices.append("path").style("fill", function (d) { return d.parent ? color(d.x0) : "white"; })
         .on("click", click)
-        .append("title").text(function (d) { return d.height != 0 ? (d.parent ? d.data.name : "") : d.value; });  // Return white for root.
-      gSlices.append("text").attr("dy", ".35em")
-        .text(function (d) {return d.height != 0 ? (d.parent ? d.data.name : "") : d.value;}).attr("id", function (d) { return "w" + d.data.name; }); // TODO: was d.data.word
-      svg.selectAll("path").append("title").text(function (d) { return d.data.word; })
+        .append("title").text(function (d) { return d.height != 0 ? (d.parent ? d.data.name : "") : d.data.value; });
+      gSlices.append("text")
+        .attr("dy", ".35em") //name의 경우 5글자 이상이면 짤린다. value의 경우 10글자 이상이면 짤린다.
+        .text(function (d) {
+          return d.height != 0 ? (d.parent ? (d.data.name.length > 5 ? d.data.name.substring(0,4) + "..." : d.data.name) : "") : (d.data.value.toString().length > 10 ? d.data.value.toString().substring(0,9) + "..." : d.data.value);
+          })
+
       
       first_build = false;
     } else {
@@ -93,28 +105,23 @@ $(function () {
       return arcTweenPath(d, i);
     });
     svg.selectAll("text").transition("update").duration(550).attrTween("transform", function (d, i) { return arcTweenText(d, i); })
-      .attr('text-anchor', function (d) { return d.textAngle > 180 ? "start" : "end"; })
-      .attr("dx", function (d) { return d.textAngle > 180 ? -13 : 13; })
+      .attr('text-anchor', 'middle')
       .attr("opacity", function (e) { return e.x1 - e.x0 > 0.01 ? 1 : 0; });
   }
 
   // Respond to slice click.
   function click(d) {
-    // sunbrust 차트 접근 위치
-    if(clickArr.length == 0 && d.depth > 0) {
-        var i = d.parent.depth;
+    if(d.depth > 0 && d.depth >= beforeDepth) {
+      clickArr = [];
+      var i = d.parent.depth;
         var temp = d;
         while(i >= 0) {
-          clickArr.push(temp.data.name);
+          temp.children == undefined ? clickArr.push(temp.data.value):clickArr.push(temp.data.name);
           temp = temp.parent;
           --i;
         }
         clickArr.reverse();
-    } else if(d.depth > beforeDepth) {
-      clickArr.push(d.data.name);
-    } else if(d.depth == beforeDepth && d.depth != 0) {
-      clickArr.pop();
-      clickArr.push(d.data.name);
+
     } else {
       clickArr.pop();
     }
@@ -125,30 +132,61 @@ $(function () {
 
     svg.selectAll("path").transition("click").duration(550).attrTween("d", function (d, i) { return arcTweenPath(d, i); });
     svg.selectAll("text").transition("click").duration(550).attrTween("transform", function (d, i) { return arcTweenText(d, i); })
-      .attr('text-anchor', function (d) { return d.textAngle > 180 ? "start" : "end"; })
-      .attr("dx", function (d) { return d.textAngle > 180 ? -13 : 13; })
+      .attr('text-anchor', 'middle')
       .attr("opacity", function (e) {
         if (e.x0 >= d.x0 && e.x1 <= d.x1) {
-          return (e.x1 - e.x0 > 0.01 ? 1 : 0);
+          return (e.x1 - e.x0 > 0 ? 1 : 0);
         } else {
-          return 0;
+            // depth1인 4번째 ~ 6번째 회사이름 클릭하면 depth2에서 depth2의 마지막 요소의 글씨가 안보이는 문제가 발생해서 이렇게 막 코딩함 ㅠㅠ
+            if(d.depth == 1) {
+            var parentNode = e;
+            var dName = d.data.name;
+            var i = e.depth;
+            while(i > 1) {
+              parentNode = parentNode.parent;
+              --i;
+            }
+            var j = d.depth; 
+            while(j != 1) {
+              dName = d.parent.data.name;
+              --j;
+            }
+            if(parentNode.data.name == dName) return 1;
+            }
+            return 0;
         }
-      })
+      });
+
+      // 이동경로 추가하기
+      var box = pathBox.selectAll("g").data(clickArr);
+      box.exit().remove();
+      var gBox = box.enter()
+                .append("g")
+                  .attr("class","path");
+
+      gBox
+        .append("rect")
+        .attr("x", function(d, i) {return pathWidth*i;})
+        .attr("y", -20)
+        .attr("width", pathWidth-20)
+        .attr("height", 100);
+      gBox
+        .append("text")
+        .text(function(d){return d;})
+        .attr("fill", "white")
+        .attr("x", function(d, i) {return pathWidth*i;}); /*위치 잡아주기*/
    }
 
 
   // When switching data: interpolate the arcs in data space.
   //$("#w1Jo").attr("transform").substring(10,$("#w1Jo").attr("transform").search(","))
   function arcTweenText(a, i) {
-
     var oi = d3.interpolate({ x0: (a.x0s ? a.x0s : 0), x1: (a.x1s ? a.x1s : 0), y0: (a.y0s ? a.y0s : 0), y1: (a.y1s ? a.y1s : 0) }, a);
     function tween(t) {
       var b = oi(t);
       var ang = ((x((b.x0 + b.x1) / 2) - Math.PI / 2) / Math.PI * 180);
       b.textAngle = (ang > 90) ? 180 + ang : ang;
       a.centroid = arc.centroid(b);
-      //b.opacity = (b.x1 - b.x0) > 0.01 ? 0 : 0;
-      //console.log(b.data.name + " x1:" + b.x1 + " x0:" + b.x0);
       return "translate(" + arc.centroid(b) + ")rotate(" + b.textAngle + ")";
     }
     return tween;

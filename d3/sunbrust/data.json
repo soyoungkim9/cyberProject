@@ -1,857 +1,1133 @@
-
-{
-  "name": "점포",
-  "children": [
-    {
-      "name": "강남점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "강남점파인애플",
-                "pineapple":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "강남점바나나",
-                "banana":15,
-                "value":15
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "강남점오렌지",
-                "oranges":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "강남점메론",
-                "watermelon":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "강남점포도",
-                "grape":2,
-                "value":2
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "강남점딸기",
-                "strawberry":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "강남점망고",
-                "mango":30,
-                "value":30
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "강남점사과",
-                "apple":6,
-                "value":6
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "구로점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "구로점파인애플",
-                "pineapple":12,
-                "value":12
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "구로점바나나",
-                "banana":18,
-                "value":18
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "구로점오렌지",
-                "oranges":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "구로점메론",
-                "watermelon":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "구로점포도",
-                "grape":12,
-                "value":12
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "구로점딸기",
-                "strawberry":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "구로점망고",
-                "mango":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "구로점사과",
-                "apple":6,
-                "value":6
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "노량진점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "노량진점파인애플",
-                "pineapple":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "노량진점바나나",
-                "banana":12,
-                "value":12
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "노량진점오렌지",
-                "oranges":8,
-                "value":8
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "노량진점메론",
-                "watermelon":2,
-                "value":2
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "노량진점포도",
-                "grape":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "노량진점딸기",
-                "strawberry":8,
-                "value":8
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "노량진점망고",
-                "mango":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "노량진점사과",
-                "apple":9,
-                "value":9
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "부천점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "부천점파인애플",
-                "pineapple":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "부천점바나나",
-                "banana":15,
-                "value":15
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "부천점오렌지",
-                "oranges":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "부천점메론",
-                "watermelon":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "부천점포도",
-                "grape":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "부천점딸기",
-                "strawberry":2,
-                "value":2
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "부천점망고",
-                "mango":13,
-                "value":13
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "부천점사과",
-                "apple":20,
-                "value":20
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "성수점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "성수점파인애플",
-                "pineapple":2,
-                "value":2
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "성수점바나나",
-                "banana":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "성수점오렌지",
-                "oranges":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "성수점메론",
-                "watermelon":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "성수점포도",
-                "grape":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "성수점딸기",
-                "strawberry":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "성수점망고",
-                "mango":17,
-                "value":17
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "성수점사과",
-                "apple":13,
-                "value":13
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "의정부점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "의정부점파인애플",
-                "pineapple":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "의정부점바나나",
-                "banana":12,
-                "value":12
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "의정부점오렌지",
-                "oranges":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "의정부점메론",
-                "watermelon":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "의정부점포도",
-                "grape":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "의정부점딸기",
-                "strawberry":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "의정부점망고",
-                "mango":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "의정부점사과",
-                "apple":7,
-                "value":7
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "여의도점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "여의도점파인애플",
-                "pineapple":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "여의도점바나나",
-                "banana":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "여의도점오렌지",
-                "oranges":8,
-                "value":8
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "여의도점메론",
-                "watermelon":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "여의도점포도",
-                "grape":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "여의도점딸기",
-                "strawberry":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "여의도점망고",
-                "mango":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "여의도점사과",
-                "apple":2,
-                "value":2
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "영등포점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "영등포점파인애플",
-                "pineapple":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "영등포점바나나",
-                "banana":11,
-                "value":11
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "영등포점오렌지",
-                "oranges":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "영등포점메론",
-                "watermelon":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "영등포점포도",
-                "grape":8,
-                "value":8
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "영등포점딸기",
-                "strawberry":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "영등포점망고",
-                "mango":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "영등포점사과",
-                "apple":15,
-                "value":15
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "합정점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "합정점파인애플",
-                "pineapple":10,
-                "value":10
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "합정점바나나",
-                "banana":13,
-                "value":13
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "합정점오렌지",
-                "oranges":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "합정점메론",
-                "watermelon":5,
-                "value":5
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "합정점포도",
-                "grape":11,
-                "value":11
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "합정점딸기",
-                "strawberry":3,
-                "value":3
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "합정점망고",
-                "mango":15,
-                "value":15
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "합정점사과",
-                "apple":4,
-                "value":4
-              }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "홍대점",
-      "children": [
-        {
-          "name": "파인애플",
-          "children":[
-              {
-                "name": "홍대점파인애플",
-                "pineapple":16,
-                "value":16
-              }
-          ]
-        },
-        {
-          "name": "바나나",
-          "children":[
-              {
-                "name": "홍대점바나나",
-                "banana":12,
-                "value":12
-              }
-          ]
-        },
-        {
-          "name": "오렌지",
-          "children":[
-              {
-                "name": "홍대점오렌지",
-                "oranges":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "메론",
-          "children":[
-              {
-                "name": "홍대점메론",
-                "watermelon":9,
-                "value":9
-              }
-          ]
-        },
-        {
-          "name": "포도",
-          "children":[
-              {
-                "name": "홍대점포도",
-                "grape":4,
-                "value":4
-              }
-          ]
-        },
-        {
-          "name": "딸기",
-          "children":[
-              {
-                "name": "홍대점딸기",
-                "strawberry":1,
-                "value":1
-              }
-          ]
-        },
-        {
-          "name": "망고",
-          "children":[
-              {
-                "name": "홍대점망고",
-                "mango":6,
-                "value":6
-              }
-          ]
-        },
-        {
-          "name": "사과",
-          "children":[
-              {
-                "name": "홍대점사과",
-                "apple":1,
-                "value":1
-              }
-          ]
-        }
-      ]
-    }
-  ]
-  }
-  
+{  
+   "name":"success",
+   "children":[  
+       {  
+          "name": "동화약품",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000020"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 9840,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 20,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.2,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 9860,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 2748,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 1555,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 15,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "KR모터스",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000040"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 549,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 9,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 1.61,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 558,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 1040,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 14707,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 8,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "경방",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000050"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 11250,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 150,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 1.32,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 11400,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 3084,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 603,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 6,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "메리츠화재",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000060"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 23700,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 23700,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 26942,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 3046,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 72,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "삼양홀딩스",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000070"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 78100,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 700,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.89,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 78800,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 6689,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 822,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 64,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "하이트진로",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000080"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 20150,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 250,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 1.23,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 20400,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 14132,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 35213,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 709,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "유한양행",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000100"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 238500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 4000,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 200000,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 242500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 30473,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 3848,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 919,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "CJ대한통운",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000120"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 160500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 1000,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.62,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 161500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 36614,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 6126,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 981,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "두산",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000150"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 100500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 1000,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.99,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 101500,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 18329,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 4794,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 483,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "성창기업지주",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000180"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 2080,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 5,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.24,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 2085,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 1451,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 7411,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 15,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "대림산업",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000210"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 99900,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 300,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.3,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 99600,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 34765,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 15903,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 1584,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       },
+       {  
+          "name": "유유제약",
+          "children": [
+             {
+                "name": "cd",
+                "children": [
+                   {
+                      "name": "코드번호",
+                      "value": "000220"
+                   }
+                ]
+             },
+             {  
+                "name": "mt",
+                "children": [
+                   {
+                      "name": "mt",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "nv",
+                "children": [
+                   {
+                      "name": "현재가",
+                      "value": 12650,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cv",
+                "children": [
+                   {
+                      "name": "cv",
+                      "value": 0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "cr",
+                "children": [
+                   {
+                      "name": "cr",
+                      "value": 0.0,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "pcv",
+                "children": [
+                   {
+                      "name": "전일",
+                      "value": 12650,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "mks",
+                "children": [
+                   {
+                      "name": "시가총액",
+                      "value": 806,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aq",
+                "children": [
+                   {
+                      "name": "거래량",
+                      "value": 8172,
+                      "size": 1
+                   }
+                ]
+             },
+             {  
+                "name": "aa",
+                "children": [
+                   {
+                      "name": "거래대금",
+                      "value": 103,
+                      "size": 1
+                   }
+                ]
+             }
+          ]
+       }
+    ]
+ }

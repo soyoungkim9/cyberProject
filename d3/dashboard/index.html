@@ -75,7 +75,7 @@
       .yAxis {
           font-family: verdana;
           font-size: 11px;
-          fill: white;
+          fill: black;
       }
 
       table {
@@ -101,7 +101,7 @@
 
       #lineChartTitle2 {
       	font-family: Verdana;
-      	font-size  : 72px;
+      	font-size  : 45px;
       	fill       : grey;
       	text-anchor: middle;
       	font-weight: bold;
@@ -116,14 +116,13 @@
   <div id="lineChart"></div>
   <script type="text/javascript">
   // 출처 : http://bl.ocks.org/diethardsteiner/3287802
-	var total = 0;
   var currentTotal = 0;
+	var mainVal = "현재가"; // 대표로 나타낼 값 지정 (파이차트의 value, line차트의 숫자표현에서 사용됨)
   /*
   ################ FORMATS ##################
   -------------------------------------------
   */
   var formatAsPercentage = d3.format("%"),
-  		formatAsPercentage1Dec = d3.format(".2%"),
   		formatAsInteger = d3.format(","),
   		fsec = d3.time.format("%S s"),
   		fmin = d3.time.format("%M m"),
@@ -140,118 +139,116 @@
     if(error) throw error;
 		
 		var root = d3.hierarchy(data);
-		var fruits = root.leaves();
+		var leaves = root.leaves();
 
   function dsPieChart(){
- 
-			var dataset = root.children.map(function(d) {
-        var tmp = 0;
-        for(var i = 0; i < d.leaves().length; i++) { // 각 점포 과일 총량
-          tmp += d.leaves()[i].data.value;
-        }
-        return {
-          name: d.data.name,
-          value: tmp
-        } // name : 점포명, value : 해당 점포 과일의 총량
-      });
+		var dataset = root.children.map(function(d) {
+			var tmp = 0;
+			for(var i = 0; i < d.leaves().length; i++) {
+				if(d.leaves()[i].data.name == mainVal) {
+					tmp = d.leaves()[i].data.value;
+					break;
+				}
+			}
+			return {
+				name: d.data.name,
+				value: tmp
+			} // name : 지점명, value : 해당 점포의 mainVal(현재가)
+		});
 
-      for(var i = 0; i < dataset.length; i++){
-        total += dataset[i].value;
-      }
+		var width = 450,
+					height = 450,
+					outerRadius = Math.min(width, height) / 2,
+					innerRadius = outerRadius * .999,
+					// for animation
+					innerRadiusFinal = outerRadius * .5,
+					innerRadiusFinal3 = outerRadius* .45,
+					color = d3.scale.category20();
 
-    	var width = 450,
-    		   height = 450,
-    		   outerRadius = Math.min(width, height) / 2,
-    		   innerRadius = outerRadius * .999,
-    		   // for animation
-    		   innerRadiusFinal = outerRadius * .5,
-    		   innerRadiusFinal3 = outerRadius* .45,
-    		   color = d3.scale.category20();
-
-    	var vis = d3.select("#pieChart")
-    	     .append("svg:svg")              //create the SVG element inside the <body>
-    	     .data([dataset])                   //associate our data with the document
-    	       .attr("width", width)           //set the width and height of our visualization (these will be attributes of the <svg> tag
-    	       .attr("height", height)
-    	     	   .append("svg:g")                //make a group to hold our pie chart
-    	           .attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");    //move the center of the pie chart from 0, 0 to radius, radius
+		var vis = d3.select("#pieChart")
+					.append("svg:svg")              //create the SVG element inside the <body>
+					.data([dataset])                   //associate our data with the document
+						.attr("width", width)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+						.attr("height", height)
+							.append("svg:g")                //make a group to hold our pie chart
+								.attr("transform", "translate(" + outerRadius + "," + outerRadius + ")");    //move the center of the pie chart from 0, 0 to radius, radius
 
 
-      var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
-          	.outerRadius(outerRadius).innerRadius(innerRadius);
+		var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+					.outerRadius(outerRadius).innerRadius(innerRadius);
 
-      // for animation
-      var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
-  	  var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
+		// for animation
+		var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
+		var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
 
-      var pie = d3.layout.pie()           //this will create arc data for us given a list of values
-          .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+		var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+				.value(function(d) {return d.value; });    //we must tell it out to access the value of each element in our data array
 
-      var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
-          .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
-          .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
-            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-               .attr("class", "slice")    //allow us to style things in the slices (like text)
-               .on("mouseover", mouseover)
-    				   .on("mouseout", mouseout)
-    				   .on("click", up);
+		var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+				.data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+				.enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+					.append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+							.attr("class", "slice")    //allow us to style things in the slices (like text)
+							.on("mouseover", mouseover)
+							.on("mouseout", mouseout)
+							.on("click", up);
 
-          arcs.append("svg:path")
-            .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-            .attr("d", arc)     //this creates the actual SVG path using the associated data (pie) with the arc drawing function
-            // title 태그를 추가하면 기본으로 내장된 tooltip 이벤트를 발생시킬 수 있다.
-            .append("svg:title") //mouseover title showing the figures
-  				   .text(function(d) {return d.data.name + ": " + formatAsPercentage1Dec(d.data.value/total); });
+		arcs.append("svg:path")
+			.attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+			.attr("d", arc)     //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+			// title 태그를 추가하면 기본으로 내장된 tooltip 이벤트를 발생시킬 수 있다.
+			.append("svg:title") //mouseover title showing the figures
+				.text(function(d) {return d.data.name + " " + mainVal+ "\n" + formatAsInteger(d.data.value) });
 
-          d3.selectAll("g.slice").selectAll("path").transition()
-  			    .duration(550)
-  			    .attr("d", arcFinal);
+		d3.selectAll("g.slice").selectAll("path").transition()
+			.duration(550)
+			.attr("d", arcFinal);
 
-  	  // Add a label to the larger arcs, translated to the arc centroid and rotated.
-  	  arcs.filter(function(d) { return d.endAngle - d.startAngle > .2; })
-	  		.append("svg:text")
-	      .attr("dy", ".35em")
-	      .attr("text-anchor", "middle")
-	      .attr("transform", function(d) { return "translate(" + arcFinal.centroid(d) + ")rotate(" + angle(d) + ")"; })
-	      .text(function(d) { return d.data.name; });
+		// Add a label to the larger arcs, translated to the arc centroid and rotated.
+		arcs.filter(function(d) { return d.endAngle - d.startAngle > .2; })
+			.append("svg:text")
+			.attr("dy", ".35em")
+			.attr("text-anchor", "middle")
+			.attr("transform", function(d) { return "translate(" + arcFinal.centroid(d) + ")rotate(" + angle(d) + ")"; })
+			.text(function(d) { return d.data.name; });
 
-  	  // Computes the label angle of an arc, converting from radians to degrees.
-  		function angle(d) {
-  		    var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
-  		    return a > 90 ? a - 180 : a;
-  		}
+		// Computes the label angle of an arc, converting from radians to degrees.
+		function angle(d) {
+				var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+				return a > 90 ? a - 180 : a;
+		}
 
-  		// Pie chart title
-  		vis.append("svg:text")
-  	     	.attr("dy", ".35em")
-  	      .attr("text-anchor", "middle")
-  	      .text("과일 재고량")
-  	      .attr("class","title")
-					.attr("id", "fruitAll")
-					.on("click", up);
+		// Pie chart title
+		vis.append("svg:text")
+				.attr("dy", ".35em")
+				.attr("text-anchor", "middle")
+				.text("주식")
+				.attr("class","title")
+				.attr("id", "dataName")
+				.on("click", up);
 
-    	function mouseover() {
-    	  d3.select(this).select("path").transition()
-    	    .duration(550)
-    	    .attr("d", arcFinal3);
-    	}
+		function mouseover() {
+			d3.select(this).select("path").transition()
+				.duration(550)
+				.attr("d", arcFinal3);
+		}
 
-    	function mouseout() {
-    	  d3.select(this).select("path").transition()
-    	     .duration(550)
-    	     .attr("d", arcFinal);
-  	  }
+		function mouseout() {
+			d3.select(this).select("path").transition()
+					.duration(550)
+					.attr("d", arcFinal);
+		}
 
-    	function up(d, i) {
-					var tempName = "All";
-					var tempColor = "lightgrey";
-				  if(d.data != undefined) {
-						tempName = d.data.name;
-						tempColor = color(i);
-					}
-					updateBarChart(tempName, tempColor);
-    			updateLineChart(tempName, tempColor);					 
-    	}
+		function up(d, i) {
+				var tempName = "";
+				var tempColor = "";
+				if(d.data != undefined) {
+					tempName = d.data.name;
+					tempColor = color(i);
+				}
+				updateBarChart(tempName, tempColor);
+				updateLineChart(tempName, tempColor);					 
+		}
   }
 
   dsPieChart();
@@ -260,63 +257,27 @@
   ############# BAR CHART ###################
   -------------------------------------------
   */
-  var group = "All";
+  var group = "";
 
   function datasetBarChosen(group) {
-    // 초기 default 점포명
-    if(group == "All") return datasetAll();
-
-    // 선택한 점포
+    // 선택한 지점
     var ds = [];
   	for (x in root.children) {
 			if(root.children[x].data.name == group) {
-				var temp = {position: group};
+				var tempData = {};
+				var tempName = {};
 				for(var i = 0; i < root.children[x].leaves().length; i++)	{
-					temp[root.children[x].leaves()[i].parent.data.name] = 
+					tempData[root.children[x].leaves()[i].parent.data.name] = 
 						root.children[x].leaves()[i].data.value;
+					tempName[root.children[x].leaves()[i].parent.data.name] = 
+					root.children[x].leaves()[i].data.name;
 				}	
-				ds.push(temp);
+				ds.push(tempData);
+				ds.push(tempName);
 			}
   	}
-  	return datasetPosition(ds);
-  }
 
-  function datasetAll() {
-		var stack = ["pineapple", "banana", "oranges", "watermelon", "grape", "strawberry", "mango", "apple"];
-		// 과일 종류를 기준으로 잡음 (총합),  y축: 모든 점포의 각 과일의 총합
-      var dataset = [];
-      for(var i = 0; i < stack.length; i++) {
-        var temp = [];
-        var before = 0;
-        for(var j in fruits) {
-          // 지역별로 축척된 과일의 양
-          if(i == 0) {
-            before = 0;
-          } else if (fruits[j].parent.parent.data.name == fruits[(j-1 < 0) ? 0 : j-1].parent.parent.data.name){
-            before += fruits[j].data.value;
-          } else {
-            before = 0;
-            before += fruits[j].data.value;
-          }
-          if(fruits[j].data.hasOwnProperty(stack[i])) { // 과일종류별로 배열을 만듬
-            temp.push({x: fruits[j].parent.parent.data.name,
-              y: fruits[j].data[stack[i]],
-              y0: (before - fruits[j].data[stack[i]] < 0) ? 0 : before - fruits[j].data[stack[i]]});
-          }
-        }
-        dataset.push(temp);
-      }
-    
-		// 각 과일의 총합
-    var total = [];
-    for(var i = 0; i < dataset.length; i++) {
-			var fruitVal = 0;
-      for(var j = 0; j < dataset[i].length; j++) {
-        fruitVal += dataset[i][j].y;
-      }
-    total.push({x:fruits[i].parent.data.name,y:fruitVal});
-    }
-    return total;
+  	return datasetPosition(ds);
   }
 
   function datasetPosition(ds) {
@@ -324,11 +285,21 @@
     var total = [];
     currentTotal = 0;
     for(var i = 0; i < Object.keys(ds[0]).length; i++) {
-      if(Object.keys(ds[0])[i] == "position")
+      if(Object.values(ds[0])[i].length != undefined) // 문자열이면 건너뛴다.
         continue;
-      total.push({x:Object.keys(ds[0])[i],y:ds[0][Object.keys(ds[0])[i]]});
-      currentTotal += ds[0][Object.keys(ds[0])[i]];
+      total.push({
+				x:Object.keys(ds[0])[i],
+				y:ds[0][Object.keys(ds[0])[i]],
+				name:ds[1][Object.keys(ds[1])[i]]
+				});
     }
+		// 라인그래프의 대표값 지정
+		for(var i = 0; i < total.length; i++) {
+			if(total[i].name == mainVal) {
+				currentTotal = total[i].y;
+			}
+		}
+
     return total;
   }
 
@@ -336,6 +307,7 @@
   		var margin = {top: 30, right: 5, bottom: 20, left: 50},
   		  width = 600 - margin.left - margin.right,
   	    height = 350 - margin.top - margin.bottom,
+				heightHalf = height / 2,
   		  colorBar = d3.scale.category20(),
   		  barPadding = 1;
 
@@ -347,105 +319,6 @@
   			barPadding : barPadding
   		};
   }
-
-  function dsBarChart() {
-  	var firstDatasetBarChart = datasetBarChosen(group);
-  	var basics = dsBarChartBasics();
-  	var margin = basics.margin,
-  		width = basics.width,
-  	   height = basics.height,
-  		colorBar = basics.colorBar,
-  		barPadding = basics.barPadding;
-
-  	var xScale = d3.scale.linear()
-			.domain([0, firstDatasetBarChart.length])
-			.range([0, width]);
-
-  	// Create linear y scale
-  	// Purpose: No matter what the data is, the bar should fit into the svg area; bars should not
-  	// get higher than the svg height. Hence incoming data needs to be scaled to fit into the svg area.
-  	var yScale = d3.scale.linear()
-		 	 // use the max funtion to derive end point of the domain (max value of the dataset)
-			 // do not use the min value of the dataset as min of the domain as otherwise you will not see the first bar
-		   .domain([0, d3.max(firstDatasetBarChart, function(d) { return d.y; })])
-		   // As coordinates are always defined from the top left corner, the y position of the bar
-		   // is the svg height minus the data value. So you basically draw the bar starting from the top.
-		   // To have the y position calculated by the range function
-		   .range([height, 0]);
-
-  	//Create SVG element
-  	var svg = d3.select("#barChart")
-			.append("svg")
-		    .attr("width", width + margin.left + margin.right)
-		    .attr("height", height + margin.top + margin.bottom)
-		    .attr("id","barChartPlot");
-
-  	var plot = svg
-	    .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  	plot.selectAll("rect")
-		   .data(firstDatasetBarChart)
-		   .enter()
-		   .append("rect")
-    		  .attr("x", function(d, i) {
-    			    return xScale(i);
-    			})
-  		   .attr("width", width / firstDatasetBarChart.length - barPadding)
-  			 .attr("y", function(d) {
-  			    return yScale(d.y);
-  			 })
-    		 .attr("height", function(d) {
-    			    return height-yScale(d.y);
-    		 })
-			   .attr("fill", "lightgrey");
-
-  	// Add y labels to plot
-  	plot.selectAll("text")
-  	  .data(firstDatasetBarChart)
-  	  .enter()
-  	  .append("text")
-  	    .text(function(d) {
-  			  return formatAsInteger(d3.round(d.y));
-  	    })
-  	    .attr("text-anchor", "middle")
-      	// Set x position to the left edge of each bar plus half the bar width
-      	.attr("x", function(d, i) {
-      			return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
-      	})
-      	.attr("y", function(d) {
-      			return yScale(d.y) + 14;
-      	})
-      	.attr("class", "yAxis");
-
-  	// Add x labels to chart
-  	var xLabels = svg
-	    .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + (margin.top + height)  + ")");
-
-  	xLabels.selectAll("text.xAxis")
-		  .data(firstDatasetBarChart)
-		  .enter()
-		  .append("text")
-  		  .text(function(d) {return d.x;})
-  		  .attr("text-anchor", "middle")
-  			// Set x position to the left edge of each bar plus half the bar width
-		    .attr("x", function(d, i) {
-		   		return (i * (width / firstDatasetBarChart.length)) + ((width / firstDatasetBarChart.length - barPadding) / 2);
-		    })
-  		  .attr("y", 15)
-  		  .attr("class", "xAxis");
-
-  	// Title
-  	svg.append("text")
-  		.attr("x", (width + margin.left + margin.right)/2)
-  		.attr("y", 15)
-  		.attr("class","title")
-  		.attr("text-anchor", "middle")
-  		.text("전체 과일 재고량");
-  }
-
-  dsBarChart();
 
   /* ** UPDATE CHART ** */
   /* updates bar chart on request */
@@ -464,73 +337,117 @@
 
   		var yScale = d3.scale.linear()
 	      .domain([0, d3.max(currentDatasetBarChart, function(d) { return d.y; })])
-	      .range([height,0]);
+	      .range([height,15]);
 
-  	  var svg = d3.select("#barChart svg");
+			// 이 부분에서 그래프 존재하면 지우기
+			d3.select("#barChartPlot").remove();
 
-  	  var plot = d3.select("#barChartPlot")
-  	   	.datum(currentDatasetBarChart);
-
-	  	/* Note that here we only have to select the elements - no more appending! */
+  	  var svg = d3.select("#barChart")
+				.append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.attr("id","barChartPlot");
+					
+			var plot = svg
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	  	
+			/* Note that here we only have to select the elements - no more appending! */
 	  	plot.selectAll("rect")
 	      .data(currentDatasetBarChart)
-	      .transition()
-  			.duration(550)
-  			.attr("x", function(d, i) {
-  			    return xScale(i);
-  			})
-		    .attr("width", width / currentDatasetBarChart.length - barPadding)
-  			.attr("y", function(d) {
-  			    return yScale(d.y);
-  			})
-  			.attr("height", function(d) {
-  			    return height-yScale(d.y);
-  			})
-  			.attr("fill", colorChosen);
+				.enter()
+				.append("rect")
+					.attr("x", function(d, i) {
+							return xScale(i);
+					})
+					.attr("width", width / currentDatasetBarChart.length - barPadding)
+					.attr("y", function(d) {
+							return yScale(d.y);
+					})
+					.attr("height", function(d) {
+							return height-yScale(d.y);
+					})
+					.attr("fill", colorChosen)
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout);
+			
+			// barchart 툴팁기능 추가
+			plot.selectAll("rect")
+					.append("title")
+					.text(function(d) { return d.x + "(" + d.name + ")\n" + d.y; });
 
-  		plot.selectAll("text.yAxis") // target the text element(s) which has a yAxis class defined
+  		plot.selectAll("text") // target the text element(s) which has a yAxis class defined
   			.data(currentDatasetBarChart)
-  			.transition()
-  			.duration(550)
+				.enter()
+  	  	.append("text")
 		    .attr("text-anchor", "middle")
 		    .attr("x", function(d, i) {
 		   	 	return (i * (width / currentDatasetBarChart.length)) + ((width / currentDatasetBarChart.length - barPadding) / 2);
 		    })
 		    .attr("y", function(d) {
-		    		return yScale(d.y) + 14;
+		    		return yScale(d.y) - 5;
 		    })
-		    .text(function(d) {
-				  return formatAsInteger(d3.round(d.y));
-		    })
-		    .attr("class", "yAxis");
+		    .attr("class", "yAxis")
+				.text(function(d) {
+  			  return formatAsInteger(d.y);
+  	    });
 
-  		svg.selectAll("text.title") // target the text element(s) which has a title class defined
+			// Add x labels to chart
+			var xLabels = svg
+				.append("g")
+				.attr("transform", "translate(" + margin.left + "," + (margin.top + height)  + ")");
+
+			xLabels.selectAll("text.xAxis")
+				.data(currentDatasetBarChart)
+				.enter()
+				.append("text")
+					.text(function(d) {return d.x;})
+					.attr("text-anchor", "middle")
+					// Set x position to the left edge of each bar plus half the bar width
+					.attr("x", function(d, i) {
+						return (i * (width / currentDatasetBarChart.length)) + ((width / currentDatasetBarChart.length - barPadding) / 2);
+					})
+					.attr("y", 15)
+					.attr("class", "xAxis");
+
+  		svg.append("text") // target the text element(s) which has a title class defined
   			.attr("x", (width + margin.left + margin.right)/2)
   			.attr("y", 15)
   			.attr("class","title")
   			.attr("text-anchor", "middle")
-  			.text(group == "All" ? "전체 과일 재고량" : group + " 재고량");
+  			.text(group);
+
+			function mouseover() {
+				d3.select(this).transition()
+					.duration(500)
+					.attr("opacity", 0.5);
+			}
+
+			function mouseout() {
+				d3.select(this).transition()
+					.duration(500)
+					.attr("opacity", 1);
+			}
   }
 
   /*
   ############# LINE CHART ##################
   -------------------------------------------
   */
-  // set initial category value
-  var group = "All";
-
   function datasetLineChartChosen(group) {
-    if(group == "All") return datasetAll();
-
     var ds = [];
   	for (x in root.children) {
 			if(root.children[x].data.name == group) {
-				var temp = {position: group};
+				var tempData = {};
+				var tempName = {};
 				for(var i = 0; i < root.children[x].leaves().length; i++)	{
-					temp[root.children[x].leaves()[i].parent.data.name] = 
+					tempData[root.children[x].leaves()[i].parent.data.name] = 
 						root.children[x].leaves()[i].data.value;
+					tempName[root.children[x].leaves()[i].parent.data.name] = 
+						root.children[x].leaves()[i].data.name;
 				}	
-				ds.push(temp);
+				ds.push(tempData);
+				ds.push(tempName);
 			}
   	}
 		
@@ -549,69 +466,6 @@
 		};
   }
 
-
-  function dsLineChart() {
-  	var firstDatasetLineChart = datasetLineChartChosen(group);
-  	var basics = dsLineChartBasics();
-  	var margin = basics.margin,
-  		width = basics.width,
-  	  height = basics.height;
-
-  	var xScale = d3.scale.linear()
-	    .domain([0, firstDatasetLineChart.length-1])
-	    .range([0, width]);
-
-  	var yScale = d3.scale.linear()
-	    .domain([0, d3.max(firstDatasetLineChart, function(d) { return d.y; })])
-	    .range([height, 0]);
-
-  	var line = d3.svg.line()
-	    .x(function(d, i) { return xScale(i); })
-	    .y(function(d) { return yScale(d.y); });
-
-  	var svg = d3.select("#lineChart").append("svg")
-	    .datum(firstDatasetLineChart)
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
-	    // create group and move it so that margins are respected (space for axis and title)
-
-  	var plot = svg
-	    .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-	    .attr("id", "lineChartPlot");
-
-  	/* descriptive titles as part of plot -- start */
-  	var dsLength=firstDatasetLineChart.length;
-  	plot.append("text")
-  		.text(total)
-  		.attr("id","lineChartTitle2")
-  		.attr("x",width/2)
-  		.attr("y",height/2);
-  	/* descriptive titles -- end */
-
-  	plot.append("path")
-	    .attr("class", "line")
-	    .attr("d", line)
-	    // add color
-		  .attr("stroke", "lightgrey");
-
-  	plot.selectAll(".dot")
-	    .data(firstDatasetLineChart)
-	  	.enter().append("circle")
-  	    .attr("class", "dot")
-  	    //.attr("stroke", function (d) { return d.measure==datasetMeasureMin ? "red" : (d.measure==datasetMeasureMax ? "green" : "steelblue") } )
-  	    .attr("fill", function (d) { return d.y==d3.min(firstDatasetLineChart, function(d) { return d.y; }) ? "red" : (d.y==d3.max(firstDatasetLineChart, function(d) { return d.y; }) ? "green" : "white") } )
-  	    //.attr("stroke-width", function (d) { return d.measure==datasetMeasureMin || d.measure==datasetMeasureMax ? "3px" : "1.5px"} )
-  	    .attr("cx", line.x())
-  	    .attr("cy", line.y())
-  	    .attr("r", 3.5)
-  	    .attr("stroke", "lightgrey")
-  	    .append("title")
-  	      .text(function(d) { return d.x + ": " + formatAsInteger(d.y); });
-    }
-
-    dsLineChart();
-
   /* ** UPDATE CHART ** */
   /* updates bar chart on request */
   function updateLineChart(group, colorChosen) {
@@ -621,7 +475,7 @@
   		width = basics.width,
   	  height = basics.height;
 
-  	var xScale = d3.scale.linear()
+		var xScale = d3.scale.linear()
 	    .domain([0, currentDatasetLineChart.length-1])
 	    .range([0, width]);
 
@@ -630,40 +484,51 @@
 	    .range([height, 0]);
 
   	var line = d3.svg.line()
-      .x(function(d, i) { return xScale(i); })
-      .y(function(d) { return yScale(d.y); });
+	    .x(function(d, i) { return xScale(i); })
+	    .y(function(d) { return yScale(d.y); });
 
-     var plot = d3.select("#lineChartPlot")
-     	.datum(currentDatasetLineChart);
+		// 이 부분에서 그래프 존재하면 지우기
+		d3.select("#lineChartSvg").remove();
+  	var svg = d3.select("#lineChart").append("svg")
+	    .datum(currentDatasetLineChart)
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+			.attr("id", "lineChartSvg")
+	    // create group and move it so that margins are respected (space for axis and title)
+
+  	var plot = svg
+	    .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top/2 + ")")
+	    .attr("id", "lineChartPlot");
+
+		plot.append("path")
+		.attr("class", "line")
+		.attr("d", line)
+		// add color
+		.attr("stroke", "lightgrey");
+
+  	plot.selectAll(".dot")
+	    .data(currentDatasetLineChart)
+	  	.enter().append("circle")
+  	    .attr("class", "dot")
+  	    //.attr("stroke", function (d) { return d.measure==datasetMeasureMin ? "red" : (d.measure==datasetMeasureMax ? "green" : "steelblue") } )
+  	    .attr("fill", function (d) { return d.y==d3.min(currentDatasetLineChart, function(d) { return d.y; }) ? "red" : (d.y==d3.max(currentDatasetLineChart, function(d) { return d.y; }) ? "green" : "white") } )
+  	    //.attr("stroke-width", function (d) { return d.measure==datasetMeasureMin || d.measure==datasetMeasureMax ? "3px" : "1.5px"} )
+  	    .attr("cx", line.x())
+  	    .attr("cy", line.y())
+  	    .attr("r", 3.5)
+  	    .attr("stroke", "lightgrey")
+  	    .append("title")
+  	      .text(function(d) { return d.x + "(" + d.name + ")\n" + d.y; });
 
   	/* descriptive titles as part of plot -- start */
   	var dsLength=currentDatasetLineChart.length;
-
-  	plot.select("text")
-  		.text(group == "All" ? total : currentTotal);
+  	plot.append("text")
+  		.text(formatAsInteger(currentTotal)) // 라인차트의 대표 숫자
+  		.attr("id","lineChartTitle2")
+  		.attr("x",width/2)
+  		.attr("y",height/2 + 20);
   	/* descriptive titles -- end */
-
-  	plot
-  	.select("path")
-  		.transition()
-  		.duration(550)
-  	  .attr("class", "line")
-  	  .attr("d", line)
-  	   // add color
-  		.attr("stroke", colorChosen) ;
-
-  	var path = plot
-  		.selectAll(".dot")
-  	  .data(currentDatasetLineChart)
-  	  .transition()
-  		.duration(550)
-  	  .attr("class", "dot")
-  	  .attr("fill", function (d) { return d.y==d3.min(currentDatasetLineChart, function(d) { return d.y; }) ? "red" : (d.y==d3.max(currentDatasetLineChart, function(d) { return d.y; }) ? "green" : "white") } )
-  	  .attr("cx", line.x())
-  	  .attr("cy", line.y())
-  	  .attr("r", 3.5)
-  	  // add color
-  		.attr("stroke", colorChosen);
   }
   });
     </script>

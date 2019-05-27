@@ -1,221 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>d3.js learning</title>
-  <style type="text/css">
-  svg {
-    font: 10px sans-serif;
-    shape-rendering: crispEdges;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            margin-top: 20px;
+        }
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-  }
+        .panel {
+            background-color: #D9D1C7;
+        }
 
-  path.domain {
-    stroke: none;
-  }
+        .axis path {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
 
-  .y .tick line {
-    stroke: #ddd;
-  }
-  </style>
+        .bar {
+            fill: steelblue;
+        }
 
+        .checkbox {
+            display: inline-block;
+            width: 20%;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                <div class="panel-body">
+                    <form role="form" class="categories"></form>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="graph"></div>
+            </div>
+        </div>
+    </div>
+</body>
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://d3js.org/d3-hierarchy.v1.js"></script>
-<script type="text/javascript">
-// 출처 : http://bl.ocks.org/mstanaland/6100713
-// Setup svg using Bostock's margin convention
-var margin = {top: 20, right: 160, bottom: 35, left: 30},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+<script>
+// 출처: http://frameworkish.com/html/2016/05/04/grouped-dynamic-bar-chart-d3.html
+d3.json("data.json", function(error, bvsa) {
+    if(error) throw error;
+    
+    var currentColor = "";
 
-/* Data in strings like it would be if imported from a csv */
-d3.json("data.json", function(error, data) {
-  if(error) throw error;
-  // console.log(data);
+    // 데이터 파싱
+    var data = [];
+    var root = d3.hierarchy(bvsa);
+    var leaves = root.leaves();
+    
+    var yList = [];
+    for(var i = 0; i < root.children[0].children.length; i++) {
+        if(typeof(root.children[0].children[i].children[0].data.value) != "string") {
+            yList.push(root.children[0].children[i].data.name);
+        }
+    }
 
- // 데이터 매핑 : x축 : 위치, y축 : 과일
- var root = d3.hierarchy(data);
- var fruits = root.leaves();
- var stack = ["pineapple", "banana", "oranges", "watermelon", "grape", "strawberry", "mango", "apple"];
- var dataset = [];
- for(var i = 0; i < stack.length; i++) {
-   var temp = [];
-   var before = 0;
-   for(var j in fruits) {
-     // 지역별로 축척된 과일의 양
-     if(i == 0) {
-       before = 0;
-     } else if (fruits[j].parent.parent.data.name == fruits[(j-1 < 0) ? 0 : j-1].parent.parent.data.name){
-       before += fruits[j].data.value;
-     } else {
-       before = 0;
-       before += fruits[j].data.value;
-     }
-     if(fruits[j].data.hasOwnProperty(stack[i])) { // 과일종류별로 배열을 만듬
-       temp.push({x: fruits[j].parent.parent.data.name,
-         y: fruits[j].data[stack[i]],
-         y0: (before - fruits[j].data[stack[i]] < 0) ? 0 : before - fruits[j].data[stack[i]]});
-     }
-   }
-   dataset.push(temp);
- }
+    for(var i = 0; i < yList.length; i++) {
+        var temp = new Object();
+        temp['state'] = yList[i];
+        var arr = [];
+        for(var j = 0; j < leaves.length; j++) {
+            if(leaves[j].parent.data.name == yList[i]) arr.push(leaves[j].data.value);
+        }
+        temp['stats'] = arr;
+        data.push(temp);
+    }
 
-  // Transpose the data into layers
-  var svg = d3.select("body")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-  // Set x, y and colors
-  var x = d3.scale.ordinal()
-    .domain(dataset[0].map(function(d) { return d.x; }))
-    .rangeRoundBands([10, width-10], 0.01); // x축 넓이와 간격
-
-  var y = d3.scale.linear()
-    .domain([0, d3.max(dataset, function(d) { return d3.max(d, function(d) { return d.y0 + d.y; });})]) // 이전 y와 현재y를 더함
-    .range([height, 0]);
-
-  var colors = ["#795548","#ffeb3b","#ff9800","#4caf50","#9c27b0", "#d25c4d", "#f2b447", "#d9d574"];
-
-  // Define and draw axes y축과 축을 그려낸닷!
-  var yAxis = d3.svg.axis()
-    .scale(y) // y 축
-    .orient("left") // 왼쪽기준 축
-    .ticks(5) // 눈금 갯수
-    .tickSize(-width)
-    .tickPadding(5)
-    .tickFormat( function(d) { return d } );
-
-  var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickPadding(5);
-
-  // zoom 기능
-  var zoom = d3.behavior.zoom()
-    .y(y)
-    .scaleExtent([1, 20])
-    .on("zoom", zoomed);
-
-  svg.append("g")
-    .attr("class", "y axis")
-    .attr("font-weight", "bold")
-    .call(yAxis);
-
-  // Create groups for each series, rects for each segment
-  var groups = svg.selectAll("g.cost")
-    .data(dataset)
-    .enter().append("g")
-    .attr("class", "cost")
-    .attr("data-name", function(d, i) {
-          switch (i) {
-            case 7: return "사과";
-            case 6: return "망고";
-            case 5: return "딸기";
-            case 4: return "포도";
-            case 3: return "수박";
-            case 2: return "오렌지";
-            case 1: return "바나나";
-            case 0: return "파인애플";
-          }})
-    .style("fill", function(d, i) { return colors[i]; });
-
-  var rect = groups.selectAll("rect")
-    .data(function(d) { return d; })
+    // label 파싱
+    var ids = [];
+    for(var i = 0; i < root.children.length; i++) {
+        ids.push(root.children[i].data.name);
+    }
+    // Let's populate the categoeries checkboxes
+    d3.select('.categories').selectAll('.checkbox')
+    .data(ids)
     .enter()
-    .append("rect")
-      .attr("x", function(d) { return x(d.x); }) // x를 순서대로 가져오는건가?
-      .attr("y", function(d) { return y(d.y0 + d.y); }) // y를 순서대로 가져오는건가?
-      .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); }) // 각 박스의 높이
-      .attr("width", x.rangeBand()) // 각 박스의 넓이
-    .on("mouseover", function() { tooltip.style("display", null); })
-    .on("mouseout", function() { tooltip.style("display", "none"); })
-    .on("mousemove", function(d) { // mousemove : hover로 하고싶으면 위의 주석 해제하고 "click"을 mousemove로 할것
-      tooltip.style("display", null);
-      var xPosition = d3.mouse(this)[0] - 15;
-      var yPosition = d3.mouse(this)[1] - 35;
-      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.selectAll("tspan").remove();
-      tooltip.select("text").append("tspan").text(d3.select(this.parentNode).attr("data-name"));
-      tooltip.select("text").append("tspan").attr("x", "2.5em").attr("dy", "1.1em").text(d.y);
+    .append('div')
+    .attr('class', 'checkbox')
+    .append('label').html(function(id, index) {
+        var checkbox = '<input id="' + id + '" type="checkbox" class="category">';
+        return checkbox + ids[index];
     });
+
+    // some variables declarations
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width = 1000 - margin.left - margin.right,
+        height = 1000 - margin.top - margin.bottom;
+
+    // the scale for the state age value
+    var x = d3.scale.linear().range([0, width]);
+
+    // the scale for each state
+    var y0 = d3.scale.ordinal().rangeBands([0, height], .1);
+    // the scale for each state age
+    var y1 = d3.scale.ordinal();
+
+    // just a simple scale of colors
+    var color = d3.scale.category20();
+    
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        .tickFormat(d3.format(".2s"));
+
+    var yAxis = d3.svg.axis()
+        .scale(y0)
+        .orient("left");
+
+    var svg = d3.select(".graph").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.select('.categories').selectAll('.category').on('change', function() {
+    var x = d3.select('.categories').selectAll('.category:checked');
+    var ids = x[0].map(function(category) {
+        return category.id;
+    });
+    updateGraph(ids);
+    });
+    renderGraph();
+
+    function renderGraph() {
+    x.domain([0, 0]);
+    // y0 domain is all the state names
+    y0.domain(data.map(function(d) { return d.state; }));
+    // y1 domain is all the age names, we limit the range to from 0 to a y0 band
+    y1.domain(ids).rangeRoundBands([0, y0.rangeBand()]);
 
     svg.append("g")
-      .attr("class", "x axis")
-      .attr("font-weight", "bold")
-      .attr("transform", "translate(0," + height + ")") // ****** 이게 x축의 위치를 잡아줌!!
-      .call(xAxis);
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
-  // Draw legend 오른쪽 박스 그리기
-  var legend = svg.selectAll(".legend")
-    .data(colors)
-    .enter().append("g")
-    .attr("class", "legend")
-    .attr("transform", function(d, i) { return "translate(30," + i * 20 + ")"; });
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+    }
 
-  legend.append("rect")
-    .attr("x", width - 18)
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", function(d, i) {return colors.slice().reverse()[i];}); // color변수에 있는 값 반대 순으로 채운다.
+    function updateGraph(selectedIds) {
 
-  legend.append("text")
-    .attr("x", width + 5)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .style("text-anchor", "start")
-    .text(function(d, i) {
-      switch (i) {
-        case 0: return "사과";
-        case 1: return "망고";
-        case 2: return "딸기";
-        case 3: return "포도";
-        case 4: return "수박";
-        case 5: return "오렌지";
-        case 6: return "바나나";
-        case 7: return "파인애플";
-      }
+    var statesData = data.map(function(stateData) {
+        return {
+        state: stateData.state,
+        ages: selectedIds.map(function(selectedId) {
+            var index = ids.findIndex(function(id) {
+            return selectedId === id;
+            });
+            return {
+            id: ids[index],
+            name: ids[index],
+            yName: stateData.state,
+            value: stateData.stats[index]
+            };
+        })
+        }
     });
+    
+    // x domain is between 0 and the maximun value in any ages.value
+    x.domain([0, d3.max(statesData, function(d) { return d3.max(d.ages, function(d) { return d.value }); })]);
+    // y0 domain is all the state names
+    y0.domain(statesData.map(function(d) { return d.state; }));
+    // y1 domain is all the age names, we limit the range to from 0 to a y0 band
+    y1.domain(ids).rangeRoundBands([0, y0.rangeBand()]);
 
-  // Prep the tooltip bits, initial display is hidden 툴팁그리기
-  var tooltip = svg.append("g")
-    .attr("class", "tooltip")
-    .style("display", "none");
+    svg.selectAll('.axis.x').call(xAxis);
+    svg.selectAll('.axis.y').call(yAxis);
 
-  tooltip.append("rect")
-    .attr("width", 60)
-    .attr("height", 32)
-    .attr("fill", "white")
-    .style("opacity", 0.5);
+    var state = svg.selectAll(".state")
+        .data(statesData);
 
-  tooltip.append("text")
-    .attr("x", 30)
-    .attr("dy", "1.2em")
-    .style("text-anchor", "middle")
-    .attr("font-size", "12px")
-    .attr("font-weight", "bold");
+    state.enter().append("g")
+        .attr("class", "state")
+        .attr("transform", function(d) { return "translate(0, " + y0(d.state) + ")"; });
 
-  function zoomed() {
-    svg.select(".y.axis").call(yAxis);
-    rect.attr("y", function(d) { return y(d.y0 + d.y); })
-    .attr("height", function(d) {return y(d.y0) - y(d.y0 + d.y); });
-  }
 
-  svg.call(zoom);
+    var age = state.selectAll("rect")
+        .data(function(d) { return d.ages; });
 
-  });
+    // we append a new rect every time we have an extra data vs dom element
+    // 막대그래프에 툴팁기능 추가
+    age
+        .enter()
+        .append("rect")
+        .attr('width', 0)
+        .on("mouseover", mouseover)
+		.on("mouseout", mouseout)
+            .append("title")
+            .text(function(d){return d.id + "\n" + d.yName + " : " + d.value;});
+
+    // this updates will happend neither inserting new elements or updating them
+    age
+        .attr("x", 0)
+        .attr("y", function(d, index) { return y1(ids[index]); })
+        .attr("id", function(d) { return d.id; })
+        .style("fill", function(d) { return color(d.name); })
+        .transition()
+        .attr("width", function(d) { return x(d.value); })
+        .attr("height", y1.rangeBand());
+    
+    age.exit().transition().attr("width", 0).remove();
+
+
+    var legend = svg.selectAll(".legend")
+        .data(statesData[0].ages.map(function(age) { return age.name; }));
+
+    legend.enter().append("g");
+    legend
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(20," + (200 + i * 20) + ")"; });
+
+    var legendColor = legend.selectAll('.legend-color').data(function(d) { return [d]; });
+    legendColor.enter().append("rect");
+    legendColor
+        .attr('class', 'legend-color')
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+
+    var legendText = legend.selectAll('.legend-text').data(function(d) { return [d]; });;
+
+    legendText.enter().append("text");
+    legendText
+        .attr('class', 'legend-text')
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+
+    legend.exit().remove();
+    
+    // zoom기능 추가
+    var zoom = d3.behavior.zoom()
+        .scaleExtent([0, 5])
+        .on("zoom", zoomed);
+
+    function mouseover() {
+        d3.select(this).transition()
+            .duration(500)
+            .attr("opacity", "0.5")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
+    }
+
+    function mouseout() {
+        d3.select(this).transition()
+            .duration(500)
+            .attr("opacity", 1)
+            .attr("stroke-width", 0);
+    }
+
+    function zoomed() {
+        svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        svg.select(".y.axis").call(yAxis);
+        svg.select(".x.axis").call(xAxis);
+    }
+
+    svg.call(zoom);
+    console.log(root);
+    }
+});
 </script>
-</body>
-</html>
-</body>
 </html>
