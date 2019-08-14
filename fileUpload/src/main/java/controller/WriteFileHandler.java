@@ -1,5 +1,6 @@
 package controller;
 
+import file.FileIO;
 import file.fileUploadThread;
 import service.FileService;
 import javax.servlet.ServletException;
@@ -12,32 +13,29 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.util.Collection;
 import java.util.Iterator;
-import static file.FileIO.*;
 
 @WebServlet({"/fileUpload", "/fileDownload"})
 @MultipartConfig
 public class WriteFileHandler extends HttpServlet {
   public static long startTime = 0;
-  private static FileService fileService = new FileService();
-  
-  public static FileService getFileService() {
-    return fileService;
-  }
+  private FileService fileService = new FileService();
+  FileIO f = null;
 
   // 단일 파일 다운로드
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    setFileName(req.getParameter("fname"));
-    File file = new File(getPath() + getFileName());
+    f = new FileIO();
+    f.setFileName(req.getParameter("fname"));
+    File file = new File(f.getPath() + f.getFileName());
     System.out.println("################ mime" + req.getContentType());
     if(file.isFile()) {
-      setFileName(handleKoFileName(req, res, getFileName()));
+      f.setFileName(f.handleKoFileName(req, res, f.getFileName()));
       // 흠.... 파일확장자처리 어케할지.. getMimeType
       res.setContentLength((int)file.length());
       res.setHeader("Content-Transfer-Encoding", "binary;");
       res.setHeader("paragma", "no-cache;");
       res.setHeader("Expires", "-1");
-
-      writeFile(new FileInputStream(file), res.getOutputStream(), (int)file.length());
+  
+      f.writeFile(new FileInputStream(file), res.getOutputStream(), (int)file.length());
 
     }
   }
@@ -53,32 +51,27 @@ public class WriteFileHandler extends HttpServlet {
 
     System.out.println("######## 개수?" + parts.size());
     System.out.println("######## CPU Core 개수 체크 : " + Runtime.getRuntime().availableProcessors());
-    Runnable r = new fileUploadThread();
     Thread[] t = new Thread[parts.size()];
     int i = 0;
     startTime = System.currentTimeMillis(); /* 시작시간 */
     while(iter.hasNext()) {
-      setPart(iter.next());
-      setFileName(getPart().getSubmittedFileName());
-      if(getFileName() != null && !getFileName().isEmpty()) {
-        t[i] = new Thread(r , getFileName());
-        
-        //t[0].setPriority(3);
-        //System.out.println(getFileName() + "의 우선순위" + t[i].getPriority());
-        // 쓰레드가 아닌것만 같은 느낌적인 느낌 ㅠㅠ
-        t[i].start();
+      f = new FileIO(); // 흠 얘를 좀 더 효율적으로 만들어보고 싶음.. 사용되는 메서드는 같으나 FileIO라는 인스턴스만 다름..
+      f.setPart(iter.next());
+      f.setFileName(f.getPart().getSubmittedFileName());
+      if(f.getFileName() != null && !f.getFileName().isEmpty()) {
+        Runnable r = new fileUploadThread(f, fileService);
+        t[i] = new Thread(r , f.getFileName());
+        t[i].start(); // 스레드는 실행순서를 유지하지 않기 때문에 while문 써도 뒤죽박죽으로 만들어짐
         try {
-          t[i].join();
+          t[i].join(); // 그래서 join으로 스레드를 순서대로 실행할 수 있도록 제어한다.
         } catch(InterruptedException e) {}
         i++;
-        req.setAttribute("new", 0);
       } else {
         continue;
       }
     }
-    /* ㅠㅠ 원하는 결과가 안나옴.. 왜지..?
-    System.out.println(t[0].getName());
-    System.out.println(t[1].getName());
+    // 결과 확인하기.. 동기화 처리 잘 됐는지 개선 : 대기하는 동안 다른 일 처리하도록 하기!
+    /*
     t[0].start();
     t[1].start();
     try {
@@ -86,7 +79,6 @@ public class WriteFileHandler extends HttpServlet {
       t[1].join();
     } catch(InterruptedException e) {}
     */
-    System.out.println("######## main 소요시간 : " + (System.currentTimeMillis() - startTime)); /* 종료시간 */
     res.sendRedirect("/list");
   }
 }

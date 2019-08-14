@@ -1,37 +1,47 @@
 package file;
 
 import dto.FileDto;
+import service.FileService;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static controller.WriteFileHandler.*;
-import static file.FileIO.*;
 
 public class fileUploadThread implements Runnable {
+  private FileIO f = null;
+  private FileService fileService = null;
+  
+  public fileUploadThread (FileIO f, FileService fileService) {
+    this.f = f;
+    this.fileService = fileService;
+  }
+  
   @Override
   public void run() {
-    try {
-      for(int i = 0; i < 300; i++) {
-        System.out.println(i); // 병렬처리하고 싶은데... 직렬로 처리되는거 같음..
+    /*
+    for(int i = 0; i < 300; i++) {
+      System.out.println(i); // 스레드로 실행되는지 확인 절차 ^^
+    }
+    */
+    synchronized (this){
+      if(new File(f.getPath() + f.getFileName()).exists()) {
+        String[] temp = f.getFileName().split("\\.");
+        f.setFileName(temp[0] + "-" + f.createDate() + "." + temp[1]);
       }
+    
+      try {
+        f.writeFile(f.getPart().getInputStream(), new FileOutputStream(f.getPath() + f.getFileName()),
+          (int)f.getPart().getSize());
       
-      if(new File(getPath() + getFileName()).exists()) {
-        String[] temp = getFileName().split("\\.");
-        setFileName(temp[0] + "-" + createDate() + "." + temp[1]);
-      }
-      
-      // 흠 이부분 handler부분으로 옮길까 고민임..
+      } catch(IOException e){ System.out.println("파일업로드 오류!"); return;}
+    
       FileDto fileDto = new FileDto();
-      fileDto.setName(getFileName());
-      getFileService().wirte(fileDto);
-      
-      writeFile(getPart().getInputStream(), new FileOutputStream(getPath() + getFileName()),
-        (int)getPart().getSize());
-  
-    } catch(IOException e){}
-    System.out.println("######## 소요시간 : " + (System.currentTimeMillis() - startTime)); /* 종료시간 */
+      fileDto.setName(f.getFileName());
+      fileService.wirte(fileDto);
+    }
+    System.out.println("######## 소요시간 " + f.getFileName() + " : " + (System.currentTimeMillis() - startTime)); /* 종료시간 */
   
   }
 }
