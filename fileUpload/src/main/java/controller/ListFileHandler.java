@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet({"", "/list"})
 public class ListFileHandler extends HttpServlet {
   private FileService fileService = new FileService();
   
