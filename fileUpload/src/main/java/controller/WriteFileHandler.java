@@ -21,12 +21,11 @@ public class WriteFileHandler extends HttpServlet {
   // 단일 파일 다운로드
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
     f = new FileIO();
-    f.setFileName(req.getParameter("fname"));
-    File file = new File(f.getPath() + f.getFileName());
-    System.out.println("################ mime" + req.getContentType());
+    f.setFile(req.getParameter("fname"));
+    
+    File file = new File(f.getPath() + f.getDir() + f.getFileName());
     if(file.isFile()) {
-      f.setFileName(f.handleKoFileName(req, res, f.getFileName()));
-      // 흠.... 파일확장자처리 어케할지.. getMimeType
+      f.handleKoFileName(req, res, f.getFileName());
       res.setContentLength((int)file.length());
       res.setHeader("Content-Transfer-Encoding", "binary;");
       res.setHeader("paragma", "no-cache;");
@@ -51,7 +50,6 @@ public class WriteFileHandler extends HttpServlet {
     while(iter.hasNext()) {
       f = new FileIO();
       f.setPart(iter.next());
-      f.setFileName(f.getPart().getSubmittedFileName());
       if(f.getFileName() != null && !f.getFileName().isEmpty()) {
         th[threadIndex] = new Thread(fileG, new fileUploadThread(f, new FileService()), f.getFileName());
         th[threadIndex].start();
@@ -75,7 +73,7 @@ public class WriteFileHandler extends HttpServlet {
     res.sendRedirect("/list"); // 나중에 파일하나씩 업로드 될 때 마다 리스트에 나타나도록 구현하기
   }
   
-  // 다중파일 업로드 스레드 쓰지않기 - 2533, 1859. 1975
+  // 다중파일 업로드 스레드 쓰지않기 - 2533, 1859, 1975
 //  protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //    Collection<Part> parts = req.getParts();
 //    Iterator<Part> iter = parts.iterator();
@@ -87,21 +85,16 @@ public class WriteFileHandler extends HttpServlet {
 //    while(iter.hasNext()) {
 //      f = new FileIO();
 //      f.setPart(iter.next());
-//      f.setFileName(f.getPart().getSubmittedFileName());
 //      if(f.getFileName() != null && !f.getFileName().isEmpty()) {
-//        if(new File(f.getPath() + f.getFileName()).exists()) {
-//          String[] temp = f.getFileName().split("\\.");
-//          f.setFileName(temp[0] + "-" + f.createDate() + "." + temp[1]);
-//        }
-//
 //        try {
-//          f.writeFile(f.getPart().getInputStream(), new FileOutputStream(f.getPath() + f.getFileName()),
+//          f.writeFile(f.getPart().getInputStream(), new FileOutputStream(f.getPath() + f.getDir() + f.getFileName()),
 //            (int)f.getPart().getSize());
 //
 //        } catch(IOException e){ System.out.println("파일업로드 오류!"); return;}
 //
 //        FileDto fileDto = new FileDto();
 //        fileDto.setName(f.getFileName());
+//        fileDto.setFpath(f.getPath() + f.getDir());
 //        new FileService().wirte(fileDto);
 //      } else {
 //        continue;

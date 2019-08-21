@@ -11,8 +11,9 @@ public class FileDao {
   public Boolean insert(Connection conn, FileDto file) throws SQLException {
     PreparedStatement pstmt = null;
     try {
-      pstmt = conn.prepareStatement("insert into filelist (fno, name) values(filelist_seq.nextval, ?)");
+      pstmt = conn.prepareStatement("insert into filelist (fno, name, fpath) values(filelist_seq.nextval, ?, ?)");
       pstmt.setString(1, file.getName());
+      pstmt.setString(2, file.getFpath());
       int in = pstmt.executeUpdate();
       if(in > 0) {
         return true;

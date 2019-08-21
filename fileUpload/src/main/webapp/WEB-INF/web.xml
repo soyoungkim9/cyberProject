@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!-- ControllerUsingURIBackUp -->
+    <!--
+    <servlet>
+        <servlet-name>ControllerUsingURIBackUp</servlet-name>
+        <servlet-class>controller.ControllerUsingURIBackUpBackUp</servlet-class>
+        <init-param>
+            <param-name>configFile</param-name>
+            <param-value>/WEB-INF/commandHandlerURI.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ControllerUsingURIBackUp</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    -->
+    <servlet>
+        <servlet-name>ListFileHandler</servlet-name>
+        <servlet-class>controller.ListFileHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WriteFileHandler</servlet-name>
+        <servlet-class>controller.WriteFileHandler</servlet-class>
+        <multipart-config></multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFileHandler</servlet-name>
+        <servlet-class>controller.DeleteFileHandler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ListFileHandler</servlet-name>
+        <url-pattern></url-pattern>  <!-- 처음화면 -->
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WriteFileHandler</servlet-name>
+        <url-pattern>/fileUpload</url-pattern>
+        <url-pattern>/fileDownload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFileHandler</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+</web-app>

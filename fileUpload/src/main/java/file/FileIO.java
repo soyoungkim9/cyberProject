@@ -10,15 +10,10 @@ import java.util.Date;
 
 public class FileIO {
   private String path = "C:\\Users\\CI\\Desktop\\workspace\\git\\cyberProject\\fileUpload\\src\\main\\webapp\\upload\\";
+  private String dir = null;
   private String fileName = null;
   private Part part = null;
   
-  
-  // 폴더경로 짤때 이곳에서 처리하는것이 좋음
-  
-  // 1. upload경로에 해당 mimetype의 폴더이름이 있는지 찾는다. (/뒤의 이름으로 폴더 만들기)
-  //  - 없으면 새로 만들고 있으면 아무일도 일어나지 않는다.
-  // 2. path 밑에 1의 과정을 거친 폴더이름을 추가(+)한다. (path는 공용이므로므로)
   public void writeFile(InputStream input, OutputStream output, int size) throws IOException {
     int read = 0;
     byte[] b = new byte[size];
@@ -52,23 +47,50 @@ public class FileIO {
     return fileName;
   }
   
-  public String createDate() {
+  public void setPart(Part part) {
+    this.part = part;
+    setDir(part.getSubmittedFileName(), true);
+    setFileName(part.getSubmittedFileName());
+  }
+  
+  public void setFile(String fileName) {
+    this.fileName = fileName;
+    setDir(fileName, false);
+  }
+  
+  private void setDir(String fileName, boolean partDate) {
+    String type = splitFileType(fileName);
+    if(type != null) {
+      dir = type + "\\";
+  
+      if(partDate && !new File(path + type).isDirectory()) {
+        new File(path + type).mkdir();
+      }
+    }
+  }
+  
+  private void setFileName(String fileName) {
+    if(new File(this.path + this.dir + fileName).exists()) {
+      String type = splitFileType(fileName);
+      this.fileName = fileName.substring(0, fileName.indexOf(type)-1) + "-" + createDate() + "." + type;
+    } else {
+      this.fileName = fileName;
+    }
+  }
+  
+  private String createDate() {
     Date date = new Date();
     SimpleDateFormat today = new SimpleDateFormat("yyyyMMddHHmmss");
     return today.format(date);
   }
   
+  private String splitFileType(String fileName) {
+    String[] temp = fileName.split("\\.");
+    return temp[temp.length-1];
+  }
+  
   public String getPath() {return path;}
-  public void setFileName(String name) {
-    fileName = name;
-  }
-  public String getFileName() {
-    return fileName;
-  }
-  public void setPart(Part p) {
-    part = p;
-  }
-  public Part getPart() {
-    return part;
-  }
+  public String getFileName() {return fileName;}
+  public Part getPart() {return part;}
+  public String getDir() {return dir;}
 }
