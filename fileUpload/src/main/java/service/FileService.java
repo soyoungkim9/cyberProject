@@ -2,10 +2,11 @@ package service;
 
 import dao.FileDao;
 import dto.FileDto;
-import jdbc.DBConnection;
+import jdbc.ConnectionProvider;
 import jdbc.JdbcUtil;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class FileService {
   public void wirte(FileDto fileDto) {
     Connection conn = null;
     try {
-      conn = DBConnection.getConnection();
+      conn = ConnectionProvider.getConnection();
       conn.setAutoCommit(false);
       Boolean savedFile = fileDao.insert(conn, fileDto);
       if(savedFile == false) {
@@ -36,19 +37,23 @@ public class FileService {
   
   public List<FileDto> list() {
     List<FileDto> fileDto = null;
-    try (Connection conn = DBConnection.getConnection()) {
+    try (Connection conn = ConnectionProvider.getConnection()) {
       fileDto = fileDao.select(conn);
       if(fileDto == null) {
         throw new RuntimeException("fail to select");
       }
     } catch (SQLException e) {
+      System.out.println("너가 문제덩어리야!");
+      System.out.println("db 유효성 검사를 해봐야 할듯함");
+      System.out.println(DriverManager.getLoginTimeout());
+      
       throw new RuntimeException(e);
     }
     return fileDto;
   }
   
   public void delete(int fno) {
-    try(Connection conn = DBConnection.getConnection()) {
+    try(Connection conn = ConnectionProvider.getConnection()) {
       if(fileDao.selectByFno(conn, fno)) {
         int del = fileDao.delete(conn, fno);
         

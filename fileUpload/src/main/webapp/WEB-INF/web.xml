@@ -48,4 +48,26 @@
         <servlet-name>DeleteFileHandler</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+
+    <!-- 여기서 config.xml에에 대한 설정정보를 주어야할꺼 같음-->
+    <!-- 일단은 여기다가 설정정보를 줘보도록 하자! 그리고나서 config파일로 옮기자-->
+    <!-- DB 설정정보 -->
+    <listener>
+        <listener-class>jdbc.DBConnection</listener-class>
+    </listener>
+    <context-param>
+        <param-name>dbOracle</param-name>
+        <param-value>
+            jdbcdriver=oracle.jdbc.driver.OracleDriver
+            jdbcUrl=jdbc:oracle:thin:@localhost:1521:orcl
+            dbUser=*****
+            dbPass=*****
+            validationQuery=select 1
+            minIdle=3
+            maxTotal=30
+            poolName=kimsydb
+        </param-value>
+    </context-param>
+
+    <!-- 파일업로드 폴더 경로 -->
 </web-app>
