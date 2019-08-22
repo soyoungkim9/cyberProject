@@ -53,7 +53,7 @@ public class WriteFileHandler extends HttpServlet {
       if(f.getFileName() != null && !f.getFileName().isEmpty()) {
         th[threadIndex] = new Thread(fileG, new fileUploadThread(f, new FileService()), f.getFileName());
         th[threadIndex].start();
-        // new Thread(fileG, r, f.getFileName()).start();
+        // new Thread(fileG, new fileUploadThread(f, new FileService()), f.getFileName()).start();
 
         threadIndex++;
       } else {
@@ -66,10 +66,7 @@ public class WriteFileHandler extends HttpServlet {
         th[i].join(); // ㅠㅠ 배열에 넣지 않으면 제어가 안됨 fileG스레드 실행중에 main스레드의 실행으로 화면이 전환됨
       } catch(InterruptedException e) {}
     }
-
-    // System.out.println("끝" + fileG.activeCount()); // 이 아이로 fileG == 0 이면 화면전환되게 하려고 했으나 실패 ㅠㅠ
     System.out.println("######## 소요시간 " + (System.currentTimeMillis() - startTime)); /* 종료시간 */
-
     res.sendRedirect("/list"); // 나중에 파일하나씩 업로드 될 때 마다 리스트에 나타나도록 구현하기
   }
   

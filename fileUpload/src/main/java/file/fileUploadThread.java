@@ -2,8 +2,6 @@ package file;
 
 import dto.FileDto;
 import service.FileService;
-
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

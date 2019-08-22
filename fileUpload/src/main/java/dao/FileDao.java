@@ -1,6 +1,7 @@
 package dao;
 
 import dto.FileDto;
+import jdbc.DBConnection;
 import jdbc.JdbcUtil;
 
 import java.sql.*;
@@ -29,7 +30,7 @@ public class FileDao {
     ResultSet rs = null;
     
     try {
-      pstmt = conn.prepareStatement("select fno, name, sdt from filelist order by fno desc");
+      pstmt = conn.prepareStatement("select fno, name, sdt, fpath from filelist order by fno desc");
       rs = pstmt.executeQuery();
   
       List<FileDto> result = new ArrayList<>();
@@ -38,6 +39,7 @@ public class FileDao {
         newFile.setFno(rs.getInt("fno"));
         newFile.setName(rs.getString("name"));
         newFile.setSdt(rs.getDate("sdt"));
+        newFile.setFpath(rs.getString("fpath"));
         
         result.add(newFile);
       }
